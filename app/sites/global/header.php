@@ -12,5 +12,4 @@
 	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
-	<!-- Navbar -->
-	<?php require 'app/sites/global/topnavbar.php'?>
+	<?php require 'app/sites/global/topnavbar.php'; ?>

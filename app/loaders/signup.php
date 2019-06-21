@@ -7,6 +7,7 @@ class SignUp extends Connection{
 		}
 		else{
 			require 'app/sites/global/header.php';
+			//require 'app/sites/global/topnavbar.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/signup.php';
 			require 'app/sites/global/footer.php';

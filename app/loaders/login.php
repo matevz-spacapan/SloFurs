@@ -7,6 +7,7 @@ class LogIn extends Connection{
 		}
 		else{
 			require 'app/sites/global/header.php';
+			//require 'app/sites/global/topnavbar.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/login.php';
 			require 'app/sites/global/footer.php';
@@ -34,5 +35,11 @@ class LogIn extends Connection{
 			$_SESSION['alert']=$activate_account;
 			header('location: '.URL.'login');
 		}
+	}
+	// Logout
+	public function logout(){
+		$log_in_model=$this->loadSQL('LogInModel');
+		$log_in_model->logoutAcc();
+		header('location: '.URL);
 	}
 }

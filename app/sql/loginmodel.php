@@ -71,4 +71,8 @@ class LogInModel{
 			return 'dNo email or activation token provided.';
 		}
 	}
+	public function logoutAcc(){
+		session_destroy();
+		session_unset();
+	}
 }

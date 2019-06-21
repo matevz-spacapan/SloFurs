@@ -1,4 +1,4 @@
-<div class="w3-container" style="margin-top:80px">
+<div class="w3-container" style="margin-top:20px">
 	<div class="w3-half">
 		<div class="w3-container w3-blue w3-center">
 			<h3>Create an account</h3>

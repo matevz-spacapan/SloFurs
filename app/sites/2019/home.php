@@ -1,4 +1,4 @@
-<div class="w3-container" style="margin-top:80px">
+<div class="w3-container" style="margin-top:20px">
 	<div class="w3-container">
 		Try one of the buttons below :)<br/>
 		<a href="login">
