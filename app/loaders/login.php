@@ -14,7 +14,7 @@ class LogIn extends Connection{
 		}
 	}
 	// Log In Account
-	public function logInAcc() {
+	public function logInAcc(){
 		if(isset($_POST['log_in_acc'])){
 			$log_in_model=$this->loadSQL('LogInModel');
 			$log_in_account=$log_in_model->loginAcc($_POST['email'], $_POST['password']);
@@ -26,13 +26,20 @@ class LogIn extends Connection{
 				header('location: '.URL);
 			}
 		}
+		else{
+			header('location: '.URL.'login');
+		}
 	}
 	// Activate Account
-	public function activateAcc($email, $activate_token){
+	public function activateAcc($email=null, $activate_token=null){
 		if(isset($email)&&isset($activate_token)){
 			$log_in_model=$this->loadSQL('LogInModel');
 			$activate_account=$log_in_model->activateAcc($email, $activate_token);
 			$_SESSION['alert']=$activate_account;
+			header('location: '.URL.'login');
+		}
+		else{
+			$_SESSION['alert']='dInvalid account activation request.';
 			header('location: '.URL.'login');
 		}
 	}

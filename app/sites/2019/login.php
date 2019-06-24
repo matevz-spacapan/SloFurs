@@ -8,7 +8,7 @@
 			<input class="w3-input" type="email" name="email" placeholder="E-mail Address" required>
 			<label>Password</label>
 			<input class="w3-input" type="password" name="password" placeholder="Account Password" required>
-			<button type="submit" name="log_in_acc" class="w3-button w3-round w3-border">Log In</button>
+			<button type="submit" name="log_in_acc" class="w3-button w3-round w3-border w3-border-blue">Log In</button>
 			<div class="w3-container">
 				Don't have an account?
 				<a href="signup">Sign Up</a>

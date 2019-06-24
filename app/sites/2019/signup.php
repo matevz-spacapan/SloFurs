@@ -10,9 +10,9 @@
 			<input class="w3-input" type="text" name="username" placeholder="Your desired username" required>
 			<label>Password</label>
 			<input class="w3-input" id="pwd" type="password" name="password" placeholder="Create a password" required>
-			<label>Password</label> <i class="w3-opacity w3-small">(confirm)</i>
-			<input class="w3-input" id="pwdC" type="password" placeholder="Confirm your password" required onkeyup="verifyPassword()"> <i id="correct" class="far fa-times"></i>
-			<button type="submit" id="btn" name="sign_up_acc" class="w3-button w3-round w3-border" disabled="true">Register</button>
+			<label>Password</label> <i class="w3-opacity w3-small">(confirm)</i> <i id="correct" class="far fa-times"></i>
+			<input class="w3-input" id="pwdC" type="password" placeholder="Confirm your password" required onkeyup="verifyPassword()">
+			<button type="submit" id="btn" name="sign_up_acc" class="w3-button w3-round w3-border w3-border-blue" disabled="true">Register</button>
 			<div class="w3-container">
 				Already have an account?
 				<a href="login">Log in</a>

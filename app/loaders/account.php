@@ -35,4 +35,34 @@ class Account extends Connection{
 		require 'app/sites/'.THEME.'/account/password.php';
 		require 'app/sites/global/footer.php';
 	}
+	// Update information of the account
+	public function update($action){
+		switch($action){
+			case 1:
+				// code... remember to redirect to correct page after updating
+				$_SESSION['alert']='iUpdate 1';
+				header('location: '.URL.'account/contact');
+				break;
+			case 2:
+				// code...
+				$_SESSION['alert']='iUpdate 2';
+				header('location: '.URL.'account/contact');
+				break;
+			case 3:
+				// code...
+				$_SESSION['alert']='iUpdate 3';
+				header('location: '.URL.'account/contact');
+				break;
+			case 4:
+				// code...
+				$_SESSION['alert']='sUpdate 4';
+				header('location: '.URL.'account/password');
+				break;
+			default:
+				// code...
+				$_SESSION['alert']='iUpdate default';
+				header('location: '.URL.'account/contact');
+				break;
+		}
+	}
 }
