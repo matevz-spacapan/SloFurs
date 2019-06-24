@@ -20,9 +20,8 @@ class LogInModel{
 			$account=$query_check->fetch();
 			if($account){
 				if(password_verify($password, $account->password)){
-					if($account->activate==""){
+					if($account->activate==""||($account->newemail!=null&&$account->activate!=null)){
 						$_SESSION['account']=$account->id;
-						return 'sOK - log in'; //TODO remove when login works completely
 					}
 					else{
 						return 'iThis account has not been activated. Please check your email.';
@@ -45,16 +44,28 @@ class LogInModel{
 		if(!empty($email)&&!empty($activate_token)){
 			$email=strip_tags($email);
 			$activate_token=strip_tags($activate_token);
-			$sql_check='SELECT * FROM account WHERE email=:email';
+			$sql_check='SELECT * FROM account WHERE email=:email OR newemail=:email';
 			$query_check=$this->db->prepare($sql_check);
 			$query_check->execute(array(':email'=>$email));
 			$account=$query_check->fetch();
 			if($account){
 				if($activate_token===$account->activate){
-					$sql='UPDATE account SET activate=null WHERE email=:email';
-					$query=$this->db->prepare($sql);
-					$query->execute(array(':email'=>$email));
-					return 'sAccount activated, you may now log in.';
+					if($account->newemail==null){ //new account
+						$sql='UPDATE account SET activate=null WHERE email=:email';
+						$query=$this->db->prepare($sql);
+						$query->execute(array(':email'=>$email));
+						$_SESSION['account']=$account->id;
+						return 'sAccount activated, you may now complete your profile.';
+					}
+					else if($account->newemail==$email){ //change email on existing account
+						$sql='UPDATE account SET activate=null, email=:email, newemail=null WHERE newemail=:email';
+						$query=$this->db->prepare($sql);
+						$query->execute(array(':email'=>$email));
+						return 'sYour email is now updated.';
+					}
+					else{
+						return 'dInvalid email and/or activation token.';
+					}
 				}
 				elseif($account->activate==""){
 					return 'iThis account has already been activated.';

@@ -3,7 +3,7 @@ class LogIn extends Connection{
 	public function index(){
 		$account=$this->getSessionAcc();
 		if($account!=null){
-			header('location: '.URL); //go to home page if logged in
+			header('location: '.URL.'account'); //go to home page if logged in
 		}
 		else{
 			require 'app/sites/global/header.php';
@@ -20,15 +20,9 @@ class LogIn extends Connection{
 			$log_in_account=$log_in_model->loginAcc($_POST['email'], $_POST['password']);
 			if(isset($log_in_account)&&$log_in_account!=null){
 				$_SESSION['alert']=$log_in_account;
-				header('location: '.URL.'login');
-			}
-			else{
-				header('location: '.URL);
 			}
 		}
-		else{
-			header('location: '.URL.'login');
-		}
+		header('location: '.URL.'login');
 	}
 	// Activate Account
 	public function activateAcc($email=null, $activate_token=null){
@@ -36,7 +30,7 @@ class LogIn extends Connection{
 			$log_in_model=$this->loadSQL('LogInModel');
 			$activate_account=$log_in_model->activateAcc($email, $activate_token);
 			$_SESSION['alert']=$activate_account;
-			header('location: '.URL.'login');
+			header('location: '.URL.'account');
 		}
 		else{
 			$_SESSION['alert']='dInvalid account activation request.';

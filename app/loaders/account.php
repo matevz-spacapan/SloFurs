@@ -18,7 +18,6 @@ class Account extends Connection{
 		require 'app/sites/global/header.php';
 		require 'app/sites/global/sidebar.php';
 		require 'app/sites/global/alerts.php';
-		//TODO when a user changes something, update it before loading the website
 		require 'app/sites/'.THEME.'/account/contact.php';
 		require 'app/sites/global/footer.php';
 	}
@@ -31,36 +30,37 @@ class Account extends Connection{
 		require 'app/sites/global/header.php';
 		require 'app/sites/global/sidebar.php';
 		require 'app/sites/global/alerts.php';
-		//TODO when a user changes something, update it before loading the website
 		require 'app/sites/'.THEME.'/account/password.php';
 		require 'app/sites/global/footer.php';
 	}
 	// Update information of the account
 	public function update($action){
+		$account_model=$this->loadSQL('AccountModel');
 		switch($action){
 			case 1:
-				// code... remember to redirect to correct page after updating
-				$_SESSION['alert']='iUpdate 1';
+				// Change email
+				$change_email=$account_model->changeEmail($_POST['newemail'], $_POST['verifypassword']);
+				$_SESSION['alert']=$change_email;
 				header('location: '.URL.'account/contact');
 				break;
 			case 2:
-				// code...
+				// Change profile picture
 				$_SESSION['alert']='iUpdate 2';
 				header('location: '.URL.'account/contact');
 				break;
 			case 3:
-				// code...
+				// Update account info
 				$_SESSION['alert']='iUpdate 3';
 				header('location: '.URL.'account/contact');
 				break;
 			case 4:
-				// code...
+				// Change password
 				$_SESSION['alert']='sUpdate 4';
 				header('location: '.URL.'account/password');
 				break;
 			default:
 				// code...
-				$_SESSION['alert']='iUpdate default';
+				$_SESSION['alert']='dOops, something went wrong [unknown action requested]';
 				header('location: '.URL.'account/contact');
 				break;
 		}
