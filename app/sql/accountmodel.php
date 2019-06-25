@@ -33,4 +33,65 @@ class AccountModel{
 			return 'dPlease fill all the input fields.';
 		}
 	}
+	// Change PFP
+	public function changePFP($img_file){
+		$target_dir='public/accounts/';
+		//check if pfp was already uploaded
+		$sql_check='SELECT pfp FROM account WHERE id=:id';
+		$query_check=$this->db->prepare($sql_check);
+		$query_check->execute(array(':id'=>$_SESSION['account']));
+		$account=$query_check->fetch();
+		$file_name='';
+		if($account->pfp!=null){
+			$file_name=$account->pfp;
+		}
+		//else generate a new file name, making sure no other same name exists
+		else{
+			while(true){
+				$file_name=substr(bin2hex(random_bytes(32)), 0, 30);
+				if(!file_exists('public/accounts/'.$file_name.'.png')){
+					break;
+				}
+			}
+		}
+		if(getimagesize($img_file['tmp_name'])!==false){
+			$target_file=$target_dir.$file_name.'.png';
+			if(imagepng(imagecreatefromstring(file_get_contents($img_file['tmp_name'])), $target_file)){
+				if($account->pfp==null){
+					$sql='UPDATE account SET pfp=:pfp WHERE id=:id';
+					$query=$this->db->prepare($sql);
+					$query->execute(array('pfp'=>$file_name, ':id'=>$_SESSION['account']));
+				}
+				return 'sYour profile picture has been changed.';
+			}
+			else{
+				return 'dThere was an error uploading the picture.';
+			}
+		}
+		else{
+			return 'dPlease choose only pictures.';
+		}
+	}
+	// Update contact info
+	public function updateProfile($fname, $lname, $address, $address2, $city, $postcode, $country, $phone, $dob, $gender){
+		if(!empty($fname)&&!empty($lname)&&!empty($address)&&!empty($city)&&!empty($postcode)&&!empty($country)&&!empty($phone)&&!empty($dob)&&!empty($gender)){
+			$fname=strip_tags($fname);
+			$lname=strip_tags($lname);
+			$address=strip_tags($address);
+			$address2=strip_tags($address2);
+			$city=strip_tags($city);
+			$postcode=strip_tags($postcode);
+			$country=strip_tags($country);
+			$phone=strip_tags($phone);
+			$dob=strip_tags($dob);
+			$gender=strip_tags($gender);
+			$sql='UPDATE account SET fname=:fname, lname=:lname, address=:address, address2=:address2, post=:post, city=:city, country=:country, phone=:phone, dob=:dob, gender=:gender WHERE id=:id';
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':fname'=>$fname, ':lname'=>$lname, ':address'=>$address, ':address2'=>$address2, ':post'=>$postcode, ':city'=>$city, ':country'=>$country, ':phone'=>$phone, ':dob'=>$dob, ':gender'=>$gender, ':id'=>$_SESSION['account']));
+			return 'sAccount information updated.';
+		}
+		else{
+			return 'dPlease fill all the non-optional input fields.';
+		}
+	}
 }

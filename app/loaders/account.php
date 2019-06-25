@@ -39,18 +39,20 @@ class Account extends Connection{
 		switch($action){
 			case 1:
 				// Change email
-				$change_email=$account_model->changeEmail($_POST['newemail'], $_POST['verifypassword']);
-				$_SESSION['alert']=$change_email;
+				$change=$account_model->changeEmail($_POST['newemail'], $_POST['verifypassword']);
+				$_SESSION['alert']=$change;
 				header('location: '.URL.'account/contact');
 				break;
 			case 2:
 				// Change profile picture
-				$_SESSION['alert']='iUpdate 2';
+				$change=$account_model->changePFP($_FILES['image']);
+				$_SESSION['alert']=$change;
 				header('location: '.URL.'account/contact');
 				break;
 			case 3:
 				// Update account info
-				$_SESSION['alert']='iUpdate 3';
+				$change=$account_model->updateProfile($_POST['fname'], $_POST['lname'], $_POST['address'], $_POST['address2'], $_POST['city'], $_POST['postcode'], $_POST['country'], $_POST['phone'], $_POST['dob'], $_POST['gender']);
+				$_SESSION['alert']=$change;
 				header('location: '.URL.'account/contact');
 				break;
 			case 4:
@@ -59,7 +61,6 @@ class Account extends Connection{
 				header('location: '.URL.'account/password');
 				break;
 			default:
-				// code...
 				$_SESSION['alert']='dOops, something went wrong [unknown action requested]';
 				header('location: '.URL.'account/contact');
 				break;
