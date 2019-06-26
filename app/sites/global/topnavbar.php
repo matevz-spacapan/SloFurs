@@ -9,6 +9,7 @@ class Nav extends Connection{
 
 <div class="w3-bar w3-large">
 	<a href="<?php echo URL ?>" class="w3-bar-item w3-button">Home</a>
+	<a href="https://slofurs.org/" class="w3-bar-item w3-button">Blog</a>
 
 	<?php if(isset($_SESSION['account'])&&$_SESSION['account']!=null): ?>
 		<!-- Logged into account -->

@@ -9,7 +9,7 @@
 			<label>Username</label> <i class="w3-opacity w3-small">(what others will be able to see)</i>
 			<input class="w3-input" type="text" name="username" placeholder="Your desired username" required>
 			<label>Password</label>
-			<input class="w3-input" id="pwd" type="password" name="password" placeholder="Create a password" required>
+			<input class="w3-input" id="pwd" type="password" name="password" placeholder="Create a password" pattern="^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).*$" title="At least 8 characters, number and special character" required onkeyup="verifyPassword()">
 			<label>Password</label> <i class="w3-opacity w3-small">(confirm)</i> <i id="correct" class="far fa-times"></i>
 			<input class="w3-input" id="pwdC" type="password" placeholder="Confirm your password" required onkeyup="verifyPassword()">
 			<button type="submit" id="btn" name="sign_up_acc" class="w3-button w3-round w3-border w3-border-blue" disabled="true">Register</button>
@@ -31,7 +31,7 @@
 </div>
 <script type="text/javascript">
 	function verifyPassword(){
-		if(document.getElementById('pwd').value==document.getElementById('pwdC').value){
+		if(document.getElementById('pwd').value==document.getElementById('pwdC').value&&document.getElementById('pwd').value.length>=8){
 			document.getElementById("btn").disabled = false;
 			if(document.getElementById("correct").classList.contains('fa-times')){
 				document.getElementById("correct").classList.replace('fa-times','fa-check');

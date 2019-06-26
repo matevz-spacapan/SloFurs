@@ -3,4 +3,5 @@
 	<button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="side_close()">Close &times;</button>
 	<a href="<?php echo URL; ?>account/contact" class="w3-bar-item w3-button" id="contact">Contact info</a>
 	<a href="<?php echo URL; ?>account/password" class="w3-bar-item w3-button" id="password">Password</a>
+	<a href="<?php echo URL; ?>account/fursuit" class="w3-bar-item w3-button" id="fursuit">Fursuits</a>
 </div>

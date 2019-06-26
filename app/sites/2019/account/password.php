@@ -10,8 +10,8 @@
 	<form action="<?php echo URL; ?>account/update/4" method="post">
 			<label>Current password</label>
 			<input class="w3-input" type="password" name="oldpassword" required>
-			<label>New password</label>
-			<input class="w3-input" id="pwd" type="password" name="newpassword" required>
+			<label>New password</label> <i class="w3-opacity w3-small">(must be at least 8 characters long and contain a number and special character)</i>
+			<input class="w3-input" id="pwd" type="password" name="newpassword" pattern="^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).*$" title="At least 8 characters, number and special character" required onkeyup="verifyPassword()">
 			<label>New password</label> <i class="w3-opacity w3-small">(confirm)</i> <i id="correct" class="far fa-times"></i>
 			<input class="w3-input" id="pwdC" type="password" required onkeyup="verifyPassword()"><p>
 			<button type="submit" id="btn" name="sign_up_acc" class="w3-button w3-round w3-blue" disabled="true">Save</button>
@@ -31,7 +31,7 @@ function selector(){
 }
 selector(); //selects the current page in the sidebar
 function verifyPassword(){
-	if(document.getElementById('pwd').value==document.getElementById('pwdC').value){
+	if(document.getElementById('pwd').value==document.getElementById('pwdC').value&&document.getElementById('pwd').value.length>=8){
 		document.getElementById("btn").disabled = false;
 		if(document.getElementById("correct").classList.contains('fa-times')){
 			document.getElementById("correct").classList.replace('fa-times','fa-check');

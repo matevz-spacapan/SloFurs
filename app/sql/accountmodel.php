@@ -37,31 +37,26 @@ class AccountModel{
 	public function changePFP($img_file){
 		$target_dir='public/accounts/';
 		//check if pfp was already uploaded
-		$sql_check='SELECT pfp FROM account WHERE id=:id';
-		$query_check=$this->db->prepare($sql_check);
-		$query_check->execute(array(':id'=>$_SESSION['account']));
-		$account=$query_check->fetch();
+		$sql='SELECT pfp FROM account WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$_SESSION['account']));
+		$account=$query->fetch();
 		$file_name='';
-		if($account->pfp!=null){
-			$file_name=$account->pfp;
-		}
-		//else generate a new file name, making sure no other same name exists
-		else{
-			while(true){
-				$file_name=substr(bin2hex(random_bytes(32)), 0, 30);
-				if(!file_exists('public/accounts/'.$file_name.'.png')){
-					break;
-				}
+		while(true){
+			$file_name=substr(bin2hex(random_bytes(32)), 0, 30);
+			if(!file_exists('public/accounts/'.$file_name.'.png')){
+				break;
 			}
 		}
 		if(getimagesize($img_file['tmp_name'])!==false){
 			$target_file=$target_dir.$file_name.'.png';
 			if(imagepng(imagecreatefromstring(file_get_contents($img_file['tmp_name'])), $target_file)){
-				if($account->pfp==null){
-					$sql='UPDATE account SET pfp=:pfp WHERE id=:id';
-					$query=$this->db->prepare($sql);
-					$query->execute(array('pfp'=>$file_name, ':id'=>$_SESSION['account']));
+				if($account->pfp!=null){
+					unlink($target_dir.$account->pfp.'.png');
 				}
+				$sql='UPDATE account SET pfp=:pfp WHERE id=:id';
+				$query=$this->db->prepare($sql);
+				$query->execute(array(':pfp'=>$file_name, ':id'=>$_SESSION['account']));
 				return 'sYour profile picture has been changed.';
 			}
 			else{
@@ -92,6 +87,31 @@ class AccountModel{
 		}
 		else{
 			return 'dPlease fill all the non-optional input fields.';
+		}
+	}
+	// Change password
+	public function changePw($oldPw, $newPw){
+		$validPw='/^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).*$/m';
+		$oldPw=strip_tags($oldPw);
+		$newPw=strip_tags($newPw);
+		if(preg_match($validPw, $newPw)==1){
+			$newPw=password_hash(strip_tags($newPw), PASSWORD_DEFAULT);
+			$sql='SELECT password FROM account WHERE id=:id';
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':id'=>$_SESSION['account']));
+			$account=$query->fetch();
+			if(password_verify($oldPw, $account->password)){
+				$sql='UPDATE account SET password=:password WHERE id=:id';
+				$query=$this->db->prepare($sql);
+				$query->execute(array(':password'=>$newPw, ':id'=>$_SESSION['account']));
+				return 'sYour password has been changed.';
+			}
+			else{
+				return 'dYour current password is not valid.';
+			}
+		}
+		else{
+			return 'dYour new password is not valid.';
 		}
 	}
 }

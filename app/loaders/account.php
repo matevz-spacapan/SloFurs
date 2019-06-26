@@ -9,7 +9,7 @@ class Account extends Connection{
 			header('location: '.URL.'login'); //go to login page if not logged in	
 		}
 	}
-	// Contact info
+	// Contact info page
 	public function contact(){
 		$account=$this->getSessionAcc();
 		if($account==null){
@@ -21,7 +21,7 @@ class Account extends Connection{
 		require 'app/sites/'.THEME.'/account/contact.php';
 		require 'app/sites/global/footer.php';
 	}
-	// Password
+	// Password page
 	public function password(){
 		$account=$this->getSessionAcc();
 		if($account==null){
@@ -31,6 +31,24 @@ class Account extends Connection{
 		require 'app/sites/global/sidebar.php';
 		require 'app/sites/global/alerts.php';
 		require 'app/sites/'.THEME.'/account/password.php';
+		require 'app/sites/global/footer.php';
+	}
+	// Fursuits page
+	public function fursuit($id=null){
+		$account=$this->getSessionAcc();
+		if($account==null){
+			header('location: '.URL.'login');
+		}
+		//TODO add updating of fursuit profiles, id is the fursuit ID, make sure to check if fursuit id is connected with account id
+		$fursuit_model=$this->loadSQL('FursuitModel');
+		if($id!=null){
+
+		}
+		$fursuits=$fursuit_model->getAccFursuits($_SESSION['account']);
+		require 'app/sites/global/header.php';
+		require 'app/sites/global/sidebar.php';
+		require 'app/sites/global/alerts.php';
+		require 'app/sites/'.THEME.'/account/fursuit.php';
 		require 'app/sites/global/footer.php';
 	}
 	// Update information of the account
@@ -57,7 +75,8 @@ class Account extends Connection{
 				break;
 			case 4:
 				// Change password
-				$_SESSION['alert']='sUpdate 4';
+				$change=$account_model->changePw($_POST['oldpassword'], $_POST['newpassword']);
+				$_SESSION['alert']=$change;
 				header('location: '.URL.'account/password');
 				break;
 			default:
