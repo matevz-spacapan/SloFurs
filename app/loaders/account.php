@@ -42,14 +42,28 @@ class Account extends Connection{
 		//TODO add updating of fursuit profiles, id is the fursuit ID, make sure to check if fursuit id is connected with account id
 		$fursuit_model=$this->loadSQL('FursuitModel');
 		if($id!=null){
-
+			//new
+			if($id==0){
+				$change=$fursuit_model->addFursuit($_POST['suitname'], $_POST['animal'], $_FILES['image']);
+				$_SESSION['alert']=$change;
+				header('location: '.URL.'account/fursuit');
+			}
+			//edit
+			else{
+				$change=$fursuit_model->editFursuit($id, $_POST['suitname'], $_POST['animal'], $_FILES['image']);
+				$_SESSION['alert']=$change;
+				header('location: '.URL.'account/fursuit');
+			}
 		}
-		$fursuits=$fursuit_model->getAccFursuits($_SESSION['account']);
-		require 'app/sites/global/header.php';
-		require 'app/sites/global/sidebar.php';
-		require 'app/sites/global/alerts.php';
-		require 'app/sites/'.THEME.'/account/fursuit.php';
-		require 'app/sites/global/footer.php';
+		else{
+			$fursuits=$fursuit_model->getAccFursuits($_SESSION['account']);
+			require 'app/sites/global/header.php';
+			require 'app/sites/global/sidebar.php';
+			require 'app/sites/global/alerts.php';
+			require 'app/sites/'.THEME.'/account/fursuit.php';
+			require 'app/sites/global/footer.php';
+		}
+			
 	}
 	// Update information of the account
 	public function update($action){

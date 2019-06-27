@@ -44,7 +44,7 @@ class AccountModel{
 		$file_name='';
 		while(true){
 			$file_name=substr(bin2hex(random_bytes(32)), 0, 30);
-			if(!file_exists('public/accounts/'.$file_name.'.png')){
+			if(!file_exists($target_dir.$file_name.'.png')){
 				break;
 			}
 		}
@@ -111,7 +111,7 @@ class AccountModel{
 			}
 		}
 		else{
-			return 'dYour new password is not valid.';
+			return 'dYour new password is not in valid format.';
 		}
 	}
 }

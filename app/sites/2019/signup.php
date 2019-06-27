@@ -32,15 +32,15 @@
 <script type="text/javascript">
 	function verifyPassword(){
 		if(document.getElementById('pwd').value==document.getElementById('pwdC').value&&document.getElementById('pwd').value.length>=8){
-			document.getElementById("btn").disabled = false;
+			document.getElementById("btn").disabled=false;
 			if(document.getElementById("correct").classList.contains('fa-times')){
-				document.getElementById("correct").classList.replace('fa-times','fa-check');
+				document.getElementById("correct").classList.replace('fa-times', 'fa-check');
 			}
 		}
 		else{
-			document.getElementById("btn").disabled = true;
+			document.getElementById("btn").disabled=true;
 			if(document.getElementById("correct").classList.contains('fa-check')){
-				document.getElementById("correct").classList.replace('fa-check','fa-times');
+				document.getElementById("correct").classList.replace('fa-check', 'fa-times');
 			}
 		}
 	}

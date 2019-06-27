@@ -5,6 +5,11 @@ html, body, h1, h2, h3, h4, h5, h6{
 	border-radius: 16px 16px 0 0;
 	width: 100%;
 }
+.photoContainer{
+	max-height:200px;
+	max-width:200px;
+	margin: 0 auto;
+}
 .card{
 	width: 250px;
 	display: inline-block;
@@ -12,4 +17,5 @@ html, body, h1, h2, h3, h4, h5, h6{
 	color: #000!important;
 	background-color: #f1f1f1!important;
 	cursor: pointer;
+	margin: 0 7px;
 }

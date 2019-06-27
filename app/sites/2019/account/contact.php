@@ -16,7 +16,7 @@
 			<input class="w3-input" type="email" name="newemail" required>
 			<label>Verify password</label>
 			<input class="w3-input" type="password" name="verifypassword" required><p>
-			<button type="submit" class="w3-button w3-round w3-blue">Save</button>
+			<button type="submit" class="w3-button w3-round w3-green">Save</button>
 		</form>
 	</div>
 
@@ -78,7 +78,7 @@
 		<input class="w3-radio" type="radio" name="gender" value="silent" id="silent">
 		<label>Prefer not to say</label><p>
 
-		<button type="submit" class="w3-button w3-round w3-blue">Save</button>
+		<button type="submit" class="w3-button w3-round w3-green">Save</button>
 	</form>
 </div>
 
