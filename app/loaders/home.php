@@ -1,6 +1,7 @@
 <?php
 class Home extends Connection{
 	public function index(){
+		$account=$this->getSessionAcc();
 		require 'app/sites/global/header.php';
 		require 'app/sites/global/alerts.php';
 		require 'app/sites/'.THEME.'/home.php';

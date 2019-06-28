@@ -17,10 +17,10 @@
 	<!-- NEW FURSUIT -->
 	<button class="w3-button w3-border-blue w3-border w3-round" onclick="editFursuit(0)">Add new</button>
 	<div id="fursuit0" class="w3-modal">
-		<div class="w3-modal-content w3-card-4" style="max-width:600px">
-			<header class="w3-container w3-blue w3-center"> 
+		<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
+			<header class="w3-container w3-blue w3-center roundHeaderTop"> 
 				<span onclick="document.getElementById('fursuit0').style.display='none'" 
-				class="w3-button w3-display-topright">&times;</span>
+				class="w3-button w3-display-topright roundXTop">&times;</span>
 				<h2>Add a new fursuit</h2>
 			</header>
 			<div class="w3-container">
@@ -65,10 +65,10 @@
 				</div>
 				<!-- Pop-up modal editor -->
 				<div id="fursuit<?php echo $fursuit->id; ?>" class="w3-modal">
-					<div class="w3-modal-content w3-card-4" style="max-width:600px">
-						<header class="w3-container w3-blue w3-center"> 
+					<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
+						<header class="w3-container w3-blue w3-center roundHeaderTop"> 
 							<span onclick="document.getElementById('fursuit<?php echo $fursuit->id; ?>').style.display='none'" 
-							class="w3-button w3-display-topright">&times;</span>
+							class="w3-button w3-display-topright roundXTop">&times;</span>
 							<h2><?php echo $fursuit->name; ?></h2>
 						</header>
 						<div class="w3-container">
