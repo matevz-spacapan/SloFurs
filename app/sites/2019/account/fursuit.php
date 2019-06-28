@@ -6,8 +6,15 @@
 	</div>
 </div>
 <div class="w3-container">
-	<p>Currently, you have <?php echo count($fursuits).' '; echo (count($fursuits) > 0 ? (count($fursuits) > 1 ? 'fursuits' : 'fursuit') : 'fursuits'); ?> on record.</p>
-	<!-- New fursuit -->
+	<div>
+		Currently, you have <?php echo count($fursuits).' '; echo (count($fursuits) > 0 ? (count($fursuits) > 1 ? 'fursuits' : 'fursuit') : 'fursuits'); ?> on record.<p>
+		<?php if(count($fursuits)>0): ?>
+			Fursuits with <i class="far fa-id-card-alt fa-lg"></i> next to their name will be printed for events (unless otherwise stated on the event).
+			<i class="w3-opacity w3-small">Please note that only one such badge will be printed free of charge. Additional badges will be charged, the cost for this is posted on each event.</i><p>
+		<?php endif; ?>
+	</div>
+	
+	<!-- NEW FURSUIT -->
 	<button class="w3-button w3-border-blue w3-border w3-round" onclick="editFursuit(0)">Add new</button>
 	<div id="fursuit0" class="w3-modal">
 		<div class="w3-modal-content w3-card-4" style="max-width:600px">
@@ -17,11 +24,13 @@
 				<h2>Add a new fursuit</h2>
 			</header>
 			<div class="w3-container">
-				<form action="<?php echo URL; ?>account/fursuit/0" method="post" enctype="multipart/form-data">
+				<form action="<?php echo URL; ?>account/update/5" method="post" enctype="multipart/form-data">
 					<label>Fursuit name</label>
 					<input type="text" class="w3-input" name="suitname" required>
 					<label>Animal</label>
 					<input type="text" class="w3-input" name="animal" required><p>
+					<input class="w3-check" type="checkbox" name="in_use">
+					<label>Use as badge</label> <i class="w3-opacity w3-small">If checked, this fursuit will be printed for events as a badge.</i><p>
 					<label>Fursuit photo</label> <i class="w3-opacity w3-small">You must upload a photo of your fursuit. The photo must be square shaped.</i>
 					<div class="w3-display-container photoContainer">
 						<img src="<?php echo URL.'public/img/account.png'; ?>" class="w3-round-large" style="width:100%">
@@ -41,6 +50,7 @@
 	</div>
 	<br><br>
 
+	<!-- CREATED FURSUITS, LOOPED -->
 	<div class="w3-row">
 		<?php if(count($fursuits) > 0): ?>
 			<?php foreach($fursuits as $fursuit): ?>
@@ -51,7 +61,7 @@
 					<?php else: ?>
 						<img src="<?php echo URL.'public/img/account.png' ?>" class="roundImg">
 					<?php endif; ?>
-					<p class="w3-center"><?php echo $fursuit->name; ?></p>
+					<p class="w3-center"><?php if($fursuit->in_use==1){echo '<i class="far fa-id-card-alt fa-lg"></i> ';} echo $fursuit->name; ?></p>
 				</div>
 				<!-- Pop-up modal editor -->
 				<div id="fursuit<?php echo $fursuit->id; ?>" class="w3-modal">
@@ -62,11 +72,13 @@
 							<h2><?php echo $fursuit->name; ?></h2>
 						</header>
 						<div class="w3-container">
-							<form action="<?php echo URL; ?>account/fursuit/<?php echo $fursuit->id; ?>" method="post" enctype="multipart/form-data">
+							<form action="<?php echo URL; ?>account/update/6/<?php echo $fursuit->id; ?>" method="post" enctype="multipart/form-data">
 								<label>Fursuit name</label>
 								<input type="text" class="w3-input" name="suitname" value="<?php echo $fursuit->name; ?>" required>
 								<label>Animal</label>
 								<input type="text" class="w3-input" name="animal" value="<?php echo $fursuit->animal; ?>" required><p>
+								<input class="w3-check" type="checkbox" name="in_use" <?php if($fursuit->in_use==1){echo 'checked';} ?>>
+								<label>Use as badge</label> <i class="w3-opacity w3-small">If checked, this fursuit will be printed for events as a badge.</i><p>
 								<label>Fursuit photo</label> <i class="w3-opacity w3-small">The photo must be square shaped.</i>
 								<div class="w3-display-container photoContainer">
 									<?php if(file_exists('public/fursuits/'.$fursuit->img.'.png')): ?>
@@ -82,7 +94,9 @@
 								</div>
 								<div class="w3-center">
 									<p>
-									<button type="submit" class="w3-button w3-green w3-round">Save changes</button>
+									<button type="submit" name="edit_fursuit" class="w3-button w3-green w3-round">Save changes</button>
+									<button type="button" class="w3-button w3-red w3-round" id="del<?php echo $fursuit->id; ?>" onclick="delFursuit('<?php echo $fursuit->id; ?>')">Delete fursuit</button>
+									<button type="submit" name="delete_fursuit" id="delconf<?php echo $fursuit->id; ?>" class="w3-button w3-red w3-round" style="display: none;">Are you sure?</button>
 								</div>
 							</form>
 						</div>
@@ -103,6 +117,20 @@ function side_close() {
 }
 function editFursuit(id){
 	document.getElementById('fursuit'.concat(id)).style.display='block';
+}
+function delFursuit(id){
+	document.getElementById('del'.concat(id)).classList.add("scale-out-center");
+	setTimeout(function(){
+		contDel(id);
+	}, 500);
+}
+function contDel(id){
+	document.getElementById('del'.concat(id)).style.display='none';
+	document.getElementById('delconf'.concat(id)).style.display='inline-block';
+	document.getElementById('delconf'.concat(id)).classList.add("scale-in-center");
+	setTimeout(function(){
+		document.getElementById('delconf'.concat(id)).classList.remove("scale-in-center");
+	}, 500);
 }
 function pfp(id){
 	file="file-upload".concat(id);

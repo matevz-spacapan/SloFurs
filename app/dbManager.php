@@ -15,7 +15,7 @@ class Connection{
 	//session acc - who's logged in
 	public function getSessionAcc(){
 		if(isset($_SESSION['account'])&&$_SESSION['account']!=''){
-			$sql='SELECT * FROM account WHERE id=:id'; //:id is replaced by variable at runtime - prevents SQL injections
+			$sql='SELECT * FROM account WHERE id=:id';
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':id'=>$_SESSION['account']));
 			return $query->fetch();

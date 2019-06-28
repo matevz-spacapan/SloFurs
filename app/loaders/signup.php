@@ -3,11 +3,10 @@ class SignUp extends Connection{
 	public function index(){
 		$account = $this->getSessionAcc();
 		if($account!=null){
-			header('location: '.URL); //go to home page if logged in
+			header('location: '.URL);
 		}
 		else{
 			require 'app/sites/global/header.php';
-			//require 'app/sites/global/topnavbar.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/signup.php';
 			require 'app/sites/global/footer.php';

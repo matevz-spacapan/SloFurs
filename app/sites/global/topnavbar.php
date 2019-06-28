@@ -29,7 +29,7 @@ class Nav extends Connection{
 
 	<?php else: ?>
 		<!-- Not logged in -->
-		<a href="./login" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white">Log in</a>
+		<a href="<?php echo URL; ?>login" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white">Log in</a>
 	<?php endif; ?>
 	<a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="openNav()">&#9776;</a>
 </div>
@@ -37,8 +37,13 @@ class Nav extends Connection{
 
 <!-- Small screen navbar -->
 <div id="navSmall" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
-	<a href="<?php echo URL; ?>account" class="w3-bar-item w3-button w3-padding-large">My account</a>
-	<a href="<?php echo URL; ?>login/logout" class="w3-bar-item w3-button w3-padding-large">Log out</a>
+	<?php if(isset($_SESSION['account'])&&$_SESSION['account']!=null): ?>
+		<a href="<?php echo URL; ?>account" class="w3-bar-item w3-button w3-padding-large">My account</a>
+		<a href="<?php echo URL; ?>login/logout" class="w3-bar-item w3-button w3-padding-large">Log out</a>
+	<?php else: ?>
+		<!-- Not logged in -->
+		<a href="<?php echo URL; ?>login" class="w3-bar-item w3-button w3-padding-large">Log in</a>
+	<?php endif; ?>
 </div>
 <script>
 	function openNav(){

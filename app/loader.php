@@ -50,7 +50,6 @@ class Application{
 			$url=rtrim($_GET['url'], '/');
 			$url=filter_var($url, FILTER_SANITIZE_URL);
 			$url=explode('/', $url);
-			//var_dump ($url);
 			$this->site=(isset($url[0]) ? $url[0] : null);
 			$this->action=(isset($url[1]) ? $url[1] : null);
 			$this->param_1=(isset($url[2]) ? $url[2] : null);

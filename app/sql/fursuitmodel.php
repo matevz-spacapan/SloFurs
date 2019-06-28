@@ -17,11 +17,20 @@ class FursuitModel{
 		$query->execute(array(':id'=>$id));
 		return $query->fetchAll();
 	}
+	// Count printable fursuits - badges
+	public function countFursuitBadges($id){
+		$id=strip_tags($id);
+		$sql='SELECT COUNT(*) AS num FROM fursuit WHERE acc_id=:id AND in_use=1';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetch();
+	}
 	// Add a new fursuit
-	public function addFursuit($name, $animal, $image){
+	public function addFursuit($name, $animal, $in_use, $image){
 		if(!empty($name)&&!empty($animal)&&$image['size']!=0){
 			$name=strip_tags($name);
 			$animal=strip_tags($animal);
+			$in_use=isset($in_use)?1:0;
 			$target_dir='public/fursuits/';
 			$file_name='';
 			while(true){
@@ -36,9 +45,9 @@ class FursuitModel{
 				if($width==$height){
 					$target_file=$target_dir.$file_name.'.png';
 					if(imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
-						$sql="INSERT INTO fursuit(name, animal, img, acc_id) VALUES (:name, :animal, :img, :acc_id)";
+						$sql="INSERT INTO fursuit(name, animal, img, in_use, acc_id) VALUES (:name, :animal, :img, :in_use, :acc_id)";
 						$query=$this->db->prepare($sql);
-						$query->execute(array(':name'=>$name, ':animal'=>$animal, ':img'=>$file_name, ':acc_id'=>$_SESSION['account']));
+						$query->execute(array(':name'=>$name, ':animal'=>$animal, ':img'=>$file_name, ':in_use'=>$in_use, ':acc_id'=>$_SESSION['account']));
 						return ''; //OK
 					}
 					else{
@@ -59,7 +68,7 @@ class FursuitModel{
 		}
 	}
 	// Edit fursuit details
-	public function editFursuit($id, $name, $animal, $image){
+	public function editFursuit($id, $name, $animal, $in_use, $image){
 		//check if fursuit id and account id match
 		$sql='SELECT * FROM fursuit WHERE id=:id';
 		$query=$this->db->prepare($sql);
@@ -69,6 +78,7 @@ class FursuitModel{
 			if(!empty($name)&&!empty($animal)){
 				$name=strip_tags($name);
 				$animal=strip_tags($animal);
+				$in_use=isset($in_use)?1:0;
 				$target_dir='public/fursuits/';
 				$file_name='';
 				if($image['size']!=0){
@@ -80,9 +90,9 @@ class FursuitModel{
 					}
 				}
 				//name, animal
-				$sql='UPDATE fursuit SET name=:name, animal=:animal WHERE id=:id';
+				$sql='UPDATE fursuit SET name=:name, animal=:animal, in_use=:in_use WHERE id=:id';
 				$query=$this->db->prepare($sql);
-				$query->execute(array(':name'=>$name, ':animal'=>$animal,':id'=>$id));
+				$query->execute(array(':name'=>$name, ':animal'=>$animal, ':in_use'=>$in_use, ':id'=>$id));
 				//changing the image too
 				if($file_name!=''){
 					$img_param=getimagesize($image['tmp_name']);
@@ -117,6 +127,23 @@ class FursuitModel{
 		else{
 			//TODO report incident
 			return 'dTrying to change fursuits of other users. This incident was reported.';
+		}
+	}
+	public function delFursuit($id){
+		//check if fursuit id and account id match
+		$sql='SELECT * FROM fursuit WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		$account=$query->fetch();
+		if($account->acc_id==$_SESSION['account']){
+			unlink('public/fursuits/'.$account->img.'.png');
+			$sql='DELETE FROM fursuit WHERE id=:id';
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':id'=>$id));
+		}
+		else{
+			//TODO report incident
+			return 'dTrying to delete fursuits of other users. This incident was reported.';
 		}
 	}
 }

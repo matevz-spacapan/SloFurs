@@ -6,7 +6,7 @@ class Account extends Connection{
 			header('location: '.URL.'account/contact');
 		}
 		else{
-			header('location: '.URL.'login'); //go to login page if not logged in	
+			header('location: '.URL.'login');
 		}
 	}
 	// Contact info page
@@ -39,35 +39,22 @@ class Account extends Connection{
 		if($account==null){
 			header('location: '.URL.'login');
 		}
-		//TODO add updating of fursuit profiles, id is the fursuit ID, make sure to check if fursuit id is connected with account id
 		$fursuit_model=$this->loadSQL('FursuitModel');
-		if($id!=null){
-			//new
-			if($id==0){
-				$change=$fursuit_model->addFursuit($_POST['suitname'], $_POST['animal'], $_FILES['image']);
-				$_SESSION['alert']=$change;
-				header('location: '.URL.'account/fursuit');
-			}
-			//edit
-			else{
-				$change=$fursuit_model->editFursuit($id, $_POST['suitname'], $_POST['animal'], $_FILES['image']);
-				$_SESSION['alert']=$change;
-				header('location: '.URL.'account/fursuit');
-			}
-		}
-		else{
-			$fursuits=$fursuit_model->getAccFursuits($_SESSION['account']);
-			require 'app/sites/global/header.php';
-			require 'app/sites/global/sidebar.php';
-			require 'app/sites/global/alerts.php';
-			require 'app/sites/'.THEME.'/account/fursuit.php';
-			require 'app/sites/global/footer.php';
-		}
-			
+		$fursuits=$fursuit_model->getAccFursuits($_SESSION['account']);
+		require 'app/sites/global/header.php';
+		require 'app/sites/global/sidebar.php';
+		require 'app/sites/global/alerts.php';
+		require 'app/sites/'.THEME.'/account/fursuit.php';
+		require 'app/sites/global/footer.php';
 	}
 	// Update information of the account
-	public function update($action){
+	public function update($action, $id=null){
+		$account=$this->getSessionAcc();
+		if($account==null){
+			header('location: '.URL.'login');
+		}
 		$account_model=$this->loadSQL('AccountModel');
+		$fursuit_model=$this->loadSQL('FursuitModel');
 		switch($action){
 			case 1:
 				// Change email
@@ -93,10 +80,27 @@ class Account extends Connection{
 				$_SESSION['alert']=$change;
 				header('location: '.URL.'account/password');
 				break;
+			case 5:
+				//Add fursuit
+				$change=$fursuit_model->addFursuit($_POST['suitname'], $_POST['animal'], $_POST['in_use'], $_FILES['image']);
+				$_SESSION['alert']=$change;
+				header('location: '.URL.'account/fursuit');
+				break;
+			case 6:
+				//Edit/delete fursuit
+				if(isset($_POST['edit_fursuit'])){
+					$change=$fursuit_model->editFursuit($id, $_POST['suitname'], $_POST['animal'], $_POST['in_use'], $_FILES['image']);
+					$_SESSION['alert']=$change;
+				}
+				elseif(isset($_POST['delete_fursuit'])){
+					$change=$fursuit_model->delFursuit($id);
+					$_SESSION['alert']=$change;
+				}
+				header('location: '.URL.'account/fursuit');
+				break;
 			default:
 				$_SESSION['alert']='dOops, something went wrong [unknown action requested]';
 				header('location: '.URL.'account/contact');
-				break;
 		}
 	}
 }
