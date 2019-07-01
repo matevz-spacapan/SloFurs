@@ -131,19 +131,24 @@ class FursuitModel{
 	}
 	public function delFursuit($id){
 		//check if fursuit id and account id match
-		$sql='SELECT * FROM fursuit WHERE id=:id';
-		$query=$this->db->prepare($sql);
-		$query->execute(array(':id'=>$id));
-		$account=$query->fetch();
-		if($account->acc_id==$_SESSION['account']){
-			unlink('public/fursuits/'.$account->img.'.png');
-			$sql='DELETE FROM fursuit WHERE id=:id';
+		if(isset($id)){
+			$sql='SELECT * FROM fursuit WHERE id=:id';
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':id'=>$id));
+			$account=$query->fetch();
+			if($account->acc_id==$_SESSION['account']){
+				unlink('public/fursuits/'.$account->img.'.png');
+				$sql='DELETE FROM fursuit WHERE id=:id';
+				$query=$this->db->prepare($sql);
+				$query->execute(array(':id'=>$id));
+			}
+			else{
+				//TODO report incident
+				return 'dTrying to delete fursuits of other users. This incident was reported.';
+			}
 		}
 		else{
-			//TODO report incident
-			return 'dTrying to delete fursuits of other users. This incident was reported.';
+			return "dThere was an error processing your request.";
 		}
 	}
 }

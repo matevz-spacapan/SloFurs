@@ -42,13 +42,18 @@ class Admin extends Connection{
 		}
 		switch($action){
 			case 1:
-				//event add
+				//add event
 				$event_model=$this->loadSQL('EventModel');
 				$change=$event_model->addEvent($_POST['type'], $_POST['name'], $_POST['start'], $_POST['end'], $_POST['reg_start'], $_POST['pre_reg'], $_POST['reg_end'], $_POST['location'], $_POST['desc']);
 				$_SESSION['alert']=$change;
 				header('location: '.URL.'admin/event');
 				break;
 			case 2:
+				//edit event
+				$event_model=$this->loadSQL('EventModel');
+				$change=$event_model->editEvent($id, $_POST['type'], $_POST['name'], $_POST['start'], $_POST['end'], $_POST['reg_start'], $_POST['pre_reg'], $_POST['reg_end'], $_POST['location'], $_POST['desc']);
+				$_SESSION['alert']=$change;
+				header('location: '.URL.'admin/event');
 				break;
 			default:
 				header('location: '.URL.'admin/event');
