@@ -37,6 +37,10 @@ class EventModel{
 			$reg=str_replace('T',' ',strip_tags($reg));
 			$pre_reg=str_replace('T',' ',strip_tags($pre_reg));
 			$reg_end=str_replace('T',' ',strip_tags($reg_end));
+			//if no reg end is set, then reg ends at start of event
+			if($reg_end=='0000-00-00 00:00'){
+				$reg_end=$start;
+			}
 			$loc=strip_tags($loc);
 			$desc=strip_tags($desc);
 			$format='Y-m-d H:i';

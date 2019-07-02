@@ -14,20 +14,26 @@ class Admin extends Connection{
 		}
 	}
 	// Event managing page
-	public function event(){
+	public function event($new=null){
 		$account=$this->getSessionAcc();
 		if($account==null){
 			header('location: '.URL.'login');
 		}
 		elseif($account->status==3){
-			$event_model=$this->loadSQL('EventModel');
-			$cEvents=$event_model->getCEvents(); //current/upcoming
-			$pEvents=$event_model->getPEvents(); //past
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/adminsidebar.php';
 			require 'app/sites/global/alerts.php';
-			require 'app/sites/'.THEME.'/admin/event.php';
+			if($new!=null){
+				require 'app/sites/'.THEME.'/admin/newevent.php';
+			}
+			else{
+				$event_model=$this->loadSQL('EventModel');
+				$cEvents=$event_model->getCEvents(); //current/upcoming
+				$pEvents=$event_model->getPEvents(); //past
+				require 'app/sites/'.THEME.'/admin/event.php';
+			}
 			require 'app/sites/global/footer.php';
+				
 		}
 		else{
 			$_SESSION['alert']="dYou don't have premissions to view that.";

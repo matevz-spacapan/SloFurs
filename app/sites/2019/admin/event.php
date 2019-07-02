@@ -6,45 +6,7 @@
 	</div>
 </div>
 <div class="w3-container">
-	<!-- NEW EVENT COLUMN -->
-	<div class="w3-container">
-		<h3>New event</h3>
-		<div class="w3-cell-row w3-light-gray w3-round-large" style="width: auto!important;">
-			<form action="<?php echo URL; ?>admin/update/1" method="post">
-				<div class="w3-container w3-cell">
-					<label>Event type</label><br/>
-					<input type="hidden" id="sync_type" value="">
-					<input class="w3-radio" type="radio" name="type" value="meet" id="meet" required>
-					<label>Meet</label>
-					<input class="w3-radio" type="radio" name="type" value="con" id="con">
-					<label>Convention</label><p>
-					<label>Name</label>
-					<input type="text" class="w3-input" name="name" required>
-					<label>Start</label>
-					<input type="datetime-local" class="w3-input" name="start" id="start0" onblur="checkDate('start0')" required>
-					<label>End</label>
-					<input type="datetime-local" class="w3-input" name="end" required>
-					<label>Location</label>
-					<input type="text" class="w3-input" name="location" required>
-				</div>
-				<div class="w3-container w3-cell">
-					<label>Reg. start</label>
-					<input type="datetime-local" class="w3-input" name="reg_start" required>
-					<label>Pre-reg start</label> <i class="w3-opacity w3-small">(optional)</i>
-					<input type="datetime-local" class="w3-input" name="pre_reg">
-					<label>Reg. end</label> <i class="w3-opacity w3-small">when users can't reg. anymore</i>
-					<input type="datetime-local" class="w3-input" name="reg_end" required>
-					<label>Description</label>
-					<textarea class="w3-input" name="desc" required></textarea>
-				</div>
-				<div class="w3-center">
-					<button type="submit" name="edit_fursuit" class="w3-button w3-green w3-round">Save</button><p>
-				</div>
-			</form>
-		</div>
-	</div>
-		
-	<!-- CURRENT/UPCOMING EVENTS COLUMN, LOOPED -->
+	<!-- CURRENT/UPCOMING EVENTS -->
 	<div class="w3-container">
 		<h3>Current and upcoming events</h3>
 		<!-- COLOUR GUIDE -->
@@ -91,14 +53,14 @@
 							<form action="<?php echo URL; ?>admin/update/2/<?php echo $event->id ?>" method="post">
 								<div class="w3-container w3-cell">
 									<label>Event type</label><br/>
-									<input class="w3-radio" type="radio" name="type" value="meet" id="meet" <?php if($event->type=="meet"){echo "checked";} ?> required>
+									<input class="w3-radio" type="radio" name="type" value="meet" <?php if($event->type=="meet"){echo "checked";} ?> required>
 									<label>Meet</label>
-									<input class="w3-radio" type="radio" name="type" value="con" id="con" <?php if($event->type=="con"){echo "checked";} ?>>
+									<input class="w3-radio" type="radio" name="type" value="con" <?php if($event->type=="con"){echo "checked";} ?>>
 									<label>Convention</label><p>
 									<label>Name</label>
 									<input type="text" class="w3-input" name="name" value="<?php echo $event->name; ?>" required>
 									<label>Start</label>
-									<input type="datetime-local" class="w3-input" name="start" value="<?php echo $event_model->convert($event->event_start); ?>" id="start____" onblur="checkDate('start_____')" required>
+									<input type="datetime-local" class="w3-input" name="start" value="<?php echo $event_model->convert($event->event_start); ?>" required>
 									<label>End</label>
 									<input type="datetime-local" class="w3-input" name="end" value="<?php echo $event_model->convert($event->event_end); ?>" required>
 									<label>Location</label>
@@ -107,7 +69,7 @@
 								<div class="w3-container w3-cell">
 									<label>Reg. start</label>
 									<input type="datetime-local" class="w3-input" name="reg_start" value="<?php echo $event_model->convert($event->reg_start); ?>" required>
-									<label>Pre-reg start</label> <i class="w3-opacity w3-small">(optional)</i>
+									<label>Pre-reg start</label> <i class="w3-opacity w3-small">optional</i>
 									<input type="datetime-local" class="w3-input" name="pre_reg" value="<?php echo $event_model->convert($event->pre_reg_start); ?>">
 									<label>Reg. end</label> <i class="w3-opacity w3-small">when users can't reg. anymore</i>
 									<input type="datetime-local" class="w3-input" name="reg_end" value="<?php echo $event_model->convert($event->reg_end); ?>" required>
@@ -127,7 +89,7 @@
 		</div>
 	</div>
 
-	<!-- PAST EVENTS COLUMN, LOOPED -->
+	<!-- PAST EVENTS COLUMN -->
 	<div class="w3-container">
 		<h3>Past events</h3>
 		<div class="w3-row">
@@ -149,14 +111,14 @@
 							<form action="<?php echo URL; ?>admin/update/2/<?php echo $event->id ?>" method="post">
 								<div class="w3-container w3-cell">
 									<label>Event type</label><br/>
-									<input class="w3-radio" type="radio" name="type" value="meet" id="meet" <?php if($event->type=="meet"){echo "checked";} ?> required>
+									<input class="w3-radio" type="radio" name="type" value="meet" <?php if($event->type=="meet"){echo "checked";} ?> required>
 									<label>Meet</label>
-									<input class="w3-radio" type="radio" name="type" value="con" id="con" <?php if($event->type=="con"){echo "checked";} ?>>
+									<input class="w3-radio" type="radio" name="type" value="con" <?php if($event->type=="con"){echo "checked";} ?>>
 									<label>Convention</label><p>
 									<label>Name</label>
 									<input type="text" class="w3-input" name="name" value="<?php echo $event->name; ?>" required>
 									<label>Start</label>
-									<input type="datetime-local" class="w3-input" name="start" value="<?php echo $event_model->convert($event->event_start); ?>" id="start____" onblur="checkDate('start_____')" required>
+									<input type="datetime-local" class="w3-input" name="start" value="<?php echo $event_model->convert($event->event_start); ?>" required>
 									<label>End</label>
 									<input type="datetime-local" class="w3-input" name="end" value="<?php echo $event_model->convert($event->event_end); ?>" required>
 									<label>Location</label>
@@ -165,7 +127,7 @@
 								<div class="w3-container w3-cell">
 									<label>Reg. start</label>
 									<input type="datetime-local" class="w3-input" name="reg_start" value="<?php echo $event_model->convert($event->reg_start); ?>" required>
-									<label>Pre-reg start</label> <i class="w3-opacity w3-small">(optional)</i>
+									<label>Pre-reg start</label> <i class="w3-opacity w3-small">optional</i>
 									<input type="datetime-local" class="w3-input" name="pre_reg" value="<?php echo $event_model->convert($event->pre_reg_start); ?>">
 									<label>Reg. end</label> <i class="w3-opacity w3-small">when users can't reg. anymore</i>
 									<input type="datetime-local" class="w3-input" name="reg_end" value="<?php echo $event_model->convert($event->reg_end); ?>" required>
@@ -197,13 +159,8 @@ function side_close() {
 function editEvent(id){
 	document.getElementById('event'.concat(id)).style.display='block';
 }
-function checkDate(id){
-	val=document.getElementById(id).value;
-	console.log(val);
-}
 function onLoad(){
 	document.getElementById("event").classList.add("w3-orange");
-	document.getElementById("event").classList.remove("w3-sand");
 }
 onLoad();
 </script>
