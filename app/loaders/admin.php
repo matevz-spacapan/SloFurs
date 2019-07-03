@@ -50,7 +50,7 @@ class Admin extends Connection{
 			case 1:
 				//add event
 				$event_model=$this->loadSQL('EventModel');
-				$change=$event_model->addEvent($_POST['type'], $_POST['name'], $_POST['start'], $_POST['end'], $_POST['reg_start'], $_POST['pre_reg'], $_POST['reg_end'], $_POST['location'], $_POST['desc']);
+				$change=$event_model->addEvent($_POST);
 				$_SESSION['alert']=$change;
 				header('location: '.URL.'admin/event');
 				break;

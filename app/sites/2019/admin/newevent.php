@@ -7,16 +7,11 @@
 </div>
 <div class="w3-container">
 	<div class="w3-container" style="margin: 0 auto; width: 50%">
-		<form action="<?php echo URL; ?>admin/update/1" method="post">
+		<form action="<?php echo URL; ?>admin/update/1" method="post" autocomplete="off" id="event">
 			<h3>Event details</h3>
-			<label>Event type</label> <sup class="w3-text-red">*</sup><br/>
-			<input class="w3-radio" type="radio" name="type" value="meet" required>
-			<label>Meet</label>
-			<input class="w3-radio" type="radio" name="type" value="con">
-			<label>Convention</label><p>
 
 			<label>Name</label> <sup class="w3-text-red">*</sup>
-			<input type="text" class="w3-input" name="name" required>
+			<input type="text" class="w3-input" name="name" required autofocus>
 
 			<label>Start</label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small">when the event starts</i>
 			<input type="datetime-local" class="w3-input" name="start" required>
@@ -28,7 +23,7 @@
 			<input type="text" class="w3-input" name="location">
 
 			<label>Description</label>
-			<textarea class="w3-input" name="desc"></textarea><p>
+			<textarea class="w3-input" name="description"></textarea><p>
 
 			<h3>Registration details</h3>
 
@@ -56,7 +51,7 @@
 				<input type="text" class="w3-input" name="restricted_text">
 			</div>
 
-			<h3>Ticket types</h3>
+			<h3 style="display: inline;">Ticket types</h3> <i class="w3-opacity w3-small">at least one option must be selected</i><br><br>
 
 			<table class="w3-table">
 				<tr>
@@ -65,7 +60,7 @@
 				</tr>
 				<tr>
 					<td>
-						<input class="w3-check" type="checkbox" name="ticket" value="free">
+						<input class="w3-check" type="checkbox" name="ticket" value="free" onclick="">
 						<label>Free</label>
 					</td>
 					<td>0</td>
@@ -93,18 +88,21 @@
 				</tr>
 			</table>
 
-			<h3>Accomodation</h3>
+			<h3 style="display: inline;">Accomodation</h3> <i class="w3-opacity w3-small">if there is no accomodation for this event, don't add any rows below</i><br><br>
 
 			<!-- TODO table where users can add as many rows as needed for accomodation -->
-			<table class="w3-table">
+			<table class="w3-table" id="accomodationTable">
 				<tr>
-					<th>Type</th>
-					<th>Price</th>
+					<th>Type <i class="w3-opacity w3-small">description of the room</i></th>
+					<th>Persons/room</th>
+					<th>Price/person</th>
 					<th>Quantity</th>
+					<th><button class="w3-button w3-green w3-round" onclick="addRow()">+</button></th>
 				</tr>
-			</table>
-
-			<br><button type="submit" name="edit_fursuit" class="w3-button w3-green w3-round" disabled>Create event</button>
+			</table><br>
+			<div class="w3-center">
+				<button type="submit" id="submitBtn" class="w3-button w3-green w3-round" disabled>Create event</button>
+			</div>
 		</form>
 	</div>
 	
@@ -112,33 +110,123 @@
 
 <script>
 function side_open(){
-	document.getElementById("accSidebar").style.display="block";
+	$("#accSidebar").show();
 }
 function side_close(){
-	document.getElementById("accSidebar").style.display="none";
+	$("#accSidebar").hide();
 }
 function price(type){
-	if(document.getElementById('check'.concat(type)).checked){
-		document.getElementById(type).disabled=false;
-		document.getElementById(type).required=true;
+	if($("#check"+type).is(":checked")){
+		$("#"+type).attr("disabled", false);
+		$("#"+type).attr("required", true);
+		$("#"+type).attr("name", type+"_price");
 	}
 	else{
-		document.getElementById(type).disabled=true;
-		document.getElementById(type).required=false;
+		$("#"+type).attr("disabled", true);
+		$("#"+type).attr("required", false);
+		$("#"+type).removeAttr("name");
 	}
 }
 function displayAge(){
-	if(document.getElementById("age").checked){
-		document.getElementById("ageSettings").style.display="block";
-		document.getElementById("ageSettings").classList.add("scale-in-center");
+	if($("#age").is(":checked")){
+		$("#ageSettings").show();
+		$("#ageSettings").addClass("scale-in-center");
 	}
 	else{
-		document.getElementById("ageSettings").style.display="none";
+		$("#ageSettings").hide();
 	}
 }
+var nr=0;
+function addRow(){
+	var row=`<tr id="row#">
+			<td><input type="text" class="w3-input" name="type#" required></td>
+			<td><input type="number" class="w3-input" name="persons#" min="1" required></td>
+			<td><input type="text" class="w3-input" name="price#" pattern="^\\d{1,3}(,\\d{1,2})?$" title="xxx.xx" required></td>
+			<td><input type="number" class="w3-input" name="quantity#" min="1" required></td>
+			<td><button class="w3-button w3-red w3-round" onclick="removeRow('row#')"><b>-</b></button></td>
+		</tr>`;
+	nr++;
+	row=row.replace(/#/g, nr);
+	$("#accomodationTable tr:last").after(row);
+	validate();
+}
+function removeRow(id){
+	$("#"+id).remove();
+	validate();
+}
 function onLoad(){
-	document.getElementById("newevent").classList.add("w3-orange");
-	document.getElementById("event").classList.add("w3-sand");
+	$("#newevent").addClass("w3-orange");
+	$("#event").addClass("w3-sand");
 }
 onLoad();
+
+$(document).ready(function() {
+  validate();
+  $(document).on("keyup", "input", validate);
+  $("input[type=checkbox][name='ticket']").on("change", validate);
+  $("input[type=datetime-local]").on("change", validate);
+});
+function validate(){
+	var dateOK=true;
+	var now=new Date();
+	//NOW<=PRE-REG<REG. START
+	if(now>new Date($("input[name='pre_reg']").val())||new Date($("input[name='pre_reg']").val())>=new Date($("input[name='reg_start']").val())){
+		$("input[name='pre_reg']").addClass("w3-border w3-border-red w3-round");
+		dateOK=false;
+	}
+	else{
+		$("input[name='pre_reg']").removeClass("w3-border w3-border-red w3-round");
+	}
+	//NOW<=REG. START<START
+	if(now>new Date($("input[name='reg_start']").val())||new Date($("input[name='reg_start']").val())>=new Date($("input[name='start']").val())){
+		$("input[name='reg_start']").addClass("w3-border w3-border-red w3-round");
+		dateOK=false;
+	}
+	else{
+		$("input[name='reg_start']").removeClass("w3-border w3-border-red w3-round");
+	}
+	//REG. START<REG. END<=START
+	if($("input[name='reg_end']").val()!=""&&(new Date($("input[name='reg_start']").val())>=new Date($("input[name='reg_end']").val())||new Date($("input[name='reg_end']").val())>new Date($("input[name='start']").val()))){
+		$("input[name='reg_end']").addClass("w3-border w3-border-red w3-round");
+		dateOK=false;
+	}
+	else{
+		$("input[name='reg_end']").removeClass("w3-border w3-border-red w3-round");
+	}
+	//NOW<START
+	if(now>new Date($("input[name='start']").val())){
+		$("input[name='start']").addClass("w3-border w3-border-red w3-round");
+		dateOK=false;
+	}
+	else{
+		$("input[name='start']").removeClass("w3-border w3-border-red w3-round");
+	}
+	//END>START
+	if(new Date($("input[name='start']").val())>=new Date($("input[name='end']").val())){
+		$("input[name='end']").addClass("w3-border w3-border-red w3-round");
+		dateOK=false;
+	}
+	else{
+		$("input[name='end']").removeClass("w3-border w3-border-red w3-round");
+	}
+	//count required input fields and if they have data
+	var inputsWVal=0;
+	var requiredInputs=0;
+	var myInputs=$("input:not([type='submit'])");
+	myInputs.each(function(e){
+		if($(this).prop("required")){
+			requiredInputs++;
+			if($(this).val()){
+				inputsWVal++;
+			}
+		}
+	});
+	//check if required and inputed equals (all required filled) and if at least one price category is selected
+	if(inputsWVal==requiredInputs&&dateOK&&$("input[type=checkbox][name='ticket']:checked").length>0){
+		$("#submitBtn").attr("disabled", false);
+	}
+	else{
+		$("#submitBtn").attr("disabled", true);
+	}
+}
 </script>
