@@ -13,7 +13,7 @@
 	<!-- FontAwesome -->
 	<script src="https://kit.fontawesome.com/925a2b5078.js"></script>
 	<!-- jQuery -->
-	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 	<?php require 'app/sites/global/topnavbar.php'; ?>

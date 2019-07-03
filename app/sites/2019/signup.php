@@ -5,7 +5,7 @@
 		</div>
 		<form action="<?php echo URL; ?>signup/signupacc" method="post">
 			<label>E-mail</label>
-			<input class="w3-input" type="email" name="email" placeholder="E-mail address" required>
+			<input class="w3-input" type="email" name="email" placeholder="E-mail address" required autofocus>
 			<label>Username</label> <i class="w3-opacity w3-small">(what others will be able to see)</i>
 			<input class="w3-input" type="text" name="username" placeholder="Your desired username" required>
 			<label>Password</label>
@@ -29,19 +29,20 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-	function verifyPassword(){
-		if(document.getElementById('pwd').value==document.getElementById('pwdC').value&&document.getElementById('pwd').value.length>=8){
-			document.getElementById("btn").disabled=false;
-			if(document.getElementById("correct").classList.contains('fa-times')){
-				document.getElementById("correct").classList.replace('fa-times', 'fa-check');
-			}
-		}
-		else{
-			document.getElementById("btn").disabled=true;
-			if(document.getElementById("correct").classList.contains('fa-check')){
-				document.getElementById("correct").classList.replace('fa-check', 'fa-times');
-			}
+<script>
+function verifyPassword(){
+	regex=/^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).*$/;
+	if($("#pwd").val()==$("#pwdC").val()&&$("#pwd").val().length>=8&&$("#pwd").val().match(regex)){
+		$("#btn").attr("disabled", false);
+		if($("#correct").hasClass("fa-times")){
+			$("#correct").removeClass("fa-times").addClass("fa-check");
 		}
 	}
+	else{
+		$("#btn").attr("disabled", true);
+		if($("#correct").hasClass("fa-check")){
+			$("#correct").removeClass("fa-check").addClass("fa-times");
+		}
+	}
+}
 </script>

@@ -19,28 +19,28 @@
 </div>
 
 <script>
-function side_open() {
-	document.getElementById("accSidebar").style.display = "block";
+function side_open(){
+	$("#accSidebar").show();
 }
-
-function side_close() {
-	document.getElementById("accSidebar").style.display = "none";
+function side_close(){
+	$("#accSidebar").hide();
 }
-function selector(){
-	document.getElementById("password").classList.add("w3-blue");
+function onLoad(){
+	$("#password").addClass("w3-blue");
 }
-selector(); //selects the current page in the sidebar
+onLoad();
 function verifyPassword(){
-	if(document.getElementById('pwd').value==document.getElementById('pwdC').value&&document.getElementById('pwd').value.length>=8){
-		document.getElementById("btn").disabled = false;
-		if(document.getElementById("correct").classList.contains('fa-times')){
-			document.getElementById("correct").classList.replace('fa-times','fa-check');
+	regex=/^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).*$/;
+	if($("#pwd").val()==$("#pwdC").val()&&$("#pwd").val().length>=8&&$("#pwd").val().match(regex)){
+		$("#btn").attr("disabled", false);
+		if($("#correct").hasClass("fa-times")){
+			$("#correct").removeClass("fa-times").addClass("fa-check");
 		}
 	}
 	else{
-		document.getElementById("btn").disabled = true;
-		if(document.getElementById("correct").classList.contains('fa-check')){
-			document.getElementById("correct").classList.replace('fa-check','fa-times');
+		$("#btn").attr("disabled", true);
+		if($("#correct").hasClass("fa-check")){
+			$("#correct").removeClass("fa-check").addClass("fa-times");
 		}
 	}
 }

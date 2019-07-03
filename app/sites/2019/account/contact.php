@@ -83,27 +83,25 @@
 </div>
 
 <script>
-function side_open() {
-	document.getElementById("accSidebar").style.display="block";
+function side_open(){
+	$("#accSidebar").show();
 }
-
-function side_close() {
-	document.getElementById("accSidebar").style.display="none";
+function side_close(){
+	$("#accSidebar").hide();
 }
 function showEmail(){
-	var element=document.getElementById("emailData");
-	element.className=element.className.replace("w3-hide", "");
+	$("#emailData").removeClass("w3-hide");
 }
 function submitPFP(){
-	document.getElementById("updatePFP").submit(); //if file is changed then submit the form, to update the picture
+	$("#updatePFP").submit(); //if file is changed then submit the form, to update the picture
 }
 function onLoad(){ //selects the current page in the sidebar, country&gender saved in MySQL
-	document.getElementById("contact").classList.add("w3-blue");
-	if(document.getElementById("profileCountry").value!=''){
-		document.getElementById("country").value=document.getElementById("profileCountry").value;
+	$("#contact").addClass("w3-blue");
+	if($("#profileCountry").val()!=''){
+		$("#country").val($("#profileCountry").val());
 	}
-	if(document.getElementById("profileGender").value!=''){
-		document.getElementById(document.getElementById("profileGender").value).checked=true;
+	if($("#profileGender").val()!=''){
+		$("#"+$("#profileGender").val()).attr("checked", true);
 	}
 }
 onLoad();

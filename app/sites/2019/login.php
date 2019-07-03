@@ -5,7 +5,7 @@
 		</div>
 		<form action="<?php echo URL; ?>login/loginacc" method="post">
 			<label>E-mail</label>
-			<input class="w3-input" type="email" name="email" placeholder="E-mail Address" required>
+			<input class="w3-input" type="email" name="email" placeholder="E-mail Address" required autofocus>
 			<label>Password</label>
 			<input class="w3-input" type="password" name="password" placeholder="Account Password" required>
 			<button type="submit" name="log_in_acc" class="w3-button w3-round w3-border w3-border-blue">Log In</button>

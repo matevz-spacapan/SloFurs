@@ -19,7 +19,7 @@
 	<div id="fursuit0" class="w3-modal">
 		<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
 			<header class="w3-container w3-blue w3-center roundHeaderTop"> 
-				<span onclick="document.getElementById('fursuit0').style.display='none'" 
+				<span onclick="$('#fursuit0').hide()" 
 				class="w3-button w3-display-topright roundXTop">&times;</span>
 				<h2>Add a new fursuit</h2>
 			</header>
@@ -67,7 +67,7 @@
 				<div id="fursuit<?php echo $fursuit->id; ?>" class="w3-modal">
 					<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
 						<header class="w3-container w3-blue w3-center roundHeaderTop"> 
-							<span onclick="document.getElementById('fursuit<?php echo $fursuit->id; ?>').style.display='none'" 
+							<span onclick="$('#fursuit<?php echo $fursuit->id; ?>').hide()" 
 							class="w3-button w3-display-topright roundXTop">&times;</span>
 							<h2><?php echo $fursuit->name; ?></h2>
 						</header>
@@ -108,41 +108,39 @@
 </div>
 
 <script>
-function side_open() {
-	document.getElementById("accSidebar").style.display="block";
+function side_open(){
+	$("#accSidebar").show();
 }
-
-function side_close() {
-	document.getElementById("accSidebar").style.display="none";
+function side_close(){
+	$("#accSidebar").hide();
 }
 function editFursuit(id){
-	document.getElementById('fursuit'.concat(id)).style.display='block';
+	$("#fursuit"+id).show();
 }
 function delFursuit(id){
-	document.getElementById('del'.concat(id)).classList.add("scale-out-center");
+	$("#del"+id).addClass("scale-out-center");
 	setTimeout(function(){
 		contDel(id);
 	}, 500);
 }
 function contDel(id){
-	document.getElementById('del'.concat(id)).style.display='none';
-	document.getElementById('delconf'.concat(id)).style.display='inline-block';
-	document.getElementById('delconf'.concat(id)).classList.add("scale-in-center");
+	$("#del"+id).hide();
+	$("#delconf"+id).css("display", "inline-block");
+	$("#delconf"+id).addClass("scale-in-center");
 	setTimeout(function(){
-		document.getElementById('delconf'.concat(id)).classList.remove("scale-in-center");
+		$("#delconf"+id).removeClass("scale-in-center");
 	}, 500);
 }
 function pfp(id){
 	file="file-upload".concat(id);
 	file=document.getElementById(file).value.split(/(\\|\/)/g).pop();
-	console.log(file);
-	document.getElementById('save'.concat(id)).innerHTML="File: ".concat(file);
+	document.getElementById("save".concat(id)).innerHTML="File: ".concat(file);
 	if(id==0){
 		document.getElementById("submit0").disabled=false;
 	}
 }
 function onLoad(){
-	document.getElementById("fursuit").classList.add("w3-blue");
+	$("#fursuit").addClass("w3-blue");
 }
 onLoad();
 </script>
