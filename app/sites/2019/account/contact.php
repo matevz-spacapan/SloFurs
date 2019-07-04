@@ -101,7 +101,7 @@ function onLoad(){ //selects the current page in the sidebar, country&gender sav
 		$("#country").val($("#profileCountry").val());
 	}
 	if($("#profileGender").val()!=''){
-		$("#"+$("#profileGender").val()).attr("checked", true);
+		$("#"+$("#profileGender").val()).prop("checked", true);
 	}
 }
 onLoad();

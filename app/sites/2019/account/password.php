@@ -32,13 +32,13 @@ onLoad();
 function verifyPassword(){
 	regex=/^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).*$/;
 	if($("#pwd").val()==$("#pwdC").val()&&$("#pwd").val().length>=8&&$("#pwd").val().match(regex)){
-		$("#btn").attr("disabled", false);
+		$("#btn").prop("disabled", false);
 		if($("#correct").hasClass("fa-times")){
 			$("#correct").removeClass("fa-times").addClass("fa-check");
 		}
 	}
 	else{
-		$("#btn").attr("disabled", true);
+		$("#btn").prop("disabled", true);
 		if($("#correct").hasClass("fa-check")){
 			$("#correct").removeClass("fa-check").addClass("fa-times");
 		}

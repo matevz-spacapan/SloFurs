@@ -1,3 +1,0 @@
-https://stackoverflow.com/questions/572768/styling-an-input-type-file-button prikaz gumba namesto input="file"
-https://stackoverflow.com/questions/21727317/how-to-check-confirm-password-field-in-form-without-reloading-page preverjanje, če sta 2 vnosna polja z isto vsebino (geslo)
-https://stackoverflow.com/questions/35590673/disable-submit-button-until-all-form-inputs-have-data

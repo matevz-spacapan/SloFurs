@@ -31,7 +31,7 @@ class SignUpModel{
 					return 'iTo confirm your account please check your e-mail.';
 				}
 				else{
-					return 'dYour new password is not in valid format.';
+					return 'dYour password is not in valid format.';
 				}
 			}
 			else{

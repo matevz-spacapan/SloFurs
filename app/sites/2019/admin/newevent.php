@@ -51,7 +51,7 @@
 				<input type="text" class="w3-input" name="restricted_text">
 			</div>
 
-			<h3 style="display: inline;">Ticket types</h3> <i class="w3-opacity w3-small">at least one option must be selected</i><br><br>
+			<h3 style="display: inline;">Ticket types</h3> <i class="w3-opacity w3-small">at least one option must be selected. If you want to select free, then no other option may be selected.</i><br><br>
 
 			<table class="w3-table">
 				<tr>
@@ -60,7 +60,7 @@
 				</tr>
 				<tr>
 					<td>
-						<input class="w3-check" type="checkbox" name="ticket" value="free" onclick="">
+						<input class="w3-check" type="checkbox" id="checkfree" name="ticket" value="free">
 						<label>Free</label>
 					</td>
 					<td>0</td>
@@ -70,21 +70,21 @@
 						<input class="w3-check" type="checkbox" id="checkregular" name="ticket" value="regular" onclick="price('regular')">
 						<label>Regular</label>
 					</td>
-					<td><input type="text" class="w3-input" id="regular" pattern="^\d{1,3}(,\d{1,2})?$" title="###.##" disabled></td>
+					<td><input type="number" class="w3-input" id="regular" min="1" disabled></td>
 				</tr>
 				<tr>
 					<td>
 						<input class="w3-check" type="checkbox" id="checksponsor" name="ticket" value="sponsor" onclick="price('sponsor')">
 						<label>Sponsor</label>
 					</td>
-					<td><input type="text" class="w3-input" id="sponsor" pattern="^\d{1,3}(,\d{1,2})?$" title="###.##" disabled></td>
+					<td><input type="number" class="w3-input" id="sponsor" min="1" disabled></td>
 				</tr>
 				<tr>
 					<td>
 						<input class="w3-check" type="checkbox" id="checksuper" name="ticket" value="super" onclick="price('super')">
 						<label>Super-sponsor</label>
 					</td>
-					<td><input type="text" class="w3-input" id="super" pattern="^\d{1,3}(,\d{1,2})?$" title="###.##" disabled></td>
+					<td><input type="number" class="w3-input" id="super" min="1" disabled></td>
 				</tr>
 			</table>
 
@@ -117,13 +117,13 @@ function side_close(){
 }
 function price(type){
 	if($("#check"+type).is(":checked")){
-		$("#"+type).attr("disabled", false);
-		$("#"+type).attr("required", true);
-		$("#"+type).attr("name", type+"_price");
+		$("#"+type).prop("disabled", false);
+		$("#"+type).prop("required", true);
+		$("#"+type).prop("name", type+"_price");
 	}
 	else{
-		$("#"+type).attr("disabled", true);
-		$("#"+type).attr("required", false);
+		$("#"+type).prop("disabled", true);
+		$("#"+type).prop("required", false);
 		$("#"+type).removeAttr("name");
 	}
 }
@@ -170,7 +170,7 @@ function validate(){
 	var dateOK=true;
 	var now=new Date();
 	//NOW<=PRE-REG<REG. START
-	if(now>new Date($("input[name='pre_reg']").val())||new Date($("input[name='pre_reg']").val())>=new Date($("input[name='reg_start']").val())){
+	if(now>new Date($("input[name='pre_reg']").val())||new Date($("input[name='pre_reg']").val())>new Date($("input[name='reg_start']").val())){
 		$("input[name='pre_reg']").addClass("w3-border w3-border-red w3-round");
 		dateOK=false;
 	}
@@ -221,12 +221,25 @@ function validate(){
 			}
 		}
 	});
+	if($("#checksuper").is(":checked")){
+		$("#checksponsor").prop("checked", true);
+		price("sponsor");
+	}
+	if($("#checksponsor").is(":checked")){
+		$("#checkregular").prop("checked", true);
+		price("regular");
+	}
+	if($("#checkregular").is(":checked")){
+		$("#checkfree").prop("checked", false);
+		console.log("uncheck");
+	}
+
 	//check if required and inputed equals (all required filled) and if at least one price category is selected
 	if(inputsWVal==requiredInputs&&dateOK&&$("input[type=checkbox][name='ticket']:checked").length>0){
-		$("#submitBtn").attr("disabled", false);
+		$("#submitBtn").prop("disabled", false);
 	}
 	else{
-		$("#submitBtn").attr("disabled", true);
+		$("#submitBtn").prop("disabled", true);
 	}
 }
 </script>
