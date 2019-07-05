@@ -24,8 +24,12 @@ class EventModel{
 		return $query->fetchAll();
 	}
 	// Convert MySQL datetime to HTML datetime
-	public function convert($date, $t=true){
-		return ($t)?date_format(new DateTime($date),"Y-m-d\TH:i"):date_format(new DateTime($date),"d.m.Y");
+	public function convert($date){
+		return date_format(new DateTime($date),"Y-m-d\TH:i");
+	}
+	//how=true: just date; how=false: just hours
+	public function convertViewable($date, $how){
+		return ($how)?date_format(new DateTime($date),"d.m.Y"):date_format(new DateTime($date),"H:i");
 	}
 	// Add new event
 	/* Fields in following order:
@@ -138,7 +142,7 @@ class EventModel{
 		return "sEvent created!";
 	}
 	// Edit an event
-	public function editEvent($id, $type, $name, $start, $end, $reg, $pre_reg, $reg_end, $loc, $desc){
+	/*public function editEvent($id, $type, $name, $start, $end, $reg, $pre_reg, $reg_end, $loc, $desc){
 		if(isset($id)&&isset($type)&&isset($name)&&isset($start)&&isset($end)&&isset($reg)&&isset($loc)&&isset($desc)){
 			$sql='SELECT status FROM account WHERE id=:id';
 			$query=$this->db->prepare($sql);
@@ -177,11 +181,9 @@ class EventModel{
 				//TODO report incident
 				return "dYou can't do that. This incident was reported.";
 			}
-			
 		}
 		else{
 			return 'dPlease fill out all non-optional fields.';
 		}
-			
-	}
+	}*/
 }

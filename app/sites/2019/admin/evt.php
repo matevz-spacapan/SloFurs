@@ -1,7 +1,14 @@
 <!-- On the list -->
 <div class="card w3-center <?php echo $color; ?>" onclick="editEvent('<?php echo $event->id; ?>')">
-	<p><?php echo $event->name; ?></p>
-	<p><?php echo $event_model->convert($event->event_start, false).' - '.$event_model->convert($event->event_end, false); ?></p>
+	<h4><?php echo $event->name; ?></h4>
+	<?php
+		if($event_model->convertViewable($event->event_start, true)==$event_model->convertViewable($event->event_end, true)){
+			echo "<p>".$event_model->convertViewable($event->event_start, true)." ".$event_model->convertViewable($event->event_start, false)." - ".$event_model->convertViewable($event->event_end, false)."</p>";
+		}
+		else{
+			echo "<p>".$event_model->convertViewable($event->event_start, true).' - '.$event_model->convertViewable($event->event_end, true)."</p>";
+		}
+	?>
 </div>
 <!-- Pop-up modal editor -->
 <div id="event<?php echo $event->id; ?>" class="w3-modal">

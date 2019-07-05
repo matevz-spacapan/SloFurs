@@ -40,7 +40,7 @@
 					?>
 				<?php endforeach; ?>
 			<?php else: ?>
-				<p>There are no past events to show.</p>
+				<p>There are no current/upcoming events to show.</p>
 			<?php endif; ?>
 		</div>
 	</div>
