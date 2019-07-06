@@ -72,7 +72,12 @@ class Account extends Connection{
 				// Update account info
 				$change=$account_model->updateProfile($_POST['fname'], $_POST['lname'], $_POST['address'], $_POST['address2'], $_POST['city'], $_POST['postcode'], $_POST['country'], $_POST['phone'], $_POST['dob'], $_POST['gender']);
 				$_SESSION['alert']=$change;
-				header('location: '.URL.'account/contact');
+				if($id!=null){
+					header('location: '.URL.'register');
+				}
+				else{
+					header('location: '.URL.'account/contact');
+				}
 				break;
 			case 4:
 				// Change password
