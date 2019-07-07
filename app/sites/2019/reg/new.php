@@ -39,7 +39,7 @@
 					<?php if($age>=$event->restricted_age): ?>
 						<div id="register" class="w3-modal">
 							<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
-								<header class="w3-container w3-blue w3-center roundHeaderTop"> 
+								<header class="w3-container w3-green w3-center roundHeaderTop"> 
 									<span onclick="$('#register').hide()" 
 									class="w3-button w3-display-topright roundXTop">&times;</span>
 									<h2>Registration form</h2>
@@ -47,8 +47,78 @@
 								<div class="w3-container">
 									<form action="<?php echo URL; ?>register/new?id=<?php echo $event->id; ?>" method="post">
 										<!-- TICKET TYPES / IF FREE state it, ELSE radio buttons -->
-
+										<h5>Attendance prices</h5>
+										<?php if($event->regular_price==0): ?>
+											<p>This event is free of charge.</p>
+										<?php else: ?>
+											<table class="w3-table">
+												<tr>
+													<th class="w3-center">Selection</th>
+													<th>Price</th>
+													<th>Additional info</th>
+												</tr>
+												<tr>
+													<td class="w3-center"><input class="w3-radio" type="radio" name="ticket" value="regular" checked></td>
+													<td><?php echo $event->regular_price; ?>€</td>
+													<td><?php echo nl2br($event->regular_text); ?></td>
+												</tr>
+												<?php if($event->sponsor_price!=-1): ?>
+												<tr>
+													<td class="w3-center"><input class="w3-radio" type="radio" name="ticket" value="sponsor"></td>
+													<td><?php echo $event->sponsor_price; ?>€</td>
+													<td><?php echo nl2br($event->sponsor_text); ?></td>
+												</tr>
+												<?php endif; ?>
+												<?php if($event->super_price!=-1): ?>
+												<tr>
+													<td class="w3-center"><input class="w3-radio" type="radio" name="ticket" value="super"></td>
+													<td><?php echo $event->super_price; ?>€</td>
+													<td><?php echo nl2br($event->super_text); ?></td>
+												</tr>
+												<?php endif; ?>
+											</table>
+										<?php endif; ?>
 										<!-- ACCOMODATION / IF NONE skip, ELSE dropdown -->
+										<h5>Accomodation</h5>
+										<?php
+											$rooms=$reg_model->getAccomodation($event->id);
+											$event_duration=(int)date_diff(date_create($event->event_start), date_create($event->event_end), true)->format('%d');
+										?>
+										<?php if(count($rooms)>0): ?>
+											<table class="w3-table">
+												<tr>
+													<th class="w3-center">Selection</th>
+													<th>Room type</th>
+													<th>Price</th>
+													<th>Persons/room <i class="far fa-info-circle" title="You are making a reservation for only 1 spot in a room. Room sharing is done at a later step."></i></th>
+													<th>Availability <i class="far fa-info-circle" title="This is the number of rooms of this type still available when you loaded the page."></i></th>
+												</tr>
+												<tr>
+													<td class="w3-center"><input class="w3-radio" type="radio" name="room" value="0"></td>
+													<td>None</td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+												<?php foreach($rooms as $room): ?>
+													<tr>
+														<td class="w3-center"><input class="w3-radio" type="radio" name="room" value="<?php echo $room->id; ?>"></td>
+														<td><?php echo $room->type; ?></td>
+														<td><?php echo $room->price; ?></td>
+														<td><?php echo $room->persons; ?></td>
+														<?php
+															$result=$room->quantity-$reg_model->getAvailable($event->id, $room->id)->quantity;
+															if($result<=0){
+																$result='No availability - waitlist.';
+															}
+														?>
+														<td><?php echo $result; ?></td>
+													</tr>
+												<?php endforeach; ?>
+											</table>
+										<?php else: ?>
+											<p class="w3-text-dark-gray">This event has no accomodation options. <?php if($event_duration>0){ echo 'Since this is a multi-day event, we recommend you check the description for accomodation recommendations, if there are any.'; } ?></p>
+										<?php endif; ?>
 										<div class="w3-center">
 											<p>
 											<button type="submit" name="new_registration" class="w3-button w3-green w3-round">Register</button>

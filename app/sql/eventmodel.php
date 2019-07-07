@@ -86,23 +86,29 @@ class EventModel{
 		$restricted_age=strip_tags($fields["restricted_age"]);
 		$restricted_text=strip_tags($fields["restricted_text"]);
 		$regular_price=0;
+		$regular_desc='';
 		$sponsor_price=-1;
+		$sponsor_desc='';
 		$super_price=-1;
+		$super_desc='';
 		//if price!=free, then update all prices
 		switch(strip_tags($fields["ticket"])){
 			case 'super':
 				$super_price=strip_tags($fields["super_price"]);
+				$super_desc=strip_tags($fields["super_desc"]);
 			case 'sponsor':
 				$sponsor_price=strip_tags($fields["sponsor_price"]);
+				$sponsor_desc=strip_tags($fields["sponsor_desc"]);
 			case 'regular':
 				$regular_price=strip_tags($fields["regular_price"]);
+				$regular_desc=strip_tags($fields["regular_desc"]);
 			default:
 				break;
 		}
 		//create event, get event ID for accomodation creation
-		$sql="INSERT INTO event(name, event_start, event_end, reg_start, pre_reg_start, reg_end, location, description, age, restricted_age, restricted_text, regular_price, sponsor_price, super_price) VALUES (:name, :event_start, :event_end, :reg_start, :pre_reg_start, :reg_end, :location, :description, :age, :restricted_age, :restricted_text, :regular_price, :sponsor_price, :super_price)";
+		$sql="INSERT INTO event(name, event_start, event_end, reg_start, pre_reg_start, reg_end, location, description, age, restricted_age, restricted_text, regular_price, regular_desc, sponsor_price, sponsor_desc, super_price, super_desc) VALUES (:name, :event_start, :event_end, :reg_start, :pre_reg_start, :reg_end, :location, :description, :age, :restricted_age, :restricted_text, :regular_price, :regular_desc, :sponsor_price, :sponsor_desc, :super_price, :super_desc)";
 		$query=$this->db->prepare($sql);
-		$query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price));
+		$query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, ':regular_desc'=>$regular_desc, ':sponsor_desc'=>$sponsor_desc, ':super_desc'=>$super_desc, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price));
 		$event_ID=$this->db->lastInsertId();
 		
 		//ACCOMODATION

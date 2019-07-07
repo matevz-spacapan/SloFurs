@@ -24,7 +24,7 @@
 		</div>
 	<?php endif; ?>
 	<!-- REGISTERED EVENTS -->
-	<?php if(count($rEvents) > 0): ?>
+	<?php if(count($rEvents)>0): ?>
 		<div class="w3-container">
 			<h3>Upcoming events you've registered for</h3>
 			<?php foreach($rEvents as $event): ?>
@@ -42,7 +42,7 @@
 	<div class="w3-container">
 		<h3>Upcoming events</h3>
 		<div class="w3-row">
-			<?php if(count($cEvents) > 0): ?>
+			<?php if(count($cEvents)>0): ?>
 				<?php foreach($cEvents as $event): ?>
 					<?php
 						if(new DateTime($event->reg_end)<=new DateTime()){

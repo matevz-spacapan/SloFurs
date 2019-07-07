@@ -57,6 +57,7 @@
 				<tr>
 					<th>Type</th>
 					<th>Cost</th>
+					<th>Additional description</th>
 				</tr>
 				<tr>
 					<td>
@@ -64,6 +65,7 @@
 						<label>Free</label>
 					</td>
 					<td>0</td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>
@@ -71,6 +73,7 @@
 						<label>Regular</label>
 					</td>
 					<td><input type="number" class="w3-input" id="regular" min="1" disabled></td>
+					<td><textarea class="w3-input" id="regular_desc" disabled></textarea></td>
 				</tr>
 				<tr>
 					<td>
@@ -78,6 +81,7 @@
 						<label>Sponsor</label>
 					</td>
 					<td><input type="number" class="w3-input" id="sponsor" min="1" disabled></td>
+					<td><textarea class="w3-input" id="sponsor_desc" disabled></textarea></td>
 				</tr>
 				<tr>
 					<td>
@@ -85,6 +89,7 @@
 						<label>Super-sponsor</label>
 					</td>
 					<td><input type="number" class="w3-input" id="super" min="1" disabled></td>
+					<td><textarea class="w3-input" id="super_desc" disabled></textarea></td>
 				</tr>
 			</table>
 
@@ -118,13 +123,17 @@ function side_close(){
 function price(type){
 	if($("#check"+type).is(":checked")){
 		$("#"+type).prop("disabled", false);
+		$("#"+type+"_desc").prop("disabled", false);
 		$("#"+type).prop("required", true);
 		$("#"+type).prop("name", type+"_price");
+		$("#"+type+"_desc").prop("name", type+"_desc");
 	}
 	else{
 		$("#"+type).prop("disabled", true);
+		$("#"+type+"_desc").prop("disabled", true);
 		$("#"+type).prop("required", false);
 		$("#"+type).removeAttr("name");
+		$("#"+type+"_desc").removeAttr("name");
 	}
 }
 function displayAge(){
