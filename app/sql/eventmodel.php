@@ -49,7 +49,7 @@ class EventModel{
 	**** type#, persons#, price#, quantity# (0 or more times)
 	*/
 	public function addEvent($fields){
-		if($account->status!=3){
+		if($account->status!=ADMIN){
 			//TODO report incident
 			return "dYou can't do that. This incident was reported.";
 		}

@@ -51,28 +51,26 @@
 						}
 						elseif(new DateTime($event->reg_start)<=new DateTime()){
 							$color='w3-blue';
-							$text='Registration open until<br>'.$reg_model->convertViewable($event->reg_end, true).' @ '.$reg_model->convertViewable($event->reg_end, false);
+							$text='Registration open until<br>'.$reg_model->convertViewable($event->reg_end, 2);
 						}
-						elseif($event->pre_reg_start!=0 && new DateTime($event->pre_reg_start)<=new DateTime() && $account->status>=2){
+						elseif($event->pre_reg_start!=0 && new DateTime($event->pre_reg_start)<=new DateTime() && $account->status>=PRE_REG){
 							$color='w3-light-blue';
-							$text='Pre-reg open until<br>'.$reg_model->convertViewable($event->reg_start, true).' @ '.$reg_model->convertViewable($event->reg_start, false);
+							$text='Pre-reg open until<br>'.$reg_model->convertViewable($event->reg_start, 2);
 						}
 						else{
 							$color='w3-light-gray';
-							$text=($account->status>=2)?
-								'Registrations closed until<br>'.$reg_model->convertViewable($event->pre_reg_start, true).' @ '.$reg_model->convertViewable($event->pre_reg_start, false):
-								$text='Registrations closed until<br>'.$reg_model->convertViewable($event->reg_start, true).' @ '.$reg_model->convertViewable($event->reg_start, false);
+							$text=($account->status>=PRE_REG)?
+								'Registrations closed until<br>'.$reg_model->convertViewable($event->pre_reg_start, 2):
+								'Registrations closed until<br>'.$reg_model->convertViewable($event->reg_start, 2);
 						}
 						if(!$complete_profile){
 							$color='w3-light-gray';
 							$text='Complete profile to register.';
 						}
 					?>
-					<?php if($color!='w3-light-gray'): ?>
-						<a href="<?php echo URL.'register/new?id='.$event->id; ?>">
-					<?php endif; ?>
-						<?php require 'app/sites/'.THEME.'/reg/evt.php'; ?>
-					<?php if($color!='w3-light-gray'){ echo "</a>"; } ?>
+					<a href="<?php echo URL.'register/new?id='.$event->id; ?>">
+					<?php require 'app/sites/'.THEME.'/reg/evt.php'; ?>
+					</a>
 				<?php endforeach; ?>
 			<?php else: ?>
 				<p>There are no upcoming events <i class="far fa-frown"></i></p>

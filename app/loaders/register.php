@@ -20,6 +20,7 @@ class Register extends Connection{
 	}
 	// Register for a new event
 	public function new(){
+		$new_reg=true;
 		$account=$this->getSessionAcc();
 		$reg_model=$this->loadSQL('RegModel');
 		if($account==null){
@@ -27,18 +28,30 @@ class Register extends Connection{
 			header('location: '.URL.'login');
 		}
 		$id=$_GET["id"]; //event ID
-		//check if not already regged for evt
+		//check if already regged for evt and evt exists
 		if(!$reg_model->registered($id, 'event_id')||!$reg_model->exists($id)){
 			header('location: '.URL.'register');
 		}
-		$event=$reg_model->newEvent($id);
-		require 'app/sites/global/header.php';
-		require 'app/sites/global/alerts.php';
-		require 'app/sites/'.THEME.'/reg/new.php';
-		require 'app/sites/global/footer.php';
+		//check if profile is complete
+		if(!$reg_model->checkProfile()){
+			$_SESSION['alert']="dComplete your personal information before registering.";
+			header('location: '.URL.'register');
+		}
+		//if submitting the registration form
+		if(isset($_POST['new_registration'])){
+			$_SESSION['alert']=$reg_model->doReg($_GET['id'],$_POST);
+			header('location: '.URL.'register');
+		}
+		else{
+			$event=$reg_model->newReg($id);
+			require 'app/sites/global/header.php';
+			require 'app/sites/'.THEME.'/reg/form.php';
+			require 'app/sites/global/footer.php';
+		}
 	}
 	// Edit an already registered event
 	public function edit(){
+		$new_reg=false;
 		$account=$this->getSessionAcc();
 		$reg_model=$this->loadSQL('RegModel');
 		if($account==null){
@@ -50,9 +63,17 @@ class Register extends Connection{
 		if($reg_model->registered($id, 'id')){
 			header('location: '.URL.'register');
 		}
-		require 'app/sites/global/header.php';
-		require 'app/sites/global/alerts.php';
-		require 'app/sites/'.THEME.'/reg/new.php'; //or /edit?
-		require 'app/sites/global/footer.php';
+		//if submitting the registration form
+		if(isset($_POST['edit_registration'])){
+			$_SESSION['alert']=$reg_model->editReg($_GET['id'],$_POST);
+			header('location: '.URL.'register/edit?id='.$id);
+		}
+		else{
+			$event=$reg_model->existingReg($id);
+			require 'app/sites/global/header.php';
+			require 'app/sites/global/alerts.php';
+			require 'app/sites/'.THEME.'/reg/form.php'; //or /edit?
+			require 'app/sites/global/footer.php';
+		}
 	}
 }

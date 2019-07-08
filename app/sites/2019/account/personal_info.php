@@ -37,6 +37,8 @@
 	<label>Other</label>
 	<input class="w3-radio" type="radio" name="gender" value="silent" id="silent">
 	<label>Prefer not to say</label><p>
-
-	<button type="submit" class="w3-button w3-round w3-green">Save</button>
+		
+	<div class="w3-center">
+		<button type="submit" class="w3-button w3-round w3-green">Save</button>
+	</div>
 </form>

@@ -19,7 +19,7 @@ class Admin extends Connection{
 		if($account==null){
 			header('location: '.URL.'login');
 		}
-		elseif($account->status==3){
+		elseif($account->status==ADMIN){
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/adminsidebar.php';
 			require 'app/sites/global/alerts.php';
