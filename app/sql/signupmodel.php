@@ -27,7 +27,7 @@ class SignUpModel{
 					$sql="INSERT INTO account(username, email, password, created, activate) VALUES (:username, :email, :password, :created, :activate)";
 					$query=$this->db->prepare($sql);
 					$query->execute(array(':username'=>$username, ':email'=>$email, ':password'=>$password, ':created'=>$created, ':activate'=>$activate_token));
-					//TODO add email sending to confirm account
+					require 'app/emails/confirm_email.php';
 					return 'iTo confirm your account please check your e-mail.';
 				}
 				else{

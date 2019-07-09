@@ -1,6 +1,6 @@
 <div class="w3-main" style="margin-left:200px">
 <div class="w3-orange">
-	<button class="w3-button w3-orange w3-xlarge w3-hide-large" onclick="side_open()">&#9776;</button>
+	<button class="w3-button w3-orange w3-xlarge w3-hide-large" onclick="$('#accSidebar').show();">&#9776;</button>
 	<div class="w3-container">
 		<h1>New event</h1>
 	</div>
@@ -34,7 +34,10 @@
 			<input type="datetime-local" class="w3-input" name="pre_reg">
 
 			<label>End</label> <i class="w3-opacity w3-small">when attendees can't register anymore. If left blank, then they can register until the event starts</i>
-			<input type="datetime-local" class="w3-input" name="reg_end">
+			<input type="datetime-local" class="w3-input" name="reg_end"><br>
+
+			<input class="w3-check" type="checkbox" name="autoconfirm" value="1">
+			<label>Auto-confirm registrations <i class="w3-opacity w3-small">if checked, then all registrations for the event will be confirmed without staff's input</i></label><br>
 
 			<h3>Age restrictions</h3>
 
@@ -106,7 +109,7 @@
 				</tr>
 			</table><br>
 			<div class="w3-center">
-				<button type="submit" id="submitBtn" class="w3-button w3-green w3-round" disabled>Create event</button>
+				<button type="submit" id="submitBtn" name="new_event" class="w3-button w3-green w3-round" disabled>Create event</button>
 			</div>
 		</form>
 	</div>
@@ -114,12 +117,6 @@
 </div>
 
 <script>
-function side_open(){
-	$("#accSidebar").show();
-}
-function side_close(){
-	$("#accSidebar").hide();
-}
 function price(type){
 	if($("#check"+type).is(":checked")){
 		$("#"+type).prop("disabled", false);
@@ -163,17 +160,14 @@ function removeRow(id){
 	$("#"+id).remove();
 	validate();
 }
-function onLoad(){
-	$("#newevent").addClass("w3-orange");
-	$("#event").addClass("w3-sand");
-}
-onLoad();
+$("#newevent").addClass("w3-orange");
+$("#event").addClass("w3-sand");
 
-$(document).ready(function() {
-  validate();
-  $(document).on("keyup", "input", validate);
-  $("input[type=checkbox][name='ticket']").on("change", validate);
-  $("input[type=datetime-local]").on("change", validate);
+$(document).ready(function(){
+	validate();
+	$(document).on("keyup", "input", validate);
+	$("input[type=checkbox][name='ticket']").on("change", validate);
+	$("input[type=datetime-local]").on("change", validate);
 });
 function validate(){
 	var dateOK=true;

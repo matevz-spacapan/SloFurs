@@ -30,9 +30,9 @@ class RegModel{
 	}
 	// Get all past events
 	public function getPEvents(){
-		$sql='SELECT * FROM event WHERE event_end<NOW() ORDER BY event_end ASC';
+		$sql='SELECT * FROM event INNER JOIN registration ON event.id=registration.event_id WHERE event_end<NOW() AND acc_id=:id ORDER BY event_end ASC';
 		$query=$this->db->prepare($sql);
-		$query->execute();
+		$query->execute(array(':id'=>$_SESSION['account']));
 		return $query->fetchAll();
 	}
 

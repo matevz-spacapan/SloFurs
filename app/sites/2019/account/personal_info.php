@@ -1,4 +1,11 @@
-<form action="<?php echo URL; ?>account/update/3<?php if($register){echo '/1';} ?>" method="post">
+<form action="<?php
+	echo URL;
+	if(!$register){
+		echo 'account/contact';
+	}
+	else{
+		echo 'register';
+	} ?>" method="post">
 	<label>First name</label>
 	<input class="w3-input" type="text" name="fname" value="<?php echo $account->fname; ?>" required>
 
@@ -37,8 +44,28 @@
 	<label>Other</label>
 	<input class="w3-radio" type="radio" name="gender" value="silent" id="silent">
 	<label>Prefer not to say</label><p>
-		
+
 	<div class="w3-center">
-		<button type="submit" class="w3-button w3-round w3-green">Save</button>
+		<button type="submit" name="update_personal_info" class="w3-button w3-round w3-green">Save</button>
+		<?php	if(!$register): ?>
+			<button type="button" class="w3-button w3-round w3-border w3-border-red" id="del1" onclick="delData()">Delete all</button>
+			<button type="submit" name="delete_personal_info" id="delconf" class="w3-button w3-red w3-round" style="display: none;">Are you sure?</button>
+			<script>
+			function delData(){
+				$("#del1").addClass("scale-out-center");
+				setTimeout(function(){
+					contDel();
+				}, 500);
+			}
+			function contDel(){
+				$("#del1").hide();
+				$("#delconf").css("display", "inline-block");
+				$("#delconf").addClass("scale-in-center");
+				setTimeout(function(){
+					$("#delconf").removeClass("scale-in-center");
+				}, 500);
+			}
+			</script>
+		<?php endif; ?>
 	</div>
 </form>

@@ -1,6 +1,6 @@
 <div class="w3-main" style="margin-left:200px">
 <div class="w3-blue">
-	<button class="w3-button w3-blue w3-xlarge w3-hide-large" onclick="side_open()">&#9776;</button>
+	<button class="w3-button w3-blue w3-xlarge w3-hide-large" onclick="$('#accSidebar').show();">&#9776;</button>
 	<div class="w3-container">
 		<h1>Fursuit corner</h1>
 	</div>
@@ -15,7 +15,7 @@
 	</div>
 	
 	<!-- NEW FURSUIT -->
-	<button class="w3-button w3-border-blue w3-border w3-round" onclick="editFursuit(0)">Add new</button>
+	<button class="w3-button w3-border-blue w3-border w3-round" onclick="$('#fursuit0').show()">Add new</button>
 	<div id="fursuit0" class="w3-modal">
 		<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
 			<header class="w3-container w3-blue w3-center roundHeaderTop"> 
@@ -24,7 +24,7 @@
 				<h2>Add a new fursuit</h2>
 			</header>
 			<div class="w3-container">
-				<form action="<?php echo URL; ?>account/update/5" method="post" enctype="multipart/form-data">
+				<form action="<?php echo URL; ?>account/fursuit" method="post" enctype="multipart/form-data">
 					<label>Fursuit name</label>
 					<input type="text" class="w3-input" name="suitname" required>
 					<label>Animal</label>
@@ -42,7 +42,7 @@
 					</div>
 					<div class="w3-center">
 						<p>
-						<button type="submit" id="submit0" class="w3-button w3-green w3-round" disabled>Save changes</button>
+						<button type="submit" id="submit0" name="new_fursuit" class="w3-button w3-green w3-round" disabled>Save changes</button>
 					</div>
 				</form>
 			</div>
@@ -55,7 +55,7 @@
 		<?php if(count($fursuits) > 0): ?>
 			<?php foreach($fursuits as $fursuit): ?>
 				<!-- On the list -->
-				<div class="card" onclick="editFursuit('<?php echo $fursuit->id; ?>')">
+				<div class="card" onclick="$('#fursuit<?php echo $fursuit->id; ?>').show()">
 					<?php if(file_exists('public/fursuits/'.$fursuit->img.'.png')): ?>
 						<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="roundImg">
 					<?php else: ?>
@@ -72,7 +72,7 @@
 							<h2><?php echo $fursuit->name; ?></h2>
 						</header>
 						<div class="w3-container">
-							<form action="<?php echo URL; ?>account/update/6/<?php echo $fursuit->id; ?>" method="post" enctype="multipart/form-data">
+							<form action="<?php echo URL; ?>account/fursuit/?id=<?php echo $fursuit->id; ?>" method="post" enctype="multipart/form-data">
 								<label>Fursuit name</label>
 								<input type="text" class="w3-input" name="suitname" value="<?php echo $fursuit->name; ?>" required>
 								<label>Animal</label>
@@ -108,15 +108,6 @@
 </div>
 
 <script>
-function side_open(){
-	$("#accSidebar").show();
-}
-function side_close(){
-	$("#accSidebar").hide();
-}
-function editFursuit(id){
-	$("#fursuit"+id).show();
-}
 function delFursuit(id){
 	$("#del"+id).addClass("scale-out-center");
 	setTimeout(function(){
@@ -139,8 +130,5 @@ function pfp(id){
 		document.getElementById("submit0").disabled=false;
 	}
 }
-function onLoad(){
-	$("#fursuit").addClass("w3-blue");
-}
-onLoad();
+$("#fursuit").addClass("w3-blue");
 </script>

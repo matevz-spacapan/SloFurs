@@ -1,11 +1,8 @@
 <div class="w3-container" style="margin-top:20px">
 	<div class="w3-container">
-		Try one of the buttons below :)<br/>
-		<a href="login">
+		I hope you didn't come here hoping to see a fully finished or working site... ;-)<br/>
+		<a href="<?php echo URL;?>login">
 			<button class="w3-button w3-round w3-border w3-border-blue">Log In</button>
 		</a><br/>
-		<a href="signup">
-			<button class="w3-button w3-round w3-border w3-border-blue">Register</button>
-		</a>
 	</div>
 </div>

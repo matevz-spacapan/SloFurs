@@ -11,7 +11,7 @@
 			<button type="submit" name="log_in_acc" class="w3-button w3-round w3-border w3-border-blue">Log In</button>
 			<div class="w3-container">
 				Don't have an account?
-				<a href="signup">Sign Up</a>
+				<a href="<?php echo URL;?>signup">Sign Up</a>
 			</div>
 		</form>
 	</div>

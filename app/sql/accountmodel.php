@@ -23,6 +23,7 @@ class AccountModel{
 				$sql='UPDATE account SET newemail=:email, activate=:activate WHERE id=:id';
 				$query=$this->db->prepare($sql);
 				$query->execute(array(':email'=>$email, ':activate'=>$activate_token, ':id'=>$_SESSION['account']));
+				require 'app/emails/confirm_email.php';
 				return 'iTo confirm your new email, please check your inbox.';
 			}
 			else{
@@ -88,6 +89,29 @@ class AccountModel{
 		else{
 			return 'dPlease fill all the non-optional input fields.';
 		}
+	}
+	// Delete profile info, if possible
+	public function deleteProfile(){
+		//if no upcoming Evt
+		$sql='SELECT registration.id AS id, name, event_start, event_end, reg_end, confirmed, fursuiter, artist FROM event INNER JOIN registration ON event.id=registration.event_id WHERE ((event_start<=NOW() AND event_end>=NOW()) OR event_start>NOW()) AND acc_id=:acc_id ORDER BY event_start ASC';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':acc_id'=>$_SESSION['account']));
+		$upcoming=$query->fetchAll();
+		if(count($upcoming)!=0){
+			return "dYou can't do that - you have registered for upcoming events.";
+		}
+		//if past Evt>5 days ago
+		$sql='SELECT * FROM event INNER JOIN registration ON event.id=registration.event_id WHERE event_end<NOW()-INTERVAL 5 DAY AND acc_id=:id ORDER BY event_end ASC';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$_SESSION['account']));
+		$past=$query->fetchAll();
+		if(count($past)!=0){
+			return "dYou can't do that - the last registered event is less than 5 days ago.";
+		}
+		$sql='UPDATE account SET fname=NULL, lname=NULL, address=NULL, address2=NULL, post=NULL, city=NULL, country=NULL, phone=NULL, dob=NULL, gender=NULL WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$_SESSION['account']));
+		return 'sAccount information deleted.';
 	}
 	// Change password
 	public function changePw($oldPw, $newPw){

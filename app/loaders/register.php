@@ -3,6 +3,7 @@ class Register extends Connection{
 	public function index(){
 		$account=$this->getSessionAcc();
 		$reg_model=$this->loadSQL('RegModel');
+		$account_model=$this->loadSQL('AccountModel');
 		if($account==null){
 			$_SESSION['alert']="iYou need to be logged in to register for events.";
 			header('location: '.URL.'login');
@@ -13,10 +14,16 @@ class Register extends Connection{
 		$rEvents=$reg_model->getREvents(); //registered
 		$cEvents=$reg_model->getCEvents(); //upcoming
 		$pEvents=$reg_model->getPEvents(); //past
-		require 'app/sites/global/header.php';
-		require 'app/sites/global/alerts.php';
-		require 'app/sites/'.THEME.'/reg/view.php';
-		require 'app/sites/global/footer.php';
+		if(isset($_POST['update_personal_info'])){
+			$_SESSION['alert']=$account_model->updateProfile($_POST['fname'], $_POST['lname'], $_POST['address'], $_POST['address2'], $_POST['city'], $_POST['postcode'], $_POST['country'], $_POST['phone'], $_POST['dob'], $_POST['gender']);
+			header('location: '.URL.'register');
+		}
+		else{
+			require 'app/sites/global/header.php';
+			require 'app/sites/global/alerts.php';
+			require 'app/sites/'.THEME.'/reg/view.php';
+			require 'app/sites/global/footer.php';
+		}
 	}
 	// Register for a new event
 	public function new(){

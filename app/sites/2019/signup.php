@@ -12,10 +12,12 @@
 			<input class="w3-input" id="pwd" type="password" name="password" placeholder="Create a password" pattern="^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).*$" title="At least 8 characters, number and special character" required onkeyup="verifyPassword()">
 			<label>Password</label> <i class="w3-opacity w3-small">(confirm)</i> <i id="correct" class="far fa-times"></i>
 			<input class="w3-input" id="pwdC" type="password" placeholder="Confirm your password" required onkeyup="verifyPassword()">
+			<input class="w3-check" type="checkbox" required>
+			<label>I accept the <a href="<?php echo URL ?>privacy?lang=en" target="_blank">privacy policy</a>.</label><br>
 			<button type="submit" id="btn" name="sign_up_acc" class="w3-button w3-round w3-border w3-border-blue" disabled="true">Register</button>
 			<div class="w3-container">
 				Already have an account?
-				<a href="login">Log in</a>
+				<a href="<?php echo URL;?>login">Log in</a>
 			</div>
 		</form>
 	</div>

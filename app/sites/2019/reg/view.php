@@ -11,8 +11,8 @@
 			Before you can register for any event you'll have to complete your profile with personal information. We need this information for administrative and security reasons.<br> <button class="w3-button w3-border w3-round w3-border-red" onclick="$('#personal').show()">Add personal information</button><br> Alternatively you can view all your account details <a href="<?php echo URL; ?>account/contact">on the account pages</a>.
 			<div id="personal" class="w3-modal">
 				<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
-					<header class="w3-container w3-blue w3-center roundHeaderTop"> 
-						<span onclick="$('#personal').hide()" 
+					<header class="w3-container w3-blue w3-center roundHeaderTop">
+						<span onclick="$('#personal').hide()"
 						class="w3-button w3-display-topright roundXTop">&times;</span>
 						<h2>Contact information</h2> <i class="w3-opacity w3-small">This information is kept private and validated at the event by staff. It will also show up on your invoice.</i><br/><br/>
 					</header>
@@ -77,4 +77,20 @@
 			<?php endif; ?>
 		</div>
 	</div>
+
+	<!-- PAST EVENTS -->
+	<?php if(count($pEvents)>0): ?>
+		<div class="w3-container">
+			<h3>Past events you've registered for</h3>
+			<?php foreach($pEvents as $event): ?>
+				<a href="<?php echo URL.'register/edit?id='.$event->id; ?>">
+					<?php
+						$color='w3-gray';
+						$text='Event ended.';
+						require 'app/sites/'.THEME.'/reg/evt.php';
+					?>
+				</a>
+			<?php endforeach; ?>
+		</div>
+	<?php endif; ?>
 </div>

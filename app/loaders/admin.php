@@ -2,10 +2,10 @@
 class Admin extends Connection{
 	public function index(){
 		$account=$this->getSessionAcc();
-		if($account!=null&&$account->status>1){
+		if($account!=null&&$account->status>ATTENDEE){
 			header('location: '.URL.'admin/event');
 		}
-		elseif($account->status==1){
+		elseif($account->status==ATTENDEE){
 			$_SESSION['alert']="dYou don't have premissions to view that.";
 			header('location: '.URL.'account');
 		}
@@ -14,7 +14,7 @@ class Admin extends Connection{
 		}
 	}
 	// Event managing page
-	public function event($new=null){
+	public function event($action=null){
 		$account=$this->getSessionAcc();
 		if($account==null){
 			header('location: '.URL.'login');
@@ -23,7 +23,7 @@ class Admin extends Connection{
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/adminsidebar.php';
 			require 'app/sites/global/alerts.php';
-			if($new!=null){
+			if($action=='new'){
 				require 'app/sites/'.THEME.'/admin/newevent.php';
 			}
 			else{

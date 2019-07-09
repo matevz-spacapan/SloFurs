@@ -53,19 +53,6 @@ class EventModel{
 			//TODO report incident
 			return "dYou can't do that. This incident was reported.";
 		}
-		//write keys and values for debugging to file
-		$myfile=fopen("fields.txt", "w");
-		foreach($fields as $key=>$value){
-			$txt=$key.": ".$value."\n";
-			fwrite($myfile, $txt);
-		}
-		if(empty(preg_grep('/(type\d)+/m', array_keys($fields)))){
-			fwrite($myfile, 'No rooms available.');
-		}
-		else{
-			fwrite($myfile, implode(", ", preg_grep('/(type\d)+/m', array_keys($fields))));
-		}
-		fclose($myfile);
 
 		//EVENT
 		$name=strip_tags($fields["name"]);
@@ -82,6 +69,7 @@ class EventModel{
 		if($reg_end=='0000-00-00 00:00'){
 			$reg_end=$start;
 		}
+		$autoconfirm=(array_key_exists('autoconfirm', $data))?strip_tags($data['autoconfirm']):0;
 		$age=strip_tags($fields["age"]);
 		$restricted_age=strip_tags($fields["restricted_age"]);
 		$restricted_text=strip_tags($fields["restricted_text"]);
@@ -106,9 +94,9 @@ class EventModel{
 				break;
 		}
 		//create event, get event ID for accomodation creation
-		$sql="INSERT INTO event(name, event_start, event_end, reg_start, pre_reg_start, reg_end, location, description, age, restricted_age, restricted_text, regular_price, regular_desc, sponsor_price, sponsor_desc, super_price, super_desc) VALUES (:name, :event_start, :event_end, :reg_start, :pre_reg_start, :reg_end, :location, :description, :age, :restricted_age, :restricted_text, :regular_price, :regular_desc, :sponsor_price, :sponsor_desc, :super_price, :super_desc)";
+		$sql="INSERT INTO event(name, event_start, event_end, reg_start, pre_reg_start, reg_end, location, description, age, restricted_age, restricted_text, regular_price, regular_desc, sponsor_price, sponsor_desc, super_price, super_desc, autoconfirm) VALUES (:name, :event_start, :event_end, :reg_start, :pre_reg_start, :reg_end, :location, :description, :age, :restricted_age, :restricted_text, :regular_price, :regular_desc, :sponsor_price, :sponsor_desc, :super_price, :super_desc, :autoconfirm)";
 		$query=$this->db->prepare($sql);
-		$query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, ':regular_desc'=>$regular_desc, ':sponsor_desc'=>$sponsor_desc, ':super_desc'=>$super_desc, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price));
+		$query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, ':regular_desc'=>$regular_desc, ':sponsor_desc'=>$sponsor_desc, ':super_desc'=>$super_desc, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm));
 		$event_ID=$this->db->lastInsertId();
 		
 		//ACCOMODATION

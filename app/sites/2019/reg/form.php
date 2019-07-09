@@ -4,7 +4,7 @@
 		<?php if($new_reg): ?>
 			<h1>New registration: <?php echo $event->name; ?></h1>
 		<?php else: ?>
-			<h1>Edit registration: <?php echo $event->name; ?></h1>
+			<h1><?php echo $event->name; ?></h1>
 		<?php endif; ?>
 	</div>
 </div>
@@ -26,7 +26,7 @@
 					$now=new DateTime();
 						if(new DateTime($event->reg_end)<=$now){
 							$color='w3-dark-gray';
-							$text='Registration were available between<br>'.$reg_model->convertViewable($event->reg_start, 2).' and<br>'.$reg_model->convertViewable($event->reg_end, 2).'.';
+							$text='Registration was available between<br>'.$reg_model->convertViewable($event->reg_start, 2).' and<br>'.$reg_model->convertViewable($event->reg_end, 2).'.';
 						}
 						elseif(new DateTime($event->reg_start)<=$now){
 							$color='w3-green';
@@ -55,7 +55,7 @@
 						<p class="w3-text-dark-gray">There are no age restrictions for this event.</p>
 
 					<?php elseif($age>=$event->age): ?>
-						<p class="w3-text-dark-gray">You are old enough to attend this event. The minimum age is <?php echo $event->age; ?>.<br>There can also be attendees aged <?php echo $event->restricted_age; ?> to <?php echo $event->age; ?> with some restrictions applying to them.</p>
+						<p class="w3-text-dark-gray">You are old enough to attend this event. The minimum age is <?php echo $event->age; ?></p>
 
 					<?php elseif($age<$event->age && $age>=$event->restricted_age): ?>
 						<p class="w3-text-orange">You are old enough to attend this event, but with restrictions.<br>The restrictions are:<br> <?php echo $event->restricted_text; ?></p>
@@ -67,11 +67,13 @@
 					<!-- FORM BUTTON -->
 					<?php if($new_reg): ?>
 						<button class="w3-button w3-block w3-round <?php echo $color; ?>" <?php if($color!='w3-green'||$age<$event->restricted_age){echo 'disabled';} else{echo 'onclick="$(\'#register\').show()"';} ?>>Register for event!</button>
+					<?php elseif($color=='w3-dark-gray'): ?>
+						<button class="w3-button w3-block w3-round w3-border w3-border-blue" onclick="$('#register').show()";>View registration data</button>
 					<?php else: ?>
 						<button class="w3-button w3-block w3-round w3-blue" onclick="$('#register').show()";>Edit registration</button>
 					<?php endif; ?>
 
-					<?php if($age>=$event->restricted_age): ?>
+					<?php if($age>=$event->restricted_age && ($color=='w3-green' || new DateTime($event->reg_end)<=$now)): ?>
 						<div id="register" class="w3-modal">
 							<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
 								<?php
@@ -84,8 +86,8 @@
 										$c='w3-blue';
 									}
 								?>
-								<header class="w3-container <?php echo $c; ?> w3-center roundHeaderTop"> 
-									<span onclick="$('#register').hide()" 
+								<header class="w3-container <?php echo $c; ?> w3-center roundHeaderTop">
+									<span onclick="$('#register').hide()"
 									class="w3-button w3-display-topright roundXTop">&times;</span>
 									<h2>Registration form</h2>
 								</header>
@@ -179,7 +181,7 @@
 											<p>
 											<?php if($new_reg): ?>
 												<button type="submit" name="new_registration" class="w3-button w3-green w3-round">Register!</button>
-											<?php else: ?>
+											<?php elseif($color=='w3-green'): ?>
 												<button type="submit" name="edit_registration" class="w3-button w3-green w3-round">Save changes</button>
 											<?php endif; ?>
 										</div>
@@ -191,7 +193,7 @@
 				</div>
 			</div>
 	</div>
-	
+
 </div>
 
 <script>

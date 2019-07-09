@@ -1,7 +1,9 @@
 <div class="w3-bar w3-large">
 	<a href="<?php echo URL ?>" class="w3-bar-item w3-button">Home</a>
-	<a href="<?php echo URL ?>register" class="w3-bar-item w3-button">Event registration</a>
-	<a href="https://slofurs.org/" class="w3-bar-item w3-button">Blog</a>
+	<?php if($account!=null): ?>
+		<a href="<?php echo URL ?>register" class="w3-bar-item w3-button w3-hide-small">Event registration</a>
+	<?php endif; ?>
+	<a href="https://slofurs.org/" class="w3-bar-item w3-button w3-hide-small">Blog</a>
 
 	<?php if($account!=null): ?>
 		<!-- Logged into account -->
@@ -31,7 +33,9 @@
 
 <!-- Small screen navbar -->
 <div id="navSmall" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+	<a href="https://slofurs.org/" class="w3-bar-item w3-button w3-padding-large">Blog</a>
 	<?php if($account!=null): ?>
+		<a href="<?php echo URL ?>register" class="w3-bar-item w3-button w3-padding-large">Event registration</a>
 		<a href="<?php echo URL; ?>account" class="w3-bar-item w3-button w3-padding-large">My account</a>
 		<a href="<?php echo URL; ?>login/logout" class="w3-bar-item w3-button w3-padding-large">Log out</a>
 	<?php else: ?>
@@ -42,10 +46,12 @@
 <script>
 	function openNav(){
 		if($("#navSmall").hasClass("w3-show")){
-			$("#navSmall").addClass("w3-show");
-		}
-		else{ 
+			$("#navSmall").addClass("w3-hide");
 			$("#navSmall").removeClass("w3-show");
+		}
+		else{
+			$("#navSmall").addClass("w3-show");
+			$("#navSmall").removeClass("w3-hide");
 		}
 	}
 </script>
