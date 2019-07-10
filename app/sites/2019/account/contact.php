@@ -22,6 +22,7 @@
 
 	<!-- Profile picture -->
 	<h3>Profile photo</h3>
+	<p>When uploading a profile photo, please make sure it's square shaped.</p>
 	<form action="<?php echo URL; ?>account/contact" method="post" enctype="multipart/form-data" id="updatePFP">
 		<div class="w3-display-container" style="max-height:200px;max-width:200px">
 			<?php if(file_exists('public/accounts/'.$account->pfp.'.png')): ?>

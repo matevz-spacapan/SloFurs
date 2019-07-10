@@ -29,6 +29,16 @@
 			If you wish to use all site features you'll neeed to create an account.<br/>
 			Once registered you'll be able to add a bit more information about you, choose a profile picture, register for events and more.
 		</div>
+		<div class="w3-container">
+			<b class="w3-left-align">Your password needs to be at least 8 characters long and meet all of the following:
+				<ul>
+					<li>contain at least 1 letter</li>
+					<li>contain at least 1 number</li>
+					<li>contain at least 1 special character (eg. _ ! / etc.)</li>
+				</ul>
+			</b>
+			<p>If the button to submit the form is disabled, it's for this reason.</p>
+		</div>
 	</div>
 </div>
 <script>

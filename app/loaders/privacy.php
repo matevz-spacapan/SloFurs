@@ -6,7 +6,7 @@ class Privacy extends Connection{
 		require 'app/sites/global/alerts.php';
 		if(isset($_GET['lang'])){
 			if($_GET['lang']=='si'){
-				require 'app/sites/global/politika_zasebnosti.html';
+				require 'app/sites/global/politika_o_zasebnosti.html';
 			}
 			else{
 				require 'app/sites/global/privacy_policy.html';

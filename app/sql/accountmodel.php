@@ -49,7 +49,12 @@ class AccountModel{
 				break;
 			}
 		}
-		if(getimagesize($img_file['tmp_name'])!==false){
+		$img_param=getimagesize($img_file['tmp_name']);
+		if($img_param!==false){
+			list($width, $height)=$img_param;
+			if($width!=$height){
+				return 'The image is not square shaped.';
+			}
 			$target_file=$target_dir.$file_name.'.png';
 			if(imagepng(imagecreatefromstring(file_get_contents($img_file['tmp_name'])), $target_file)){
 				if($account->pfp!=null){
