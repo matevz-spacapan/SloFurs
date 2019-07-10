@@ -40,9 +40,16 @@ class Application{
 		}
 		//no site requested, open home page
 		else{
-			require './app/loaders/home.php';
-			$home=new Home();
-			$home->index();
+			if($this->site==null){
+				require './app/loaders/home.php';
+				$home=new Home();
+				$home->index();
+			}
+			else{
+				require './app/sites/404.php';
+				$ouch=new Ouch();
+				$ouch->index();
+			}
 		}
 	}
 	private function splitUrl(){

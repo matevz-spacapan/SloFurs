@@ -13,7 +13,7 @@
 			<label>Password</label> <i class="w3-opacity w3-small">(confirm)</i> <i id="correct" class="far fa-times"></i>
 			<input class="w3-input" id="pwdC" type="password" placeholder="Confirm your password" required onkeyup="verifyPassword()">
 			<input class="w3-check" type="checkbox" required>
-			<label>I accept the <a href="<?php echo URL ?>privacy?lang=en" target="_blank">privacy policy</a>.</label><br>
+			<label>I accept the <a href="<?php echo URL ?>privacy?lang=en" target="_blank">privacy policy <i class="far fa-external-link"></i></a>.</label><br>
 			<button type="submit" id="btn" name="sign_up_acc" class="w3-button w3-round w3-border w3-border-blue" disabled="true">Register</button>
 			<div class="w3-container">
 				Already have an account?

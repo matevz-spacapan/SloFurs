@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html>
-<?php require 'app/sites/global/header.php'; ?>
-<div class="w3-container" style="margin-top:20px">
-  <div class="w3-container">
-    <img src="<?php echo URL; ?>public/img/this-is-fine.jpg" alt="Oops, 404."><br>
-    <p>Whoops, it seems you went into a dark corner. Nothing nice to see here, sadly.</p>
-  </div>
-</div>
-<?php require 'app/sites/global/footer.php'; ?>
-</html>
+<?php
+  class Ouch extends Connection{
+    public function index(){
+  		$account=$this->getSessionAcc();
+      require 'app/sites/global/header.php';
+      echo '
+      <div class="w3-container w3-center" style="margin-top:20px">
+        <h1>404</h1>
+        <p>Whoops, it seems you went into a dark corner. Nothing nice to see here, sadly.</p>
+        <img src="';
+        echo URL.'public/img/this-is-fine.jpg" alt="Oops, 404." style="max-width: 500px;"><br>
+      </div>';
+      require 'app/sites/global/footer.php';
+    }
+  }
+?>
