@@ -43,6 +43,7 @@ class Account extends Connection{
 	// Password page
 	public function password(){
 		$account=$this->getSessionAcc();
+		$account_model=$this->loadSQL('AccountModel');
 		if($account==null){
 			header('location: '.URL.'login');
 		}

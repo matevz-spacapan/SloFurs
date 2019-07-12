@@ -21,6 +21,9 @@ class LogInModel{
 			if($account){
 				if(password_verify($password, $account->password)){
 					if($account->activate==""||($account->newemail!=null&&$account->activate!=null)){
+						$sql='UPDATE account SET password_reset=NULL WHERE email=:email';
+						$query=$this->db->prepare($sql);
+						$query->execute(array(':email'=>$email));
 						$_SESSION['account']=$account->id;
 					}
 					else{
@@ -85,5 +88,46 @@ class LogInModel{
 	public function logout(){
 		session_destroy();
 		session_unset();
+	}
+	public function passwordReset1($email){
+		$email=strip_tags($email);
+		$sql='SELECT username FROM account WHERE email=:email';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':email'=>$email));
+		$account=$query->fetch();
+		$username=$account->username;
+		if($username==null){
+			return "iAccount with that email doesn't exist.";
+		}
+		$token=bin2hex(random_bytes(32));
+		$sql='UPDATE account SET password_reset=:password_reset WHERE email=:email';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':email'=>$email, ':password_reset'=>$token));
+		require 'app/emails/password_reset.php';
+		return 'sCheck your email to reset your password.';
+	}
+	public function passwordReset2($email, $token){
+		$email=strip_tags($email);
+		$token=strip_tags($token);
+		$sql='SELECT * FROM account WHERE email=:email AND password_reset=:token';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':email'=>$email, ':token'=>$token));
+		$account=$query->fetchAll();
+		if(count($account)==0){
+			return false;
+		}
+		$sql='UPDATE account SET password_reset=NULL WHERE email=:email';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':email'=>$email));
+		return true;
+	}
+	public function passwordReset3($password){
+		$password=password_hash(strip_tags($password), PASSWORD_DEFAULT);
+		$email=$_SESSION['reset_email'];
+		$_SESSION['reset_email']=null;
+		$sql='UPDATE account SET password=:pwd WHERE email=:email';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':email'=>$email, ':pwd'=>$password));
+		return 'sYour password was successfully changed.';
 	}
 }
