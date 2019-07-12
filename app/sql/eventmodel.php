@@ -23,13 +23,58 @@ class EventModel{
 		$query->execute();
 		return $query->fetchAll();
 	}
+	//Get info from event ID...
+	public function getEvent($id){
+		$id=(int)strip_tags($id);
+		$sql='SELECT * FROM event WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetch();
+	}
+	//Get rooms for event ID...
+	public function getRooms($id){
+		$id=(int)strip_tags($id);
+		$sql='SELECT etr.id AS id, quantity, type, persons, price FROM event_to_room AS etr INNER JOIN room ON etr.room_id=room.id WHERE event_id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetchAll();
+	}
+	//Get registered accounts for event ID...
+	public function getRegistered($id){
+		$id=(int)strip_tags($id);
+		$sql='SELECT registration.id as id, ticket, confirmed, fursuiter, artist, username, type FROM registration INNER JOIN account ON registration.acc_id=account.id LEFT JOIN room ON registration.room_id=room.id WHERE event_id=:id ORDER BY registration.created ASC';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetchAll();
+	}
+	//Get fursuits that have in_use=1 and on this event ID...
+	public function getFursuits($id){
+		$id=(int)strip_tags($id);
+		$sql='SELECT username, name, animal, img FROM fursuit INNER JOIN account ON fursuit.acc_id=account.id INNER JOIN registration ON registration.acc_id=account.id WHERE event_id=:id AND in_use=1';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetchAll();
+	}
 	// Convert MySQL datetime to HTML datetime
 	public function convert($date){
 		return date_format(new DateTime($date),"Y-m-d\TH:i");
 	}
-	//how=true: just date; how=false: just hours
+	//how=true or 1: just date; how=false or 0: just hours; how=2: both
 	public function convertViewable($date, $how){
-		return ($how)?date_format(new DateTime($date),"d.m.Y"):date_format(new DateTime($date),"H:i");
+		if(gettype($how)=='boolean'){
+			return ($how)?date_format(new DateTime($date),"d.m.Y"):date_format(new DateTime($date),"H:i");
+		}
+		else{
+			if($how==0){
+				return date_format(new DateTime($date),"H:i");
+			}
+			elseif($how==1){
+				return date_format(new DateTime($date),"d.m.Y");
+			}
+			else{
+				return date_format(new DateTime($date),"d.m.Y H:i");
+			}
+		}
 	}
 	// Add new event
 	/* Fields in following order:
@@ -49,6 +94,10 @@ class EventModel{
 	**** type#, persons#, price#, quantity# (0 or more times)
 	*/
 	public function addEvent($fields){
+		$sql='SELECT * FROM account WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$_SESSION['account']));
+		$account=$query->fetch();
 		if($account->status!=ADMIN){
 			//TODO report incident
 			return "dYou can't do that. This incident was reported.";
@@ -59,46 +108,47 @@ class EventModel{
 		$start=strip_tags($fields["start"]);
 		$end=strip_tags($fields["end"]);
 		$location=strip_tags($fields["location"]);
-		$description=strip_tags($fields["description"]);
+		$description=$fields["description"];
 		$reg_start=strip_tags($fields["reg_start"]);
 		$pre_reg=strip_tags($fields["pre_reg"]);
-		if($pre_reg=='0000-00-00 00:00'){
+		if($pre_reg==''){
 			$pre_reg=$reg_start;
 		}
 		$reg_end=strip_tags($fields["reg_end"]);
-		if($reg_end=='0000-00-00 00:00'){
+		if($reg_end==''){
 			$reg_end=$start;
 		}
+		$created=date_format(date_create(), 'Y-m-d H:i:s');
 		$autoconfirm=(array_key_exists('autoconfirm', $data))?strip_tags($data['autoconfirm']):0;
 		$age=strip_tags($fields["age"]);
 		$restricted_age=strip_tags($fields["restricted_age"]);
-		$restricted_text=strip_tags($fields["restricted_text"]);
+		$restricted_text=$fields["restricted_text"];
 		$regular_price=0;
-		$regular_desc='';
+		$regular_text='';
 		$sponsor_price=-1;
-		$sponsor_desc='';
+		$sponsor_text='';
 		$super_price=-1;
-		$super_desc='';
+		$super_text='';
 		//if price!=free, then update all prices
 		switch(strip_tags($fields["ticket"])){
 			case 'super':
 				$super_price=strip_tags($fields["super_price"]);
-				$super_desc=strip_tags($fields["super_desc"]);
+				$super_text=$fields["super_text"];
 			case 'sponsor':
 				$sponsor_price=strip_tags($fields["sponsor_price"]);
-				$sponsor_desc=strip_tags($fields["sponsor_desc"]);
+				$sponsor_text=$fields["sponsor_text"];
 			case 'regular':
 				$regular_price=strip_tags($fields["regular_price"]);
-				$regular_desc=strip_tags($fields["regular_desc"]);
+				$regular_text=$fields["regular_text"];
 			default:
 				break;
 		}
 		//create event, get event ID for accomodation creation
-		$sql="INSERT INTO event(name, event_start, event_end, reg_start, pre_reg_start, reg_end, location, description, age, restricted_age, restricted_text, regular_price, regular_desc, sponsor_price, sponsor_desc, super_price, super_desc, autoconfirm) VALUES (:name, :event_start, :event_end, :reg_start, :pre_reg_start, :reg_end, :location, :description, :age, :restricted_age, :restricted_text, :regular_price, :regular_desc, :sponsor_price, :sponsor_desc, :super_price, :super_desc, :autoconfirm)";
+		$sql="INSERT INTO event(name, event_start, event_end, reg_start, pre_reg_start, reg_end, location, description, age, restricted_age, restricted_text, regular_price, regular_text, sponsor_price, sponsor_text, super_price, super_text, autoconfirm) VALUES (:name, :event_start, :event_end, :reg_start, :pre_reg_start, :reg_end, :location, :description, :age, :restricted_age, :restricted_text, :regular_price, :regular_text, :sponsor_price, :sponsor_text, :super_price, :super_text, :autoconfirm)";
 		$query=$this->db->prepare($sql);
-		$query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, ':regular_desc'=>$regular_desc, ':sponsor_desc'=>$sponsor_desc, ':super_desc'=>$super_desc, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm));
+		$query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, ':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm));
 		$event_ID=$this->db->lastInsertId();
-		
+
 		//ACCOMODATION
 		$keys=preg_grep('/(type\d)+/m', array_keys($fields));
 		if(!empty($keys)){
@@ -136,48 +186,78 @@ class EventModel{
 		return "sEvent created!";
 	}
 	// Edit an event
-	/*public function editEvent($id, $type, $name, $start, $end, $reg, $pre_reg, $reg_end, $loc, $desc){
-		if(isset($id)&&isset($type)&&isset($name)&&isset($start)&&isset($end)&&isset($reg)&&isset($loc)&&isset($desc)){
-			$sql='SELECT status FROM account WHERE id=:id';
-			$query=$this->db->prepare($sql);
-			$query->execute(array(':id'=>$_SESSION['account']));
-			$account=$query->fetch();
-			if($account->status==3){
-				$id=strip_tags($id);
-				$type=strip_tags($type);
-				$name=strip_tags($name);
-				$start=str_replace('T',' ',strip_tags($start));
-				$end=str_replace('T',' ',strip_tags($end));
-				$reg=str_replace('T',' ',strip_tags($reg));
-				$pre_reg=str_replace('T',' ',strip_tags($pre_reg));
-				$reg_end=str_replace('T',' ',strip_tags($reg_end));
-				$loc=strip_tags($loc);
-				$desc=strip_tags($desc);
-				$format='Y-m-d H:i';
-				$now=new DateTime();
-				$start_time=date_create_from_format($format, $start);
-				$end_time=date_create_from_format($format, $end);
-				$reg_time=date_create_from_format($format, $reg);
-				$pre_time=date_create_from_format($format, $pre_reg);
-				$a=$start_time<$now;
-				$b=$end_time<$start_time;
-				$c=$start_time<$reg_time;
-				$d=$reg_time<$pre_time;
-				if($a||$b||$c||$d){
-					return 'dInvalid date/time inputs. END>START>NOW and START>REG>PRE-REG';
-				}
-				$sql="UPDATE event SET type=:type, name=:name, event_start=:event_start, event_end=:event_end, reg_start=:reg_start, pre_reg_start=:pre_reg_start, reg_end=:reg_end, location=:location, description=:description WHERE id=:id";
-				$query=$this->db->prepare($sql);
-				$query->execute(array(':type'=>$type, ':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$loc, ':description'=>$desc, ':id'=>$id));
-				return 'sEvent updated successfully!';
-			}
-			else{
-				//TODO report incident
-				return "dYou can't do that. This incident was reported.";
-			}
+	public function editEvent($id, $fields){
+	  $sql='SELECT * FROM account WHERE id=:id';
+	  $query=$this->db->prepare($sql);
+	  $query->execute(array(':id'=>$_SESSION['account']));
+	  $account=$query->fetch();
+	  if($account->status!=ADMIN){
+	    //TODO report incident
+	    return "dYou can't do that. This incident was reported.";
+	  }
+
+	  //EVENT
+	  $id=strip_tags($id);
+	  $name=strip_tags($fields["name"]);
+	  $start=strip_tags($fields["start"]);
+	  $end=strip_tags($fields["end"]);
+	  $location=strip_tags($fields["location"]);
+	  $description=$fields["description"];
+	  $reg_start=strip_tags($fields["reg_start"]);
+	  $pre_reg=strip_tags($fields["pre_reg"]);
+	  if($pre_reg==''){
+	    $pre_reg=$reg_start;
+	  }
+	  $reg_end=strip_tags($fields["reg_end"]);
+	  if($reg_end==''){
+	    $reg_end=$start;
+	  }
+	  $autoconfirm=(array_key_exists('autoconfirm', $data))?strip_tags($data['autoconfirm']):0;
+	  $age=strip_tags($fields["age"]);
+	  $restricted_age=strip_tags($fields["restricted_age"]);
+	  $restricted_text=$fields["restricted_text"];
+	  $regular_price=0;
+	  $regular_text='';
+	  $sponsor_price=-1;
+	  $sponsor_text='';
+	  $super_price=-1;
+	  $super_text='';
+	  //if price!=free, then update all prices
+	  switch(strip_tags($fields["ticket"])){
+	    case 'super':
+	      $super_price=strip_tags($fields["super_price"]);
+	      $super_text=$fields["super_text"];
+	    case 'sponsor':
+	      $sponsor_price=strip_tags($fields["sponsor_price"]);
+	      $sponsor_text=$fields["sponsor_text"];
+	    case 'regular':
+	      $regular_price=strip_tags($fields["regular_price"]);
+	      $regular_text=$fields["regular_text"];
+	    default:
+	      break;
+	  }
+	  //create event, get event ID for accomodation creation
+	  $sql="UPDATE event SET name=:name, event_start=:event_start, event_end=:event_end, reg_start=:reg_start, pre_reg_start=:pre_reg_start, reg_end=:reg_end, location=:location, description=:description, age=:age, restricted_age=:restricted_age, restricted_text=:restricted_text, regular_price=:regular_price, regular_text=:regular_text, sponsor_price=:sponsor_price, sponsor_text=:sponsor_text, super_price=:super_price, super_text=:super_text, autoconfirm=:autoconfirm WHERE id=:id";
+	  $query=$this->db->prepare($sql);
+	  $query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, ':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm, ':id'=>$id));
+
+	  //ACCOMODATION (TODO)
+		//get all rooms for this event, compare for deleted items, update all others
+	  return "sChanges saved!";
+	}
+	//Change confirmed status of Attendees for event ID
+	public function editConfirm($event, $ids){
+		$event=strip_tags($event);
+		$sql='SELECT id FROM registration WHERE event_id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$event));
+		$attendees=$query->fetchAll();
+		foreach($attendees as $id){
+			$confirmed=(array_key_exists($id->id, $ids))?1:0;
+			$sql="UPDATE registration SET confirmed=:confirmed WHERE id=:id";
+		  $query=$this->db->prepare($sql);
+		  $query->execute(array(':confirmed'=>$confirmed, ':id'=>$id->id));
 		}
-		else{
-			return 'dPlease fill out all non-optional fields.';
-		}
-	}*/
+		return 'sConfirmed statuses updated successfully.';
+	}
 }

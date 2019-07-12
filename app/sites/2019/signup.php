@@ -3,7 +3,7 @@
 		<div class="w3-container w3-blue w3-center">
 			<h3>Create an account</h3>
 		</div>
-		<form action="<?php echo URL; ?>signup/signupacc" method="post">
+		<form action="<?php echo URL; ?>signup" method="post">
 			<label>E-mail</label>
 			<input class="w3-input" type="email" name="email" placeholder="E-mail address" required autofocus>
 			<label>Username</label> <i class="w3-opacity w3-small">(what others will be able to see)</i>
@@ -38,6 +38,7 @@
 				</ul>
 			</b>
 			<p>If the button to submit the form is disabled, it's for this reason.</p>
+			<h3 class="w3-text-red">The email confirmation will end up in spam for now!</h3>
 		</div>
 	</div>
 </div>

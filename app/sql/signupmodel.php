@@ -10,7 +10,7 @@ class SignUpModel{
 		}
 	}
 	// Create Account
-	public function signupAcc($username, $email, $password, $url){
+	public function signupAcc($username, $email, $password){
 		if(!empty($username) && !empty($email) && !empty($password)){
 			$validPw='/^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).*$/m';
 			$username=strip_tags($username);

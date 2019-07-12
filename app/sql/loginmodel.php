@@ -10,7 +10,7 @@ class LogInModel{
 		}
 	}
 	// Login Account
-	public function loginAcc($email, $password){
+	public function login($email, $password){
 		if(!empty($email)&&!empty($password)){
 			$email=strip_tags($email);
 			$password=strip_tags($password);
@@ -40,7 +40,7 @@ class LogInModel{
 		}
 	}
 	// Activate Account
-	public function activateAcc($email, $activate_token){
+	public function activate($email, $activate_token){
 		if(!empty($email)&&!empty($activate_token)){
 			$email=strip_tags($email);
 			$activate_token=strip_tags($activate_token);
@@ -82,7 +82,7 @@ class LogInModel{
 			return 'dNo email or activation token provided.';
 		}
 	}
-	public function logoutAcc(){
+	public function logout(){
 		session_destroy();
 		session_unset();
 	}

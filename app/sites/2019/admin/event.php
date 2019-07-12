@@ -13,10 +13,10 @@
 		<div>
 			To differentiate between the phase of an event, the following colour codes are being used:
 			<div class="w3-bar">
-				<button class="w3-button w3-round-large w3-light-green w3-hover-light-green">Upcoming</button>
-				<button class="w3-button w3-round-large w3-yellow w3-hover-yellow">Pre-reg</button>
-				<button class="w3-button w3-round-large w3-orange w3-hover-orange">Reg</button>
-				<button class="w3-button w3-round-large w3-red w3-hover-red">Reg closed</button>
+				<button class="w3-button w3-round-large w3-light-gray w3-hover-light-gray">Upcoming</button>
+				<button class="w3-button w3-round-large w3-light-blue w3-hover-light-blue">Pre-reg</button>
+				<button class="w3-button w3-round-large w3-blue w3-hover-blue">Reg</button>
+				<button class="w3-button w3-round-large w3-dark-gray w3-hover-dark-gray">Reg closed</button>
 			</div>
 		</div>
 		<br>
@@ -25,16 +25,22 @@
 				<?php foreach($cEvents as $event): ?>
 					<?php
 						if(new DateTime($event->reg_end)<=new DateTime()){
-							$color='w3-red';
+							$color='w3-light-gray';
+							$text='Registration closed.';
 						}
 						elseif(new DateTime($event->reg_start)<=new DateTime()){
-							$color='w3-orange';
+							$color='w3-blue';
+							$text='Registration open until<br>'.$reg_model->convertViewable($event->reg_end, 2);
 						}
-						elseif($event->pre_reg_start!=0 &&new DateTime($event->pre_reg_start)<=new DateTime()){
-							$color='w3-yellow';
+						elseif($event->pre_reg_start!=$event->reg_start && new DateTime($event->pre_reg_start)<=new DateTime() && $account->status>=PRE_REG){
+							$color='w3-light-blue';
+							$text='Pre-reg open until<br>'.$reg_model->convertViewable($event->reg_start, 2);
 						}
 						else{
-							$color='w3-light-green';
+							$color='w3-light-gray';
+							$text=($account->status>=PRE_REG)?
+								'Registrations closed until<br>'.$event_model->convertViewable($event->pre_reg_start, 2):
+								'Registrations closed until<br>'.$event_model->convertViewable($event->reg_start, 2);
 						}
 						require 'app/sites/'.THEME.'/admin/evt.php';
 					?>

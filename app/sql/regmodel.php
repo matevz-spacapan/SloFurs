@@ -89,9 +89,10 @@ class RegModel{
 		$room=(array_key_exists('room', $data))?($data['room']!=0)?strip_tags($data['room']):null:null;
 		$fursuiter=(array_key_exists('fursuit', $data))?strip_tags($data['fursuit']):0;
 		$artist=(array_key_exists('artist', $data))?strip_tags($data['artist']):0;
-		$sql='INSERT INTO registration(event_id, acc_id, room_id, ticket, confirmed, fursuiter, artist) VALUES (:event_id, :acc_id, :room_id, :ticket, :confirmed, :fursuiter, :artist)';
+		$created=date_format(date_create(), 'Y-m-d H:i:s');
+		$sql='INSERT INTO registration(event_id, acc_id, room_id, ticket, confirmed, fursuiter, artist, created) VALUES (:event_id, :acc_id, :room_id, :ticket, :confirmed, :fursuiter, :artist, :created)';
 		$query=$this->db->prepare($sql);
-		$query->execute(array(':event_id'=>$id, ':acc_id'=>$_SESSION['account'], ':room_id'=>$room, ':ticket'=>$ticket, ':confirmed'=>$event->autoconfirm, ':fursuiter'=>$fursuiter, ':artist'=>$artist));
+		$query->execute(array(':event_id'=>$id, ':acc_id'=>$_SESSION['account'], ':room_id'=>$room, ':ticket'=>$ticket, ':confirmed'=>$event->autoconfirm, ':fursuiter'=>$fursuiter, ':artist'=>$artist, ':created'=>$created));
 		if($event->autoconfirm==1){
 			return "sYour registration was successfull and is confirmed.";
 		}

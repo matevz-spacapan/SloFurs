@@ -6,8 +6,7 @@ class Admin extends Connection{
 			header('location: '.URL.'admin/event');
 		}
 		elseif($account->status==ATTENDEE){
-			$_SESSION['alert']="dYou don't have premissions to view that.";
-			header('location: '.URL.'account');
+			header('location: '.URL.'404');
 		}
 		else{
 			header('location: '.URL.'login');
@@ -16,53 +15,61 @@ class Admin extends Connection{
 	// Event managing page
 	public function event($action=null){
 		$account=$this->getSessionAcc();
+		$event_model=$this->loadSQL('EventModel');
 		if($account==null){
 			header('location: '.URL.'login');
 		}
 		elseif($account->status==ADMIN){
-			require 'app/sites/global/header.php';
-			require 'app/sites/global/adminsidebar.php';
-			require 'app/sites/global/alerts.php';
-			if($action=='new'){
-				require 'app/sites/'.THEME.'/admin/newevent.php';
-			}
-			else{
-				$event_model=$this->loadSQL('EventModel');
-				$cEvents=$event_model->getCEvents(); //current/upcoming
-				$pEvents=$event_model->getPEvents(); //past
-				require 'app/sites/'.THEME.'/admin/event.php';
-			}
-			require 'app/sites/global/footer.php';
-				
-		}
-		else{
-			$_SESSION['alert']="dYou don't have premissions to view that.";
-			header('location: '.URL.'account/contact');
-		}
-	}
-	// Update data in MySQL
-	public function update($action, $id=null){
-		$account=$this->getSessionAcc();
-		if($account==null){
-			header('location: '.URL.'login');
-		}
-		switch($action){
-			case 1:
-				//add event
+			//create new event
+			if(isset($_POST['new_event'])){
 				$event_model=$this->loadSQL('EventModel');
 				$change=$event_model->addEvent($_POST);
 				$_SESSION['alert']=$change;
 				header('location: '.URL.'admin/event');
-				break;
-			case 2:
-				//edit event
-				/*$event_model=$this->loadSQL('EventModel');
-				$change=$event_model->editEvent($id, $_POST['type'], $_POST['name'], $_POST['start'], $_POST['end'], $_POST['reg_start'], $_POST['pre_reg'], $_POST['reg_end'], $_POST['location'], $_POST['desc']);
+			}
+			//edit event with given ID
+			elseif(isset($_POST['edit_event'])){
+				$event_model=$this->loadSQL('EventModel');
+				$change=$event_model->editEvent($_GET['id'], $_POST);
 				$_SESSION['alert']=$change;
-				header('location: '.URL.'admin/event');*/
-				break;
-			default:
-				header('location: '.URL.'admin/event');
+				header('location: '.URL.'admin/event?id='.$_GET['id']);
+			}
+			//edit confirmed users
+			elseif(isset($_POST['confirm_attendees'])){
+				$_SESSION['alert']=$event_model->editConfirm($_GET['id'], $_POST);
+				header('location: '.URL.'admin/event?id='.$_GET['id']);
+			}
+			else{
+				require 'app/sites/global/header.php';
+				require 'app/sites/global/alerts.php';
+				//go to new event creation page
+				if($action=='new'){
+					require 'app/sites/global/adminsidebar.php';
+					require 'app/sites/'.THEME.'/admin/newevent.php';
+				}
+				//go to edit/view event page
+				else{
+					if(isset($_GET['id'])){
+						$event=$event_model->getEvent($_GET['id']);
+						$attendees=$event_model->getRegistered($_GET['id']);
+						//$rooms=$event_model->getRooms($_GET['id']);
+						$fursuits=$event_model->getFursuits($_GET['id']);
+						require 'app/sites/'.THEME.'/admin/event_overview.php';
+					}
+					//list events
+					else{
+						$cEvents=$event_model->getCEvents(); //current/upcoming
+						$pEvents=$event_model->getPEvents(); //past
+						require 'app/sites/global/adminsidebar.php';
+						require 'app/sites/'.THEME.'/admin/event.php';
+					}
+				}
+				require 'app/sites/global/footer.php';
+			}
+		}
+		//user without admin privileges goes to 404
+		else{
+			header('location: '.URL.'404');
 		}
 	}
 }

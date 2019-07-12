@@ -3,7 +3,7 @@
 		<div class="w3-container w3-blue w3-center">
 			<h3>Log in to your account</h3>
 		</div>
-		<form action="<?php echo URL; ?>login/loginacc" method="post">
+		<form action="<?php echo URL; ?>login" method="post">
 			<label>E-mail</label>
 			<input class="w3-input" type="email" name="email" placeholder="E-mail Address" required autofocus>
 			<label>Password</label>

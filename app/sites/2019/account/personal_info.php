@@ -7,19 +7,19 @@
 		echo 'register';
 	} ?>" method="post">
 	<label>First name</label>
-	<input class="w3-input" type="text" name="fname" value="<?php echo $account->fname; ?>" required>
+	<input class="w3-input" type="text" name="fname" pattern="^([A-Ž][a-ž]+\ *){1,}$" value="<?php echo $account->fname; ?>" required>
 
 	<label>Last name</label>
-	<input class="w3-input" type="text" name="lname" value="<?php echo $account->lname; ?>" required>
+	<input class="w3-input" type="text" name="lname" pattern="^([A-Ž][a-ž]+\ *){1,}$" value="<?php echo $account->lname; ?>" required>
 
 	<label>Address</label>
-	<input class="w3-input" type="text" name="address" value="<?php echo $account->address; ?>" required>
+	<input class="w3-input" type="text" name="address" pattern="^([A-Ž][a-ž]+\ *){1,} [1-9][0-9]*$" value="<?php echo $account->address; ?>" required>
 
 	<label>Address 2</label> <i class="w3-opacity w3-small">(optional)</i>
-	<input class="w3-input" type="text" name="address2" value="<?php echo $account->address2; ?>">
+	<input class="w3-input" type="text" name="address2" pattern="^([A-Ž][a-ž]+\ *){1,} [1-9][0-9]*$" value="<?php echo $account->address2; ?>">
 
 	<label>Town/City</label>
-	<input class="w3-input" type="text" name="city" value="<?php echo $account->city; ?>" required>
+	<input class="w3-input" type="text" name="city" pattern="^([A-Ž][a-ž]+\ *){1,}$" value="<?php echo $account->city; ?>" required>
 
 	<label>Postcode</label>
 	<input class="w3-input" type="text" name="postcode" value="<?php echo $account->post; ?>" required>
@@ -28,8 +28,8 @@
 	<input type="hidden" id="profileCountry" value="<?php echo $account->country; ?>">
 	<?php require 'app/sites/global/countries.html'; ?>
 
-	<label>Phone number</label> <i class="w3-opacity w3-small">Prefferably mobile, in case something happens. Please enter the country code too (eg. +386).</i>
-	<input class="w3-input" type="text" name="phone" placeholder="eg. +38641123456" value="<?php echo $account->phone; ?>" required>
+	<label>Phone number</label> <i class="w3-opacity w3-small">Prefferably mobile, in case something happens. Please enter the country code too (eg. +386), no spaces.</i>
+	<input class="w3-input" type="text" name="phone" placeholder="eg. +38641123456" pattern="^\+([0-9]){9,}$" value="<?php echo $account->phone; ?>" required>
 
 	<label>Date of birth</label> <i class="w3-opacity w3-small">Certain events might require you to be of a certain age.</i>
 	<input class="w3-input" type="date" name="dob" value="<?php echo $account->dob; ?>" required>
@@ -65,6 +65,9 @@
 					$("#delconf").removeClass("scale-in-center");
 				}, 500);
 			}
+			var d= new Date();
+			d.setDate(d.getDate() - 1);
+			document.getElementsByName("dob")[0].setAttribute("max", d.toISOString().split('T')[0]);
 			</script>
 		<?php endif; ?>
 	</div>

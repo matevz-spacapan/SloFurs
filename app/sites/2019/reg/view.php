@@ -28,7 +28,7 @@
 		<div class="w3-container">
 			<h3>Upcoming events you've registered for</h3>
 			<?php foreach($rEvents as $event): ?>
-				<a href="<?php echo URL.'register/edit?id='.$event->id; ?>">
+				<a href="<?php echo URL.'register/edit?id='.$event->id; ?>" style="text-decoration: none;">
 					<?php
 						$color=($event->confirmed==1)?'w3-green':'w3-orange';
 						$text=($event->confirmed==1)?'Registration confirmed.':'Registration not confirmed yet.';
@@ -53,7 +53,7 @@
 							$color='w3-blue';
 							$text='Registration open until<br>'.$reg_model->convertViewable($event->reg_end, 2);
 						}
-						elseif($event->pre_reg_start!=0 && new DateTime($event->pre_reg_start)<=new DateTime() && $account->status>=PRE_REG){
+						elseif($event->pre_reg_start!=$event->reg_start && new DateTime($event->pre_reg_start)<=new DateTime() && $account->status>=PRE_REG){
 							$color='w3-light-blue';
 							$text='Pre-reg open until<br>'.$reg_model->convertViewable($event->reg_start, 2);
 						}
@@ -68,7 +68,7 @@
 							$text='Complete profile to register.';
 						}
 					?>
-					<a href="<?php echo URL.'register/new?id='.$event->id; ?>">
+					<a href="<?php echo URL.'register/new?id='.$event->id; ?>" style="text-decoration: none;">
 					<?php require 'app/sites/'.THEME.'/reg/evt.php'; ?>
 					</a>
 				<?php endforeach; ?>
@@ -83,7 +83,7 @@
 		<div class="w3-container">
 			<h3>Past events you've registered for</h3>
 			<?php foreach($pEvents as $event): ?>
-				<a href="<?php echo URL.'register/edit?id='.$event->id; ?>">
+				<a href="<?php echo URL.'register/edit?id='.$event->id; ?>" style="text-decoration: none;">
 					<?php
 						$color='w3-gray';
 						$text='Event ended.';

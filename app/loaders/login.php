@@ -5,6 +5,13 @@ class LogIn extends Connection{
 		if($account!=null){
 			header('location: '.URL.'account');
 		}
+		//log-in
+		elseif(isset($_POST['log_in_acc'])){
+			$log_in_model=$this->loadSQL('LogInModel');
+			$log_in_account=$log_in_model->login($_POST['email'], $_POST['password']);
+			$_SESSION['alert']=$log_in_account;
+			header('location: '.URL.'account');
+		}
 		else{
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/alerts.php';
@@ -12,22 +19,11 @@ class LogIn extends Connection{
 			require 'app/sites/global/footer.php';
 		}
 	}
-	// Log In Account
-	public function logInAcc(){
-		if(isset($_POST['log_in_acc'])){
-			$log_in_model=$this->loadSQL('LogInModel');
-			$log_in_account=$log_in_model->loginAcc($_POST['email'], $_POST['password']);
-			if(isset($log_in_account)&&$log_in_account!=null){
-				$_SESSION['alert']=$log_in_account;
-			}
-		}
-		header('location: '.URL.'login');
-	}
 	// Activate Account
-	public function activateAcc($email=null, $activate_token=null){
+	public function activate($email=null, $activate_token=null){
 		if(isset($email)&&isset($activate_token)){
 			$log_in_model=$this->loadSQL('LogInModel');
-			$activate_account=$log_in_model->activateAcc($email, $activate_token);
+			$activate_account=$log_in_model->activate($email, $activate_token);
 			$_SESSION['alert']=$activate_account;
 			header('location: '.URL.'account');
 		}
@@ -39,7 +35,7 @@ class LogIn extends Connection{
 	// Logout
 	public function logout(){
 		$log_in_model=$this->loadSQL('LogInModel');
-		$log_in_model->logoutAcc();
+		$log_in_model->logout();
 		header('location: '.URL);
 	}
 }

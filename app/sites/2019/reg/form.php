@@ -13,7 +13,7 @@
 			<div class="w3-row">
 				<div class="w3-col l8 m6">
 					<h5>Description</h5>
-					<p class="w3-text-dark-gray"><?php echo nl2br($event->description); ?></p>
+					<div class="w3-text-dark-gray"><?php echo nl2br($event->description); ?></div>
 				</div>
 				<div class="w3-container w3-rest">
 					<h5>Date & Time</h5>
@@ -47,7 +47,7 @@
 					<p class="w3-text-dark-gray"><?php echo $text; ?></p>
 
 					<h5>Location</h5>
-					<p class="w3-text-dark-gray"><?php echo $event->location; ?></p>
+					<p class="w3-text-dark-gray"> <a href="https://maps.google.com/?q=<?php echo $event->location;?>" target="_blank"><?php echo $event->location;?> <i class="far fa-external-link"></i></a> </p>
 
 					<h5>Age restrictions</h5>
 					<?php $age=(int)date_diff(date_create($event->event_start), date_create($account->dob), true)->format('%y'); ?>
@@ -105,7 +105,7 @@
 													<th>Additional info</th>
 												</tr>
 												<tr>
-													<td class="w3-center"><input class="w3-radio" type="radio" name="ticket" value="regular" <?php if(!$new_reg&&$event->ticket=='regular'){echo 'checked';} ?>></td>
+													<td class="w3-center"><input class="w3-radio" type="radio" name="ticket" value="regular" <?php if(!$new_reg&&$event->ticket=='regular'){echo 'checked';} ?> required></td>
 													<td><?php echo $event->regular_price; ?>€</td>
 													<td><?php echo nl2br($event->regular_text); ?></td>
 												</tr>
@@ -156,7 +156,7 @@
 													<tr>
 														<td class="w3-center"><input class="w3-radio" type="radio" name="room" value="<?php echo $room->id; ?>" <?php if(!$new_reg&&$event->room_id==$room->id){echo 'checked';} ?>></td>
 														<td><?php echo $room->type; ?></td>
-														<td><?php echo $room->price; ?></td>
+														<td><?php echo $room->price; ?>€</td>
 														<td><?php echo $room->persons; ?></td>
 														<?php
 															$result=$room->quantity-$reg_model->getBooked($event->id, $room->id)->quantity;
