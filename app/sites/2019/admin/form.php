@@ -1,4 +1,4 @@
-<div style="width: 60%">
+<div class="w3-col l7">
   <form action="<?php echo URL; ?>admin/event<?php if($editEvent){echo '?id='.$event->id;} ?>" method="post" autocomplete="off">
     <h3>Event details</h3>
 

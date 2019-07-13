@@ -1,13 +1,19 @@
-<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:200px">
+<div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left" style="width:200px" id="accSidebar">
+  <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="$('#accSidebar').hide()">Close &times;</button>
   <a href="<?php echo URL; ?>admin/event" class="w3-bar-item w3-button" id="event"><i class="far fa-arrow-square-left"></i> Back to events</a>
-  <h4 class="w3-bar-item"><b><?php echo $event->name; ?></b></h4>
   <button class="w3-bar-item w3-button tablink w3-orange" onclick="openTab(event, 'Edit')">Edit event details</button>
   <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'Attendees')">Attendees (<?php echo count($attendees);?>)</button>
   <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'Fursuits')">Fursuiters (<?php echo count($fursuits);?>)</button>
   <button class="w3-bar-item w3-button tablink w3-hide" onclick="openTab(event, 'Payments')">Payments</button>
 </div>
 
-<div style="margin-left:200px">
+<div class="w3-main" style="margin-left:200px">
+  <div class="w3-orange">
+  	<button class="w3-button w3-orange w3-xlarge w3-hide-large" onclick="$('#accSidebar').show()">&#9776;</button>
+  	<div class="w3-container">
+  		<h1><?php echo $event->name; ?></h1>
+  	</div>
+  </div>
   <div id="Edit" class="w3-container tab">
     <?php $editEvent=true; require 'app/sites/'.THEME.'/admin/form.php'; ?>
   </div>

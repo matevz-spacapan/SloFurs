@@ -70,7 +70,7 @@ class RegModel{
 		$id=strip_tags($id);
 		$event=$this->newReg($id);
 		//check if can reg (bday, reg dates)
-		$sql='SELECT dob, status FROM account WHERE id=:id';
+		$sql='SELECT dob, status, username, email FROM account WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$_SESSION['account']));
 		$account=$query->fetch();
@@ -86,17 +86,64 @@ class RegModel{
 			return "dYou can't register for this event yet.";
 		}
 		$ticket=(array_key_exists('ticket', $data))?strip_tags($data['ticket']):'regular';
-		$room=(array_key_exists('room', $data))?($data['room']!=0)?strip_tags($data['room']):null:null;
+		$room=(array_key_exists('room', $data)&&$data['room']!=0)?strip_tags($data['room']):null;
 		$fursuiter=(array_key_exists('fursuit', $data))?strip_tags($data['fursuit']):0;
 		$artist=(array_key_exists('artist', $data))?strip_tags($data['artist']):0;
 		$created=date_format(date_create(), 'Y-m-d H:i:s');
-		$sql='INSERT INTO registration(event_id, acc_id, room_id, ticket, confirmed, fursuiter, artist, created) VALUES (:event_id, :acc_id, :room_id, :ticket, :confirmed, :fursuiter, :artist, :created)';
+		//calculate if room is available and write result in db
+		$room_confirmed=1;
+		if($room!=null){
+			$sql='SELECT room.id as id, type, price, quantity FROM room INNER JOIN event_to_room ON room.id=event_to_room.room_id WHERE room.id=:id';
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':id'=>$room));
+			$room_selected=$query->fetch();
+			$result=$room_selected->quantity-$this->getBooked($event->id, $room_selected->id)->quantity;
+			$room_confirmed=($result>0)?1:0;
+		}
+		$sql='INSERT INTO registration(event_id, acc_id, room_id, ticket, confirmed, fursuiter, artist, created, room_confirmed) VALUES (:event_id, :acc_id, :room_id, :ticket, :confirmed, :fursuiter, :artist, :created, :room_confirmed)';
 		$query=$this->db->prepare($sql);
-		$query->execute(array(':event_id'=>$id, ':acc_id'=>$_SESSION['account'], ':room_id'=>$room, ':ticket'=>$ticket, ':confirmed'=>$event->autoconfirm, ':fursuiter'=>$fursuiter, ':artist'=>$artist, ':created'=>$created));
+		$query->execute(array(':event_id'=>$id, ':acc_id'=>$_SESSION['account'], ':room_id'=>$room, ':ticket'=>$ticket, ':confirmed'=>$event->autoconfirm, ':fursuiter'=>$fursuiter, ':artist'=>$artist, ':created'=>$created, ':room_confirmed'=>$room_confirmed));
+		//form confirmation email
+		$event_ID=$this->db->lastInsertId();
+		$event_name=$event->name;
+		$username=$account->username;
+		$email=$account->email;
+		$url=URL.'register/edit?id='.$event_ID;
+		$attendance='Attendance fee: ';
+		if($event->regular_price==0){
+			$attendance=$attendance.' Free.';
+		}
+		else{
+			switch($ticket){
+				case 'regular':
+					$attendance=$attendance.$event->regular_price.'€.';
+					break;
+				case 'sponsor':
+					$attendance=$attendance.$event->sponsor_price.'€.';
+					break;
+				case 'super':
+					$attendance=$attendance.$event->super_price.'€.';
+			}
+		}
+		$accomodation='Accomodation selection and price: ';
+		if($room==null){
+			$accomodation=$accomodation.'No accomodation (0€).';
+		}
+		else{
+			$accomodation=$accomodation.$room_selected->type.' ('.$room_selected->price.'€).';
+		}
+		$bad_news='';
+		if($room_confirmed==0){
+			$bad_news='Unfortunately your selected room was not available any longer at the time when your registration was processed. You have been put on the wait-list on a first-come, first-served basis. If someone else cancels their room spot and you are next up on the list, you will take their spot. We will email you if this happens.';
+		}
 		if($event->autoconfirm==1){
+			$confirmed='Your registration is now complete and confirmed by us. We are looking forward to seeing you soon!';
+			require 'app/emails/event_confirmation.php'; //$event_name, $username, $url (edit url), $recap, $bad_news, $email
 			return "sYour registration was successfull and is confirmed.";
 		}
 		else{
+			$confirmed='Your registration is now complete, but will have to be manually checked by our staff. We are looking forward to seeing you soon!';
+			require 'app/emails/event_confirmation.php'; //$event_name, $username, $url (edit url), $recap, $bad_news, $email
 			return "sYour registration was successfull and is awaiting confirmation.";
 		}
 	}

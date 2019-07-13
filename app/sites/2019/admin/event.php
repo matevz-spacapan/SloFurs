@@ -1,6 +1,6 @@
 <div class="w3-main" style="margin-left:200px">
 <div class="w3-orange">
-	<button class="w3-button w3-orange w3-xlarge w3-hide-large" onclick="side_open()">&#9776;</button>
+	<button class="w3-button w3-orange w3-xlarge w3-hide-large" onclick="$('#accSidebar').show()">&#9776;</button>
 	<div class="w3-container">
 		<h1>Events manager</h1>
 	</div>
@@ -70,17 +70,5 @@
 </div>
 
 <script>
-function side_open(){
-	$("#accSidebar").show();
-}
-function side_close(){
-	$("#accSidebar").hide();
-}
-function editEvent(id){
-	$("#event"+id).show();
-}
-function onLoad(){
-	$("#event").addClass("w3-orange");
-}
-onLoad();
+$("#event").addClass("w3-orange");
 </script>

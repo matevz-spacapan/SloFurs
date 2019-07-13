@@ -8,7 +8,7 @@
 		<?php endif; ?>
 	</div>
 </div>
-<div class="w3-container" style="width:80%; margin: 0 auto;">
+<div class="w3-container" style="width:85%; margin: 0 auto;">
 	<div class="w3-row">
 		<div class="w3-col l9">
 			<h5>Description</h5>
