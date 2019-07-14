@@ -1,5 +1,6 @@
 <div class="w3-col l7">
-  <form action="<?php echo URL; ?>admin/event<?php if($editEvent){echo '?id='.$event->id;} ?>" method="post" autocomplete="off">
+  <form action="<?php echo URL; ?>admin/event<?php if($editEvent){echo '?id='.$event->id;} ?>" method="post" enctype="multipart/form-data" autocomplete="off">
+    <!-- Event details -->
     <h3><?php echo L::admin_form_event_h;?></h3>
 
     <label><?php echo L::admin_form_event_name;?></label> <sup class="w3-text-red">*</sup>
@@ -15,8 +16,31 @@
     <input type="text" class="w3-input" name="location" value="<?php if($editEvent){echo $event->location;} ?>">
 
     <label><?php echo L::admin_form_event_description;?></label>
-    <textarea class="w3-input" name="description"> <?php if($editEvent){echo $event->description;} ?></textarea><p>
+    <textarea class="w3-input" name="description"><?php if($editEvent){echo $event->description;} ?>
+    </textarea><p>
 
+    <p><?php echo L::admin_form_event_photo;?></p>
+    <div class="w3-display-container photoContainer">
+      <?php
+        $photo=URL.'public/events/default.png';
+        if($editEvent&&$event->img!=null){
+          $photo=URL.'public/events/'.$event->img.'.png';
+        }
+      ?>
+      <img src="<?php echo $photo;?>" class="w3-round-large" style="width:100%">
+      <div class="w3-display-middle">
+        <label for="file-upload" class="w3-button w3-round w3-border w3-border-blue w3-white"><?php echo L::account_fursuit_addPhoto;?></label>
+        <input id="file-upload" type="file" style="display:none" name="image" onchange="photo()">
+        <i id="save" class="w3-text-white"><?php echo L::account_fursuit_selectPhoto;?></i>
+      </div>
+    </div>
+    <?php if($editEvent&&$event->img!=null):?>
+      <div class="w3-center">
+        <br>
+        <button type="submit" name="delete_photo" class="w3-red w3-round w3-button">Delete current photo</button>
+      </div>
+    <?php endif;?>
+    <!-- Registration details -->
     <h3><?php echo L::admin_form_registration_h;?></h3>
 
     <label><?php echo L::admin_form_registration_start;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::admin_form_registration_startInfo;?></i>
@@ -31,6 +55,7 @@
     <input class="w3-check" type="checkbox" name="autoconfirm" value="1" <?php if($editEvent&&$event->autoconfirm==1){echo 'checked';} ?>>
     <label><?php echo L::admin_form_registration_auto;?> <i class="w3-opacity w3-small"><?php echo L::admin_form_registration_autoInfo;?></i></label><br>
 
+    <!-- Age restrictions -->
     <h3><?php echo L::admin_form_age_h;?></h3>
 
     <input class="w3-check" type="checkbox" id="age" onclick="displayAge()" <?php if($editEvent&&($event->age!=0||$event->restricted_age!=0)){echo 'checked';} ?>>
@@ -46,6 +71,7 @@
       <input type="text" class="w3-input" name="restricted_text" value="<?php if($editEvent){echo $event->restricted_text;} ?>">
     </div>
 
+    <!-- Ticket types -->
     <h3 style="display: inline;"><?php echo L::admin_form_tickets_h;?></h3> <i class="w3-opacity w3-small"><?php echo L::admin_form_tickets_hInfo;?></i><br><br>
 
     <table class="w3-table">
@@ -88,6 +114,7 @@
       </tr>
     </table>
 
+    <!-- Accomodation -->
     <h3 style="display: inline;"><?php echo L::admin_form_accomodation_h;?></h3> <i class="w3-opacity w3-small"><?php echo L::admin_form_accomodation_hInfo;?></i><br><br>
     <?php if($editEvent): ?>
       <p class="w3-text-red"><?php echo L::admin_form_accomodation_warning;?></p>
@@ -134,6 +161,10 @@
 </div>
 
 <script>
+function photo(){
+	file=document.getElementById("file-upload").value.split(/(\\|\/)/g).pop();
+	document.getElementById("save").innerHTML="<?php echo L::account_fursuit_file;?>: ".concat(file);
+}
 function price(type){
 	if($("#check"+type).is(":checked")){
 		$("#"+type).prop("disabled", false);

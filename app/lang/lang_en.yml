@@ -26,6 +26,7 @@ admin:
       endInfo: 'when the event ends'
       location: 'Location'
       description: 'Description'
+      photo: 'If you wish, you can set a photo for the event. It must be sized 170px by 170px. Otherwise the photo shown below will be used.'
     registration:
       h: 'Registration details'
       start: 'Start'
@@ -100,6 +101,7 @@ topnavbar:
   logOut: 'Log out'
   logIn: 'Log in'
   language: 'Language'
+  changeLang: 'Spremeni jezik: '
 footer: '<i class="far fa-code"></i> with <i class="fas fa-heart"></i> in Slovenia.<br><i class="far fa-copyright"></i> SloFurs 2019'
 notFound: 'Whoops, it seems you went into a dark corner. Nothing nice to see here, sadly.'
 home:
@@ -216,6 +218,7 @@ account:
     changePhoto: 'Change photo'
     selectPhoto: 'Select a photo to upload.'
     selectPhotoChange: 'To change, select a file.'
+    file: 'File'
     save: 'Save changes'
     delete1: 'Delete fursuit'
     delete2: 'Are you sure?'

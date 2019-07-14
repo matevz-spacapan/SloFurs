@@ -124,7 +124,7 @@ function contDel(id){
 function pfp(id){
 	file="file-upload".concat(id);
 	file=document.getElementById(file).value.split(/(\\|\/)/g).pop();
-	document.getElementById("save".concat(id)).innerHTML="File: ".concat(file);
+	document.getElementById("save".concat(id)).innerHTML="<?php echo L::account_fursuit_file;?>: ".concat(file);
 	if(id==0){
 		document.getElementById("submit0").disabled=false;
 	}

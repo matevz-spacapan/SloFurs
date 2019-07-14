@@ -93,7 +93,7 @@ class EventModel{
 	**** regular_price, sponsor_price, super_price (if checked above)
 	**** type#, persons#, price#, quantity# (0 or more times)
 	*/
-	public function addEvent($fields){
+	public function addEvent($fields, $image){
 		$sql='SELECT * FROM account WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$_SESSION['account']));
@@ -143,10 +143,39 @@ class EventModel{
 			default:
 				break;
 		}
+		//photo
+		$file_name=null;
+		if($image['size']!=0){
+			$target_dir='public/events/';
+			$file_name='';
+			while(true){
+				$file_name=substr(bin2hex(random_bytes(32)), 0, 30);
+				if(!file_exists($target_dir.$file_name.'.png')){
+					break;
+				}
+			}
+			$img_param=getimagesize($image['tmp_name']);
+			if($img_param!==false){
+				list($width, $height)=$img_param;
+				if($width==$height&&$width==170){
+					$target_file=$target_dir.$file_name.'.png';
+					if(imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){}
+					else{
+						return 'dThere was an error uploading the picture.';
+					}
+				}
+				else{
+					return 'dThe image is not 170x170px.';
+				}
+			}
+			else{
+				return 'dPlease choose only pictures to upload.';
+			}
+		}
 		//create event, get event ID for accomodation creation
-		$sql="INSERT INTO event(name, event_start, event_end, reg_start, pre_reg_start, reg_end, location, description, age, restricted_age, restricted_text, regular_price, regular_text, sponsor_price, sponsor_text, super_price, super_text, autoconfirm) VALUES (:name, :event_start, :event_end, :reg_start, :pre_reg_start, :reg_end, :location, :description, :age, :restricted_age, :restricted_text, :regular_price, :regular_text, :sponsor_price, :sponsor_text, :super_price, :super_text, :autoconfirm)";
+		$sql="INSERT INTO event(name, event_start, event_end, reg_start, pre_reg_start, reg_end, location, description, age, restricted_age, restricted_text, regular_price, regular_text, sponsor_price, sponsor_text, super_price, super_text, autoconfirm, img) VALUES (:name, :event_start, :event_end, :reg_start, :pre_reg_start, :reg_end, :location, :description, :age, :restricted_age, :restricted_text, :regular_price, :regular_text, :sponsor_price, :sponsor_text, :super_price, :super_text, :autoconfirm, :img)";
 		$query=$this->db->prepare($sql);
-		$query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, ':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm));
+		$query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, ':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm, ':img'=>$file_name));
 		$event_ID=$this->db->lastInsertId();
 
 		//ACCOMODATION
@@ -186,7 +215,7 @@ class EventModel{
 		return "sEvent created!";
 	}
 	// Edit an event
-	public function editEvent($id, $fields){
+	public function editEvent($id, $fields, $image){
 	  $sql='SELECT * FROM account WHERE id=:id';
 	  $query=$this->db->prepare($sql);
 	  $query->execute(array(':id'=>$_SESSION['account']));
@@ -241,9 +270,78 @@ class EventModel{
 	  $query=$this->db->prepare($sql);
 	  $query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, ':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm, ':id'=>$id));
 
+		//IMAGE
+		$file_name='';
+		$target_dir='public/events/';
+		if($image['size']!=0){
+			while(true){
+				$file_name=substr(bin2hex(random_bytes(32)), 0, 30);
+				if(!file_exists($target_dir.$file_name.'.png')){
+					break;
+				}
+			}
+		}
+		if($file_name!=''){
+			$sql='SELECT img FROM event WHERE id=:id';
+		  $query=$this->db->prepare($sql);
+		  $query->execute(array(':id'=>$id));
+		  $event=$query->fetch();
+			$img_param=getimagesize($image['tmp_name']);
+			if($img_param!==false){
+				list($width, $height)=$img_param;
+				if($width==$height){
+					$target_file=$target_dir.$file_name.'.png';
+					if(imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
+						if(file_exists($target_dir.$event->img.'.png')){
+							unlink($target_dir.$event->img.'.png');
+						}
+						$sql='UPDATE event SET img=:img WHERE id=:id';
+						$query=$this->db->prepare($sql);
+						$query->execute(array(':img'=>$file_name, ':id'=>$id));
+					}
+					else{
+						return 'dThere was an error uploading the picture.';
+					}
+				}
+				else{
+					return 'dThe image is not square shaped.';
+				}
+			}
+			else{
+				return 'dPlease choose only pictures to upload.';
+			}
+		}
+
 	  //ACCOMODATION (TODO)
 		//get all rooms for this event, compare for deleted items, update all others
 	  return "sChanges saved!";
+	}
+	//Delete event photo
+	public function deletePhoto($id){
+		$sql='SELECT * FROM account WHERE id=:id';
+	  $query=$this->db->prepare($sql);
+	  $query->execute(array(':id'=>$_SESSION['account']));
+	  $account=$query->fetch();
+	  if($account->status!=ADMIN){
+	    //TODO report incident
+	    return "dYou can't do that. This incident was reported.";
+	  }
+		$id=strip_tags($id);
+		$sql='SELECT img FROM event WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		$event=$query->fetch();
+		$target_dir='public/events/';
+		if(file_exists($target_dir.$event->img.'.png')){
+			unlink($target_dir.$event->img.'.png');
+		}
+		else{
+			return 'dThere is no photo set for this event.';
+		}
+		$sql='UPDATE event SET img=null WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return 'sEvent photo successfully reset to default image.';
 	}
 	//Change confirmed status of Attendees for event ID
 	public function editConfirm($event, $ids){

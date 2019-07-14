@@ -1,4 +1,9 @@
-<div class="card w3-center <?php echo $color; ?>">
+<div class="card w3-center <?php echo $color; ?>" style="margin-right: 70px;">
+	<?php if($event->img!=null): ?>
+		<img src="<?php echo URL.'public/events/'.$event->img.'.png'?>" class="w3-round-xlarge eventImage">
+	<?php else: ?>
+		<img src="<?php echo URL.'public/events/default.png'?>" class="w3-round-xlarge eventImage">
+	<?php endif;?>
 	<h4 style="text-transform: uppercase;"><?php echo $event->name; ?></h4>
 	<?php
 		if($reg_model->convertViewable($event->event_start, true)==$reg_model->convertViewable($event->event_end, true)){

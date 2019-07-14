@@ -59,13 +59,13 @@
 						}
 						else{
 							$color='w3-light-gray';
-							$text=L::admin_event_text_until.'<br>'.($account->status>=PRE_REG)?
-								$reg_model->convertViewable($event->pre_reg_start, 2):
-								$reg_model->convertViewable($event->reg_start, 2);
+							$text=L::admin_event_text_until.'<br>';
+							$date=($account->status>=PRE_REG)?$reg_model->convertViewable($event->pre_reg_start, 2):$reg_model->convertViewable($event->reg_start, 2);
+							$text=$text.$date;
 						}
 						if(!$complete_profile){
 							$color='w3-light-gray';
-							$text=L::register_view_upcoming_;complete;
+							$text=L::register_view_upcoming_complete;
 						}
 					?>
 					<a href="<?php echo URL.'register/new?id='.$event->id; ?>" style="text-decoration: none;">

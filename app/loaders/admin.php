@@ -23,14 +23,21 @@ class Admin extends Connection{
 			//create new event
 			if(isset($_POST['new_event'])){
 				$event_model=$this->loadSQL('EventModel');
-				$change=$event_model->addEvent($_POST);
+				$change=$event_model->addEvent($_POST, $_FILES['image']);
 				$_SESSION['alert']=$change;
 				header('location: '.URL.'admin/event');
 			}
 			//edit event with given ID
 			elseif(isset($_POST['edit_event'])){
 				$event_model=$this->loadSQL('EventModel');
-				$change=$event_model->editEvent($_GET['id'], $_POST);
+				$change=$event_model->editEvent($_GET['id'], $_POST, $_FILES['image']);
+				$_SESSION['alert']=$change;
+				header('location: '.URL.'admin/event?id='.$_GET['id']);
+			}
+			//delete event photo with given ID
+			elseif(isset($_POST['delete_photo'])){
+				$event_model=$this->loadSQL('EventModel');
+				$change=$event_model->deletePhoto($_GET['id']);
 				$_SESSION['alert']=$change;
 				header('location: '.URL.'admin/event?id='.$_GET['id']);
 			}

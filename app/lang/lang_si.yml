@@ -26,6 +26,7 @@ admin:
       endInfo: 'ko se dogodek zaključi'
       location: 'Lokacija'
       description: 'Opis'
+      photo: 'Če želite, lahko nastavite sliko dogodka. Slika mora biti velikosti 170px za 170px. Če ne izberete druge slike, bo uporabljena spodnja.'
     registration:
       h: 'Podrobnosti o prijavah'
       start: 'Pričetek'
@@ -100,6 +101,7 @@ topnavbar:
   logOut: 'Odjava'
   logIn: 'Prijava'
   language: 'Language'
+  changeLang: 'Change language: '
 footer: '<i class="far fa-code"></i> z <i class="fas fa-heart"></i> v Sloveniji.<br><i class="far fa-copyright"></i> SloFurs 2019'
 notFound: 'Opla, izgleda, da ste šli v zelo temen kotiček naše strani. Na žalost, ni nič lepega za videti tukaj.'
 home:
@@ -216,6 +218,7 @@ account:
     changePhoto: 'Spremeni sliko'
     selectPhoto: 'Izberite sliko za prenos.'
     selectPhotoChange: 'Za spremembo izberite datoteko.'
+    file: 'Datoteka'
     save: 'Shrani spremembe'
     delete1: 'Izbriši fursuit'
     delete2: 'Ste prepričani?'

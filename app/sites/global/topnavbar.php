@@ -59,6 +59,7 @@
 			<?php else: ?>
 				<a href="<?php echo $base;?>si" class="w3-bar-item w3-button w3-mobile w3-center"><?php echo '<img src="'.$src2.'" style="height:23px;">';?></a>
 			<?php endif; ?>
+				<div class="w3-bar-item w3-button w3-mobile w3-center w3-tiny">Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 		</div>
 	</div>
 	<a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="openNav()">&#9776;</a>
@@ -78,6 +79,12 @@
 	<?php else: ?>
 		<!-- Not logged in -->
 		<a href="<?php echo URL; ?>login" class="w3-bar-item w3-button w3-padding-large"><?php echo L::topnavbar_logIn;?></a>
+	<?php endif; ?>
+	<!-- Language changer -->
+	<?php if($lang=='si'): ?>
+		<a href="<?php echo $base;?>en" class="w3-bar-item w3-button w3-padding-large"><?php echo L::topnavbar_changeLang.'<img src="'.$src2.'" style="height:23px;">';?></a>
+	<?php else: ?>
+		<a href="<?php echo $base;?>si" class="w3-bar-item w3-button w3-padding-large"><?php echo L::topnavbar_changeLang.'<img src="'.$src2.'" style="height:23px;">';?></a>
 	<?php endif; ?>
 </div>
 <script>

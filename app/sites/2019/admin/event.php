@@ -38,9 +38,9 @@
 						}
 						else{
 							$color='w3-light-gray';
-							$text=L::admin_event_text_until.'<br'.($account->status>=PRE_REG)?
-								$event_model->convertViewable($event->pre_reg_start, 2):
-								$event_model->convertViewable($event->reg_start, 2);
+							$text=L::admin_event_text_until.'<br>';
+							$date=($account->status>=PRE_REG)?$event_model->convertViewable($event->pre_reg_start, 2):$event_model->convertViewable($event->reg_start, 2);
+							$text=$text.$date;
 						}
 						require 'app/sites/'.THEME.'/admin/evt.php';
 					?>
