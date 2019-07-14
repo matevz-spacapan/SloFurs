@@ -28,4 +28,11 @@
 	<link rel="shortcut icon" href="<?php echo URL;?>public/img/favicon.png" type="image/x-icon"/>
 </head>
 <body>
-	<?php require 'app/sites/global/topnavbar.php'; ?>
+	<?php
+		require_once "public/spyc/spyc.php";
+		require_once 'public/i18n/i18n.class.php';
+		$i18n = new i18n('app/lang/lang_{LANGUAGE}.yml', 'public/i18n/langcache/');
+		//$_SESSION['lang']='si';
+		$i18n->init();
+		require 'app/sites/global/topnavbar.php';
+	?>

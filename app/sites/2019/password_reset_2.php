@@ -1,37 +1,37 @@
 <div class="w3-container" style="margin-top:20px">
 	<div class="w3-half">
 		<div class="w3-container w3-blue w3-center">
-			<h3>Password Reset</h3>
+			<h3><?php echo L::reset_h;?></h3>
 		</div>
 		<form action="<?php echo URL; ?>login/forgot" method="post">
-			<label>E-mail</label>
-			<input class="w3-input" type="email" name="email" placeholder="E-mail Address" value="<?php echo $email;?>" disabled>
+			<label><?php echo L::reset_email;?></label>
+			<input class="w3-input" type="email" name="email" value="<?php echo $email;?>" disabled>
 			<?php $_SESSION['reset_email']=strip_tags($email);?>
-			<label>Password</label>
-			<input class="w3-input" id="pwd" type="password" name="password" placeholder="Create a password" pattern="^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).*$" title="At least 8 characters, number and special character" required onkeyup="verifyPassword()">
-			<label>Password</label> <i class="w3-opacity w3-small">(confirm)</i> <i id="correct" class="far fa-times"></i>
-			<input class="w3-input" id="pwdC" type="password" placeholder="Confirm your password" required onkeyup="verifyPassword()"><br>
+			<label><?php echo L::reset_pw;?></label>
+			<input class="w3-input" id="pwd" type="password" name="password" placeholder="<?php echo L::reset_pwP;?>" pattern="^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).*$" title="<?php echo L::reset_pwT;?>" required onkeyup="verifyPassword()">
+			<label><?php echo L::reset_pw;?></label> <i class="w3-opacity w3-small"><?php echo L::reset_confirm;?></i> <i id="correct" class="far fa-times"></i>
+			<input class="w3-input" id="pwdC" type="password" placeholder="<?php echo L::reset_confirmP;?>" required onkeyup="verifyPassword()"><br>
 			<div class="w3-center">
-				<button type="submit" id="btn" name="finish_reset" class="w3-button w3-round w3-border w3-green" disabled>Save</button>
+				<button type="submit" id="btn" name="finish_reset" class="w3-button w3-round w3-border w3-green" disabled><?php echo L::reset_save;?></button>
 			</div>
 		</form>
 	</div>
 	<div class="w3-half w3-center">
 		<div class="w3-container">
-			<h3>Select a new password</h3>
+			<h3><?php echo L::reset_select;?></h3>
 		</div>
 		<div class="w3-container">
-			To finish resetting your password, please fill out the form.
+			<?php echo L::reset_desc1;?>
 		</div>
 		<div class="w3-container">
-			<b class="w3-left-align">Your new password needs to be at least 8 characters long and meet all of the following:
+			<b class="w3-left-align"><?php echo L::reset_desc2;?>
 				<ul>
-					<li>contain at least 1 letter</li>
-					<li>contain at least 1 number</li>
-					<li>contain at least 1 special character (eg. _ ! / etc.)</li>
+					<li><?php echo L::reset_pwCond1;?></li>
+					<li><?php echo L::reset_pwCond2;?></li>
+					<li><?php echo L::reset_pwCond3;?></li>
 				</ul>
 			</b>
-			<p>If the button to submit the form is disabled, it's for this reason.</p>
+			<p><?php echo L::reset_desc3;?></p>
 		</div>
 	</div>
 </div>

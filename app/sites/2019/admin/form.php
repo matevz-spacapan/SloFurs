@@ -1,63 +1,63 @@
 <div class="w3-col l7">
   <form action="<?php echo URL; ?>admin/event<?php if($editEvent){echo '?id='.$event->id;} ?>" method="post" autocomplete="off">
-    <h3>Event details</h3>
+    <h3><?php echo L::admin_form_event_h;?></h3>
 
-    <label>Name</label> <sup class="w3-text-red">*</sup>
+    <label><?php echo L::admin_form_event_name;?></label> <sup class="w3-text-red">*</sup>
     <input type="text" class="w3-input" name="name" required value="<?php if($editEvent){echo $event->name;} ?>">
 
-    <label>Start</label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small">when the event starts</i>
+    <label><?php echo L::admin_form_event_start;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::admin_form_event_startInfo;?></i>
     <input type="datetime-local" class="w3-input" name="start" required value="<?php if($editEvent){echo $event_model->convert($event->event_start);} ?>">
 
-    <label>End</label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small">when the event ends</i>
+    <label><?php echo L::admin_form_event_end;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::admin_form_event_endInfo;?></i>
     <input type="datetime-local" class="w3-input" name="end" required value="<?php if($editEvent){echo $event_model->convert($event->event_end);} ?>">
 
-    <label>Location</label>
+    <label><?php echo L::admin_form_event_location;?></label>
     <input type="text" class="w3-input" name="location" value="<?php if($editEvent){echo $event->location;} ?>">
 
-    <label>Description</label>
+    <label><?php echo L::admin_form_event_description;?></label>
     <textarea class="w3-input" name="description"> <?php if($editEvent){echo $event->description;} ?></textarea><p>
 
-    <h3>Registration details</h3>
+    <h3><?php echo L::admin_form_registration_h;?></h3>
 
-    <label>Start</label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small">when attendees can register for the event</i>
+    <label><?php echo L::admin_form_registration_start;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::admin_form_registration_startInfo;?></i>
     <input type="datetime-local" class="w3-input" name="reg_start" required value="<?php if($editEvent){echo $event_model->convert($event->reg_start);} ?>">
 
-    <label>Pre-reg start</label> <i class="w3-opacity w3-small">optional. When staff can register before everyone else</i>
+    <label><?php echo L::admin_form_registration_pre;?></label> <i class="w3-opacity w3-small"><?php echo L::admin_form_registration_preInfo;?></i>
     <input type="datetime-local" class="w3-input" name="pre_reg" value="<?php if($editEvent){echo $event_model->convert($event->pre_reg_start);} ?>">
 
-    <label>End</label> <i class="w3-opacity w3-small">when attendees can't register anymore. If left blank, then they can register until the event starts</i>
+    <label><?php echo L::admin_form_registration_end;?></label> <i class="w3-opacity w3-small"><?php echo L::admin_form_registration_endInfo;?></i>
     <input type="datetime-local" class="w3-input" name="reg_end" value="<?php if($editEvent){echo $event_model->convert($event->reg_end);} ?>"><br>
 
     <input class="w3-check" type="checkbox" name="autoconfirm" value="1" <?php if($editEvent&&$event->autoconfirm==1){echo 'checked';} ?>>
-    <label>Auto-confirm registrations <i class="w3-opacity w3-small">if checked, then all registrations for the event will be confirmed without staff's input</i></label><br>
+    <label><?php echo L::admin_form_registration_auto;?> <i class="w3-opacity w3-small"><?php echo L::admin_form_registration_autoInfo;?></i></label><br>
 
-    <h3>Age restrictions</h3>
+    <h3><?php echo L::admin_form_age_h;?></h3>
 
     <input class="w3-check" type="checkbox" id="age" onclick="displayAge()" <?php if($editEvent&&($event->age!=0||$event->restricted_age!=0)){echo 'checked';} ?>>
-    <label>Age restricted</label><br><br>
+    <label><?php echo L::admin_form_age_check;?></label><br><br>
     <div style="display: none;" id="ageSettings">
-      <label>Age for full duration</label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small">attendees need to be at least this old at the start of event to attend the entire event</i>
+      <label><?php echo L::admin_form_age_noRestrict;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::admin_form_age_noRestrictInfo;?></i>
       <input type="number" class="w3-input" name="age" value="<?php if($editEvent){echo $event->age;}else{echo 0;} ?>" min="0" max="99" required>
 
-      <label>Age with restricted access</label> <i class="w3-opacity w3-small">attendees need to be at least this old at the start of event to attend at least part of the event</i>
+      <label><?php echo L::admin_form_age_restrict;?></label> <i class="w3-opacity w3-small"><?php echo L::admin_form_age_restrictInfo;?></i>
       <input type="number" class="w3-input" name="restricted_age" min="0" max="99" value="<?php if($editEvent){echo $event->restricted_age;}else{echo 0;} ?>">
 
-      <label>Restrictions</label> <i class="w3-opacity w3-small">if the above field is filled, enter the restrictions that apply for this age group (eg. allowed until 8PM, allowed only on the weekend...)</i>
+      <label><?php echo L::admin_form_age_restrictText;?></label> <i class="w3-opacity w3-small"><?php echo L::admin_form_age_restrictTextInfo;?></i>
       <input type="text" class="w3-input" name="restricted_text" value="<?php if($editEvent){echo $event->restricted_text;} ?>">
     </div>
 
-    <h3 style="display: inline;">Ticket types</h3> <i class="w3-opacity w3-small">at least one option must be selected. If you want to select free, then no other option may be selected.</i><br><br>
+    <h3 style="display: inline;"><?php echo L::admin_form_tickets_h;?></h3> <i class="w3-opacity w3-small"><?php echo L::admin_form_tickets_hInfo;?></i><br><br>
 
     <table class="w3-table">
       <tr>
-        <th>Type</th>
-        <th>Cost</th>
-        <th>Additional description</th>
+        <th><?php echo L::admin_form_tickets_type;?></th>
+        <th><?php echo L::admin_form_tickets_cost;?></th>
+        <th><?php echo L::admin_form_tickets_description;?></th>
       </tr>
       <tr>
         <td>
           <input class="w3-check" type="checkbox" id="checkfree" name="ticket" value="free" <?php if($editEvent&&$event->regular_price==0){echo 'checked';} ?>>
-          <label>Free</label>
+          <label><?php echo L::admin_form_tickets_free;?></label>
         </td>
         <td>0</td>
         <td></td>
@@ -65,7 +65,7 @@
       <tr>
         <td>
           <input class="w3-check" type="checkbox" id="checkregular" name="ticket" value="regular" onclick="price('regular')" <?php if($editEvent&&$event->regular_price!=0&&$event->sponsor_price==-1){echo 'checked';} ?>>
-          <label>Regular</label>
+          <label><?php echo L::admin_form_tickets_regular;?></label>
         </td>
         <td><input type="number" class="w3-input" id="regular" min="1" disabled value="<?php if($editEvent&&$event->regular_price!=0){echo $event->regular_price;} ?>"></td>
         <td><textarea class="w3-input" id="regular_text" disabled><?php if($editEvent){echo $event->regular_text;} ?></textarea></td>
@@ -73,7 +73,7 @@
       <tr>
         <td>
           <input class="w3-check" type="checkbox" id="checksponsor" name="ticket" value="sponsor" onclick="price('sponsor')" <?php if($editEvent&&$event->sponsor_price!=-1&&$event->super_price==-1){echo 'checked';} ?>>
-          <label>Sponsor</label>
+          <label><?php echo L::admin_form_tickets_sponsor;?></label>
         </td>
         <td><input type="number" class="w3-input" id="sponsor" min="1" disabled value="<?php if($editEvent&&$event->sponsor_price!=-1){echo $event->sponsor_price;} ?>"></td>
         <td><textarea class="w3-input" id="sponsor_text" disabled><?php if($editEvent){echo $event->sponsor_text;} ?></textarea></td>
@@ -81,25 +81,25 @@
       <tr>
         <td>
           <input class="w3-check" type="checkbox" id="checksuper" name="ticket" value="super" onclick="price('super')" <?php if($editEvent&&$event->super_price!=-1){echo 'checked';} ?>>
-          <label>Super-sponsor</label>
+          <label><?php echo L::admin_form_tickets_super;?></label>
         </td>
         <td><input type="number" class="w3-input" id="super" min="1" disabled value="<?php if($editEvent&&$event->super_price!=-1){echo $event->super_price;} ?>"></td>
         <td><textarea class="w3-input" id="super_text" disabled><?php if($editEvent){echo $event->super_text;} ?></textarea></td>
       </tr>
     </table>
 
-    <h3 style="display: inline;">Accomodation</h3> <i class="w3-opacity w3-small">if there is no accomodation for this event, don't add any rows below</i><br><br>
+    <h3 style="display: inline;"><?php echo L::admin_form_accomodation_h;?></h3> <i class="w3-opacity w3-small"><?php echo L::admin_form_accomodation_hInfo;?></i><br><br>
     <?php if($editEvent): ?>
-      <p class="w3-text-red"><i class="far fa-exclamation-triangle"></i> <b>WARNING</b> <i class="far fa-exclamation-triangle"></i> Rooms can be removed or fully edited only before (pre-)registration starts. After this you can only add new rooms or edit the Type, Price and Quantity of existing rooms. <b>Double-check before saving and notify attendees of changes.</b></p>
+      <p class="w3-text-red"><?php echo L::admin_form_accomodation_warning;?></p>
       <h3 class="w3-red w3-center">ROOM EDITING IS NOT WORKING YET. ANY CHANGES MADE WILL BE IGNORED.</h3>
     <?php endif; ?>
 
     <table class="w3-table" id="accomodationTable">
       <tr>
-        <th>Type <i class="w3-opacity w3-small">description of the room</i></th>
-        <th>Persons/room</th>
-        <th>Price/person</th>
-        <th>Quantity</th>
+        <th><?php echo L::admin_form_accomodation_type;?> <i class="w3-opacity w3-small"><?php echo L::admin_form_accomodation_typeInfo;?></i></th>
+        <th><?php echo L::admin_form_accomodation_persons;?></th>
+        <th><?php echo L::admin_form_accomodation_price;?></th>
+        <th><?php echo L::admin_form_accomodation_quantity;?></th>
         <th><button class="w3-button w3-green w3-round" onclick="addRow()">+</button></th>
       </tr>
       <?php
@@ -116,7 +116,7 @@
           <tr id="row<?php echo $room->id; ?>">
             <td><input type="text" class="w3-input" name="type<?php echo $room->id; ?>" required value="<?php echo $room->type; ?>"></td>
       			<td><input type="number" class="w3-input" name="persons<?php echo $room->id; ?>" min="1" required value="<?php echo $room->persons; ?>" <?php if($is_disabled){echo 'disabled';} ?>></td>
-      			<td><input type="number" class="w3-input" name="price<?php echo $room->id; ?>" required value="<?php echo $room->price; ?>"></td>
+      			<td><input type="number" class="w3-input" min="1" name="price<?php echo $room->id; ?>" required value="<?php echo $room->price; ?>"></td>
       			<td><input type="number" class="w3-input" name="quantity<?php echo $room->id; ?>" min="1" required value="<?php echo $room->quantity; ?>"></td>
       			<td><button class="w3-button w3-red w3-round" onclick="removeRow('row<?php echo $room->id; ?>')" <?php if($is_disabled){echo 'disabled';} ?>><b>-</b></button></td>
           </tr>
@@ -125,9 +125,9 @@
     </table><br>
     <div class="w3-center">
       <?php if(!$editEvent): ?>
-        <button type="submit" id="submitBtn" name="new_event" class="w3-button w3-green w3-round" disabled>Create event</button>
+        <button type="submit" id="submitBtn" name="new_event" class="w3-button w3-green w3-round" disabled><?php echo L::admin_form_create;?></button>
       <?php else: ?>
-        <button type="submit" id="submitBtn" name="edit_event" class="w3-button w3-green w3-round" disabled>Save changes</button>
+        <button type="submit" id="submitBtn" name="edit_event" class="w3-button w3-green w3-round" disabled><?php echo L::admin_form_save;?></button>
       <?php endif; ?>
     </div>
   </form>
@@ -164,7 +164,7 @@ function addRow(){
 	var row=`<tr id="row#">
 			<td><input type="text" class="w3-input" name="type#" required></td>
 			<td><input type="number" class="w3-input" name="persons#" min="1" required></td>
-			<td><input type="text" class="w3-input" name="price#" pattern="^\\d{1,3}(,\\d{1,2})?$" title="xxx.xx" required></td>
+			<td><input type="number" class="w3-input" name="price#" min="1" required></td>
 			<td><input type="number" class="w3-input" name="quantity#" min="1" required></td>
 			<td><button class="w3-button w3-red w3-round" onclick="removeRow('row#')"><b>-</b></button></td>
 		</tr>`;

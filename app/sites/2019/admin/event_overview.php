@@ -1,10 +1,10 @@
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left" style="width:200px" id="accSidebar">
-  <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="$('#accSidebar').hide()">Close &times;</button>
-  <a href="<?php echo URL; ?>admin/event" class="w3-bar-item w3-button" id="event"><i class="far fa-arrow-square-left"></i> Back to events</a>
-  <button class="w3-bar-item w3-button tablink w3-orange" onclick="openTab(event, 'Edit')">Edit event details</button>
-  <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'Attendees')">Attendees (<?php echo count($attendees);?>)</button>
-  <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'Fursuits')">Fursuiters (<?php echo count($fursuits);?>)</button>
-  <button class="w3-bar-item w3-button tablink w3-hide" onclick="openTab(event, 'Payments')">Payments</button>
+  <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="$('#accSidebar').hide()"><?php echo L::admin_close;?> &times;</button>
+  <a href="<?php echo URL; ?>admin/event" class="w3-bar-item w3-button" id="event"><i class="far fa-arrow-square-left"></i> <?php echo L::admin_overview_back;?></a>
+  <button class="w3-bar-item w3-button tablink w3-orange" onclick="openTab(event, 'Edit')"><?php echo L::admin_overview_edit;?></button>
+  <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'Attendees')"><?php echo L::admin_overview_attendees_h;?> (<?php echo count($attendees);?>)</button>
+  <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'Fursuits')"><?php echo L::admin_overview_fursuiters_h;?> (<?php echo count($fursuits);?>)</button>
+  <button class="w3-bar-item w3-button tablink w3-hide" onclick="openTab(event, 'Payments')"><?php echo L::admin_overview_payments_h;?></button>
 </div>
 
 <div class="w3-main" style="margin-left:200px">
@@ -19,17 +19,17 @@
   </div>
 
   <div id="Attendees" class="w3-container tab" style="display:none; width:50%;">
-    <h3>Attendees</h3>
+    <h3><?php echo L::admin_overview_attendees_h;?></h3>
     <?php if(count($attendees)>0): ?>
-      <p>You can view all registered attendees on the list below. To confirm changes in the Confirmed column, click Confirm attendees. To export release forms, click the appropriate button.</p>
+      <p><?php echo L::admin_overview_attendees_info;?></p>
       <form action="<?php echo URL; ?>admin/event?id=<?php echo $event->id; ?>" method="post">
         <table class="w3-table w3-striped w3-centered">
           <tr>
-            <th>Account</th>
-            <th>Ticket type</th>
-            <th>Requested room</th>
-            <th>Fursuiter/Artist</th>
-            <th>Confirmed</th>
+            <th><?php echo L::admin_overview_attendees_account;?></th>
+            <th><?php echo L::admin_overview_attendees_type;?></th>
+            <th><?php echo L::admin_overview_attendees_room;?></th>
+            <th><?php echo L::admin_overview_attendees_fursuiterArtist;?></th>
+            <th><?php echo L::admin_overview_attendees_confirmed;?></th>
           </tr>
           <?php foreach($attendees as $attendee): ?>
             <tr>
@@ -67,18 +67,18 @@
           <?php endforeach; ?>
         </table><br>
         <div class="w3-center">
-          <button type="submit" class="w3-button w3-green w3-round" name="confirm_attendees">Confirm attendees</button><br><br>
-          <button type="submit" class="w3-button w3-blue w3-round" name="export_confirmed" disabled>Export confirmed</button>
-          <button type="submit" class="w3-button w3-blue w3-round" name="export_all" disabled>Export all</button>
+          <button type="submit" class="w3-button w3-green w3-round" name="confirm_attendees"><?php echo L::admin_overview_attendees_confirm;?></button><br><br>
+          <button type="submit" class="w3-button w3-blue w3-round" name="export_confirmed" disabled><?php echo L::admin_overview_attendees_exportC;?></button>
+          <button type="submit" class="w3-button w3-blue w3-round" name="export_all" disabled><?php echo L::admin_overview_attendees_exportA;?></button>
         </div>
       </form>
     <?php else: ?>
-      <p>There's nothing to show here yet as there are no registered users for this event.</p>
+      <p><?php echo L::admin_overview_attendees_none;?></p>
     <?php endif; ?>
   </div>
 
   <div id="Fursuits" class="w3-container tab" style="display:none">
-    <h2>Fursuits</h2>
+    <h3><?php echo L::admin_overview_fursuiters_h;?></h3>
     <div class="w3-row">
       <?php foreach($fursuits as $fursuit): ?>
         <div class="card">
@@ -88,19 +88,18 @@
             <img src="<?php echo URL.'public/img/account.png' ?>" class="roundImg">
           <?php endif; ?>
           <div class="w3-center"><b><?php echo $fursuit->name;?></b><br>
-          (owned by <?php echo $fursuit->username;?>)<br>
+          (<?php echo L::admin_overview_fursuiters_owned;?> <?php echo $fursuit->username;?>)<br>
           <?php echo $fursuit->animal;?></div>
         </div>
       <?php endforeach; ?>
     </div>
     <?php if(count($fursuits)==0): ?>
-      <p>There are no fursuits to show yet.</p>
+      <p><?php echo L::admin_overview_fursuiters_none;?></p>
     <?php endif; ?>
   </div>
 
   <div id="Payments" class="w3-container tab" style="display:none">
-    <h2>Payments</h2>
-    <p>When and if the event is collecting online payments, they will be shown here.</p>
+    <h3><?php echo L::admin_overview_payments_h;?></h3>
   </div>
 
 </div>

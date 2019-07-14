@@ -1,5 +1,5 @@
 <select id="country" name="country" class="w3-select" required>
-	<option hidden="true" value="">Select from the list...</option>
+	<option hidden="true" value=""><?php echo L::personalInfo_countrySelect;?></option>
 	<option value="Slovenia">Slovenia</option>
 	<option value="Austria">Austria</option>
 	<option value="Italy">Italy</option>
