@@ -25,7 +25,7 @@ class Account extends Connection{
 			header('location: '.URL.'account/contact');
 		}
 		elseif(isset($_POST['update_personal_info'])){
-			$_SESSION['alert']=$account_model->updateProfile($_POST['fname'], $_POST['lname'], $_POST['address'], $_POST['address2'], $_POST['city'], $_POST['postcode'], $_POST['country'], $_POST['phone'], $_POST['dob'], $_POST['gender']);
+			$_SESSION['alert']=$account_model->updateProfile($_POST['fname'], $_POST['lname'], $_POST['address'], $_POST['address2'], $_POST['city'], $_POST['postcode'], $_POST['country'], $_POST['phone'], $_POST['dob'], $_POST['gender'], $_POST['language']);
 			header('location: '.URL.'account/contact');
 		}
 		elseif(isset($_POST['delete_personal_info'])){

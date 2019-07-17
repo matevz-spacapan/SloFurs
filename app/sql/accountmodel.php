@@ -74,7 +74,7 @@ class AccountModel{
 		}
 	}
 	// Update contact info
-	public function updateProfile($fname, $lname, $address, $address2, $city, $postcode, $country, $phone, $dob, $gender){
+	public function updateProfile($fname, $lname, $address, $address2, $city, $postcode, $country, $phone, $dob, $gender, $language){
 		if(!empty($fname)&&!empty($lname)&&!empty($address)&&!empty($city)&&!empty($postcode)&&!empty($country)&&!empty($phone)&&!empty($dob)&&!empty($gender)){
 			$fname=strip_tags($fname);
 			$lname=strip_tags($lname);
@@ -86,9 +86,11 @@ class AccountModel{
 			$phone=strip_tags($phone);
 			$dob=strip_tags($dob);
 			$gender=strip_tags($gender);
-			$sql='UPDATE account SET fname=:fname, lname=:lname, address=:address, address2=:address2, post=:post, city=:city, country=:country, phone=:phone, dob=:dob, gender=:gender WHERE id=:id';
+			$language=strip_tags($language);
+			$_SESSION['lang']=$language;
+			$sql='UPDATE account SET fname=:fname, lname=:lname, address=:address, address2=:address2, post=:post, city=:city, country=:country, phone=:phone, dob=:dob, gender=:gender, language=:language WHERE id=:id';
 			$query=$this->db->prepare($sql);
-			$query->execute(array(':fname'=>$fname, ':lname'=>$lname, ':address'=>$address, ':address2'=>$address2, ':post'=>$postcode, ':city'=>$city, ':country'=>$country, ':phone'=>$phone, ':dob'=>$dob, ':gender'=>$gender, ':id'=>$_SESSION['account']));
+			$query->execute(array(':fname'=>$fname, ':lname'=>$lname, ':address'=>$address, ':address2'=>$address2, ':post'=>$postcode, ':city'=>$city, ':country'=>$country, ':phone'=>$phone, ':dob'=>$dob, ':gender'=>$gender, ':language'=>$language, ':id'=>$_SESSION['account']));
 			return 'sAccount information updated.';
 		}
 		else{

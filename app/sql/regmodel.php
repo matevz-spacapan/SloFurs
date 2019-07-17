@@ -22,10 +22,15 @@ class RegModel{
 		return $query->fetchAll();
 	}
 	// Get all current/upcoming events
-	public function getCEvents(){
+	public function getCEvents($fromHome=false){
 		$sql='SELECT * FROM event WHERE id NOT IN (SELECT event_id FROM registration INNER JOIN event ON event.id=registration.event_id AND acc_id=:acc_id) ORDER BY event_start ASC';
 		$query=$this->db->prepare($sql);
-		$query->execute(array(':acc_id'=>$_SESSION['account']));
+		if(isset($_SESSION['account'])&&!$fromHome){
+			$query->execute(array(':acc_id'=>$_SESSION['account']));
+		}
+		else{
+			$query->execute(array(':acc_id'=>null));
+		}
 		return $query->fetchAll();
 	}
 	// Get all past events
@@ -226,5 +231,53 @@ class RegModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return $query->rowCount()!=0;
+	}
+	//Get nr of attendees from each country
+	public function getCountries($id){
+		$id=strip_tags($id);
+		$sql='SELECT country, COUNT(country) AS counter FROM account INNER JOIN registration ON account.id=registration.acc_id WHERE event_id=:id GROUP BY country';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetchAll();
+	}
+	//Get nr of tickets by category
+	public function getTickets($id){
+		$id=strip_tags($id);
+		$sql='SELECT ticket, COUNT(ticket) AS counter FROM registration WHERE event_id=:id GROUP BY ticket';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetchAll();
+	}
+	//Get nr of attendees by gender
+	public function getGenders($id){
+		$id=strip_tags($id);
+		$sql='SELECT gender, COUNT(gender) AS counter FROM account INNER JOIN registration ON account.id=registration.acc_id WHERE event_id=:id GROUP BY gender';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetchAll();
+	}
+	//Get nr of attendees by room selection
+	public function getRooms($id){
+		$id=strip_tags($id);
+		$sql='SELECT type, COUNT(type) AS counter FROM room INNER JOIN registration ON room.id=registration.room_id WHERE event_id=:id GROUP BY type';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetchAll();
+	}
+	//Get nr of attendees that selected no room
+	public function getNoRoom($id){
+		$id=strip_tags($id);
+		$sql='SELECT COUNT(*) AS counter FROM registration WHERE event_id=:id AND room_id IS NULL';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetch();
+	}
+	//Get attendees registered for event
+	public function getAttendees($id){
+		$id=strip_tags($id);
+		$sql='SELECT username, pfp, fursuiter, artist, ticket FROM account INNER JOIN registration ON registration.acc_id=account.id WHERE event_id=:id ORDER BY username';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetchAll();
 	}
 }

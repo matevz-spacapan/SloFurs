@@ -1,4 +1,4 @@
-<div class="card w3-center <?php echo $color; ?>" style="margin-right: 70px;">
+<div class="card w3-center <?php echo $color; ?>" style="margin-right: 100px;">
 	<?php if($event->img!=null): ?>
 		<img src="<?php echo URL.'public/events/'.$event->img.'.png'?>" class="w3-round-xlarge eventImage">
 	<?php else: ?>

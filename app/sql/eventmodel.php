@@ -42,7 +42,7 @@ class EventModel{
 	//Get registered accounts for event ID...
 	public function getRegistered($id){
 		$id=(int)strip_tags($id);
-		$sql='SELECT registration.id as id, ticket, confirmed, fursuiter, artist, username, type FROM registration INNER JOIN account ON registration.acc_id=account.id LEFT JOIN room ON registration.room_id=room.id WHERE event_id=:id ORDER BY registration.created ASC';
+		$sql='SELECT registration.id as id, ticket, confirmed, fursuiter, artist, username, type, price, room_confirmed, language FROM registration INNER JOIN account ON registration.acc_id=account.id LEFT JOIN room ON registration.room_id=room.id WHERE event_id=:id ORDER BY registration.created ASC';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return $query->fetchAll();
@@ -119,7 +119,7 @@ class EventModel{
 			$reg_end=$start;
 		}
 		$created=date_format(date_create(), 'Y-m-d H:i:s');
-		$autoconfirm=(array_key_exists('autoconfirm', $data))?strip_tags($data['autoconfirm']):0;
+		$autoconfirm=(array_key_exists('autoconfirm', $fields))?strip_tags($fields['autoconfirm']):0;
 		$age=strip_tags($fields["age"]);
 		$restricted_age=strip_tags($fields["restricted_age"]);
 		$restricted_text=$fields["restricted_text"];
@@ -241,7 +241,7 @@ class EventModel{
 	  if($reg_end==''){
 	    $reg_end=$start;
 	  }
-	  $autoconfirm=(array_key_exists('autoconfirm', $data))?strip_tags($data['autoconfirm']):0;
+	  $autoconfirm=(array_key_exists('autoconfirm', $fields))?strip_tags($fields['autoconfirm']):0;
 	  $age=strip_tags($fields["age"]);
 	  $restricted_age=strip_tags($fields["restricted_age"]);
 	  $restricted_text=$fields["restricted_text"];

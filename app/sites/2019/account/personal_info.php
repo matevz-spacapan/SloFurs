@@ -45,6 +45,13 @@
 	<input class="w3-radio" type="radio" name="gender" value="silent" id="silent">
 	<label><?php echo L::personalInfo_silent;?></label><p>
 
+	<label><?php echo L::personalInfo_language;?></label><br/>
+	<input type="hidden" id="profileLanguage" value="<?php echo $account->language; ?>">
+	<input class="w3-radio" type="radio" name="language" value="si" id="si" required>
+	<label><img src="<?php echo URL?>public/img/si.png" alt="Slovenščina" height="40"></label>
+	<input class="w3-radio" type="radio" name="language" value="en" id="en">
+	<label><img src="<?php echo URL?>public/img/en.png" alt="English" height="40"></label>
+
 	<div class="w3-center">
 		<button type="submit" name="update_personal_info" class="w3-button w3-round w3-green"><?php echo L::personalInfo_save;?></button>
 		<?php	if(!$register): ?>

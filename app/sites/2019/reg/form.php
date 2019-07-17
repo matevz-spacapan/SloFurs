@@ -8,7 +8,15 @@
 		<?php endif; ?>
 	</div>
 </div>
-<div class="w3-container" style="width:85%; margin: 0 auto;">
+<div class="w3-row w3-center">
+	<a href="javascript:void(0)" onclick="openTab(event, 'Event');">
+		<div class="w3-half tablink w3-bottombar w3-hover-light-grey w3-padding w3-border-blue"><?php echo L::register_form_details;?></div>
+	</a>
+	<a href="javascript:void(0)" onclick="openTab(event, 'Stats');">
+		<div class="w3-half tablink w3-bottombar w3-hover-light-grey w3-padding"><?php echo L::register_form_statistics;?></div>
+	</a>
+</div>
+<div class="w3-container tab" style="width:85%; margin: 0 auto;" id="Event">
 	<div class="w3-row">
 		<div class="w3-col l9">
 			<h5><?php echo L::register_form_description;?></h5>
@@ -104,20 +112,20 @@
 											<th><?php echo L::register_form_modal_prices_info;?></th>
 										</tr>
 										<tr>
-											<td class="w3-center" style="vertical-align: middle;"><input class="w3-radio" type="radio" name="ticket" value="regular" <?php if(!$new_reg&&$event->ticket=='regular'){echo 'checked';} ?> required></td>
+											<td class="w3-center" style="vertical-align: middle;"><input class="w3-radio" type="radio" name="ticket" value="regular" <?php if(!$new_reg&&$event->ticket=='regular'){echo 'checked';} ?> required> <?php echo L::admin_form_tickets_regular;?></td>
 											<td style="vertical-align: middle;"><?php echo $event->regular_price; ?>€</td>
 											<td><?php echo nl2br($event->regular_text); ?></td>
 										</tr>
 										<?php if($event->sponsor_price!=-1): ?>
 										<tr>
-											<td class="w3-center" style="vertical-align: middle;"><input class="w3-radio" type="radio" name="ticket" value="sponsor" <?php if(!$new_reg&&$event->ticket=='sponsor'){echo 'checked';} ?>></td>
+											<td class="w3-center" style="vertical-align: middle;"><input class="w3-radio" type="radio" name="ticket" value="sponsor" <?php if(!$new_reg&&$event->ticket=='sponsor'){echo 'checked';} ?>> <?php echo L::admin_form_tickets_sponsor;?></td>
 											<td style="vertical-align: middle;"><?php echo $event->sponsor_price; ?>€</td>
 											<td><?php echo nl2br($event->sponsor_text); ?></td>
 										</tr>
 										<?php endif; ?>
 										<?php if($event->super_price!=-1): ?>
 										<tr>
-											<td class="w3-center" style="vertical-align: middle;"><input class="w3-radio" type="radio" name="ticket" value="super" <?php if(!$new_reg&&$event->ticket=='sponsor'){echo 'checked';} ?>></td>
+											<td class="w3-center" style="vertical-align: middle;"><input class="w3-radio" type="radio" name="ticket" value="super" <?php if(!$new_reg&&$event->ticket=='sponsor'){echo 'checked';} ?>> <?php echo L::admin_form_tickets_super;?></td>
 											<td style="vertical-align: middle;"><?php echo $event->super_price; ?>€</td>
 											<td><?php echo nl2br($event->super_text); ?></td>
 										</tr>
@@ -191,6 +199,104 @@
 			<?php endif; ?>
 		</div>
 	</div>
+</div>
+
+<!-- STATS -->
+<div class="w3-container tab" id="Stats">
+	<?php if(new DateTime($event->reg_start)<=$now): ?>
+		<div class="w3-row">
+			<div class="w3-half">
+				<div class="w3-center w3-padding-16">
+					<?php echo L::register_form_stats_country;?>
+				</div>
+				<div id="chartCountry" style="width: 100%; height: 300px;"></div>
+			</div>
+			<div class="w3-half">
+				<div class="w3-center w3-padding-16">
+					<?php echo L::register_form_stats_ticket;?>
+				</div>
+				<div id="chartTicket" style="width: 100%; height: 300px;"></div>
+			</div>
+		</div>
+		<div class="w3-row">
+			<div class="w3-half">
+				<div class="w3-center w3-padding-16">
+					<?php echo L::register_form_stats_accomodation;?>
+				</div>
+				<div id="chartRooms" style="width: 100%; height: 300px;"></div>
+			</div>
+			<div class="w3-half">
+				<div class="w3-center w3-padding-16">
+					<?php echo L::register_form_stats_gender;?>
+				</div>
+				<div id="chartGender" style="width: 100%; height: 300px;"></div>
+			</div>
+		</div>
+		<?php $attendees=$reg_model->getAttendees($event->id); ?>
+		<?php if(count($attendees)>0): ?>
+			<div class="w3-row">
+				<div class="w3-padding-32">
+					<h3><?php echo L::register_form_stats_attendees;?></h3>
+				</div>
+				<?php foreach($attendees as $attendee): ?>
+					<?php if($attendee->ticket=='sponsor'): ?>
+						<div class="card w3-yellow" style="width:150px; min-height:150px;">
+					<?php elseif($attendee->ticket=='sponsor'): ?>
+						<div class="card w3-amber" style="width:150px; min-height:150px;">
+					<?php else: ?>
+						<div class="card" style="width:150px; min-height:150px;">
+					<?php endif; ?>
+						<?php if(file_exists('public/accounts/'.$attendee->pfp.'.png')): ?>
+							<img src="<?php echo URL.'public/accounts/'.$attendee->pfp; ?>.png" class="roundImg">
+						<?php else: ?>
+							<img src="<?php echo URL.'public/img/account.png' ?>" class="roundImg">
+						<?php endif; ?>
+						<div class="w3-center">
+							<b><?php echo $attendee->username;?></b><br>
+							<?php if($attendee->fursuiter==1): ?>
+								<i class="fas fa-paw" title="<?php echo L::register_form_stats_fursuiter;?>"></i>
+							<?php endif; ?>
+							<?php if($attendee->artist==1): ?>
+								<i class="fas fa-paint-brush" title="<?php echo L::register_form_stats_artist;?>"></i>
+							<?php endif; ?>
+							<?php if($attendee->ticket=='sponsor'): ?>
+								<i class="fal fa-heart" title="<?php echo L::register_form_stats_sponsor;?>"></i>
+							<?php elseif($attendee->ticket=='super'): ?>
+								<i class="fas fa-heart" title="<?php echo L::register_form_stats_super;?>"></i>
+							<?php endif; ?>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		<?php endif; ?>
+		<?php
+			$event_model=$this->loadSQL('EventModel');
+			$fursuits=$event_model->getFursuits($event->id);
+		?>
+		<?php if(count($fursuits)>0): ?>
+			<div class="w3-row">
+				<div class="w3-padding-32">
+					<h3><?php echo L::register_form_stats_fursuiters;?></h3>
+				</div>
+				<?php foreach($fursuits as $fursuit): ?>
+					<div class="card" style="width: 220px;">
+						<?php if(file_exists('public/fursuits/'.$fursuit->img.'.png')): ?>
+							<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="roundImg">
+						<?php else: ?>
+							<img src="<?php echo URL.'public/img/account.png' ?>" class="roundImg">
+						<?php endif; ?>
+						<div class="w3-center"><b><?php echo $fursuit->name;?></b><br>
+						(<?php echo L::admin_overview_fursuiters_owned;?> <?php echo $fursuit->username;?>)<br>
+						<?php echo $fursuit->animal;?></div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		<?php endif; ?>
+	<?php else: ?>
+		<div class="w3-container w3-center w3-padding-64">
+			<?php echo L::register_form_stats_noStats;?>
+		</div>
+	<?php endif; ?>
 </div>
 
 <script>
@@ -276,4 +382,166 @@ function validate(){
 		$("#submitBtn").prop("disabled", true);
 	}
 }
+
+function openTab(evt, tabName){
+  var i, x, tablinks;
+  x=document.getElementsByClassName("tab");
+  for(i=0;i<x.length;i++){
+    x[i].style.display="none";
+  }
+  tablinks=document.getElementsByClassName("tablink");
+  for(i=0;i<x.length;i++){
+    tablinks[i].className=tablinks[i].className.replace(" w3-border-blue", "");
+  }
+  document.getElementById(tabName).style.display="block";
+  evt.currentTarget.firstElementChild.className+=" w3-border-blue";
+}
+</script>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/dataviz.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+<!-- Chart code -->
+<script>
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_dataviz);
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+// Create chart instance
+var chart = am4core.create("chartCountry", am4charts.PieChart);
+
+<?php
+	$text='';
+	$countries=$reg_model->getCountries($event->id);
+	foreach ($countries as $country){
+		$text.='{"country": "'.$country->country.'", "quantity": '.$country->counter.'},';
+	}
+	$text=substr($text, 0, -1);
+?>
+chart.data=[<?php echo $text; ?>];
+
+// Set inner radius
+chart.innerRadius = am4core.percent(50);
+
+// Add and configure Series
+var pieSeries = chart.series.push(new am4charts.PieSeries());
+pieSeries.dataFields.value = "quantity";
+pieSeries.dataFields.category = "country";
+pieSeries.slices.template.stroke = am4core.color("#fff");
+pieSeries.slices.template.strokeWidth = 2;
+pieSeries.slices.template.strokeOpacity = 1;
+
+// This creates initial animation
+pieSeries.hiddenState.properties.opacity = 1;
+pieSeries.hiddenState.properties.endAngle = -90;
+pieSeries.hiddenState.properties.startAngle = -90;
+
+var chart = am4core.create("chartTicket", am4charts.PieChart);
+
+<?php
+	$text='';
+	$tickets=$reg_model->getTickets($event->id);
+	if($event->regular_price==0){
+		foreach ($tickets as $ticket){
+			$text.='{"ticket": "Free", "quantity": '.$ticket->counter.'}';
+		}
+	}
+	else{
+		foreach ($tickets as $ticket){
+			$text.='{"ticket": "'.ucfirst($ticket->ticket).'", "quantity": '.$ticket->counter.'},';
+		}
+		$text=substr($text, 0, -1);
+	}
+
+?>
+chart.data=[<?php echo $text; ?>];
+
+// Set inner radius
+chart.innerRadius = am4core.percent(50);
+
+// Add and configure Series
+var pieSeries = chart.series.push(new am4charts.PieSeries());
+pieSeries.dataFields.value = "quantity";
+pieSeries.dataFields.category = "ticket";
+pieSeries.slices.template.stroke = am4core.color("#fff");
+pieSeries.slices.template.strokeWidth = 2;
+pieSeries.slices.template.strokeOpacity = 1;
+
+// This creates initial animation
+pieSeries.hiddenState.properties.opacity = 1;
+pieSeries.hiddenState.properties.endAngle = -90;
+pieSeries.hiddenState.properties.startAngle = -90;
+
+var chart = am4core.create("chartGender", am4charts.PieChart);
+
+<?php
+	$text='';
+	$genders=$reg_model->getGenders($event->id);
+	foreach ($genders as $gender){
+		if($gender->gender=='silent'){
+			$text.='{"gender": "Do not wish to answer", "quantity": '.$gender->counter.'},';
+		}
+		else{
+			$text.='{"gender": "'.ucfirst($gender->gender).'", "quantity": '.$gender->counter.'},';
+		}
+	}
+	$text=substr($text, 0, -1);
+?>
+chart.data=[<?php echo $text; ?>];
+
+// Set inner radius
+chart.innerRadius = am4core.percent(50);
+
+// Add and configure Series
+var pieSeries = chart.series.push(new am4charts.PieSeries());
+pieSeries.dataFields.value = "quantity";
+pieSeries.dataFields.category = "gender";
+pieSeries.slices.template.stroke = am4core.color("#fff");
+pieSeries.slices.template.strokeWidth = 2;
+pieSeries.slices.template.strokeOpacity = 1;
+
+// This creates initial animation
+pieSeries.hiddenState.properties.opacity = 1;
+pieSeries.hiddenState.properties.endAngle = -90;
+pieSeries.hiddenState.properties.startAngle = -90;
+
+var chart = am4core.create("chartRooms", am4charts.PieChart);
+
+<?php
+	$text='';
+	$rooms=$reg_model->getRooms($event->id);
+	foreach ($rooms as $room){
+		$text.='{"room": "'.ucfirst($room->type).'", "quantity": '.$room->counter.'},';
+	}
+	$room=$reg_model->getNoRoom($event->id);
+	if($room->counter!=0){
+		$text.='{"room": "No accomodation", "quantity": '.$room->counter.'},';
+	}
+	$text=substr($text, 0, -1);
+?>
+chart.data=[<?php echo $text; ?>];
+
+// Set inner radius
+chart.innerRadius = am4core.percent(50);
+
+// Add and configure Series
+var pieSeries = chart.series.push(new am4charts.PieSeries());
+pieSeries.dataFields.value = "quantity";
+pieSeries.dataFields.category = "room";
+pieSeries.slices.template.stroke = am4core.color("#fff");
+pieSeries.slices.template.strokeWidth = 2;
+pieSeries.slices.template.strokeOpacity = 1;
+
+// This creates initial animation
+pieSeries.hiddenState.properties.opacity = 1;
+pieSeries.hiddenState.properties.endAngle = -90;
+pieSeries.hiddenState.properties.startAngle = -90;
+
+});
 </script>

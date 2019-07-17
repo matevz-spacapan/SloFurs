@@ -10,7 +10,7 @@ class LogIn extends Connection{
 			$log_in_model=$this->loadSQL('LogInModel');
 			$log_in_account=$log_in_model->login($_POST['email'], $_POST['password']);
 			$_SESSION['alert']=$log_in_account;
-			header('location: '.URL.'account');
+			header('location: '.URL);
 		}
 		else{
 			require 'app/sites/global/header.php';

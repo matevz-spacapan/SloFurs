@@ -12,10 +12,10 @@
     <label><?php echo L::admin_form_event_end;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::admin_form_event_endInfo;?></i>
     <input type="datetime-local" class="w3-input" name="end" required value="<?php if($editEvent){echo $event_model->convert($event->event_end);} ?>">
 
-    <label><?php echo L::admin_form_event_location;?></label>
+    <label><?php echo L::admin_form_event_location;?></label> <i class="w3-opacity w3-small"><?php echo L::admin_form_event_locationInfo;?></i>
     <input type="text" class="w3-input" name="location" value="<?php if($editEvent){echo $event->location;} ?>">
 
-    <label><?php echo L::admin_form_event_description;?></label>
+    <label><?php echo L::admin_form_event_description;?></label> <i class="w3-opacity w3-small"><?php echo L::admin_form_event_descriptionInfo;?></i>
     <textarea class="w3-input" name="description"><?php if($editEvent){echo $event->description;} ?>
     </textarea><p>
 
@@ -37,7 +37,7 @@
     <?php if($editEvent&&$event->img!=null):?>
       <div class="w3-center">
         <br>
-        <button type="submit" name="delete_photo" class="w3-red w3-round w3-button">Delete current photo</button>
+        <button type="submit" name="delete_photo" class="w3-red w3-round w3-button"><?php echo L::admin_form_event_delete;?></button>
       </div>
     <?php endif;?>
     <!-- Registration details -->
@@ -78,7 +78,7 @@
       <tr>
         <th><?php echo L::admin_form_tickets_type;?></th>
         <th><?php echo L::admin_form_tickets_cost;?></th>
-        <th><?php echo L::admin_form_tickets_description;?></th>
+        <th><?php echo L::admin_form_tickets_description;?> <i class="w3-opacity w3-small"><?php echo L::admin_form_tickets_descriptionInfo;?></i></th>
       </tr>
       <tr>
         <td>
@@ -149,8 +149,9 @@
           </tr>
         <?php endforeach; ?>
       <?php endif; ?>
-    </table><br>
+    </table>
     <div class="w3-center">
+      <p><?php echo L::admin_form_hint;?></p>
       <?php if(!$editEvent): ?>
         <button type="submit" id="submitBtn" name="new_event" class="w3-button w3-green w3-round" disabled><?php echo L::admin_form_create;?></button>
       <?php else: ?>

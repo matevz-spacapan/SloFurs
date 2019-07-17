@@ -21,10 +21,13 @@ class LogInModel{
 			if($account){
 				if(password_verify($password, $account->password)){
 					if($account->activate==""||($account->newemail!=null&&$account->activate!=null)){
-						$sql='UPDATE account SET password_reset=NULL WHERE email=:email';
-						$query=$this->db->prepare($sql);
-						$query->execute(array(':email'=>$email));
+						if($account->password_reset!=null){
+							$sql='UPDATE account SET password_reset=NULL WHERE email=:email';
+							$query=$this->db->prepare($sql);
+							$query->execute(array(':email'=>$email));
+						}
 						$_SESSION['account']=$account->id;
+						$_SESSION['lang']=$account->language;
 					}
 					else{
 						return 'iThis account has not been activated. Please check your email.';

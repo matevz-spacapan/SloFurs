@@ -53,4 +53,7 @@ if($("#profileCountry").val()!=''){
 if($("#profileGender").val()!=''){
 	$("#"+$("#profileGender").val()).prop("checked", true);
 }
+if($("#profileLanguage").val()!=''){
+	$("#"+$("#profileLanguage").val()).prop("checked", true);
+}
 </script>

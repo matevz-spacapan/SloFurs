@@ -3,7 +3,6 @@
 		<h1><?php echo L::register_view_h;?></h1>
 	</div>
 </div>
-<div class="w3-container w3-col l6 m8">
 	<!-- COMPLETE PROFILE WARNING -->
 	<?php if(!$complete_profile): ?>
 		<h3 class="w3-text-red"><i><?php echo L::register_view_profile_h;?></i></h3>
@@ -80,7 +79,7 @@
 
 	<!-- PAST EVENTS -->
 	<?php if(count($pEvents)>0): ?>
-		<div class="w3-container">
+		<div class="w3-container w3-row-padding w3-padding-32">
 			<h3><?php echo L::register_view_past_h;?></h3>
 			<?php foreach($pEvents as $event): ?>
 				<a href="<?php echo URL.'register/edit?id='.$event->id; ?>" style="text-decoration: none;">
@@ -93,4 +92,3 @@
 			<?php endforeach; ?>
 		</div>
 	<?php endif; ?>
-</div>
