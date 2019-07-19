@@ -47,7 +47,7 @@
 						$src2=URL.'public/img/si.png';
 						$lang='en';
 					}
-					echo '<img src="'.$src1.'" style="height:23px;">';
+					echo '<img src="'.$src1.'" style="height:23px;" class="w3-round-xxlarge">';
 					$base='?lang=';
 					if(strpos($_SERVER['REQUEST_URI'], '?')!==false){
 						$base=BASEURL.$_SERVER['REQUEST_URI'].'&lang=';
@@ -56,11 +56,10 @@
 			</button>
 			<div class="w3-dropdown-content w3-bar-block" style="right:0">
 				<?php if($lang=='si'): ?>
-					<a href="<?php echo $base;?>en" class="w3-bar-item w3-button w3-mobile w3-center"><?php echo '<img src="'.$src2.'" style="height:23px;">';?></a>
+					<a href="<?php echo $base;?>en" class="w3-bar-item w3-button w3-mobile w3-center"><?php echo '<img src="'.$src2.'" style="height:23px;" class="w3-round-xxlarge">';?></a>
 				<?php else: ?>
-					<a href="<?php echo $base;?>si" class="w3-bar-item w3-button w3-mobile w3-center"><?php echo '<img src="'.$src2.'" style="height:23px;">';?></a>
+					<a href="<?php echo $base;?>si" class="w3-bar-item w3-button w3-mobile w3-center"><?php echo '<img src="'.$src2.'" style="height:23px;" class="w3-round-xxlarge">';?></a>
 				<?php endif; ?>
-					<div class="w3-bar-item w3-button w3-mobile w3-center w3-tiny">Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 			</div>
 		</div>
 		<a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="openNav()">&#9776;</a>

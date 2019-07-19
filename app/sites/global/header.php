@@ -24,8 +24,8 @@
 	<!-- jQuery -->
 	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<!-- Favicon -->
-	<link rel="icon" href="<?php echo URL;?>public/img/favicon.png" type="image/x-icon"/>
-	<link rel="shortcut icon" href="<?php echo URL;?>public/img/favicon.png" type="image/x-icon"/>
+	<link rel="icon" href="<?php echo URL;?>public/img/slo.png" type="image/x-icon"/>
+	<link rel="shortcut icon" href="<?php echo URL;?>public/img/slo.png" type="image/x-icon"/>
 </head>
 <body>
 	<?php
