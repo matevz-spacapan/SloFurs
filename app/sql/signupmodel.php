@@ -28,18 +28,18 @@ class SignUpModel{
 					$query=$this->db->prepare($sql);
 					$query->execute(array(':username'=>$username, ':email'=>$email, ':password'=>$password, ':created'=>$created, ':activate'=>$activate_token));
 					require 'app/emails/confirm_email.php';
-					return 'iTo confirm your account please check your e-mail.';
+					return L::alerts_i_toConfirm;
 				}
 				else{
-					return 'dYour password is not in valid format.';
+					return L::alerts_d_invalidPwFormatSignup;
 				}
 			}
 			else{
-				return 'dThis e-mail has already been registered.';
+				return L::alerts_d_alreadySignedUp;
 			}
 		}
 		else{
-			return 'dPlease fill all the input fields.';
+			return L::alerts_d_allFields;
 		}
 	}
 }

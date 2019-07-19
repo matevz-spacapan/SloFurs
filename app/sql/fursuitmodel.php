@@ -51,20 +51,20 @@ class FursuitModel{
 						return ''; //OK
 					}
 					else{
-						return 'dThere was an error uploading the picture.';
+						return L::alerts_d_errorupload;
 					}
 				}
 				else{
-					return 'dThe image is not square shaped.';
+					return L::alerts_d_notSquare;
 				}
 			}
 			else{
-				return 'dPlease choose only pictures to upload.';
+				return L::alerts_d_onlyPic;
 			}
-			
+
 		}
 		else{
-			return 'dPlease fill all the input fields.';
+			return L::alerts_d_allFields;
 		}
 	}
 	// Edit fursuit details
@@ -107,48 +107,44 @@ class FursuitModel{
 								$query->execute(array(':img'=>$file_name, ':id'=>$id));
 							}
 							else{
-								return 'dThere was an error uploading the picture.';
+								return L::alerts_d_errorupload;
 							}
 						}
 						else{
-							return 'dThe image is not square shaped.';
+							return L::alerts_d_notSquare;
 						}
 					}
 					else{
-						return 'dPlease choose only pictures to upload.';
+						return L::alerts_d_onlyPic;
 					}
 				}
-				return 'sFursuit information updated.'; //OK
+				return L::alerts_s_saved;
 			}
 			else{
-				return 'dPlease fill all the input fields.';
+				return L::alerts_d_allFields;
 			}
 		}
 		else{
 			//TODO report incident
-			return 'dTrying to change fursuits of other users. This incident was reported.';
+			return L::alerts_d_cantDoThat;
 		}
 	}
 	public function delFursuit($id){
 		//check if fursuit id and account id match
-		if(isset($id)){
-			$sql='SELECT * FROM fursuit WHERE id=:id';
+		$id=strip_tags($id);
+		$sql='SELECT * FROM fursuit WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		$account=$query->fetch();
+		if($account->acc_id==$_SESSION['account']){
+			unlink('public/fursuits/'.$account->img.'.png');
+			$sql='DELETE FROM fursuit WHERE id=:id';
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':id'=>$id));
-			$account=$query->fetch();
-			if($account->acc_id==$_SESSION['account']){
-				unlink('public/fursuits/'.$account->img.'.png');
-				$sql='DELETE FROM fursuit WHERE id=:id';
-				$query=$this->db->prepare($sql);
-				$query->execute(array(':id'=>$id));
-			}
-			else{
-				//TODO report incident
-				return 'dTrying to delete fursuits of other users. This incident was reported.';
-			}
 		}
 		else{
-			return "dThere was an error processing your request.";
+			//TODO report incident
+			return L::alerts_d_cantDoThat;
 		}
 	}
 }

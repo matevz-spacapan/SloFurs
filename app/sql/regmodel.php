@@ -81,14 +81,14 @@ class RegModel{
 		$account=$query->fetch();
 		$age=(int)date_diff(date_create($event->event_start), date_create($account->dob), true)->format('%y');
 		if($age<$event->restricted_age){
-			return "dYou aren't old enough to register for this event.";
+			return L::alerts_d_tooYoung;
 		}
 		$now=new DateTime();
 		if(new DateTime($event->reg_end)<=$now){
-			return "dYou can't register for this event any longer.";
+			return L::alerts_d_noMore;
 		}
 		elseif((new DateTime($event->reg_start)>$now && $account->status<PRE_REG) || ($event->pre_reg_start!=0 && new DateTime($event->pre_reg_start)>$now && $account->status>=PRE_REG) ){
-			return "dYou can't register for this event yet.";
+			return L::alerts_d_notYet;
 		}
 		$ticket=(array_key_exists('ticket', $data))?strip_tags($data['ticket']):'regular';
 		$room=(array_key_exists('room', $data)&&$data['room']!=0)?strip_tags($data['room']):null;
@@ -114,9 +114,9 @@ class RegModel{
 		$username=$account->username;
 		$email=$account->email;
 		$url=URL.'register/edit?id='.$event_ID;
-		$attendance='Attendance fee: ';
+		$attendance=L::register_model_attendance.': ';
 		if($event->regular_price==0){
-			$attendance=$attendance.' Free.';
+			$attendance=$attendance.' '.L::register_model_free.'.';
 		}
 		else{
 			switch($ticket){
@@ -130,26 +130,26 @@ class RegModel{
 					$attendance=$attendance.$event->super_price.'€.';
 			}
 		}
-		$accomodation='Accomodation selection and price: ';
+		$accomodation=L::register_model_accomodation.': ';
 		if($room==null){
-			$accomodation=$accomodation.'No accomodation (0€).';
+			$accomodation=$accomodation.L::register_model_noAccomodation.' (0€).';
 		}
 		else{
 			$accomodation=$accomodation.$room_selected->type.' ('.$room_selected->price.'€).';
 		}
 		$bad_news='';
 		if($room_confirmed==0){
-			$bad_news='Unfortunately your selected room was not available any longer at the time when your registration was processed. You have been put on the wait-list on a first-come, first-served basis. If someone else cancels their room spot and you are next up on the list, you will take their spot. We will email you if this happens.';
+			$bad_news=L::register_model_notAvailable;
 		}
 		if($event->autoconfirm==1){
-			$confirmed='Your registration is now complete and confirmed by us. We are looking forward to seeing you soon!';
+			$confirmed=L::register_model_confirmed;
 			require 'app/emails/event_confirmation.php'; //$event_name, $username, $url (edit url), $recap, $bad_news, $email
-			return "sYour registration was successfull and is confirmed.";
+			return L::alerts_s_regSucc;
 		}
 		else{
-			$confirmed='Your registration is now complete, but will have to be manually checked by our staff. We are looking forward to seeing you soon!';
+			$confirmed=L::register_model_manual;
 			require 'app/emails/event_confirmation.php'; //$event_name, $username, $url (edit url), $recap, $bad_news, $email
-			return "sYour registration was successfull and is awaiting confirmation.";
+			return L::alerts_s_regManual;
 		}
 	}
 
@@ -175,7 +175,7 @@ class RegModel{
 		$event=$this->existingReg($id);
 		//check if can edit reg (reg end)
 		if(new DateTime($event->reg_end)<=new DateTime()){
-			return "dYou can't edit your registration for this event any longer.";
+			return L::alerts_d_noModeEdit;
 		}
 		$ticket=(array_key_exists('ticket', $data))?strip_tags($data['ticket']):'regular';
 		$room=(array_key_exists('room', $data))?($data['room']!=0)?strip_tags($data['room']):null:null;
@@ -184,7 +184,7 @@ class RegModel{
 		$sql='UPDATE registration SET room_id=:room_id, ticket=:ticket, fursuiter=:fursuiter, artist=:artist WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':room_id'=>$room, ':ticket'=>$ticket, ':fursuiter'=>$fursuiter, ':artist'=>$artist, ':id'=>$id));
-		return "sYour event registration data was successfully updated.";
+		return L::alerts_s_evtSuccUpdate;
 	}
 
 	/*
@@ -208,6 +208,10 @@ class RegModel{
 			}
 		}
 	}
+	// Convert MySQL datetime to HTML datetime
+	public function convert($date){
+		return date_format(new DateTime($date),"Y-m-d\TH:i");
+	}
 	//true=complete
 	public function checkProfile(){
 		$sql='SELECT id FROM account WHERE id=:id AND fname IS NULL';
@@ -216,13 +220,18 @@ class RegModel{
 		return $query->rowCount()==0;
 	}
 	// Check if account has already registered for event
-	public function registered($id, $type_id){
+	public function registered($id, $type_id, $return_type=true){
 		$id=strip_tags($id);
 		$type_id=strip_tags($type_id);
 		$sql='SELECT id FROM registration WHERE acc_id=:id AND '.$type_id.'=:type_id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$_SESSION['account'], ':type_id'=>$id));
-		return $query->rowCount()==0;
+		if($return_type){
+			return $query->rowCount()==0;
+		}
+		else{
+			return $query->fetch();
+		}
 	}
 	// Check if event exists
 	public function exists($id){
@@ -279,5 +288,79 @@ class RegModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return $query->fetchAll();
+	}
+
+	/*
+	 * CAR SHARING
+	*/
+
+	//Get car shares for this event
+	public function getAllCarShares($id){
+		$id=strip_tags($id);
+		$sql='SELECT car_share.id as id, price, description, outbound, direction, passengers, username, account.id as accId FROM car_share INNER JOIN account ON account.id=owner WHERE event_id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetchAll();
+	}
+	//Get selected car share
+	public function getCarShare($id){
+		$id=strip_tags($id);
+		$sql='SELECT * FROM car_share WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetch();
+	}
+	//insert new car share
+	public function newCarShare($id, $direction, $passengers, $outbound, $price, $description){
+		//check if user is registered for event
+		$sql='SELECT * FROM registration WHERE acc_id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$_SESSION['account']));
+		if($query->rowCount()==0){
+			return L::alerts_d_reggedForEvt;
+		}
+		$id=strip_tags($id);
+		$direction=strip_tags($direction);
+		$passengers=strip_tags($passengers);
+		$outbound=strip_tags($outbound);
+		$price=strip_tags($price);
+		$description=strip_tags($description);
+		$sql='INSERT INTO car_share(price, description, outbound, direction, passengers, event_id, owner) VALUES (:price, :description, :outbound, :direction, :passengers, :event_id, :owner)';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':price'=>$price, ':description'=>$description, ':outbound'=>$outbound, ':direction'=>$direction, ':passengers'=>$passengers, ':event_id'=>$id, 'owner'=>$_SESSION['account']));
+	}
+	//edit existing car share
+	public function editCarShare($id, $direction, $passengers, $outbound, $price, $description){
+		$id=strip_tags($id);
+		//check if user is the owner of the car share
+		$sql='SELECT * FROM car_share WHERE id=:id AND owner=:acc_id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id, ':acc_id'=>$_SESSION['account']));
+		if($query->rowCount()==0){
+			return 'dYou can\'t do that.';
+		}
+		$direction=strip_tags($direction);
+		$passengers=strip_tags($passengers);
+		$outbound=strip_tags($outbound);
+		$price=strip_tags($price);
+		$description=strip_tags($description);
+		$sql='UPDATE car_share SET price=:price, description=:description, outbound=:outbound, direction=:direction, passengers=:passengers WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':price'=>$price, ':description'=>$description, ':outbound'=>$outbound, ':direction'=>$direction, ':passengers'=>$passengers, ':id'=>$id));
+		return L::alerts_s_saved;
+	}
+	//edit existing car share
+	public function deleteCarShare($id){
+		$id=strip_tags($id);
+		//check if user is the owner of the car share
+		$sql='SELECT * FROM car_share WHERE id=:id AND owner=:acc_id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id, ':acc_id'=>$_SESSION['account']));
+		if($query->rowCount()==0){
+			return L::alerts_d_cantDoThat;
+		}
+		$sql='DELETE FROM car_share WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
 	}
 }

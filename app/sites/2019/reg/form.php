@@ -8,14 +8,21 @@
 		<?php endif; ?>
 	</div>
 </div>
+
+<!-- NAVIGATION / TABS -->
 <div class="w3-row w3-center">
 	<a href="javascript:void(0)" onclick="openTab(event, 'Event');">
-		<div class="w3-half tablink w3-bottombar w3-hover-light-grey w3-padding w3-border-blue"><?php echo L::register_form_details;?></div>
+		<div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding w3-border-blue"><?php echo L::register_form_details;?></div>
 	</a>
 	<a href="javascript:void(0)" onclick="openTab(event, 'Stats');">
-		<div class="w3-half tablink w3-bottombar w3-hover-light-grey w3-padding"><?php echo L::register_form_statistics;?></div>
+		<div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding"><?php echo L::register_form_statistics;?></div>
+	</a>
+	<a href="javascript:void(0)" onclick="openTab(event, 'Rides');">
+		<div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding"><?php echo L::register_form_car_h;?></div>
 	</a>
 </div>
+
+<!-- EVENT DETAILS / REGISTRATION -->
 <div class="w3-container tab" style="width:85%; margin: 0 auto;" id="Event">
 	<div class="w3-row">
 		<div class="w3-col l9">
@@ -202,7 +209,7 @@
 </div>
 
 <!-- STATS -->
-<div class="w3-container tab" id="Stats">
+<div class="w3-container tab" id="Stats" style="display:none">
 	<?php if(new DateTime($event->reg_start)<=$now): ?>
 		<div class="w3-row">
 			<div class="w3-half">
@@ -240,11 +247,11 @@
 				</div>
 				<?php foreach($attendees as $attendee): ?>
 					<?php if($attendee->ticket=='sponsor'): ?>
-						<div class="card w3-yellow" style="width:150px; min-height:150px;">
+						<div class="card w3-yellow" style="width:150px; min-height:150px; cursor: default;">
 					<?php elseif($attendee->ticket=='sponsor'): ?>
-						<div class="card w3-amber" style="width:150px; min-height:150px;">
+						<div class="card w3-amber" style="width:150px; min-height:150px; cursor: default;">
 					<?php else: ?>
-						<div class="card" style="width:150px; min-height:150px;">
+						<div class="card" style="width:150px; min-height:150px; cursor: default;">
 					<?php endif; ?>
 						<?php if(file_exists('public/accounts/'.$attendee->pfp.'.png')): ?>
 							<img src="<?php echo URL.'public/accounts/'.$attendee->pfp; ?>.png" class="roundImg">
@@ -279,7 +286,7 @@
 					<h3><?php echo L::register_form_stats_fursuiters;?></h3>
 				</div>
 				<?php foreach($fursuits as $fursuit): ?>
-					<div class="card" style="width: 220px;">
+					<div class="card" style="width: 220px; cursor: default;">
 						<?php if(file_exists('public/fursuits/'.$fursuit->img.'.png')): ?>
 							<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="roundImg">
 						<?php else: ?>
@@ -295,6 +302,105 @@
 	<?php else: ?>
 		<div class="w3-container w3-center w3-padding-64">
 			<?php echo L::register_form_stats_noStats;?>
+		</div>
+	<?php endif; ?>
+</div>
+
+<!-- CAR SHARING -->
+<div class="w3-container tab" id="Rides" style="display:none">
+	<h3><?php echo L::register_form_car_h;?></h3>
+	<!-- Add new -->
+	<?php if(strpos($_SERVER['REQUEST_URI'], 'edit')!==false): ?>
+		<button onclick="$('#addNew').removeClass('w3-hide')" class="w3-button w3-round w3-border w3-border-blue"><?php echo L::register_form_car_new;?></button><br>
+		<div class="w3-hide w3-col l6 m10" id="addNew">
+			<br>
+			<p><?php echo L::register_form_car_p;?></p>
+			<form action="<?php echo URL;?>register/edit?id=<?php echo $event->id;?>" method="post" autocomplete="off">
+				<label><?php echo L::register_form_car_direction;?></label> <sup class="w3-text-red">*</sup><br/>
+				<input class="w3-radio" type="radio" name="direction" value="0" required>
+				<label><?php echo L::register_form_car_to;?></label>
+				<input class="w3-radio" type="radio" name="direction" value="1">
+				<label><?php echo L::register_form_car_from;?></label><br>
+				<label><?php echo L::register_form_car_number;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_numberI;?></i>
+				<select class="w3-select" name="passengers">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+				</select>
+				<label><?php echo L::register_form_car_date;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_dateI;?></i>
+		    <input type="datetime-local" class="w3-input" name="outbound" required>
+	      <label><?php echo L::register_form_car_price;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_priceI;?></i>
+	      <input type="number" class="w3-input" name="price" min="1" required>
+				<label><?php echo L::register_form_car_desc;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_descI;?></i>
+		    <textarea class="w3-input" name="description" required></textarea><p>
+					<div class="w3-center">
+						<button type="submit" name="new_car_share" class="w3-button w3-round w3-green"><?php echo L::register_form_car_add;?></button>
+					</div>
+			</form>
+		</div><br>
+	<?php endif; ?>
+	<?php $carShares=$reg_model->getAllCarShares($event->id); ?>
+	<?php if(count($carShares)>0): ?>
+		<?php foreach($carShares as $carShare): ?>
+			<?php if($carShare->accId==$_SESSION['account']): ?>
+				<div id="<?php echo $carShare->id; ?>" class="w3-modal">
+					<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
+						<header class="w3-container w3-blue w3-center roundHeaderTop">
+							<span onclick="$('#<?php echo $carShare->id; ?>').hide()"
+							class="w3-button w3-display-topright roundXTop">&times;</span>
+							<h2><?php echo L::register_form_car_edit;?></h2>
+						</header>
+						<div class="w3-container">
+							<form action="<?php echo URL;?>register/edit?id=<?php echo $event->id;?>&carshare=<?php echo $carShare->id;?>" method="post">
+								<label><?php echo L::register_form_car_direction;?></label> <sup class="w3-text-red">*</sup><br/>
+								<input class="w3-radio" type="radio" name="direction" value="0" required <?php if($carShare->direction==0){ echo 'checked';} ?>>
+								<label><?php echo L::register_form_car_to;?></label>
+								<input class="w3-radio" type="radio" name="direction" value="1" <?php if($carShare->direction==1){ echo 'checked';} ?>>
+								<label><?php echo L::register_form_car_from;?></label><br>
+								<label><?php echo L::register_form_car_number;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_numberI;?></i>
+								<select class="w3-select" name="passengers">
+									<option value="1" <?php if($carShare->passengers==1){ echo 'selected';} ?>>1</option>
+									<option value="2" <?php if($carShare->passengers==2){ echo 'selected';} ?>>2</option>
+									<option value="3" <?php if($carShare->passengers==3){ echo 'selected';} ?>>3</option>
+									<option value="4" <?php if($carShare->passengers==4){ echo 'selected';} ?>>4</option>
+									<option value="5" <?php if($carShare->passengers==5){ echo 'selected';} ?>>5</option>
+									<option value="6" <?php if($carShare->passengers==6){ echo 'selected';} ?>>6</option>
+									<option value="7" <?php if($carShare->passengers==7){ echo 'selected';} ?>>7</option>
+								</select>
+								<label><?php echo L::register_form_car_date;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_dateI;?></i>
+						    <input type="datetime-local" class="w3-input" name="outbound" required value="<?php echo $reg_model->convert($carShare->outbound); ?>">
+					      <label><?php echo L::register_form_car_price;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_priceI;?></i>
+					      <input type="number" class="w3-input" name="price" min="1" required value="<?php echo $carShare->price; ?>">
+								<label><?php echo L::register_form_car_desc;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_descI;?></i>
+						    <textarea class="w3-input" name="description" required><?php echo $carShare->description; ?></textarea><p>
+									<div class="w3-center">
+										<button type="submit" name="edit_car_share" class="w3-button w3-round w3-green"><?php echo L::register_form_car_save;?></button>
+										<button type="submit" name="delete_car_share" class="w3-button w3-round w3-border w3-border-red"><?php echo L::register_form_car_delete;?></button>
+									</div><br>
+							</form>
+						</div>
+					</div>
+				</div>
+			<div class="card w3-gray" onclick="$('#<?php echo $carShare->id; ?>').show()">
+			<?php else: ?>
+			<div class="card w3-gray" style="cursor: default;">
+			<?php endif; ?>
+				<div class="w3-center">
+					<h5 style="display: inline;"><?php echo ($carShare->direction==0)?'To event':'From event'; ?></h5>
+					<b>(<?php echo $carShare->passengers; ?> <?php echo L::register_form_car_spots;?>)</b><br><br>
+					<?php echo L::register_form_car_at;?>: <b><?php echo $reg_model->convertViewable($carShare->outbound, 2); ?>.</b><br>
+					<?php echo L::register_form_car_driver;?>: <b><?php echo $carShare->username; ?></b><br><br>
+					<?php echo nl2br($carShare->description); ?><p>
+				</div>
+			</div>
+		<?php endforeach; ?>
+	<?php else: ?>
+		<div class="w3-container">
+			<?php echo L::register_form_car_none;?></i>
 		</div>
 	<?php endif; ?>
 </div>
@@ -398,150 +504,151 @@ function openTab(evt, tabName){
 }
 </script>
 
-<!-- Resources -->
-<script src="https://www.amcharts.com/lib/4/core.js"></script>
-<script src="https://www.amcharts.com/lib/4/charts.js"></script>
-<script src="https://www.amcharts.com/lib/4/themes/dataviz.js"></script>
-<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<?php if(new DateTime($event->reg_start)<=$now): ?>
+	<!-- Resources -->
+	<script src="https://www.amcharts.com/lib/4/core.js"></script>
+	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+	<script src="https://www.amcharts.com/lib/4/themes/dataviz.js"></script>
+	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 
-<!-- Chart code -->
-<script>
-am4core.ready(function() {
+	<!-- Chart code -->
+	<script>
+	am4core.ready(function() {
 
-// Themes begin
-am4core.useTheme(am4themes_dataviz);
-am4core.useTheme(am4themes_animated);
-// Themes end
+	// Themes begin
+	am4core.useTheme(am4themes_dataviz);
+	am4core.useTheme(am4themes_animated);
+	// Themes end
 
-// Create chart instance
-var chart = am4core.create("chartCountry", am4charts.PieChart);
+	// Create chart instance
+	var chart = am4core.create("chartCountry", am4charts.PieChart);
 
-<?php
-	$text='';
-	$countries=$reg_model->getCountries($event->id);
-	foreach ($countries as $country){
-		$text.='{"country": "'.$country->country.'", "quantity": '.$country->counter.'},';
-	}
-	$text=substr($text, 0, -1);
-?>
-chart.data=[<?php echo $text; ?>];
-
-// Set inner radius
-chart.innerRadius = am4core.percent(50);
-
-// Add and configure Series
-var pieSeries = chart.series.push(new am4charts.PieSeries());
-pieSeries.dataFields.value = "quantity";
-pieSeries.dataFields.category = "country";
-pieSeries.slices.template.stroke = am4core.color("#fff");
-pieSeries.slices.template.strokeWidth = 2;
-pieSeries.slices.template.strokeOpacity = 1;
-
-// This creates initial animation
-pieSeries.hiddenState.properties.opacity = 1;
-pieSeries.hiddenState.properties.endAngle = -90;
-pieSeries.hiddenState.properties.startAngle = -90;
-
-var chart = am4core.create("chartTicket", am4charts.PieChart);
-
-<?php
-	$text='';
-	$tickets=$reg_model->getTickets($event->id);
-	if($event->regular_price==0){
-		foreach ($tickets as $ticket){
-			$text.='{"ticket": "Free", "quantity": '.$ticket->counter.'}';
-		}
-	}
-	else{
-		foreach ($tickets as $ticket){
-			$text.='{"ticket": "'.ucfirst($ticket->ticket).'", "quantity": '.$ticket->counter.'},';
+	<?php
+		$text='';
+		$countries=$reg_model->getCountries($event->id);
+		foreach ($countries as $country){
+			$text.='{"country": "'.$country->country.'", "quantity": '.$country->counter.'},';
 		}
 		$text=substr($text, 0, -1);
-	}
+	?>
+	chart.data=[<?php echo $text; ?>];
 
-?>
-chart.data=[<?php echo $text; ?>];
+	// Set inner radius
+	chart.innerRadius = am4core.percent(50);
 
-// Set inner radius
-chart.innerRadius = am4core.percent(50);
+	// Add and configure Series
+	var pieSeries = chart.series.push(new am4charts.PieSeries());
+	pieSeries.dataFields.value = "quantity";
+	pieSeries.dataFields.category = "country";
+	pieSeries.slices.template.stroke = am4core.color("#fff");
+	pieSeries.slices.template.strokeWidth = 2;
+	pieSeries.slices.template.strokeOpacity = 1;
 
-// Add and configure Series
-var pieSeries = chart.series.push(new am4charts.PieSeries());
-pieSeries.dataFields.value = "quantity";
-pieSeries.dataFields.category = "ticket";
-pieSeries.slices.template.stroke = am4core.color("#fff");
-pieSeries.slices.template.strokeWidth = 2;
-pieSeries.slices.template.strokeOpacity = 1;
+	// This creates initial animation
+	pieSeries.hiddenState.properties.opacity = 1;
+	pieSeries.hiddenState.properties.endAngle = -90;
+	pieSeries.hiddenState.properties.startAngle = -90;
 
-// This creates initial animation
-pieSeries.hiddenState.properties.opacity = 1;
-pieSeries.hiddenState.properties.endAngle = -90;
-pieSeries.hiddenState.properties.startAngle = -90;
+	var chart = am4core.create("chartTicket", am4charts.PieChart);
 
-var chart = am4core.create("chartGender", am4charts.PieChart);
-
-<?php
-	$text='';
-	$genders=$reg_model->getGenders($event->id);
-	foreach ($genders as $gender){
-		if($gender->gender=='silent'){
-			$text.='{"gender": "Do not wish to answer", "quantity": '.$gender->counter.'},';
+	<?php
+		$text='';
+		$tickets=$reg_model->getTickets($event->id);
+		if($event->regular_price==0){
+			foreach ($tickets as $ticket){
+				$text.='{"ticket": "Free", "quantity": '.$ticket->counter.'}';
+			}
 		}
 		else{
-			$text.='{"gender": "'.ucfirst($gender->gender).'", "quantity": '.$gender->counter.'},';
+			foreach ($tickets as $ticket){
+				$text.='{"ticket": "'.ucfirst($ticket->ticket).'", "quantity": '.$ticket->counter.'},';
+			}
+			$text=substr($text, 0, -1);
 		}
-	}
-	$text=substr($text, 0, -1);
-?>
-chart.data=[<?php echo $text; ?>];
 
-// Set inner radius
-chart.innerRadius = am4core.percent(50);
+	?>
+	chart.data=[<?php echo $text; ?>];
 
-// Add and configure Series
-var pieSeries = chart.series.push(new am4charts.PieSeries());
-pieSeries.dataFields.value = "quantity";
-pieSeries.dataFields.category = "gender";
-pieSeries.slices.template.stroke = am4core.color("#fff");
-pieSeries.slices.template.strokeWidth = 2;
-pieSeries.slices.template.strokeOpacity = 1;
+	// Set inner radius
+	chart.innerRadius = am4core.percent(50);
 
-// This creates initial animation
-pieSeries.hiddenState.properties.opacity = 1;
-pieSeries.hiddenState.properties.endAngle = -90;
-pieSeries.hiddenState.properties.startAngle = -90;
+	// Add and configure Series
+	var pieSeries = chart.series.push(new am4charts.PieSeries());
+	pieSeries.dataFields.value = "quantity";
+	pieSeries.dataFields.category = "ticket";
+	pieSeries.slices.template.stroke = am4core.color("#fff");
+	pieSeries.slices.template.strokeWidth = 2;
+	pieSeries.slices.template.strokeOpacity = 1;
 
-var chart = am4core.create("chartRooms", am4charts.PieChart);
+	// This creates initial animation
+	pieSeries.hiddenState.properties.opacity = 1;
+	pieSeries.hiddenState.properties.endAngle = -90;
+	pieSeries.hiddenState.properties.startAngle = -90;
 
-<?php
-	$text='';
-	$rooms=$reg_model->getRooms($event->id);
-	foreach ($rooms as $room){
-		$text.='{"room": "'.ucfirst($room->type).'", "quantity": '.$room->counter.'},';
-	}
-	$room=$reg_model->getNoRoom($event->id);
-	if($room->counter!=0){
-		$text.='{"room": "No accomodation", "quantity": '.$room->counter.'},';
-	}
-	$text=substr($text, 0, -1);
-?>
-chart.data=[<?php echo $text; ?>];
+	var chart = am4core.create("chartGender", am4charts.PieChart);
 
-// Set inner radius
-chart.innerRadius = am4core.percent(50);
+	<?php
+		$text='';
+		$genders=$reg_model->getGenders($event->id);
+		foreach ($genders as $gender){
+			if($gender->gender=='silent'){
+				$text.='{"gender": "Do not wish to answer", "quantity": '.$gender->counter.'},';
+			}
+			else{
+				$text.='{"gender": "'.ucfirst($gender->gender).'", "quantity": '.$gender->counter.'},';
+			}
+		}
+		$text=substr($text, 0, -1);
+	?>
+	chart.data=[<?php echo $text; ?>];
 
-// Add and configure Series
-var pieSeries = chart.series.push(new am4charts.PieSeries());
-pieSeries.dataFields.value = "quantity";
-pieSeries.dataFields.category = "room";
-pieSeries.slices.template.stroke = am4core.color("#fff");
-pieSeries.slices.template.strokeWidth = 2;
-pieSeries.slices.template.strokeOpacity = 1;
+	// Set inner radius
+	chart.innerRadius = am4core.percent(50);
 
-// This creates initial animation
-pieSeries.hiddenState.properties.opacity = 1;
-pieSeries.hiddenState.properties.endAngle = -90;
-pieSeries.hiddenState.properties.startAngle = -90;
+	// Add and configure Series
+	var pieSeries = chart.series.push(new am4charts.PieSeries());
+	pieSeries.dataFields.value = "quantity";
+	pieSeries.dataFields.category = "gender";
+	pieSeries.slices.template.stroke = am4core.color("#fff");
+	pieSeries.slices.template.strokeWidth = 2;
+	pieSeries.slices.template.strokeOpacity = 1;
 
+	// This creates initial animation
+	pieSeries.hiddenState.properties.opacity = 1;
+	pieSeries.hiddenState.properties.endAngle = -90;
+	pieSeries.hiddenState.properties.startAngle = -90;
+
+	var chart = am4core.create("chartRooms", am4charts.PieChart);
+
+	<?php
+		$text='';
+		$rooms=$reg_model->getRooms($event->id);
+		foreach ($rooms as $room){
+			$text.='{"room": "'.ucfirst($room->type).'", "quantity": '.$room->counter.'},';
+		}
+		$room=$reg_model->getNoRoom($event->id);
+		if($room->counter!=0){
+			$text.='{"room": "No accomodation", "quantity": '.$room->counter.'},';
+		}
+		$text=substr($text, 0, -1);
+	?>
+	chart.data=[<?php echo $text; ?>];
+
+	// Set inner radius
+	chart.innerRadius = am4core.percent(50);
+
+	// Add and configure Series
+	var pieSeries = chart.series.push(new am4charts.PieSeries());
+	pieSeries.dataFields.value = "quantity";
+	pieSeries.dataFields.category = "room";
+	pieSeries.slices.template.stroke = am4core.color("#fff");
+	pieSeries.slices.template.strokeWidth = 2;
+	pieSeries.slices.template.strokeOpacity = 1;
+
+	// This creates initial animation
+	pieSeries.hiddenState.properties.opacity = 1;
+	pieSeries.hiddenState.properties.endAngle = -90;
+	pieSeries.hiddenState.properties.startAngle = -90;
 });
+<?php endif; ?>
 </script>

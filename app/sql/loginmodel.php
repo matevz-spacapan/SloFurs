@@ -30,19 +30,19 @@ class LogInModel{
 						$_SESSION['lang']=$account->language;
 					}
 					else{
-						return 'iThis account has not been activated. Please check your email.';
+						return L::alerts_i_notActive;
 					}
 				}
 				else{
-					return 'dInvalid password or email account.';
+					return L::alerts_d_invalidLogin;
 				}
 			}
 			else{
-				return 'dInvalid password or email account.';
+				return L::alerts_d_invalidLogin;
 			}
 		}
 		else{
-			return 'dPlease fill all the input fields.';
+			return L::alerts_d_allFields;
 		}
 	}
 	// Activate Account
@@ -61,31 +61,31 @@ class LogInModel{
 						$query=$this->db->prepare($sql);
 						$query->execute(array(':email'=>$email));
 						$_SESSION['account']=$account->id;
-						return 'sAccount activated, you may now complete your profile.';
+						return L::alerts_s_activated;
 					}
 					else if($account->newemail==$email){ //change email on existing account
 						$sql='UPDATE account SET activate=null, email=:email, newemail=null WHERE newemail=:email';
 						$query=$this->db->prepare($sql);
 						$query->execute(array(':email'=>$email));
-						return 'sYour email is now updated.';
+						return L::alerts_s_emailUpdated;
 					}
 					else{
-						return 'dInvalid email and/or activation token.';
+						return L::alerts_d_invalidActivate;
 					}
 				}
 				elseif($account->activate==""){
-					return 'iThis account has already been activated.';
+					return L::alerts_i_alreadyActive;
 				}
 				else{
-					return 'dInvalid activation token.';
+					return L::alerts_d_invalidActivate;
 				}
 			}
 			else{
-				return 'dThis account does not exist.';
+				return L::alerts_d_noAccount;
 			}
 		}
 		else{
-			return 'dNo email or activation token provided.';
+			return L::alerts_d_invalidActivateParam;
 		}
 	}
 	public function logout(){
@@ -100,14 +100,14 @@ class LogInModel{
 		$account=$query->fetch();
 		$username=$account->username;
 		if($username==null){
-			return "iAccount with that email doesn't exist.";
+			return L::alerts_s_resetPwEmail;
 		}
 		$token=bin2hex(random_bytes(32));
 		$sql='UPDATE account SET password_reset=:password_reset WHERE email=:email';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':email'=>$email, ':password_reset'=>$token));
 		require 'app/emails/password_reset.php';
-		return 'sCheck your email to reset your password.';
+		return L::alerts_s_resetPwEmail;
 	}
 	public function passwordReset2($email, $token){
 		$email=strip_tags($email);
@@ -131,6 +131,6 @@ class LogInModel{
 		$sql='UPDATE account SET password=:pwd WHERE email=:email';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':email'=>$email, ':pwd'=>$password));
-		return 'sYour password was successfully changed.';
+		return L::alerts_s_resetPw;
 	}
 }

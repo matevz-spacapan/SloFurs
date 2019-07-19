@@ -49,7 +49,7 @@
 					}
 					echo '<img src="'.$src1.'" style="height:23px;">';
 					$base='?lang=';
-					if(STRPOS($_SERVER['REQUEST_URI'], '?')!==false){
+					if(strpos($_SERVER['REQUEST_URI'], '?')!==false){
 						$base=BASEURL.$_SERVER['REQUEST_URI'].'&lang=';
 					}
 				?>

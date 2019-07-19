@@ -28,55 +28,53 @@
   </div>
 </div>
 
+<?php
+  $reg_model=$this->loadSQL('RegModel');
+  $cEvents=$reg_model->getCEvents(true); //upcoming
+?>
+
 <!-- Second Grid -->
-<div class="w3-row-padding w3-light-gray w3-padding-64 w3-container">
-  <div class="w3-content">
-    <div>
+  <div class="w3-row-padding w3-light-gray w3-padding-64 w3-container">
+    <div class="w3-content">
       <h1>Our upcoming events</h1>
+      <?php if(count($cEvents)>0): ?>
         <?php if(!isset($_SESSION['account'])): ?>
           <h5 class="w3-padding-16"><a href="<?php echo URL;?>login">Log in</a> to your account so you can register for these events! We'll be very happy to see you join us <i class="fal fa-laugh-beam"></i></h5>
         <?php else: ?>
           <h5 class="w3-padding-16">If you'd like to register for any of these events, just click on it <i class="fal fa-laugh-beam"></i></h5>
         <?php endif; ?>
         <div class="w3-row">
-          <?php
-        		$reg_model=$this->loadSQL('RegModel');
-        		$cEvents=$reg_model->getCEvents(true); //upcoming
-          ?>
-    			<?php if(count($cEvents) > 0): ?>
-    				<?php foreach($cEvents as $event): ?>
-    					<?php
-    						if(new DateTime($event->reg_end)<=new DateTime()){
-    							$color='w3-light-gray';
-    							$text=L::admin_event_text_closed;;
-    						}
-    						elseif(new DateTime($event->reg_start)<=new DateTime()){
-    							$color='w3-blue';
-    							$text=L::admin_event_text_reg.'<br>'.$reg_model->convertViewable($event->reg_end, 2);
-    						}
-    						elseif($event->pre_reg_start!=$event->reg_start && new DateTime($event->pre_reg_start)<=new DateTime() && isset($account) && $account->status>=PRE_REG){
-    							$color='w3-light-blue';
-    							$text=L::admin_event_text_pre.'<br>'.$reg_model->convertViewable($event->reg_start, 2);
-    						}
-    						else{
-    							$color='w3-light-gray';
-    							$text=L::admin_event_text_until.'<br>';
-    							$date=(isset($account) && $account->status>=PRE_REG)?$reg_model->convertViewable($event->pre_reg_start, 2):$reg_model->convertViewable($event->reg_start, 2);
-    							$text=$text.$date;
-    						}
-                echo '<a href="'.URL.'register/new?id='.$event->id.'" style="text-decoration: none;">';
-    						  require 'app/sites/'.THEME.'/reg/evt.php';
-                echo '</a>';
-    					?>
-    				<?php endforeach; ?>
-    			<?php else: ?>
-    				<p><?php echo L::admin_event_noUpcoming;?></p>
-    			<?php endif; ?>
+  				<?php foreach($cEvents as $event): ?>
+  					<?php
+  						if(new DateTime($event->reg_end)<=new DateTime()){
+  							$color='w3-light-gray';
+  							$text=L::admin_event_text_closed;;
+  						}
+  						elseif(new DateTime($event->reg_start)<=new DateTime()){
+  							$color='w3-blue';
+  							$text=L::admin_event_text_reg.'<br>'.$reg_model->convertViewable($event->reg_end, 2);
+  						}
+  						elseif($event->pre_reg_start!=$event->reg_start && new DateTime($event->pre_reg_start)<=new DateTime() && isset($account) && $account->status>=PRE_REG){
+  							$color='w3-light-blue';
+  							$text=L::admin_event_text_pre.'<br>'.$reg_model->convertViewable($event->reg_start, 2);
+  						}
+  						else{
+  							$color='w3-light-gray';
+  							$text=L::admin_event_text_until.'<br>';
+  							$date=(isset($account) && $account->status>=PRE_REG)?$reg_model->convertViewable($event->pre_reg_start, 2):$reg_model->convertViewable($event->reg_start, 2);
+  							$text=$text.$date;
+  						}
+              echo '<a href="'.URL.'register/new?id='.$event->id.'" style="text-decoration: none;">';
+  						  require 'app/sites/'.THEME.'/reg/evt.php';
+              echo '</a>';
+  					?>
+  				<?php endforeach; ?>
     		</div>
+      <?php else: ?>
+        <p><?php echo L::admin_event_noUpcoming;?></p>
+      <?php endif; ?>
     </div>
   </div>
-</div>
-
 <div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
     <h1 class="w3-margin w3-xlarge"><i class="fas fa-paw-claws"></i> STAY FUZZY <i class="fas fa-paw-claws"></i></h1>
 </div>

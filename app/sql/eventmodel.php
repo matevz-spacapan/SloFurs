@@ -100,7 +100,7 @@ class EventModel{
 		$account=$query->fetch();
 		if($account->status!=ADMIN){
 			//TODO report incident
-			return "dYou can't do that. This incident was reported.";
+			return L::alerts_d_cantDoThat;
 		}
 
 		//EVENT
@@ -161,15 +161,15 @@ class EventModel{
 					$target_file=$target_dir.$file_name.'.png';
 					if(imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){}
 					else{
-						return 'dThere was an error uploading the picture.';
+						return L::alerts_d_errorupload;
 					}
 				}
 				else{
-					return 'dThe image is not 170x170px.';
+					return L::alerts_d_not170;
 				}
 			}
 			else{
-				return 'dPlease choose only pictures to upload.';
+				return L::alerts_d_onlyPic;
 			}
 		}
 		//create event, get event ID for accomodation creation
@@ -212,7 +212,7 @@ class EventModel{
 				$query->execute(array(':quantity'=>$quantity, ':event_id'=>$event_ID, ':room_id'=>$room_ID));
 			}
 		}
-		return "sEvent created!";
+		return L::alerts_s_evtCreated;
 	}
 	// Edit an event
 	public function editEvent($id, $fields, $image){
@@ -222,7 +222,7 @@ class EventModel{
 	  $account=$query->fetch();
 	  if($account->status!=ADMIN){
 	    //TODO report incident
-	    return "dYou can't do that. This incident was reported.";
+	    return L::alerts_d_cantDoThat;
 	  }
 
 	  //EVENT
@@ -300,21 +300,21 @@ class EventModel{
 						$query->execute(array(':img'=>$file_name, ':id'=>$id));
 					}
 					else{
-						return 'dThere was an error uploading the picture.';
+						return L::alerts__d_errorupload;
 					}
 				}
 				else{
-					return 'dThe image is not square shaped.';
+					return L::alerts__d_notSquare;
 				}
 			}
 			else{
-				return 'dPlease choose only pictures to upload.';
+				return L::alerts__d_onlyPic;
 			}
 		}
 
 	  //ACCOMODATION (TODO)
 		//get all rooms for this event, compare for deleted items, update all others
-	  return "sChanges saved!";
+	  return L::alerts_s_saved;
 	}
 	//Delete event photo
 	public function deletePhoto($id){
@@ -324,7 +324,7 @@ class EventModel{
 	  $account=$query->fetch();
 	  if($account->status!=ADMIN){
 	    //TODO report incident
-	    return "dYou can't do that. This incident was reported.";
+	    return L::alerts_d_cantDoThat;
 	  }
 		$id=strip_tags($id);
 		$sql='SELECT img FROM event WHERE id=:id';
@@ -336,12 +336,12 @@ class EventModel{
 			unlink($target_dir.$event->img.'.png');
 		}
 		else{
-			return 'dThere is no photo set for this event.';
+			return L::alerts_d_noPhoto;
 		}
 		$sql='UPDATE event SET img=null WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
-		return 'sEvent photo successfully reset to default image.';
+		return L::alerts_s_evtPhotoReset;
 	}
 	//Change confirmed status of Attendees for event ID
 	public function editConfirm($event, $ids){
@@ -356,6 +356,6 @@ class EventModel{
 		  $query=$this->db->prepare($sql);
 		  $query->execute(array(':confirmed'=>$confirmed, ':id'=>$id->id));
 		}
-		return 'sConfirmed statuses updated successfully.';
+		return L::alerts_s_confStatus;
 	}
 }

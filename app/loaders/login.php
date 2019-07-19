@@ -8,8 +8,7 @@ class LogIn extends Connection{
 		//log-in
 		elseif(isset($_POST['log_in_acc'])){
 			$log_in_model=$this->loadSQL('LogInModel');
-			$log_in_account=$log_in_model->login($_POST['email'], $_POST['password']);
-			$_SESSION['alert']=$log_in_account;
+			$_SESSION['alert']=$log_in_model->login($_POST['email'], $_POST['password']);
 			header('location: '.URL);
 		}
 		else{
@@ -27,7 +26,7 @@ class LogIn extends Connection{
 			header('location: '.URL.'account');
 		}
 		else{
-			$_SESSION['alert']='dInvalid account activation request.';
+			$_SESSION['alert']=L::alerts_d_activate;
 			header('location: '.URL.'login');
 		}
 	}
@@ -48,7 +47,7 @@ class LogIn extends Connection{
 			//check validity of submitted data
 			$valid=$log_in_model->passwordReset2($email, $token);
 			if(!$valid){
-				$_SESSION['alert']="dInvalid password reset request.";
+				$_SESSION['alert']=L::alerts_d_pw;
 				header('location: '.URL.'login');
 			}
 			else{

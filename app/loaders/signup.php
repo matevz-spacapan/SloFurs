@@ -8,8 +8,7 @@ class SignUp extends Connection{
 		//sign up account
 		elseif(isset($_POST['sign_up_acc'])){
 			$sign_up_model=$this->loadSQL('SignUpModel');
-			$sign_up_account=$sign_up_model->signupAcc($_POST['username'], $_POST['email'], $_POST['password']);
-			$_SESSION['alert']=$sign_up_account;
+			$_SESSION['alert']=$sign_up_model->signupAcc($_POST['username'], $_POST['email'], $_POST['password']);
 			header('location: '.URL.'login');
 		}
 		else{

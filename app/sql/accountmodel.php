@@ -24,14 +24,14 @@ class AccountModel{
 				$query=$this->db->prepare($sql);
 				$query->execute(array(':email'=>$email, ':activate'=>$activate_token, ':id'=>$_SESSION['account']));
 				require 'app/emails/confirm_email.php';
-				return 'iTo confirm your new email, please check your inbox.';
+				return L::alerts_iConfirm;
 			}
 			else{
-				return 'dInvalid password. No changes were made.';
+				return L::alerts_d_invalidPw;
 			}
 		}
 		else{
-			return 'dPlease fill all the input fields.';
+			return L::alerts_d_allFields;
 		}
 	}
 	// Change PFP
@@ -53,7 +53,7 @@ class AccountModel{
 		if($img_param!==false){
 			list($width, $height)=$img_param;
 			if($width!=$height){
-				return 'The image is not square shaped.';
+				return L::alerts_d_notSquare;
 			}
 			$target_file=$target_dir.$file_name.'.png';
 			if(imagepng(imagecreatefromstring(file_get_contents($img_file['tmp_name'])), $target_file)){
@@ -63,14 +63,14 @@ class AccountModel{
 				$sql='UPDATE account SET pfp=:pfp WHERE id=:id';
 				$query=$this->db->prepare($sql);
 				$query->execute(array(':pfp'=>$file_name, ':id'=>$_SESSION['account']));
-				return 'sYour profile picture has been changed.';
+				return L::alerts_s_pfpChanged;
 			}
 			else{
-				return 'dThere was an error uploading the picture.';
+				return L::alerts_d_errorupload;
 			}
 		}
 		else{
-			return 'dPlease choose only pictures.';
+			return L::alerts_d_onlyPic;
 		}
 	}
 	// Update contact info
@@ -91,10 +91,10 @@ class AccountModel{
 			$sql='UPDATE account SET fname=:fname, lname=:lname, address=:address, address2=:address2, post=:post, city=:city, country=:country, phone=:phone, dob=:dob, gender=:gender, language=:language WHERE id=:id';
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':fname'=>$fname, ':lname'=>$lname, ':address'=>$address, ':address2'=>$address2, ':post'=>$postcode, ':city'=>$city, ':country'=>$country, ':phone'=>$phone, ':dob'=>$dob, ':gender'=>$gender, ':language'=>$language, ':id'=>$_SESSION['account']));
-			return 'sAccount information updated.';
+			return L::alerts_s_accUpdated;
 		}
 		else{
-			return 'dPlease fill all the non-optional input fields.';
+			return L::alerts_d_allMandatory;
 		}
 	}
 	// Delete profile info, if possible
@@ -105,7 +105,7 @@ class AccountModel{
 		$query->execute(array(':acc_id'=>$_SESSION['account']));
 		$upcoming=$query->fetchAll();
 		if(count($upcoming)!=0){
-			return "dYou can't do that - you have registered for upcoming events.";
+			return L::alerts_d_cantDeleteAcc1;
 		}
 		//if past Evt>5 days ago
 		$sql='SELECT * FROM event INNER JOIN registration ON event.id=registration.event_id WHERE event_end<NOW()-INTERVAL 5 DAY AND acc_id=:id ORDER BY event_end ASC';
@@ -113,12 +113,12 @@ class AccountModel{
 		$query->execute(array(':id'=>$_SESSION['account']));
 		$past=$query->fetchAll();
 		if(count($past)!=0){
-			return "dYou can't do that - the last registered event is less than 5 days ago.";
+			return L::alerts_d_cantDeleteAcc2;
 		}
 		$sql='UPDATE account SET fname=NULL, lname=NULL, address=NULL, address2=NULL, post=NULL, city=NULL, country=NULL, phone=NULL, dob=NULL, gender=NULL WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$_SESSION['account']));
-		return 'sAccount information deleted.';
+		return L::alerts_s_accDeleted;
 	}
 	// Change password
 	public function changePw($oldPw, $newPw){
@@ -135,14 +135,14 @@ class AccountModel{
 				$sql='UPDATE account SET password=:password WHERE id=:id';
 				$query=$this->db->prepare($sql);
 				$query->execute(array(':password'=>$newPw, ':id'=>$_SESSION['account']));
-				return 'sYour password has been changed.';
+				return L::alerts_s_pwChanged;
 			}
 			else{
-				return 'dYour current password is not valid.';
+				return L::alerts_d_currPwInvalid;
 			}
 		}
 		else{
-			return 'dYour new password is not in valid format.';
+			return L::alerts_d_invalidPwFormat;
 		}
 	}
 }
