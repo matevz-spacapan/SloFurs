@@ -1,10 +1,7 @@
 <?php
 class Connection{
 	public $db=null;
-	function __construct(){   
-		if(!isset($_SESSION['account'])){
-			session_start();
-		}
+	function __construct(){
 		$this->openDbConnection();
 	}
 	//db connection

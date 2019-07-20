@@ -12,7 +12,7 @@
 			<div>
 				<?php echo L::login_noAcc;?> <a href="<?php echo URL;?>signup"><?php echo L::login_noAccButton;?></a><br>
 				<?php echo L::login_forgot;?> <a href="<?php echo URL;?>login/forgot"><?php echo L::login_forgotButton;?></a><br>
-				Didn't receive the account confirmation email? <a href="<?php echo URL;?>signup/resend">Request a resend</a>
+				<?php echo L::signup_noActivation;?> <a href="<?php echo URL;?>signup/resend"><?php echo L::signup_noActivationButton;?></a>
 			</div>
 		</form>
 	</div>

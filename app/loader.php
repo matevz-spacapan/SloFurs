@@ -10,9 +10,13 @@ class Application{
 
 	public function __construct(){
 		$this->splitUrl();
+		session_start();
 		//if site was requested
 		if(!isset($_SESSION['lang'])){
 			$_SESSION['lang']='si';
+		}
+		if(isset($_GET['lang'])&&($_GET['lang']=='si'||$_GET['lang']=='en')){
+			$_SESSION['lang']=$_GET['lang'];
 		}
 		require_once "public/spyc/spyc.php";
 		require_once 'public/i18n/i18n.class.php';

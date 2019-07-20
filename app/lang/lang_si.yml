@@ -152,6 +152,13 @@ signup:
   pwCond3: 'vsebuje vsaj 1 poseben znak (npr. _ ! / itd.)'
   desc3: 'Če je gumb za dokončanje registracije onemogočen, je to zaradi tega, ker niste zadostili vsem pogojem.'
   desc4: 'Sporočilo za potrditev vašega računa boste našli v mapi za nezaželjeno pošto!'
+  noActivation: 'Niste prejeli potrditvenega e-poštnega sporočila?'
+  noActivationButton: 'Zahtevajte novo'
+  resend:
+    h: 'Ponovno pošiljanje potrditvenega sporočila'
+    submit: 'Pošlji'
+    desc1: 'Če niste prejeli potrditvenega sporočila na vaš e-poštni naslov, lahko zahtevate ponovno pošiljanje.'
+    desc2: 'Če slučajno prejmete obe sporočili, vam povezava v prvem sporočilu ne bo delovala.'
 reset:
   h: 'Ponastavite svoje geslo'
   email: 'E-poštni naslov'

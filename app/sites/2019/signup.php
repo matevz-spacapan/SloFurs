@@ -19,7 +19,7 @@
 			</div>
 			<div>
 				<?php echo L::signup_login;?> <a href="<?php echo URL;?>login"><?php echo L::signup_loginButton;?></a><br>
-				Didn't receive the account confirmation email? <a href="<?php echo URL;?>signup/resend">Request a resend</a>
+				<?php echo L::signup_noActivation;?> <a href="<?php echo URL;?>signup/resend"><?php echo L::signup_noActivationButton;?></a>
 			</div>
 		</form>
 	</div>

@@ -152,6 +152,13 @@ signup:
   pwCond3: 'contain at least 1 special character (eg. _ ! / etc.)'
   desc3: 'If the button to submit the form is disabled, it\'s for this reason.'
   desc4: 'The email confirmation will end up in spam for now!'
+  noActivation: 'Didn\'t receive the account confirmation email?'
+  noActivationButton: 'Request a resend'
+  resend:
+    h: 'Resend account activation email'
+    submit: 'Submit'
+    desc1: 'If you didn\'t receive our confirmation email you can request a new one.'
+    desc2: 'If you happen to receive both emails, only the link in the new one will work.'
 reset:
   h: 'Reset your password'
   email: 'E-mail'
