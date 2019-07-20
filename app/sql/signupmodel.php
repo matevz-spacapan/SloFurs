@@ -42,4 +42,22 @@ class SignUpModel{
 			return L::alerts_d_allFields;
 		}
 	}
+	// Resend activation email
+	public function resendEmail($email){
+		$email=strip_tags($email);
+		$activate_token=bin2hex(random_bytes(32));
+		$sql="SELECT username, activate FROM account WHERE email=:email";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':email'=>$email));
+		$result=$query->fetch();
+		if($result->activate==null){
+			return L::alerts_i_alreadyActive;
+		}
+		$username=$result->username;
+		$sql="UPDATE account SET activate=:activate WHERE email=:email";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':email'=>$email, ':activate'=>$activate_token));
+		require 'app/emails/confirm_email.php';
+		return L::alerts_i_toConfirm;
+	}
 }

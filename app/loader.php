@@ -11,6 +11,13 @@ class Application{
 	public function __construct(){
 		$this->splitUrl();
 		//if site was requested
+		if(!isset($_SESSION['lang'])){
+			$_SESSION['lang']='si';
+		}
+		require_once "public/spyc/spyc.php";
+		require_once 'public/i18n/i18n.class.php';
+		$i18n = new i18n('app/lang/lang_{LANGUAGE}.yml', 'public/i18n/langcache/');
+		$i18n->init();
 		if(file_exists('./app/loaders/'.$this->site.'.php')){
 			require './app/loaders/'.$this->site.'.php';
 			$this->site=new $this->site();
@@ -34,22 +41,25 @@ class Application{
 					$this->site->{$this->action}();
 				}
 			}
-			else{
+			elseif($this->action==null){
 				$this->site->index();
-			}
-		}
-		//no site requested, open home page
-		else{
-			if($this->site==null){
-				require './app/loaders/home.php';
-				$home=new Home();
-				$home->index();
 			}
 			else{
 				require './app/sites/404.php';
 				$ouch=new Ouch();
 				$ouch->index();
 			}
+		}
+		//no site requested, open home page
+		elseif($this->site==null){
+			require './app/loaders/home.php';
+			$home=new Home();
+			$home->index();
+		}
+		else{
+			require './app/sites/404.php';
+			$ouch=new Ouch();
+			$ouch->index();
 		}
 	}
 	private function splitUrl(){

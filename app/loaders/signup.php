@@ -18,4 +18,21 @@ class SignUp extends Connection{
 			require 'app/sites/global/footer.php';
 		}
 	}
+	public function resend(){
+		$account=$this->getSessionAcc();
+		if($account!=null){
+			header('location: '.URL);
+		}
+		elseif(isset($_POST['send_email'])){
+			$sign_up_model=$this->loadSQL('SignUpModel');
+			$_SESSION['alert']=$sign_up_model->resendEmail($_POST['email']);
+			header('location: '.URL.'login');
+		}
+		else{
+			require 'app/sites/global/header.php';
+			require 'app/sites/global/alerts.php';
+			require 'app/sites/'.THEME.'/resend_activation.php';
+			require 'app/sites/global/footer.php';
+		}
+	}
 }

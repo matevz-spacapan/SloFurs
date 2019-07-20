@@ -29,12 +29,5 @@
 </head>
 <body>
 	<?php
-		if(!isset($_SESSION['lang'])){
-			$_SESSION['lang']='si';
-		}
-		require_once "public/spyc/spyc.php";
-		require_once 'public/i18n/i18n.class.php';
-		$i18n = new i18n('app/lang/lang_{LANGUAGE}.yml', 'public/i18n/langcache/');
-		$i18n->init();
 		require 'app/sites/global/topnavbar.php';
 	?>

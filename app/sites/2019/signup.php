@@ -13,10 +13,13 @@
 			<label><?php echo L::signup_pw;?></label> <i class="w3-opacity w3-small"><?php echo L::signup_confirm;?></i> <i id="correct" class="far fa-times"></i>
 			<input class="w3-input" id="pwdC" type="password" placeholder="<?php echo L::signup_confirmP;?>" required onkeyup="verifyPassword()">
 			<input class="w3-check" type="checkbox" required>
-			<label><?php echo L::signup_privacy1;?> <a href="<?php echo URL.L::signup_privacy2;?>" target="_blank"><?php echo L::signup_privacy3;?> <i class="far fa-external-link"></i></a>.</label><br>
-			<button type="submit" id="btn" name="sign_up_acc" class="w3-button w3-round w3-border w3-border-blue" disabled="true"><?php echo L::signup_register;?></button>
-			<div class="w3-container">
-				<?php echo L::signup_login;?> <a href="<?php echo URL;?>login"><?php echo L::signup_loginButton;?></a>
+			<label><?php echo L::signup_privacy1;?> <a href="<?php echo URL.L::signup_privacy2;?>" target="_blank"><?php echo L::signup_privacy3;?> <i class="far fa-external-link"></i></a>.</label><br><br>
+			<div class="w3-center">
+				<button type="submit" id="btn" name="sign_up_acc" class="w3-button w3-round w3-border w3-border-blue" disabled="true"><?php echo L::signup_register;?></button><p>
+			</div>
+			<div>
+				<?php echo L::signup_login;?> <a href="<?php echo URL;?>login"><?php echo L::signup_loginButton;?></a><br>
+				Didn't receive the account confirmation email? <a href="<?php echo URL;?>signup/resend">Request a resend</a>
 			</div>
 		</form>
 	</div>
