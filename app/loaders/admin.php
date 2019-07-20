@@ -2,14 +2,31 @@
 class Admin extends Connection{
 	public function index(){
 		$account=$this->getSessionAcc();
-		if($account!=null&&$account->status>ATTENDEE){
-			header('location: '.URL.'admin/event');
+		if($account!=null&&$account->status>=ADMIN){
+			header('location: '.URL.'admin/dash');
 		}
-		elseif($account->status==ATTENDEE){
+		elseif($account->status<STAFF){
 			header('location: '.URL.'404');
 		}
 		else{
 			header('location: '.URL.'login');
+		}
+	}
+	// Dashboard
+	public function dash(){
+		$account=$this->getSessionAcc();
+		$dash_model=$this->loadSQL('DashboardModel');
+		if($account==null){
+			header('location: '.URL.'login');
+		}
+		elseif($account->status>=ADMIN){
+			require 'app/sites/global/header.php';
+			require 'app/sites/global/alerts.php';
+			require 'app/sites/'.THEME.'/admin/dash.php';
+			require 'app/sites/global/footer.php';
+		}
+		else{
+			header('location: '.URL.'404');
 		}
 	}
 	// Event managing page
@@ -19,7 +36,7 @@ class Admin extends Connection{
 		if($account==null){
 			header('location: '.URL.'login');
 		}
-		elseif($account->status==ADMIN){
+		elseif($account->status>=ADMIN){
 			//create new event
 			if(isset($_POST['new_event'])){
 				$event_model=$this->loadSQL('EventModel');
@@ -48,7 +65,7 @@ class Admin extends Connection{
 				require 'app/sites/global/alerts.php';
 				//go to new event creation page
 				if($action=='new'){
-					require 'app/sites/global/adminsidebar.php';
+					require 'app/sites/'.THEME.'/admin/sidebar.php';
 					require 'app/sites/'.THEME.'/admin/newevent.php';
 				}
 				//go to edit/view event page
@@ -64,7 +81,7 @@ class Admin extends Connection{
 					else{
 						$cEvents=$event_model->getCEvents(); //current/upcoming
 						$pEvents=$event_model->getPEvents(); //past
-						require 'app/sites/global/adminsidebar.php';
+						require 'app/sites/'.THEME.'/admin/sidebar.php';
 						require 'app/sites/'.THEME.'/admin/event.php';
 					}
 				}

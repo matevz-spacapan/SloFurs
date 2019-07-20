@@ -1,6 +1,6 @@
 admin:
   event:
-    evtManager: 'Events manager'
+    evtManager: 'Events'
     curr: 'Current and upcoming events'
     colors:
       diff: 'To differentiate between the phase of an event, the following colour codes are being used:'

@@ -1,5 +1,8 @@
 <div class="w3-top">
 	<div class="w3-bar w3-large w3-white">
+		<?php if(strpos($_SERVER['REQUEST_URI'], 'admin/')!==false): ?>
+			<button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="$('#sidebar').show()"><i class="far fa-bars"></i>  Menu</button>
+		<?php endif; ?>
 		<a href="<?php echo URL ?>" class="w3-bar-item w3-button"><?php echo L::topnavbar_home;?></a>
 		<?php if($account!=null): ?>
 			<a href="<?php echo URL ?>register" class="w3-bar-item w3-button w3-hide-small"><?php echo L::topnavbar_event;?></a>
@@ -47,7 +50,7 @@
 						$src2=URL.'public/img/si.png';
 						$lang='en';
 					}
-					echo '<img src="'.$src1.'" style="height:23px;" class="w3-round-xxlarge">';
+					echo '<img src="'.$src1.'" style="height:23px;" class="w3-circle">';
 					$base='?lang=';
 					if(strpos($_SERVER['REQUEST_URI'], '?')!==false){
 						$base=BASEURL.$_SERVER['REQUEST_URI'].'&lang=';
@@ -56,13 +59,13 @@
 			</button>
 			<div class="w3-dropdown-content w3-bar-block" style="right:0">
 				<?php if($lang=='si'): ?>
-					<a href="<?php echo $base;?>en" class="w3-bar-item w3-button w3-mobile w3-center"><?php echo '<img src="'.$src2.'" style="height:23px;" class="w3-round-xxlarge">';?></a>
+					<a href="<?php echo $base;?>en" class="w3-bar-item w3-button w3-mobile w3-center"><?php echo '<img src="'.$src2.'" style="height:23px;" class="w3-circle">';?></a>
 				<?php else: ?>
-					<a href="<?php echo $base;?>si" class="w3-bar-item w3-button w3-mobile w3-center"><?php echo '<img src="'.$src2.'" style="height:23px;" class="w3-round-xxlarge">';?></a>
+					<a href="<?php echo $base;?>si" class="w3-bar-item w3-button w3-mobile w3-center"><?php echo '<img src="'.$src2.'" style="height:23px;" class="w3-circle">';?></a>
 				<?php endif; ?>
 			</div>
 		</div>
-		<a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="openNav()">&#9776;</a>
+		<a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="openNav()"><i class="far fa-bars"></i></a>
 	</div>
 
 

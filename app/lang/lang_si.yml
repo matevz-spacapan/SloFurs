@@ -1,6 +1,6 @@
 admin:
   event:
-    evtManager: 'Upravitelj dogodkov'
+    evtManager: 'Dogodki'
     curr: 'Trenutni in prihajajoči dogodki'
     colors:
       diff: 'Da lažje razlikujete med fazami dogodka, se uporablja sledeče barvne ključe:'

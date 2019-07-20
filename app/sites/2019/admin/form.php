@@ -209,8 +209,9 @@ function removeRow(id){
 	$("#"+id).remove();
 	validate();
 }
-$("#newevent").addClass("w3-orange");
-$("#event").addClass("w3-sand");
+$("#new_event").addClass("w3-orange");
+$("#events_list").addClass("w3-sand");
+$('#dropdown').addClass("w3-show");
 
 $(document).ready(function(){
 	validate();

@@ -34,7 +34,7 @@ class Account extends Connection{
 		}
 		else{
 			require 'app/sites/global/header.php';
-			require 'app/sites/global/sidebar.php';
+			require 'app/sites/'.THEME.'/account/sidebar.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/account/contact.php';
 			require 'app/sites/global/footer.php';
@@ -53,7 +53,7 @@ class Account extends Connection{
 		}
 		else{
 			require 'app/sites/global/header.php';
-			require 'app/sites/global/sidebar.php';
+			require 'app/sites/'.THEME.'/account/sidebar.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/account/password.php';
 			require 'app/sites/global/footer.php';
@@ -81,7 +81,7 @@ class Account extends Connection{
 		else{
 			$fursuits=$fursuit_model->getAccFursuits($_SESSION['account']);
 			require 'app/sites/global/header.php';
-			require 'app/sites/global/sidebar.php';
+			require 'app/sites/'.THEME.'/account/sidebar.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/account/fursuit.php';
 			require 'app/sites/global/footer.php';

@@ -24,9 +24,9 @@ class SignUpModel{
 			$accounts_with_email=$query_check->fetch()->accounts_with_email;
 			if($accounts_with_email==0){
 				if(preg_match($validPw, $password)==1){
-					$sql="INSERT INTO account(username, email, password, created, activate) VALUES (:username, :email, :password, :created, :activate)";
+					$sql="INSERT INTO account(username, email, password, created, activate, language) VALUES (:username, :email, :password, :created, :activate, :language)";
 					$query=$this->db->prepare($sql);
-					$query->execute(array(':username'=>$username, ':email'=>$email, ':password'=>$password, ':created'=>$created, ':activate'=>$activate_token));
+					$query->execute(array(':username'=>$username, ':email'=>$email, ':password'=>$password, ':created'=>$created, ':activate'=>$activate_token, ':language'=>$_SESSION['lang']));
 					require 'app/emails/confirm_email.php';
 					return L::alerts_i_toConfirm;
 				}

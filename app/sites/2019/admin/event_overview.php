@@ -1,5 +1,5 @@
-<div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left" style="width:200px" id="accSidebar">
-  <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="$('#accSidebar').hide()"><?php echo L::admin_close;?> &times;</button>
+<div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left" style="width:200px" id="sidebar">
+  <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="$('#sidebar').hide()"><?php echo L::admin_close;?> &times;</button>
   <a href="<?php echo URL; ?>admin/event" class="w3-bar-item w3-button" id="event"><i class="far fa-arrow-square-left"></i> <?php echo L::admin_overview_back;?></a>
   <button class="w3-bar-item w3-button tablink w3-orange" onclick="openTab(event, 'Edit')"><?php echo L::admin_overview_edit;?></button>
   <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'Attendees')"><?php echo L::admin_overview_attendees_h;?> (<?php echo count($attendees);?>)</button>
@@ -9,7 +9,7 @@
 
 <div class="w3-main" style="margin-left:200px">
   <div class="w3-orange">
-  	<button class="w3-button w3-orange w3-xlarge w3-hide-large" onclick="$('#accSidebar').show()">&#9776;</button>
+  	<button class="w3-button w3-orange w3-xlarge w3-hide-large" onclick="$('#sidebar').show()">&#9776;</button>
   	<div class="w3-container">
   		<h1><?php echo $event->name; ?></h1>
   	</div>
