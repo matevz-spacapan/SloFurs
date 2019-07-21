@@ -172,7 +172,7 @@
       <?php foreach($res as $acc): ?>
         <tr>
           <td><img src="<?php echo URL;?>public/accounts/<?php echo $acc->pfp;?>.png" class="w3-circle w3-margin-right" style="height:35px"> <?php echo $acc->username;?></td>
-          <td><?php echo $acc->email;?></td>
+          <td><a href="mailto:<?php echo $acc->email;?>"><?php echo $acc->email;?></a></td>
           <td>
             <?php
               if($acc->fname!=null){

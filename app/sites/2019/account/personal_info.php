@@ -1,6 +1,9 @@
 <form action="<?php
 	echo URL;
-	if(!$register){
+	if($account->id!=$_SESSION['account']){
+		echo "admin/users?id=".$_GET['id'];
+	}
+	elseif(!$register){
 		echo 'account/contact';
 	}
 	else{
@@ -48,26 +51,26 @@
 	<label><?php echo L::personalInfo_language;?></label><br/>
 	<input type="hidden" id="profileLanguage" value="<?php echo $account->language; ?>">
 	<input class="w3-radio" type="radio" name="language" value="si" id="si" required>
-	<label><img src="<?php echo URL?>public/img/si.png" alt="Slovenščina" height="40"></label>
+	<label><img src="<?php echo URL?>public/img/si.png" alt="Slovenščina" height="40" class="w3-circle"></label>
 	<input class="w3-radio" type="radio" name="language" value="en" id="en">
-	<label><img src="<?php echo URL?>public/img/en.png" alt="English" height="40"></label>
+	<label><img src="<?php echo URL?>public/img/en.png" alt="English" height="40" class="w3-circle"></label>
 
 	<div class="w3-center">
 		<button type="submit" name="update_personal_info" class="w3-button w3-round w3-green"><?php echo L::personalInfo_save;?></button>
 		<?php	if(!$register): ?>
-			<button type="button" class="w3-button w3-round w3-border w3-border-red" id="del1" onclick="delData()"><?php echo L::personalInfo_delete1;?></button>
-			<button type="submit" name="delete_personal_info" id="delconf" class="w3-button w3-red w3-round" style="display: none;"><?php echo L::personalInfo_delete2;?></button>
+			<button type="button" class="w3-button w3-round w3-border w3-border-red" id="delcontact" onclick="delData('contact')"><?php echo L::personalInfo_delete1;?></button>
+			<button type="submit" name="delete_personal_info" id="delconfcontact" class="w3-button w3-red w3-round" style="display: none;"><?php echo L::personalInfo_delete2;?></button>
 			<script>
-			function delData(){
-				$("#del1").addClass("scale-out-center");
+			function delData(id){
+				$("#del"+id).addClass("scale-out-center");
 				setTimeout(function(){
-					contDel();
+					contDel(id);
 				}, 500);
 			}
-			function contDel(){
-				$("#del1").hide();
-				$("#delconf").css("display", "inline-block");
-				$("#delconf").addClass("scale-in-center");
+			function contDel(id){
+				$("#del"+id).hide();
+				$("#delconf"+id).css("display", "inline-block");
+				$("#delconf"+id).addClass("scale-in-center");
 				setTimeout(function(){
 					$("#delconf").removeClass("scale-in-center");
 				}, 500);

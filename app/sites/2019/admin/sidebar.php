@@ -1,11 +1,3 @@
-<!-- Admin Sidebar
-<div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left" style="width:200px;" id="sidebar">
-	<button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="$('#sidebar').hide()"><?php echo L::admin_close;?> &times;</button>
-	<?php if($account->status>=ADMIN): ?>
-	<a href="<?php echo URL; ?>admin/event" class="w3-bar-item w3-button" id="event"><?php echo L::admin_events;?></a>
-	<a href="<?php echo URL; ?>admin/event/new" class="w3-bar-item w3-button" id="newevent" style="padding-left: 35px;"><?php echo L::admin_newEvt;?></a>
-	<?php endif; ?>
-</div>-->
 <!-- Admin Sidebar -->
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="sidebar"><br>
   <div class="w3-container w3-row">
@@ -50,8 +42,11 @@
 			<a href="<?php echo URL; ?>admin/event/new" class="w3-bar-item w3-button" style="padding-left: 30px;" id="new_event"><i class="far fa-calendar-plus"></i> <?php echo L::admin_newEvt;?></a>
 		</div>
 		<?php if($account->status>=SUPER): ?>
-	    <a href="<?php echo URL; ?>admin/users" class="w3-bar-item w3-button w3-padding"><i class="fal fa-users-cog"></i> Users</a>
-	    <a href="<?php echo URL; ?>admin/fursuits" class="w3-bar-item w3-button w3-padding"><i class="fal fa-paw"></i> Fursuits</a><br><br>
+	    <a href="<?php echo URL; ?>admin/users" class="w3-bar-item w3-button w3-padding" id="users"><i class="fal fa-users-cog"></i> Accounts</a>
+  		<div id="editing" class="w3-hide">
+  	    <a href="#" class="w3-bar-item w3-button" style="padding-left: 30px;" id="event"><i class="fal fa-user-cog"></i> Edit account</a>
+  		</div>
+	    <a href="<?php echo URL; ?>admin/fursuits" class="w3-bar-item w3-button w3-padding" id="fursuits"><i class="fal fa-paw"></i> Fursuits</a><br><br>
 		<?php endif; ?>
   </div>
 </nav>

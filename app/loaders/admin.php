@@ -15,15 +15,74 @@ class Admin extends Connection{
 	// Dashboard
 	public function dash(){
 		$account=$this->getSessionAcc();
-		$dash_model=$this->loadSQL('DashboardModel');
 		if($account==null){
 			header('location: '.URL.'login');
 		}
 		elseif($account->status>=ADMIN){
+			$dash_model=$this->loadSQL('DashboardModel');
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/admin/dash.php';
 			require 'app/sites/global/footer.php';
+		}
+		else{
+			header('location: '.URL.'404');
+		}
+	}
+	// Users
+	public function users(){
+		$account=$this->getSessionAcc();
+		if($account==null){
+			header('location: '.URL.'login');
+		}
+		elseif($account->status>=SUPER){
+			$dash_model=$this->loadSQL('UsersDashModel');
+			if(isset($_GET['id'])){
+				if(isset($_POST['change_email'])){
+					$_SESSION['alert']=$dash_model->changeEmail($_POST['email'], $_GET['id'], false);
+					header('location: '.URL.'admin/users?id='.$_GET['id']);
+				}
+				elseif(isset($_POST['force_email'])){
+					$_SESSION['alert']=$dash_model->changeEmail($_POST['email'], $_GET['id'], true);
+					header('location: '.URL.'admin/users?id='.$_GET['id']);
+				}
+				elseif(isset($_POST['reset_pw'])){
+					$_SESSION['alert']=$dash_model->resetPw($_GET['id']);
+					header('location: '.URL.'admin/users?id='.$_GET['id']);
+				}
+				elseif(isset($_POST['account_status'])){
+					$dash_model->setStatus($_POST['status'], $_GET['id']);
+					header('location: '.URL.'admin/users?id='.$_GET['id']);
+				}
+				elseif(isset($_POST['delete_pfp'])){
+					$dash_model->deletePFP($_GET['id']);
+					header('location: '.URL.'admin/users?id='.$_GET['id']);
+				}
+				elseif(isset($_FILES['image'])){
+					$_SESSION['alert']=$dash_model->changePFP($_FILES['image'], $_GET['id']);
+					header('location: '.URL.'admin/users?id='.$_GET['id']);
+				}
+				elseif(isset($_POST['update_personal_info'])){
+					$_SESSION['alert']=$dash_model->updateProfile($_POST['fname'], $_POST['lname'], $_POST['address'], $_POST['address2'], $_POST['city'], $_POST['postcode'], $_POST['country'], $_POST['phone'], $_POST['dob'], $_POST['gender'], $_POST['language'], $_GET['id']);
+					header('location: '.URL.'admin/users?id='.$_GET['id']);
+				}
+				elseif(isset($_POST['delete_personal_info'])){
+					$dash_model->deleteProfile($_GET['id']);
+					header('location: '.URL.'admin/users?id='.$_GET['id']);
+				}
+				else{
+					require 'app/sites/global/header.php';
+					require 'app/sites/global/alerts.php';
+					require 'app/sites/'.THEME.'/admin/users_edit.php';
+					require 'app/sites/global/footer.php';
+				}
+			}
+			else{
+				require 'app/sites/global/header.php';
+				require 'app/sites/global/alerts.php';
+				require 'app/sites/'.THEME.'/admin/users.php';
+				require 'app/sites/global/footer.php';
+			}
 		}
 		else{
 			header('location: '.URL.'404');
