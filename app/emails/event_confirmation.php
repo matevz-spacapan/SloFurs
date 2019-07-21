@@ -1,5 +1,4 @@
 <?php
-require("public/sendgrid-php/sendgrid-php.php");
 $mail = new \SendGrid\Mail\Mail();
 $mail->setFrom("info@slofurs.org", "SloFurs");
 $mail->setSubject("Event confirmation");

@@ -9,6 +9,7 @@ class Application{
 	private $param_5=null;
 
 	public function __construct(){
+		require './public/vendor/autoload.php';
 		$this->splitUrl();
 		session_start();
 		//if site was requested
@@ -18,7 +19,7 @@ class Application{
 		if(isset($_GET['lang'])&&($_GET['lang']=='si'||$_GET['lang']=='en')){
 			$_SESSION['lang']=$_GET['lang'];
 		}
-		require_once "public/spyc/spyc.php";
+		//require_once "public/spyc/spyc.php";
 		require_once 'public/i18n/i18n.class.php';
 		$i18n = new i18n('app/lang/lang_{LANGUAGE}.yml', 'public/i18n/langcache/');
 		$i18n->init();
