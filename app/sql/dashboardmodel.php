@@ -51,7 +51,12 @@ class DashboardModel{
 		return $response->body();
 	}
 	//Recent changes
-
+	public function changes(){
+		$sql='SELECT who, a1.username AS whoU, what, for_who, a2.username AS forU, changed_at FROM changes INNER JOIN account a1 ON a1.id=who INNER JOIN account a2 ON a2.id=for_who ORDER BY changed_at DESC LIMIT 15';
+		$query=$this->db->prepare($sql);
+		$query->execute();
+		return $query->fetchAll();
+	}
 	//Newest accounts
 	public function newest(){
 		$sql='SELECT pfp, username, email, fname, lname, created FROM account ORDER BY created DESC LIMIT 5';

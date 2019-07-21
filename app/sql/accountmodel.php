@@ -31,6 +31,9 @@ class AccountModel{
 				$query=$this->db->prepare($sql);
 				$query->execute(array(':email'=>$email, ':activate'=>$activate_token, ':id'=>$_SESSION['account']));
 				require 'app/emails/confirm_email.php';
+				$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+				$query=$this->db->prepare($sql);
+				$query->execute(array(':who'=>$_SESSION['account'], ':what'=>'initiated an email change', ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 				return L::alerts_i_confirm;
 			}
 			else{
@@ -70,6 +73,9 @@ class AccountModel{
 				$sql='UPDATE account SET pfp=:pfp WHERE id=:id';
 				$query=$this->db->prepare($sql);
 				$query->execute(array(':pfp'=>$file_name, ':id'=>$_SESSION['account']));
+				$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+				$query=$this->db->prepare($sql);
+				$query->execute(array(':who'=>$_SESSION['account'], ':what'=>'changed their PFP', ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 				return L::alerts_s_pfpChanged;
 			}
 			else{
@@ -98,6 +104,9 @@ class AccountModel{
 			$sql='UPDATE account SET fname=:fname, lname=:lname, address=:address, address2=:address2, post=:post, city=:city, country=:country, phone=:phone, dob=:dob, gender=:gender, language=:language WHERE id=:id';
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':fname'=>$fname, ':lname'=>$lname, ':address'=>$address, ':address2'=>$address2, ':post'=>$postcode, ':city'=>$city, ':country'=>$country, ':phone'=>$phone, ':dob'=>$dob, ':gender'=>$gender, ':language'=>$language, ':id'=>$_SESSION['account']));
+			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>'updated their profile info', ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 			return L::alerts_s_accUpdated;
 		}
 		else{
@@ -125,6 +134,9 @@ class AccountModel{
 		$sql='UPDATE account SET fname=NULL, lname=NULL, address=NULL, address2=NULL, post=NULL, city=NULL, country=NULL, phone=NULL, dob=NULL, gender=NULL WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$_SESSION['account']));
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>'cleared their profile info', ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 		return L::alerts_s_accDeleted;
 	}
 	// Change password
@@ -142,6 +154,9 @@ class AccountModel{
 				$sql='UPDATE account SET password=:password WHERE id=:id';
 				$query=$this->db->prepare($sql);
 				$query->execute(array(':password'=>$newPw, ':id'=>$_SESSION['account']));
+				$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+				$query=$this->db->prepare($sql);
+				$query->execute(array(':who'=>$_SESSION['account'], ':what'=>'changed their password', ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 				return L::alerts_s_pwChanged;
 			}
 			else{

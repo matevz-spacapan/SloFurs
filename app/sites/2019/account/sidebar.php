@@ -7,7 +7,7 @@
 			$src=(file_exists('public/accounts/'.$account->pfp.'.png')) ? URL.'public/accounts/'.$account->pfp.'.png' : URL.'public/img/account.png';
 			echo '<img src="'.$src.'" class="w3-circle w3-margin-right" style="height:80px;">';
 			?>
-			<br>Welcome, <strong><?php echo $account->username; ?></strong><br><br>
+			<br><?php echo L::account_sidebar_welcome;?>, <strong><?php echo $account->username; ?></strong><br><br>
     </div>
   </div>
 	<a href="<?php echo URL; ?>account/contact" class="w3-bar-item w3-button" id="contact"><?php echo L::account_sidebar_contact;?></a>

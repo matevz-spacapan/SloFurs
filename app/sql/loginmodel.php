@@ -64,12 +64,18 @@ class LogInModel{
 						$query=$this->db->prepare($sql);
 						$query->execute(array(':email'=>$email));
 						$_SESSION['account']=$account->id;
+						$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+						$query=$this->db->prepare($sql);
+						$query->execute(array(':who'=>$_SESSION['account'], ':what'=>'confirmed their account', ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 						return L::alerts_s_activated;
 					}
 					else if($account->newemail==$email){ //change email on existing account
 						$sql='UPDATE account SET activate=null, email=:email, newemail=null WHERE newemail=:email';
 						$query=$this->db->prepare($sql);
 						$query->execute(array(':email'=>$email));
+						$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+						$query=$this->db->prepare($sql);
+						$query->execute(array(':who'=>$_SESSION['account'], ':what'=>'changed their email address', ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 						return L::alerts_s_emailUpdated;
 					}
 					else{
@@ -110,6 +116,9 @@ class LogInModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':email'=>$email, ':password_reset'=>$token));
 		require 'app/emails/password_reset.php';
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>'initiated a password reset for their account', ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 		return L::alerts_s_resetPwEmail;
 	}
 	public function passwordReset2($email, $token){
@@ -134,6 +143,9 @@ class LogInModel{
 		$sql='UPDATE account SET password=:pwd WHERE email=:email';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':email'=>$email, ':pwd'=>$password));
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>'changed their password via password reset', ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 		return L::alerts_s_resetPw;
 	}
 }

@@ -48,6 +48,9 @@ class FursuitModel{
 						$sql="INSERT INTO fursuit(name, animal, img, in_use, acc_id) VALUES (:name, :animal, :img, :in_use, :acc_id)";
 						$query=$this->db->prepare($sql);
 						$query->execute(array(':name'=>$name, ':animal'=>$animal, ':img'=>$file_name, ':in_use'=>$in_use, ':acc_id'=>$_SESSION['account']));
+						$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+						$query=$this->db->prepare($sql);
+						$query->execute(array(':who'=>$_SESSION['account'], ':what'=>'added a fursuit', ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 						return ''; //OK
 					}
 					else{
@@ -74,6 +77,7 @@ class FursuitModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		$account=$query->fetch();
+		$owner=$account->acc_id;
 		if($account->acc_id==$_SESSION['account']){
 			if(!empty($name)&&!empty($animal)){
 				$name=strip_tags($name);
@@ -93,6 +97,9 @@ class FursuitModel{
 				$sql='UPDATE fursuit SET name=:name, animal=:animal, in_use=:in_use WHERE id=:id';
 				$query=$this->db->prepare($sql);
 				$query->execute(array(':name'=>$name, ':animal'=>$animal, ':in_use'=>$in_use, ':id'=>$id));
+				$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+				$query=$this->db->prepare($sql);
+				$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"updated their fursuit ID $id", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 				//changing the image too
 				if($file_name!=''){
 					$img_param=getimagesize($image['tmp_name']);
@@ -125,7 +132,9 @@ class FursuitModel{
 			}
 		}
 		else{
-			//TODO report incident
+			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"attempted to change fursuit info ID $id", ':for_who'=>$owner, ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 			return L::alerts_d_cantDoThat;
 		}
 	}
@@ -136,6 +145,7 @@ class FursuitModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		$account=$query->fetch();
+		$owner=$account->acc_id;
 		if($account->acc_id==$_SESSION['account']){
 			unlink('public/fursuits/'.$account->img.'.png');
 			$sql='DELETE FROM fursuit WHERE id=:id';
@@ -143,7 +153,9 @@ class FursuitModel{
 			$query->execute(array(':id'=>$id));
 		}
 		else{
-			//TODO report incident
+			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"attempted to delete a fursuit ID $id", ':for_who'=>$owner, ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 			return L::alerts_d_cantDoThat;
 		}
 	}

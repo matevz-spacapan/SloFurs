@@ -28,6 +28,10 @@ class SignUpModel{
 					$query=$this->db->prepare($sql);
 					$query->execute(array(':username'=>$username, ':email'=>$email, ':password'=>$password, ':created'=>$created, ':activate'=>$activate_token, ':language'=>$_SESSION['lang']));
 					require 'app/emails/confirm_email.php';
+					$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+					$id=$this->db->lastInsertId();
+					$query=$this->db->prepare($sql);
+					$query->execute(array(':who'=>$id, ':what'=>'created a new account', ':for_who'=>$id, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 					return L::alerts_i_toConfirm;
 				}
 				else{
@@ -46,7 +50,7 @@ class SignUpModel{
 	public function resendEmail($email){
 		$email=strip_tags($email);
 		$activate_token=bin2hex(random_bytes(32));
-		$sql="SELECT username, activate FROM account WHERE email=:email";
+		$sql="SELECT id, username, activate FROM account WHERE email=:email";
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':email'=>$email));
 		$result=$query->fetch();
@@ -58,6 +62,9 @@ class SignUpModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':email'=>$email, ':activate'=>$activate_token));
 		require 'app/emails/confirm_email.php';
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$result->id, ':what'=>'resent the account activation email', ':for_who'=>$result->id, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 		return L::alerts_i_toConfirm;
 	}
 }

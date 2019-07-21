@@ -144,11 +144,17 @@ class RegModel{
 		if($event->autoconfirm==1){
 			$confirmed=L::register_model_confirmed;
 			require 'app/emails/event_confirmation.php'; //$event_name, $username, $url (edit url), $recap, $bad_news, $email
+			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"registered for an event ID $id", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 			return L::alerts_s_regSucc;
 		}
 		else{
 			$confirmed=L::register_model_manual;
 			require 'app/emails/event_confirmation.php'; //$event_name, $username, $url (edit url), $recap, $bad_news, $email
+			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"registered for an event ID $id", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 			return L::alerts_s_regManual;
 		}
 	}
@@ -184,6 +190,9 @@ class RegModel{
 		$sql='UPDATE registration SET room_id=:room_id, ticket=:ticket, fursuiter=:fursuiter, artist=:artist WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':room_id'=>$room, ':ticket'=>$ticket, ':fursuiter'=>$fursuiter, ':artist'=>$artist, ':id'=>$id));
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"edited their registration data for event ID $id", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 		return L::alerts_s_evtSuccUpdate;
 	}
 
@@ -328,6 +337,9 @@ class RegModel{
 		$sql='INSERT INTO car_share(price, description, outbound, direction, passengers, event_id, owner) VALUES (:price, :description, :outbound, :direction, :passengers, :event_id, :owner)';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':price'=>$price, ':description'=>$description, ':outbound'=>$outbound, ':direction'=>$direction, ':passengers'=>$passengers, ':event_id'=>$id, 'owner'=>$_SESSION['account']));
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"created a car share on event ID $id", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 	}
 	//edit existing car share
 	public function editCarShare($id, $direction, $passengers, $outbound, $price, $description){
@@ -337,7 +349,7 @@ class RegModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id, ':acc_id'=>$_SESSION['account']));
 		if($query->rowCount()==0){
-			return 'dYou can\'t do that.';
+			return L::alerts_d_cantDoThat;
 		}
 		$direction=strip_tags($direction);
 		$passengers=strip_tags($passengers);
@@ -347,6 +359,9 @@ class RegModel{
 		$sql='UPDATE car_share SET price=:price, description=:description, outbound=:outbound, direction=:direction, passengers=:passengers WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':price'=>$price, ':description'=>$description, ':outbound'=>$outbound, ':direction'=>$direction, ':passengers'=>$passengers, ':id'=>$id));
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"edited a car share ID $id", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 		return L::alerts_s_saved;
 	}
 	//edit existing car share
@@ -362,5 +377,8 @@ class RegModel{
 		$sql='DELETE FROM car_share WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"deleted a car share ID $id", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 	}
 }

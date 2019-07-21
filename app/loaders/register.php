@@ -15,7 +15,7 @@ class Register extends Connection{
 		$cEvents=$reg_model->getCEvents(); //upcoming
 		$pEvents=$reg_model->getPEvents(); //past
 		if(isset($_POST['update_personal_info'])){
-			$_SESSION['alert']=$account_model->updateProfile($_POST['fname'], $_POST['lname'], $_POST['address'], $_POST['address2'], $_POST['city'], $_POST['postcode'], $_POST['country'], $_POST['phone'], $_POST['dob'], $_POST['gender']);
+			$_SESSION['alert']=$account_model->updateProfile($_POST['fname'], $_POST['lname'], $_POST['address'], $_POST['address2'], $_POST['city'], $_POST['postcode'], $_POST['country'], $_POST['phone'], $_POST['dob'], $_POST['gender'], $_POST['language']);
 			header('location: '.URL.'register');
 		}
 		else{

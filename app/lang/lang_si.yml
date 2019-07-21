@@ -185,6 +185,7 @@ account:
     contact: 'Kontaktni podatki'
     pw: 'Geslo'
     fursuits: 'Fursuiti'
+    welcome: 'Pozdravljeni'
   h: 'Podatki o računu'
   email:
     h: 'E-poštni naslov računa'

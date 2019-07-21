@@ -185,6 +185,7 @@ account:
     contact: 'Contact info'
     pw: 'Password'
     fursuits: 'Fursuits'
+    welcome: 'Welcome'
   h: 'Account information'
   email:
     h: 'Account email'

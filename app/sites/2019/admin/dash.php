@@ -119,40 +119,20 @@
       <h5>Recent changes</h5>
       <table class="w3-table w3-striped w3-hoverable w3-white">
         <tr>
-          <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
-          <td>New record, over 90 views.</td>
-          <td><i>10 mins</i></td>
+          <th>Who commited the change</th>
+          <th>Type of change</th>
+          <th>Change on account</th>
+          <th>Time of change</th>
         </tr>
-        <tr>
-          <td><i class="fa fa-bell w3-text-red w3-large"></i></td>
-          <td>Database error.</td>
-          <td><i>15 mins</i></td>
-        </tr>
-        <tr>
-          <td><i class="fa fa-users w3-text-yellow w3-large"></i></td>
-          <td>New record, over 40 users.</td>
-          <td><i>17 mins</i></td>
-        </tr>
-        <tr>
-          <td><i class="fa fa-comment w3-text-red w3-large"></i></td>
-          <td>New comments.</td>
-          <td><i>25 mins</i></td>
-        </tr>
-        <tr>
-          <td><i class="fa fa-bookmark w3-text-blue w3-large"></i></td>
-          <td>Check transactions.</td>
-          <td><i>28 mins</i></td>
-        </tr>
-        <tr>
-          <td><i class="fa fa-laptop w3-text-red w3-large"></i></td>
-          <td>CPU overload.</td>
-          <td><i>35 mins</i></td>
-        </tr>
-        <tr>
-          <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
-          <td>New shares.</td>
-          <td><i>39 mins</i></td>
-        </tr>
+        <?php $res=$dash_model->changes(); ?>
+        <?php foreach($res as $row): ?>
+          <tr>
+            <td>ID <?php echo $row->who;?> (<b><?php echo $row->whoU;?></b>)</td>
+            <td><?php echo $row->what;?></td>
+            <td>ID <?php echo $row->for_who;?> (<b><?php echo $row->forU;?></b>)</td>
+            <td><?php echo $row->changed_at;?></td>
+          </tr>
+        <?php endforeach; ?>
       </table>
     </div>
   </div>

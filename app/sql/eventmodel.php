@@ -98,8 +98,10 @@ class EventModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$_SESSION['account']));
 		$account=$query->fetch();
-		if($account->status!=ADMIN){
-			//TODO report incident
+		if($account->status<ADMIN){
+			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"attempted to create an event", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 			return L::alerts_d_cantDoThat;
 		}
 
@@ -212,6 +214,9 @@ class EventModel{
 				$query->execute(array(':quantity'=>$quantity, ':event_id'=>$event_ID, ':room_id'=>$room_ID));
 			}
 		}
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"created an event $event_ID ($name)", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 		return L::alerts_s_evtCreated;
 	}
 	// Edit an event
@@ -220,8 +225,10 @@ class EventModel{
 	  $query=$this->db->prepare($sql);
 	  $query->execute(array(':id'=>$_SESSION['account']));
 	  $account=$query->fetch();
-	  if($account->status!=ADMIN){
-	    //TODO report incident
+	  if($account->status<ADMIN){
+			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"attempted to edit event ID ".$fields['name'], ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 	    return L::alerts_d_cantDoThat;
 	  }
 
@@ -314,6 +321,10 @@ class EventModel{
 
 	  //ACCOMODATION (TODO)
 		//get all rooms for this event, compare for deleted items, update all others
+
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"edited an event $id ($name)", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 	  return L::alerts_s_saved;
 	}
 	//Delete event photo
@@ -322,8 +333,10 @@ class EventModel{
 	  $query=$this->db->prepare($sql);
 	  $query->execute(array(':id'=>$_SESSION['account']));
 	  $account=$query->fetch();
-	  if($account->status!=ADMIN){
-	    //TODO report incident
+	  if($account->status<ADMIN){
+			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"attempted to delete event ID $id photo", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 	    return L::alerts_d_cantDoThat;
 	  }
 		$id=strip_tags($id);
@@ -345,6 +358,16 @@ class EventModel{
 	}
 	//Change confirmed status of Attendees for event ID
 	public function editConfirm($event, $ids){
+		$sql='SELECT * FROM account WHERE id=:id';
+	  $query=$this->db->prepare($sql);
+	  $query->execute(array(':id'=>$_SESSION['account']));
+	  $account=$query->fetch();
+	  if($account->status<ADMIN){
+			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"attempted to change confirmed statuses of event ID $event", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+	    return L::alerts_d_cantDoThat;
+	  }
 		$event=strip_tags($event);
 		$sql='SELECT id FROM registration WHERE event_id=:id';
 		$query=$this->db->prepare($sql);
@@ -356,6 +379,9 @@ class EventModel{
 		  $query=$this->db->prepare($sql);
 		  $query->execute(array(':confirmed'=>$confirmed, ':id'=>$id->id));
 		}
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"changed confirmed statuses of users for event ID $event", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 		return L::alerts_s_confStatus;
 	}
 }
