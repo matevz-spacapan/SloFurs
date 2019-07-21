@@ -401,6 +401,8 @@ alerts:
     noModeEdit: 'dNe morete več spremeniti prijave za ta dogodek.'
     reggedForEvt: 'dMorate biti prijavljeni na dogodek, da ustvarite deljeni prevoz.'
     alreadySignedUp: 'dTa e-poštni naslov je že uporabljen.'
+    banned: 'dTa račun je onemogočen/blokiran. <a href="mailto:slofurs@gmail.com">Kontaktirajte nas za več informacij</a>.'
+    sameEmail: 'dNovi e-naslov je isti kot trenutni.'
   i:
     loggedIn: 'iZa prijavo na dogodke se prijavite s svojim računom.'
     confirm: 'iPreverite svoj e-poštni naslov, da potrdite svoj račun.'
@@ -423,3 +425,5 @@ alerts:
     regSucc: 'sVaša prijava je uspešna in potrjena.'
     regManual: 'sVaša prijava je uspešna in čaka na potrditev.'
     evtSuccUpdate: 'sPodatki o prijavi na ta dogodek so uspešno posodobljeni.'
+    pwAdminReset: 'sGeslo uspešno ponastavljeno.'
+    deleted: 'sRačun uspešno izbrisan.'

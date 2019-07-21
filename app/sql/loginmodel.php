@@ -26,6 +26,9 @@ class LogInModel{
 							$query=$this->db->prepare($sql);
 							$query->execute(array(':email'=>$email));
 						}
+						if($account->banned==1){
+							return L::alerts_d_banned;
+						}
 						$_SESSION['account']=$account->id;
 						$_SESSION['lang']=$account->language;
 					}

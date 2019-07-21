@@ -49,6 +49,15 @@ class UsersDashModel{
 		}
 		$email=strip_tags($email);
 		$id=strip_tags($id);
+		//check if current email is the same as the new one
+		$sql='SELECT email FROM account WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		$acc=$query->fetch();
+		if($email==$acc->email){
+			return L::alerts_d_sameEmail;
+		}
+
 		$forced=strip_tags($forced);
 		$activate_token=bin2hex(random_bytes(32));
 		if($forced){
@@ -69,7 +78,7 @@ class UsersDashModel{
 			$username=$acc->username;
 			require 'app/emails/confirm_email.php';
 		}
-		return 'sSuccessfully saved!';
+		return L::alerts_s_saved;
 	}
 
 	//Reset password
@@ -86,7 +95,7 @@ class UsersDashModel{
 		$email=$acc->email;
 		$username=$acc->username;
 		require 'app/emails/password_reset.php';
-		return 'sPassword successfully reset.';
+		return L::alerts_s_pwAdminReset;
 	}
 
 	// Set account status
@@ -203,5 +212,28 @@ class UsersDashModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return L::alerts_s_accDeleted;
+	}
+
+	// Change ban status
+	public function ban($id){
+		$sql='SELECT banned FROM account WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		$account=$query->fetch();
+		$banned=1;
+		if($account->banned==1){
+			$banned=0;
+		}
+		$sql='UPDATE account SET banned=:banned WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':banned'=>$banned, ':id'=>$id));
+	}
+
+	// Delete account
+	public function deleteAccount($id){
+		$sql='DELETE FROM account WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return L::alerts_s_deleted;
 	}
 }

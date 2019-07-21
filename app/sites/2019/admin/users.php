@@ -32,7 +32,6 @@
 
   <div class="w3-container">
     <h3>Accounts</h3>
-    <h5>Newest</h5>
     <table class="w3-table w3-striped w3-hoverable w3-white">
       <tr>
         <th></th>
@@ -44,7 +43,13 @@
       <?php $res=$dash_model->list(); ?>
       <?php foreach($res as $acc): ?>
         <tr>
-          <td width="40"><img src="<?php echo URL;?>public/accounts/<?php echo $acc->pfp;?>.png" class="w3-circle w3-margin-right" style="height:35px"></td>
+          <td width="40">
+            <?php if(file_exists('public/accounts/'.$acc->pfp.'.png')): ?>
+    					<img src="<?php echo URL.'public/accounts/'.$acc->pfp; ?>.png" class="w3-circle w3-margin-right" style="height:35px">
+    				<?php else: ?>
+    					<img src="<?php echo URL.'public/img/account.png' ?>" class="w3-circle w3-margin-right" style="height:35px">
+    				<?php endif; ?>
+          </td>
           <td>
             <?php echo $acc->username;?><br>
             <a href="<?php echo URL;?>admin/users?id=<?php echo $acc->id;?>">Edit</a>

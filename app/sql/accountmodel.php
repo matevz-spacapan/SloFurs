@@ -13,6 +13,13 @@ class AccountModel{
 	public function changeEmail($email, $password){
 		if(!empty($email)&&!empty($password)){
 			$email=strip_tags($email);
+			$sql='SELECT email FROM account WHERE id=:id';
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':id'=>$_SESSION['account']));
+			$acc=$query->fetch();
+			if($email==$acc->email){
+				return L::alerts_d_sameEmail;
+			}
 			$password=strip_tags($password);
 			$activate_token=bin2hex(random_bytes(32));
 			$sql_check='SELECT * FROM account WHERE id=:id';
@@ -24,7 +31,7 @@ class AccountModel{
 				$query=$this->db->prepare($sql);
 				$query->execute(array(':email'=>$email, ':activate'=>$activate_token, ':id'=>$_SESSION['account']));
 				require 'app/emails/confirm_email.php';
-				return L::alerts_iConfirm;
+				return L::alerts_i_confirm;
 			}
 			else{
 				return L::alerts_d_invalidPw;

@@ -70,6 +70,14 @@ class Admin extends Connection{
 					$dash_model->deleteProfile($_GET['id']);
 					header('location: '.URL.'admin/users?id='.$_GET['id']);
 				}
+				elseif(isset($_POST['ban_account'])){
+					$dash_model->ban($_GET['id']);
+					header('location: '.URL.'admin/users?id='.$_GET['id']);
+				}
+				elseif(isset($_POST['delete_account'])){
+					$_SESSION['alert']=$dash_model->deleteAccount($_GET['id']);
+					header('location: '.URL.'admin/users');
+				}
 				else{
 					require 'app/sites/global/header.php';
 					require 'app/sites/global/alerts.php';

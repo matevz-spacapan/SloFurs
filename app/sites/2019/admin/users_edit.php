@@ -68,6 +68,18 @@
 			$register=false;
 			require 'app/sites/'.THEME.'/account/personal_info.php';
 		?>
+
+		<h3 class="w3-text-red">Danger zone</h3>
+		<form action="<?php echo URL; ?>admin/users?id=<?php echo $_GET['id'];?>" method="post">
+			<?php if($account->banned): ?>
+				<button type="submit" name="ban_account" class="w3-button w3-round w3-green">Unban account</button>
+			<?php else: ?>
+				<button type="submit" name="ban_account" class="w3-button w3-round w3-orange">Ban account</button>
+			<?php endif; ?>
+			<p>
+			<button type="button" class="w3-button w3-round w3-border w3-border-red" id="delaccount" onclick="delData('account')">Delete account</button>
+			<button class="w3-button w3-round w3-red" type="submit" name="delete_account" id="delconfaccount" style="display:none;">Delete account (confirm)</button>
+		</form>
 	</div>
 	<?php $account=$old_acc; ?>
 </div>

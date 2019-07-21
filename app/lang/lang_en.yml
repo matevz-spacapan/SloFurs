@@ -401,6 +401,8 @@ alerts:
     noModeEdit: 'dYou can\'t edit your registration for this event any longer.'
     reggedForEvt: 'dYou need to be registered for the event to create car shares.'
     alreadySignedUp: 'dThis e-mail has already been registered.'
+    banned: 'dThis account has been banned. <a href="mailto:slofurs@gmail.com">Contact us for more info</a>.'
+    sameEmail: 'dThe new email is the same as the current email.'
   i:
     loggedIn: 'iYou need to be logged in to register for events.'
     confirm: 'iTo confirm your new email, please check your inbox.'
@@ -423,3 +425,5 @@ alerts:
     regSucc: 'sYour registration was successfull and is confirmed.'
     regManual: 'sYour registration was successfull and is awaiting confirmation.'
     evtSuccUpdate: 'sYour event registration data was successfully updated.'
+    pwAdminReset: 'sPassword successfully reset.'
+    deleted: 'sAccount deleted successfully.'

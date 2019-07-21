@@ -171,7 +171,13 @@
       <?php $res=$dash_model->newest(); ?>
       <?php foreach($res as $acc): ?>
         <tr>
-          <td><img src="<?php echo URL;?>public/accounts/<?php echo $acc->pfp;?>.png" class="w3-circle w3-margin-right" style="height:35px"> <?php echo $acc->username;?></td>
+          <td>
+            <?php if(file_exists('public/accounts/'.$acc->pfp.'.png')): ?>
+    					<img src="<?php echo URL.'public/accounts/'.$acc->pfp; ?>.png" class="w3-circle w3-margin-right" style="height:35px">
+    				<?php else: ?>
+    					<img src="<?php echo URL.'public/img/account.png' ?>" class="w3-circle w3-margin-right" style="height:35px">
+    				<?php endif; ?>
+            <?php echo $acc->username;?></td>
           <td><a href="mailto:<?php echo $acc->email;?>"><?php echo $acc->email;?></a></td>
           <td>
             <?php
