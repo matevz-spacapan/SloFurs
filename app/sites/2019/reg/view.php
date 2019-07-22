@@ -27,13 +27,11 @@
 		<div class="w3-container">
 			<h3><?php echo L::register_view_registered_h;?></h3>
 			<?php foreach($rEvents as $event): ?>
-				<a href="<?php echo URL.'register/edit?id='.$event->id; ?>" style="text-decoration: none;">
-					<?php
-						$color=($event->confirmed==1)?'w3-green':'w3-orange';
-						$text=($event->confirmed==1)?L::register_view_registered_confirmed:L::register_view_registered_notConfirmed;
-						require 'app/sites/'.THEME.'/reg/evt.php';
-					?>
-				</a>
+				<?php
+					$color=($event->confirmed==1)?'w3-green':'w3-orange';
+					$text=($event->confirmed==1)?L::register_view_registered_confirmed:L::register_view_registered_notConfirmed;
+					require 'app/sites/'.THEME.'/reg/evt.php';
+				?>
 			<?php endforeach; ?>
 		</div>
 	<?php endif; ?>
@@ -67,9 +65,7 @@
 							$text=L::register_view_upcoming_complete;
 						}
 					?>
-					<a href="<?php echo URL.'register/new?id='.$event->id; ?>" style="text-decoration: none;">
 					<?php require 'app/sites/'.THEME.'/reg/evt.php'; ?>
-					</a>
 				<?php endforeach; ?>
 			<?php else: ?>
 				<p><?php echo L::register_view_upcoming_none;?> <i class="far fa-frown"></i></p>
@@ -82,13 +78,11 @@
 		<div class="w3-container w3-row-padding w3-padding-32">
 			<h3><?php echo L::register_view_past_h;?></h3>
 			<?php foreach($pEvents as $event): ?>
-				<a href="<?php echo URL.'register/edit?id='.$event->id; ?>" style="text-decoration: none;">
-					<?php
-						$color='w3-gray';
-						$text=L::register_view_past_ended;
-						require 'app/sites/'.THEME.'/reg/evt.php';
-					?>
-				</a>
+				<?php
+					$color='w3-gray';
+					$text=L::register_view_past_ended;
+					require 'app/sites/'.THEME.'/reg/evt.php';
+				?>
 			<?php endforeach; ?>
 		</div>
 	<?php endif; ?>

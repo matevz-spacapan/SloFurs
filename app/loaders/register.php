@@ -5,7 +5,7 @@ class Register extends Connection{
 		$reg_model=$this->loadSQL('RegModel');
 		$account_model=$this->loadSQL('AccountModel');
 		if($account==null){
-			$_SESSION['alert']=L::alerts_iLoggedIn;
+			$_SESSION['alert']=L::alerts_i_loggedIn;
 			header('location: '.URL.'login');
 		}
 		//check if personal info is complete, show warning if not.
@@ -31,7 +31,7 @@ class Register extends Connection{
 		$account=$this->getSessionAcc();
 		$reg_model=$this->loadSQL('RegModel');
 		if($account==null){
-			$_SESSION['alert']=L::alerts_iLoggedIn;
+			$_SESSION['alert']=L::alerts_i_loggedIn;
 			header('location: '.URL.'login');
 		}
 		$id=$_GET["id"]; //event ID
@@ -67,7 +67,7 @@ class Register extends Connection{
 		$account=$this->getSessionAcc();
 		$reg_model=$this->loadSQL('RegModel');
 		if($account==null){
-			$_SESSION['alert']=L::alerts_iLoggedIn;
+			$_SESSION['alert']=L::alerts_i_loggedIn;
 			header('location: '.URL.'login');
 		}
 		$id=$_GET["id"];

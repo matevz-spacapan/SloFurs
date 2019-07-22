@@ -307,15 +307,15 @@ class EventModel{
 						$query->execute(array(':img'=>$file_name, ':id'=>$id));
 					}
 					else{
-						return L::alerts__d_errorupload;
+						return L::alerts_d_errorupload;
 					}
 				}
 				else{
-					return L::alerts__d_notSquare;
+					return L::alerts_d_notSquare;
 				}
 			}
 			else{
-				return L::alerts__d_onlyPic;
+				return L::alerts_d_onlyPic;
 			}
 		}
 

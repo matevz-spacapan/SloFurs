@@ -31,11 +31,15 @@ html, body{
 	position: relative;
 }
 .eventImage{
-	z-index:-1;
+	z-index:0;
 	position: absolute;
 	left: 170px;
 	width:170px;
 	height:170px;
+}
+.fixer{
+	position: relative;
+	width: 350px;
 }
 textarea{
 	resize: vertical;
@@ -45,7 +49,7 @@ textarea{
 .bgimg-1 {
   background-position: center;
   background-size: cover;
-  background-image: url("http://93.103.29.147/slofurs/public/img/header.jpg");
+  background-image: url("https://93.103.29.147/slofurs/public/img/header.jpg");
   min-height: 100%;
 }
 /* ----------------------------------------------
