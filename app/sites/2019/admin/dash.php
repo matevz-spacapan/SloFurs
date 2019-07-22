@@ -6,7 +6,7 @@
 
   <!-- Header -->
   <header class="w3-container" style="padding-top:22px">
-    <h5><b><i class="fal fa-cogs"></i> Dashboard</b></h5>
+    <h5><b><i class="fal fa-cogs"></i> <?php echo L::admin_dash_h.': '.L::admin_sidebar_overview;?></b></h5>
   </header>
 
   <div class="w3-row-padding w3-margin-bottom">
@@ -23,15 +23,15 @@
       <div class="w3-container <?php echo $color;?> w3-padding-16">
         <div class="w3-left">
           <i class="fal fa-users w3-xxxlarge"></i>
-          <h4>Accounts</h4>
+          <h4><?php echo L::admin_sidebar_accounts;?></h4>
         </div>
         <div class="w3-right">
           <div class="w3-cell w3-center w3-padding-small">
-            <h5>Total</h5>
+            <h5><?php echo L::admin_dash_total;?></h5>
             <p><?php echo $dash_model->accountsB1()->tot;?></p>
           </div>
           <div class="w3-cell w3-center w3-padding-small">
-            <h5>Incomplete</h5>
+            <h5><?php echo L::admin_dash_incomplete;?></h5>
             <p><?php echo $dash_model->accountsB2()->tot;?></p>
           </div>
         </div>
@@ -52,15 +52,15 @@
       <div class="w3-container <?php echo $color;?> w3-padding-16">
         <div class="w3-left">
           <i class="fal fa-calendar-alt w3-xxxlarge"></i>
-          <h4>Events</h4>
+          <h4><?php echo L::admin_sidebar_events;?></h4>
         </div>
         <div class="w3-right">
           <div class="w3-cell w3-center w3-padding-small">
-            <h5>Total</h5>
+            <h5><?php echo L::admin_dash_total;?></h5>
             <p><?php echo $dash_model->eventsB1()->tot;?></p>
           </div>
           <div class="w3-cell w3-center w3-padding-small">
-            <h5>Upcoming</h5>
+            <h5><?php echo L::admin_dash_upcoming;?></h5>
             <p><?php echo $dash_model->eventsB2()->tot;?></p>
           </div>
         </div>
@@ -82,11 +82,11 @@
       <div class="w3-container <?php echo $color;?> w3-padding-16">
         <div class="w3-left">
           <i class="fal fa-paw w3-xxxlarge"></i>
-          <h4>Fursuits</h4>
+          <h4><?php echo L::admin_sidebar_fursuits;?></h4>
         </div>
         <div class="w3-right">
           <div class="w3-cell w3-center w3-padding-small">
-            <h5>Total</h5>
+            <h5><?php echo L::admin_dash_total;?></h5>
             <p><?php echo $dash_model->fursuitsB()->tot;?></p>
           </div>
         </div>
@@ -97,16 +97,16 @@
       <div class="w3-container w3-gray w3-padding-16">
         <div class="w3-left">
           <i class="fal fa-inbox-out w3-xxxlarge"></i>
-          <h4>Emails</h4>
+          <h4><?php echo L::admin_dash_emails;?> (<?php echo date('Y-m');?>)</h4>
         </div>
         <?php $result=json_decode($dash_model->emailsB(), true);?>
         <div class="w3-right">
           <div class="w3-cell w3-center w3-padding-small">
-            <h5>Sent</h5>
+            <h5><?php echo L::admin_dash_sent;?></h5>
             <p><?php echo $result[0]['stats'][0]['metrics']['processed'];?></p>
           </div>
           <div class="w3-cell w3-center w3-padding-small">
-            <h5>Opened</h5>
+            <h5><?php echo L::admin_dash_opened;?></h5>
             <p><?php echo $result[0]['stats'][0]['metrics']['unique_opens'];?></p>
           </div>
         </div>
@@ -116,13 +116,13 @@
 
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
-      <h5>Recent changes</h5>
+      <h5><?php echo L::admin_dash_changes;?></h5>
       <table class="w3-table w3-striped w3-hoverable w3-white">
         <tr>
-          <th>Who commited the change</th>
-          <th>Type of change</th>
-          <th>Change on account</th>
-          <th>Time of change</th>
+          <th><?php echo L::admin_dash_who;?></th>
+          <th><?php echo L::admin_dash_type;?></th>
+          <th><?php echo L::admin_dash_for;?></th>
+          <th><?php echo L::admin_dash_time;?></th>
         </tr>
         <?php $res=$dash_model->changes(); ?>
         <?php foreach($res as $row): ?>
@@ -139,14 +139,14 @@
   <hr>
 
   <div class="w3-container">
-    <h3>Accounts</h3>
-    <h5>Newest</h5>
+    <h3><?php echo L::admin_sidebar_accounts;?></h3>
+    <h5><?php echo L::admin_dash_newest;?></h5>
     <table class="w3-table w3-striped w3-hoverable w3-white">
       <tr>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Name</th>
-        <th>Created <i class="far fa-angle-down"></i></th>
+        <th><?php echo L::admin_dash_username;?></th>
+        <th><?php echo L::admin_dash_email;?></th>
+        <th><?php echo L::admin_dash_name;?></th>
+        <th><?php echo L::admin_dash_created;?> <i class="far fa-angle-down"></i></th>
       </tr>
       <?php $res=$dash_model->newest(); ?>
       <?php foreach($res as $acc): ?>
@@ -165,7 +165,7 @@
                 echo $acc->fname.' '.$acc->lname;
               }
               else{
-                echo '<i>Profile not complete</i>';
+                echo '<i>'.L::admin_dash_noProfile.'</i>';
               }
             ?>
           </td>
@@ -176,7 +176,7 @@
   </div>
 
   <div class="w3-container">
-    <h5>Top countries</h5>
+    <h5><?php echo L::admin_dash_countries;?></h5>
     <?php $res=$dash_model->countries(); ?>
     <table class="w3-table w3-striped w3-hoverable w3-white">
       <?php foreach($res as $row): ?>

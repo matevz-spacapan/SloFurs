@@ -343,66 +343,134 @@
 			</form>
 		</div><br>
 	<?php endif; ?>
-	<?php $carShares=$reg_model->getAllCarShares($event->id); ?>
-	<?php if(count($carShares)>0): ?>
-		<?php foreach($carShares as $carShare): ?>
-			<?php if($carShare->accId==$_SESSION['account']): ?>
-				<div id="<?php echo $carShare->id; ?>" class="w3-modal">
-					<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
-						<header class="w3-container w3-blue w3-center roundHeaderTop">
-							<span onclick="$('#<?php echo $carShare->id; ?>').hide()"
-							class="w3-button w3-display-topright roundXTop">&times;</span>
-							<h2><?php echo L::register_form_car_edit;?></h2>
-						</header>
-						<div class="w3-container">
-							<form action="<?php echo URL;?>register/edit?id=<?php echo $event->id;?>&carshare=<?php echo $carShare->id;?>" method="post">
-								<label><?php echo L::register_form_car_direction;?></label> <sup class="w3-text-red">*</sup><br/>
-								<input class="w3-radio" type="radio" name="direction" value="0" required <?php if($carShare->direction==0){ echo 'checked';} ?>>
-								<label><?php echo L::register_form_car_to;?></label>
-								<input class="w3-radio" type="radio" name="direction" value="1" <?php if($carShare->direction==1){ echo 'checked';} ?>>
-								<label><?php echo L::register_form_car_from;?></label><br>
-								<label><?php echo L::register_form_car_number;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_numberI;?></i>
-								<select class="w3-select" name="passengers">
-									<option value="1" <?php if($carShare->passengers==1){ echo 'selected';} ?>>1</option>
-									<option value="2" <?php if($carShare->passengers==2){ echo 'selected';} ?>>2</option>
-									<option value="3" <?php if($carShare->passengers==3){ echo 'selected';} ?>>3</option>
-									<option value="4" <?php if($carShare->passengers==4){ echo 'selected';} ?>>4</option>
-									<option value="5" <?php if($carShare->passengers==5){ echo 'selected';} ?>>5</option>
-									<option value="6" <?php if($carShare->passengers==6){ echo 'selected';} ?>>6</option>
-									<option value="7" <?php if($carShare->passengers==7){ echo 'selected';} ?>>7</option>
-								</select>
-								<label><?php echo L::register_form_car_date;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_dateI;?></i>
-						    <input type="datetime-local" class="w3-input" name="outbound" required value="<?php echo $reg_model->convert($carShare->outbound); ?>">
-					      <label><?php echo L::register_form_car_price;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_priceI;?></i>
-					      <input type="number" class="w3-input" name="price" min="1" required value="<?php echo $carShare->price; ?>">
-								<label><?php echo L::register_form_car_desc;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_descI;?></i>
-						    <textarea class="w3-input" name="description" required><?php echo $carShare->description; ?></textarea><p>
-									<div class="w3-center">
-										<button type="submit" name="edit_car_share" class="w3-button w3-round w3-green"><?php echo L::register_form_car_save;?></button>
-										<button type="submit" name="delete_car_share" class="w3-button w3-round w3-border w3-border-red"><?php echo L::register_form_car_delete;?></button>
-									</div><br>
-							</form>
+
+	<!-- To event -->
+	<?php $carShares=$reg_model->getAllTo($event->id); ?>
+	<div class="w3-row">
+		<h4><?php echo L::register_form_car_to;?></h4>
+		<?php if(count($carShares)>0): ?>
+			<?php foreach($carShares as $carShare): ?>
+				<?php if($carShare->accId==$_SESSION['account']): ?>
+					<div id="<?php echo $carShare->id; ?>" class="w3-modal">
+						<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
+							<header class="w3-container w3-blue w3-center roundHeaderTop">
+								<span onclick="$('#<?php echo $carShare->id; ?>').hide()"
+								class="w3-button w3-display-topright roundXTop">&times;</span>
+								<h2><?php echo L::register_form_car_edit;?></h2>
+							</header>
+							<div class="w3-container">
+								<form action="<?php echo URL;?>register/edit?id=<?php echo $event->id;?>&carshare=<?php echo $carShare->id;?>" method="post">
+									<label><?php echo L::register_form_car_direction;?></label> <sup class="w3-text-red">*</sup><br/>
+									<input class="w3-radio" type="radio" name="direction" value="0" required <?php if($carShare->direction==0){ echo 'checked';} ?>>
+									<label><?php echo L::register_form_car_to;?></label>
+									<input class="w3-radio" type="radio" name="direction" value="1" <?php if($carShare->direction==1){ echo 'checked';} ?>>
+									<label><?php echo L::register_form_car_from;?></label><br>
+									<label><?php echo L::register_form_car_number;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_numberI;?></i>
+									<select class="w3-select" name="passengers">
+										<option value="1" <?php if($carShare->passengers==1){ echo 'selected';} ?>>1</option>
+										<option value="2" <?php if($carShare->passengers==2){ echo 'selected';} ?>>2</option>
+										<option value="3" <?php if($carShare->passengers==3){ echo 'selected';} ?>>3</option>
+										<option value="4" <?php if($carShare->passengers==4){ echo 'selected';} ?>>4</option>
+										<option value="5" <?php if($carShare->passengers==5){ echo 'selected';} ?>>5</option>
+										<option value="6" <?php if($carShare->passengers==6){ echo 'selected';} ?>>6</option>
+										<option value="7" <?php if($carShare->passengers==7){ echo 'selected';} ?>>7</option>
+									</select>
+									<label><?php echo L::register_form_car_date;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_dateI;?></i>
+							    <input type="datetime-local" class="w3-input" name="outbound" required value="<?php echo $reg_model->convert($carShare->outbound); ?>">
+						      <label><?php echo L::register_form_car_price;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_priceI;?></i>
+						      <input type="number" class="w3-input" name="price" min="1" required value="<?php echo $carShare->price; ?>">
+									<label><?php echo L::register_form_car_desc;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_descI;?></i>
+							    <textarea class="w3-input" name="description" required><?php echo $carShare->description; ?></textarea><p>
+										<div class="w3-center">
+											<button type="submit" name="edit_car_share" class="w3-button w3-round w3-green"><?php echo L::register_form_car_save;?></button>
+											<button type="submit" name="delete_car_share" class="w3-button w3-round w3-border w3-border-red"><?php echo L::register_form_car_delete;?></button>
+										</div><br>
+								</form>
+							</div>
 						</div>
 					</div>
+				<div class="card w3-padding" onclick="$('#<?php echo $carShare->id; ?>').show()">
+				<?php else: ?>
+				<div class="card w3-padding" style="cursor: default;">
+				<?php endif; ?>
+					<div class="w3-center">
+						<p><?php echo L::register_form_car_at;?>: <b><?php echo $reg_model->convertViewable($carShare->outbound, 2); ?></b><br>
+						<?php echo L::register_form_car_driver;?>: <b><?php echo $carShare->username; ?></b><br>
+						<?php echo L::register_form_car_spots;?>: <b><?php echo $carShare->passengers; ?></b><br><br>
+						<?php echo nl2br($carShare->description); ?><p>
+					</div>
 				</div>
-			<div class="card w3-gray" onclick="$('#<?php echo $carShare->id; ?>').show()">
-			<?php else: ?>
-			<div class="card w3-gray" style="cursor: default;">
-			<?php endif; ?>
-				<div class="w3-center">
-					<h5 style="display: inline;"><?php echo ($carShare->direction==0)?'To event':'From event'; ?></h5>
-					<b>(<?php echo $carShare->passengers; ?> <?php echo L::register_form_car_spots;?>)</b><br><br>
-					<?php echo L::register_form_car_at;?>: <b><?php echo $reg_model->convertViewable($carShare->outbound, 2); ?>.</b><br>
-					<?php echo L::register_form_car_driver;?>: <b><?php echo $carShare->username; ?></b><br><br>
-					<?php echo nl2br($carShare->description); ?><p>
-				</div>
+			<?php endforeach; ?>
+		<?php else: ?>
+			<div class="w3-container">
+				<?php echo L::register_form_car_none;?></i>
 			</div>
-		<?php endforeach; ?>
-	<?php else: ?>
-		<div class="w3-container">
-			<?php echo L::register_form_car_none;?></i>
-		</div>
-	<?php endif; ?>
+		<?php endif; ?>
+	</div>
+
+	<!-- From event -->
+	<?php $carShares=$reg_model->getAllFrom($event->id); ?>
+	<div class="w3-row">
+		<h4><?php echo L::register_form_car_from;?></h4>
+		<?php if(count($carShares)>0): ?>
+			<?php foreach($carShares as $carShare): ?>
+				<?php if($carShare->accId==$_SESSION['account']): ?>
+					<div id="<?php echo $carShare->id; ?>" class="w3-modal">
+						<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
+							<header class="w3-container w3-blue w3-center roundHeaderTop">
+								<span onclick="$('#<?php echo $carShare->id; ?>').hide()"
+								class="w3-button w3-display-topright roundXTop">&times;</span>
+								<h2><?php echo L::register_form_car_edit;?></h2>
+							</header>
+							<div class="w3-container">
+								<form action="<?php echo URL;?>register/edit?id=<?php echo $event->id;?>&carshare=<?php echo $carShare->id;?>" method="post">
+									<label><?php echo L::register_form_car_direction;?></label> <sup class="w3-text-red">*</sup><br/>
+									<input class="w3-radio" type="radio" name="direction" value="0" required <?php if($carShare->direction==0){ echo 'checked';} ?>>
+									<label><?php echo L::register_form_car_to;?></label>
+									<input class="w3-radio" type="radio" name="direction" value="1" <?php if($carShare->direction==1){ echo 'checked';} ?>>
+									<label><?php echo L::register_form_car_from;?></label><br>
+									<label><?php echo L::register_form_car_number;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_numberI;?></i>
+									<select class="w3-select" name="passengers">
+										<option value="1" <?php if($carShare->passengers==1){ echo 'selected';} ?>>1</option>
+										<option value="2" <?php if($carShare->passengers==2){ echo 'selected';} ?>>2</option>
+										<option value="3" <?php if($carShare->passengers==3){ echo 'selected';} ?>>3</option>
+										<option value="4" <?php if($carShare->passengers==4){ echo 'selected';} ?>>4</option>
+										<option value="5" <?php if($carShare->passengers==5){ echo 'selected';} ?>>5</option>
+										<option value="6" <?php if($carShare->passengers==6){ echo 'selected';} ?>>6</option>
+										<option value="7" <?php if($carShare->passengers==7){ echo 'selected';} ?>>7</option>
+									</select>
+									<label><?php echo L::register_form_car_date;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_dateI;?></i>
+							    <input type="datetime-local" class="w3-input" name="outbound" required value="<?php echo $reg_model->convert($carShare->outbound); ?>">
+						      <label><?php echo L::register_form_car_price;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_priceI;?></i>
+						      <input type="number" class="w3-input" name="price" min="1" required value="<?php echo $carShare->price; ?>">
+									<label><?php echo L::register_form_car_desc;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_descI;?></i>
+							    <textarea class="w3-input" name="description" required><?php echo $carShare->description; ?></textarea><p>
+										<div class="w3-center">
+											<button type="submit" name="edit_car_share" class="w3-button w3-round w3-green"><?php echo L::register_form_car_save;?></button>
+											<button type="submit" name="delete_car_share" class="w3-button w3-round w3-border w3-border-red"><?php echo L::register_form_car_delete;?></button>
+										</div><br>
+								</form>
+							</div>
+						</div>
+					</div>
+				<div class="card w3-padding" onclick="$('#<?php echo $carShare->id; ?>').show()">
+				<?php else: ?>
+				<div class="card w3-padding" style="cursor: default;">
+				<?php endif; ?>
+					<div class="w3-center">
+						<p><?php echo L::register_form_car_at;?>: <b><?php echo $reg_model->convertViewable($carShare->outbound, 2); ?></b><br>
+						<?php echo L::register_form_car_driver;?>: <b><?php echo $carShare->username; ?></b><br>
+						<?php echo L::register_form_car_spots;?>: <b><?php echo $carShare->passengers; ?></b><br><br>
+						<?php echo nl2br($carShare->description); ?><p>
+					</div>
+				</div>
+			<?php endforeach; ?>
+		<?php else: ?>
+			<div class="w3-container">
+				<?php echo L::register_form_car_none;?></i>
+			</div>
+		<?php endif; ?>
+	</div>
 </div>
 
 <script>

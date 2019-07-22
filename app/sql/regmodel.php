@@ -303,10 +303,18 @@ class RegModel{
 	 * CAR SHARING
 	*/
 
-	//Get car shares for this event
-	public function getAllCarShares($id){
+	//Get car shares for this event (to event)
+	public function getAllTo($id){
 		$id=strip_tags($id);
-		$sql='SELECT car_share.id as id, price, description, outbound, direction, passengers, username, account.id as accId FROM car_share INNER JOIN account ON account.id=owner WHERE event_id=:id';
+		$sql='SELECT car_share.id as id, price, description, outbound, direction, passengers, username, account.id as accId FROM car_share INNER JOIN account ON account.id=owner WHERE event_id=:id AND direction=0 ORDER BY outbound ASC';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetchAll();
+	}
+	//Get car shares for this event (from event)
+	public function getAllFrom($id){
+		$id=strip_tags($id);
+		$sql='SELECT car_share.id as id, price, description, outbound, direction, passengers, username, account.id as accId FROM car_share INNER JOIN account ON account.id=owner WHERE event_id=:id AND direction=1 ORDER BY outbound ASC';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return $query->fetchAll();

@@ -46,7 +46,7 @@ class DashboardModel{
 	public function emailsB(){
 		$apiKey = getenv('SENDGRID_API_KEY');
 		$sg = new \SendGrid($apiKey);
-		$query_params = json_decode('{"aggregated_by": "month", "limit": 1, "start_date": "2019-07-01", "offset": 1}');
+		$query_params = json_decode('{"aggregated_by": "month", "limit": 1, "start_date": "'.date('Y-m').'-01", "offset": 1}');
 		$response = $sg->client->stats()->get(null, $query_params);
 		return $response->body();
 	}
