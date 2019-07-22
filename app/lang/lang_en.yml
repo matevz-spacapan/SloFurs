@@ -475,6 +475,7 @@ alerts:
     alreadySignedUp: 'dThis e-mail has already been registered.'
     banned: 'dThis account has been banned. <a href="mailto:slofurs@gmail.com">Contact us for more info</a>.'
     sameEmail: 'dThe new email is the same as the current email.'
+    captcha: 'dCaptcha failed, please try again'
   i:
     loggedIn: 'iYou need to be logged in to register for events.'
     confirm: 'iTo confirm your new email, please check your inbox.'

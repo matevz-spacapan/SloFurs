@@ -1,3 +1,4 @@
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <div class="w3-container" style="margin-top:20px">
 	<div class="w3-half">
 		<div class="w3-container w3-blue w3-center">
@@ -14,6 +15,7 @@
 			<input class="w3-input" id="pwdC" type="password" placeholder="<?php echo L::signup_confirmP;?>" required onkeyup="verifyPassword()">
 			<input class="w3-check" type="checkbox" required>
 			<label><?php echo L::signup_privacy1;?> <a href="<?php echo URL.L::signup_privacy2;?>" target="_blank"><?php echo L::signup_privacy3;?> <i class="far fa-external-link"></i></a>.</label><br><br>
+			<div class="g-recaptcha" data-sitekey="6Leegq0UAAAAAKUi7Uy68xw2wqrLQ83LymIwISSy"></div><br>
 			<div class="w3-center">
 				<button type="submit" id="btn" name="sign_up_acc" class="w3-button w3-round w3-border w3-border-blue" disabled="true"><?php echo L::signup_register;?></button><p>
 			</div>

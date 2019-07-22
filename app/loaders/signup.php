@@ -8,8 +8,13 @@ class SignUp extends Connection{
 		//sign up account
 		elseif(isset($_POST['sign_up_acc'])){
 			$sign_up_model=$this->loadSQL('SignUpModel');
-			$_SESSION['alert']=$sign_up_model->signupAcc($_POST['username'], $_POST['email'], $_POST['password']);
-			header('location: '.URL.'login');
+			$_SESSION['alert']=$sign_up_model->signupAcc($_POST['username'], $_POST['email'], $_POST['password'], $_POST['g-recaptcha-response']);
+			if(strpos($_SESSION['alert'], 'd')===0){
+				header('location: '.URL.'signup');
+			}
+			else{
+				header('location: '.URL.'login');
+			}
 		}
 		else{
 			require 'app/sites/global/header.php';

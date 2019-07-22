@@ -478,6 +478,7 @@ alerts:
     alreadySignedUp: 'dTa e-poštni naslov je že uporabljen.'
     banned: 'dTa račun je onemogočen/blokiran. <a href="mailto:slofurs@gmail.com">Kontaktirajte nas za več informacij</a>.'
     sameEmail: 'dNovi e-naslov je isti kot trenutni.'
+    captcha: 'dPreverjanje proti robotom ni uspelo, poskusite znova'
   i:
     loggedIn: 'iZa prijavo na dogodke se prijavite s svojim računom.'
     confirm: 'iPreverite svoj e-poštni naslov, da potrdite svoj račun.'
