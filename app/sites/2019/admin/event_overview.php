@@ -9,7 +9,6 @@
 
 <div class="w3-main" style="margin-left:200px">
   <div class="w3-orange">
-  	<button class="w3-button w3-orange w3-xlarge w3-hide-large" onclick="$('#sidebar').show()">&#9776;</button>
   	<div class="w3-container">
   		<h1><?php echo $event->name; ?></h1>
   	</div>
@@ -89,7 +88,7 @@
                 }
                 ?></td>
                 <td><?php
-                  echo '<img src="'.URL.'public/img/'.$attendee->language.'.png" width="32">';
+                  echo '<img src="'.URL.'public/img/'.$attendee->language.'.png" width="32" class="w3-circle">';
                   if($attendee->language=='si'){
                     $sum6++;
                   }

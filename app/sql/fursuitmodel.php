@@ -155,6 +155,9 @@ class FursuitModel{
 			$sql='DELETE FROM fursuit WHERE id=:id';
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':id'=>$id));
+			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"deleted their fursuit ID $id", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 		}
 		else{
 			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";

@@ -92,6 +92,37 @@ class Admin extends Connection{
 			header('location: '.URL.'404');
 		}
 	}
+
+	// Fursuits
+	public function fursuits(){
+		$account=$this->getSessionAcc();
+		if($account==null){
+			header('location: '.URL.'login');
+		}
+		elseif($account->status>=SUPER){
+			$dash_model=$this->loadSQL('FursuitDashModel');
+			if(isset($_GET['id'])){
+				if(isset($_POST['edit_fursuit'])){
+						$_SESSION['alert']=$dash_model->editFursuit($_GET['id'], $_POST['suitname'], $_POST['animal'], $_POST['in_use'], $_FILES['image']);
+						header('location: '.URL.'admin/fursuits');
+				}
+				elseif(isset($_POST['delete_fursuit'])){
+					$_SESSION['alert']=$dash_model->delFursuit($_GET['id']);
+					header('location: '.URL.'admin/fursuits');
+				}
+			}
+			else{
+				$fursuits=$dash_model->getFursuits();
+				require 'app/sites/global/header.php';
+				require 'app/sites/global/alerts.php';
+				require 'app/sites/'.THEME.'/admin/fursuits.php';
+				require 'app/sites/global/footer.php';
+			}
+		}
+		else{
+			header('location: '.URL.'404');
+		}
+	}
 	// Event managing page
 	public function event($action=null){
 		$account=$this->getSessionAcc();

@@ -210,17 +210,17 @@
 
 <!-- STATS -->
 <div class="w3-container tab" id="Stats" style="display:none">
-	<?php if(new DateTime($event->reg_start)<=$now): ?>
+	<?php if(true): //new DateTime($event->reg_start)<=$now ?>
 		<div class="w3-row">
 			<div class="w3-half">
 				<div class="w3-center w3-padding-16">
-					<?php echo L::register_form_stats_country;?>
+					<h4><b><?php echo L::register_form_stats_country;?></b></h4>
 				</div>
 				<div id="chartCountry" style="width: 100%; height: 300px;"></div>
 			</div>
 			<div class="w3-half">
 				<div class="w3-center w3-padding-16">
-					<?php echo L::register_form_stats_ticket;?>
+					<h4><b><?php echo L::register_form_stats_ticket;?></b></h4>
 				</div>
 				<div id="chartTicket" style="width: 100%; height: 300px;"></div>
 			</div>
@@ -228,13 +228,13 @@
 		<div class="w3-row">
 			<div class="w3-half">
 				<div class="w3-center w3-padding-16">
-					<?php echo L::register_form_stats_accomodation;?>
+					<h4><b><?php echo L::register_form_stats_accomodation;?></b></h4>
 				</div>
 				<div id="chartRooms" style="width: 100%; height: 300px;"></div>
 			</div>
 			<div class="w3-half">
 				<div class="w3-center w3-padding-16">
-					<?php echo L::register_form_stats_gender;?>
+					<h4><b><?php echo L::register_form_stats_gender;?></b></h4>
 				</div>
 				<div id="chartGender" style="width: 100%; height: 300px;"></div>
 			</div>
@@ -572,7 +572,7 @@ function openTab(evt, tabName){
 }
 </script>
 
-<?php if(new DateTime($event->reg_start)<=$now): ?>
+<?php if(true): //new DateTime($event->reg_start)<=$now ?>
 	<!-- Resources -->
 	<script src="https://www.amcharts.com/lib/4/core.js"></script>
 	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
