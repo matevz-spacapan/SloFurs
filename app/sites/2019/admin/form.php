@@ -74,7 +74,7 @@
     <!-- Ticket types -->
     <h3 style="display: inline;"><?php echo L::admin_form_tickets_h;?></h3> <i class="w3-opacity w3-small"><?php echo L::admin_form_tickets_hInfo;?></i><br><br>
 
-    <table class="w3-table">
+    <table class="w3-table w3-responsive">
       <tr>
         <th><?php echo L::admin_form_tickets_type;?></th>
         <th><?php echo L::admin_form_tickets_cost;?></th>
@@ -121,7 +121,7 @@
       <h3 class="w3-red w3-center">ROOM EDITING IS NOT WORKING YET. ANY CHANGES MADE WILL BE IGNORED.</h3>
     <?php endif; ?>
 
-    <table class="w3-table" id="accomodationTable">
+    <table class="w3-table w3-responsive" id="accomodationTable">
       <tr>
         <th><?php echo L::admin_form_accomodation_type;?> <i class="w3-opacity w3-small"><?php echo L::admin_form_accomodation_typeInfo;?></i></th>
         <th><?php echo L::admin_form_accomodation_persons;?></th>

@@ -159,7 +159,7 @@ admin:
 topnavbar:
   home: 'Home'
   event: 'Event registration'
-  blog: 'Home page'
+  blog: 'Blog'
   account: 'Account'
   myAccount: 'My account'
   admin: 'Admin'

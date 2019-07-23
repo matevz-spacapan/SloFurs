@@ -32,7 +32,7 @@
 
   <div class="w3-container">
     <h3><?php echo L::admin_sidebar_accounts;?></h3>
-    <table class="w3-table w3-striped w3-hoverable w3-white">
+    <table class="w3-table w3-striped w3-hoverable w3-white w3-responsive">
       <tr>
         <th></th>
         <th><?php echo L::admin_dash_username;?> <i class="far fa-angle-down"></i></th>

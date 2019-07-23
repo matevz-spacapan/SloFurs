@@ -117,7 +117,7 @@
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
       <h5><?php echo L::admin_dash_changes;?></h5>
-      <table class="w3-table w3-striped w3-hoverable w3-white">
+      <table class="w3-table w3-striped w3-hoverable w3-white w3-responsive">
         <tr>
           <th><?php echo L::admin_dash_who;?></th>
           <th><?php echo L::admin_dash_type;?></th>
@@ -141,7 +141,7 @@
   <div class="w3-container">
     <h3><?php echo L::admin_sidebar_accounts;?></h3>
     <h5><?php echo L::admin_dash_newest;?></h5>
-    <table class="w3-table w3-striped w3-hoverable w3-white">
+    <table class="w3-table w3-striped w3-hoverable w3-white w3-responsive">
       <tr>
         <th><?php echo L::admin_dash_username;?></th>
         <th><?php echo L::admin_dash_email;?></th>
@@ -178,7 +178,7 @@
   <div class="w3-container">
     <h5><?php echo L::admin_dash_countries;?></h5>
     <?php $res=$dash_model->countries(); ?>
-    <table class="w3-table w3-striped w3-hoverable w3-white">
+    <table class="w3-table w3-striped w3-hoverable w3-white w3-responsive">
       <?php foreach($res as $row): ?>
         <tr>
           <td><?php echo $row->country;?></td>
