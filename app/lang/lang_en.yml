@@ -116,7 +116,7 @@ admin:
   dash:
     h: 'Dashboard'
     total: 'Total'
-    incomplete: 'Incompolete'
+    incomplete: 'Incomplete'
     upcoming: 'Upcoming'
     emails: 'Emails'
     sent: 'Sent'

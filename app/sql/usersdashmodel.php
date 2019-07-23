@@ -32,7 +32,7 @@ class UsersDashModel{
 	}
 	//Newest accounts
 	public function list(){
-		$sql='SELECT id, pfp, username, email, fname, lname, created, status FROM account ORDER BY username ASC';
+		$sql='SELECT id, pfp, username, email, fname, lname, created, status, activate, newemail FROM account ORDER BY username ASC';
 		$query=$this->db->prepare($sql);
 		$query->execute();
 		return $query->fetchAll();

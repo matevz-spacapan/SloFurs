@@ -44,7 +44,7 @@
         </tr>
         <?php $res=$dash_model->list(); ?>
         <?php foreach($res as $acc): ?>
-          <tr>
+          <tr <?php if($acc->activate!=null&&$acc->newemail==null){echo 'class="w3-pale-red"';}?>>
             <td width="40">
               <?php if(file_exists('public/accounts/'.$acc->pfp.'.png')): ?>
       					<img src="<?php echo URL.'public/accounts/'.$acc->pfp; ?>.png" class="w3-circle w3-margin-right" style="height:35px">
@@ -53,7 +53,12 @@
       				<?php endif; ?>
             </td>
             <td>
-              <?php echo $acc->username;?><br>
+              <?php
+                echo $acc->username;
+                if($acc->activate!=null&&$acc->newemail==null){
+                  echo ' (not confirmed)';
+                }
+              ?><br>
               <a href="<?php echo URL;?>admin/users?id=<?php echo $acc->id;?>"><?php echo L::admin_dash_edit;?></a>
             </td>
             <td>

@@ -129,7 +129,7 @@ admin:
     type: 'Tip spremembe'
     for: 'Sprememba na računu'
     time: 'Čas spremembe'
-    newest: 'Najnovejši'
+    newest: 'Najnovejših'
     username: 'Uporabniško ime'
     email: 'E-poštni naslov'
     name: 'Ime'

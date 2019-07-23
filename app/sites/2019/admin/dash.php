@@ -68,7 +68,6 @@
       <?php if($account->status>=ADMIN){echo '</a>';}?>
     </div>
 
-
     <div class="w3-quarter">
       <?php
         if($account->status>=SUPER){
@@ -93,6 +92,7 @@
       </div>
       <?php if($account->status>=SUPER){echo '</a>';}?>
     </div>
+
     <div class="w3-quarter">
       <div class="w3-container w3-gray w3-padding-16">
         <div class="w3-left">
@@ -114,6 +114,70 @@
     </div>
   </div>
 
+
+    <!-- Recent users -->
+    <div class="w3-container">
+      <h3><?php echo L::admin_sidebar_accounts;?></h3>
+      <h5><?php echo L::admin_dash_newest;?> 5</h5>
+      <div class="w3-responsive">
+        <table class="w3-table w3-striped w3-hoverable w3-white">
+          <tr>
+            <th><?php echo L::admin_dash_username;?></th>
+            <th><?php echo L::admin_dash_email;?></th>
+            <th><?php echo L::admin_dash_name;?></th>
+            <th><?php echo L::admin_dash_created;?> <i class="far fa-angle-down"></i></th>
+          </tr>
+          <?php $res=$dash_model->newest(); ?>
+          <?php foreach($res as $acc): ?>
+            <tr <?php if($acc->activate!=null&&$acc->newemail==null){echo 'class="w3-pale-red"';}?>>
+              <td>
+                <?php if(file_exists('public/accounts/'.$acc->pfp.'.png')): ?>
+        					<img src="<?php echo URL.'public/accounts/'.$acc->pfp; ?>.png" class="w3-circle w3-margin-right" style="height:35px">
+        				<?php else: ?>
+        					<img src="<?php echo URL.'public/img/account.png' ?>" class="w3-circle w3-margin-right" style="height:35px">
+        				<?php endif; ?>
+                <?php
+                  echo $acc->username;
+                  if($acc->activate!=null&&$acc->newemail==null){
+                    echo ' (not confirmed)';
+                  }
+                ?></td>
+              <td><a href="mailto:<?php echo $acc->email;?>"><?php echo $acc->email;?></a></td>
+              <td>
+                <?php
+                  if($acc->fname!=null){
+                    echo $acc->fname.' '.$acc->lname;
+                  }
+                  else{
+                    echo '<i>'.L::admin_dash_noProfile.'</i>';
+                  }
+                ?>
+              </td>
+              <td><?php echo $acc->created;?></td>
+            </tr>
+          <?php endforeach; ?>
+        </table>
+      </div>
+    </div>
+
+    <!-- Account countries -->
+    <div class="w3-container">
+      <h5><?php echo L::admin_dash_countries;?></h5>
+      <?php $res=$dash_model->countries(); ?>
+      <div class="w3-responsive">
+        <table class="w3-table w3-striped w3-hoverable w3-white w3-responsive">
+          <?php foreach($res as $row): ?>
+            <tr>
+              <td><?php echo $row->country;?></td>
+              <td><?php echo $row->tot;?></td>
+            </tr>
+          <?php endforeach; ?>
+        </table>
+      </div>
+    </div>
+    <hr>
+
+  <!-- Recent changes -->
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
       <h5><?php echo L::admin_dash_changes;?></h5>
@@ -138,61 +202,7 @@
       </div>
     </div>
   </div>
-  <hr>
 
-  <div class="w3-container">
-    <h3><?php echo L::admin_sidebar_accounts;?></h3>
-    <h5><?php echo L::admin_dash_newest;?></h5>
-    <div class="w3-responsive">
-      <table class="w3-table w3-striped w3-hoverable w3-white">
-        <tr>
-          <th><?php echo L::admin_dash_username;?></th>
-          <th><?php echo L::admin_dash_email;?></th>
-          <th><?php echo L::admin_dash_name;?></th>
-          <th><?php echo L::admin_dash_created;?> <i class="far fa-angle-down"></i></th>
-        </tr>
-        <?php $res=$dash_model->newest(); ?>
-        <?php foreach($res as $acc): ?>
-          <tr>
-            <td>
-              <?php if(file_exists('public/accounts/'.$acc->pfp.'.png')): ?>
-      					<img src="<?php echo URL.'public/accounts/'.$acc->pfp; ?>.png" class="w3-circle w3-margin-right" style="height:35px">
-      				<?php else: ?>
-      					<img src="<?php echo URL.'public/img/account.png' ?>" class="w3-circle w3-margin-right" style="height:35px">
-      				<?php endif; ?>
-              <?php echo $acc->username;?></td>
-            <td><a href="mailto:<?php echo $acc->email;?>"><?php echo $acc->email;?></a></td>
-            <td>
-              <?php
-                if($acc->fname!=null){
-                  echo $acc->fname.' '.$acc->lname;
-                }
-                else{
-                  echo '<i>'.L::admin_dash_noProfile.'</i>';
-                }
-              ?>
-            </td>
-            <td><?php echo $acc->created;?></td>
-          </tr>
-        <?php endforeach; ?>
-      </table>
-    </div>
-  </div>
-
-  <div class="w3-container">
-    <h5><?php echo L::admin_dash_countries;?></h5>
-    <?php $res=$dash_model->countries(); ?>
-    <div class="w3-responsive">
-      <table class="w3-table w3-striped w3-hoverable w3-white w3-responsive">
-        <?php foreach($res as $row): ?>
-          <tr>
-            <td><?php echo $row->country;?></td>
-            <td><?php echo $row->tot;?></td>
-          </tr>
-        <?php endforeach; ?>
-      </table>
-    </div>
-  </div>
 </div>
 <script>
 $("#dash").addClass("w3-orange");
