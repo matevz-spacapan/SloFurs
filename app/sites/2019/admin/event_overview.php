@@ -18,7 +18,7 @@
     <?php $editEvent=true; require 'app/sites/'.THEME.'/admin/form.php'; ?>
   </div>
 
-  <div id="Attendees" class="w3-container tab" style="display:none; width:50%;">
+  <div id="Attendees" class="w3-container tab w3-col l8" style="display:none;">
     <h3><?php echo L::admin_overview_attendees_h;?></h3>
     <?php if(count($attendees)>0): ?>
       <?php
@@ -34,82 +34,84 @@
       ?>
       <p><?php echo L::admin_overview_attendees_info;?></p>
       <form action="<?php echo URL; ?>admin/event?id=<?php echo $event->id; ?>" method="post">
-        <table class="w3-table w3-striped w3-centered">
-          <tr>
-            <th><?php echo L::admin_overview_attendees_account;?></th>
-            <th><?php echo L::admin_overview_attendees_type;?></th>
-            <th><?php echo L::admin_overview_attendees_room;?></th>
-            <th><?php echo L::admin_overview_attendees_fursuiterArtist;?></th>
-            <th><?php echo L::admin_overview_attendees_language;?></th>
-            <th><?php echo L::admin_overview_attendees_confirmed;?></th>
-          </tr>
-          <?php foreach($attendees as $attendee): ?>
+        <div class="w3-responsive">
+          <table class="w3-table w3-striped w3-centered">
             <tr>
-              <td><?php echo $attendee->username; $sum1++; ?></td>
-              <td><?php
-                if($attendee->ticket=='regular'&&$event->regular_price==0){
-                  echo L::admin_form_tickets_free;
+              <th><?php echo L::admin_overview_attendees_account;?></th>
+              <th><?php echo L::admin_overview_attendees_type;?></th>
+              <th><?php echo L::admin_overview_attendees_room;?></th>
+              <th><?php echo L::admin_overview_attendees_fursuiterArtist;?></th>
+              <th><?php echo L::admin_overview_attendees_language;?></th>
+              <th><?php echo L::admin_overview_attendees_confirmed;?></th>
+            </tr>
+            <?php foreach($attendees as $attendee): ?>
+              <tr>
+                <td><?php echo $attendee->username; $sum1++; ?></td>
+                <td><?php
+                  if($attendee->ticket=='regular'&&$event->regular_price==0){
+                    echo L::admin_form_tickets_free;
+                  }
+                  elseif($attendee->ticket=='regular'){
+                    echo L::admin_form_tickets_regular.' ('.$event->regular_price.'€)';
+                    $sum2+=$event->regular_price;
+                  }
+                  elseif($attendee->ticket=='sponsor'){
+                    echo L::admin_form_tickets_sponsor.' ('.$event->sponsor_price.'€)';
+                    $sum2+=$event->sponsor_price;
+                  }
+                  else{
+                    echo L::admin_form_tickets_super.' ('.$event->super_price.'€)';
+                    $sum2+=$event->super_price;
+                  }
+                ?></td>
+                <td><?php
+                  if($attendee->type==null){
+                    echo '<i class="far fa-times"></i>';
+                  }
+                  else{
+                    echo $attendee->type.' ('.$attendee->price.'€) ';
+                    $sum3+=$attendee->price;
+                    $sum9++;
+                    echo ($attendee->room_confirmed==1)?'<i class="fas fa-check-circle" title="'.L::admin_overview_attendees_roomGet.'"></i>':'<i class="fas fa-times-circle" title="'.L::admin_overview_attendees_roomNotGet.'"></i>';
+                  }
+                ?></td>
+                <td><?php
+                if($attendee->fursuiter==1){
+                  echo '<i class="fas fa-paw"></i> ';
+                  $sum4++;
                 }
-                elseif($attendee->ticket=='regular'){
-                  echo L::admin_form_tickets_regular.' ('.$event->regular_price.'€)';
-                  $sum2+=$event->regular_price;
+                if($attendee->artist==1){
+                  echo '<i class="fas fa-paint-brush"></i>';
+                  $sum5++;
                 }
-                elseif($attendee->ticket=='sponsor'){
-                  echo L::admin_form_tickets_sponsor.' ('.$event->sponsor_price.'€)';
-                  $sum2+=$event->sponsor_price;
-                }
-                else{
-                  echo L::admin_form_tickets_super.' ('.$event->super_price.'€)';
-                  $sum2+=$event->super_price;
-                }
-              ?></td>
-              <td><?php
-                if($attendee->type==null){
+                if($attendee->fursuiter==0&&$attendee->artist==0){
                   echo '<i class="far fa-times"></i>';
                 }
-                else{
-                  echo $attendee->type.' ('.$attendee->price.'€) ';
-                  $sum3+=$attendee->price;
-                  $sum9++;
-                  echo ($attendee->room_confirmed==1)?'<i class="fas fa-check-circle" title="'.L::admin_overview_attendees_roomGet.'"></i>':'<i class="fas fa-times-circle" title="'.L::admin_overview_attendees_roomNotGet.'"></i>';
-                }
-              ?></td>
-              <td><?php
-              if($attendee->fursuiter==1){
-                echo '<i class="fas fa-paw"></i> ';
-                $sum4++;
-              }
-              if($attendee->artist==1){
-                echo '<i class="fas fa-paint-brush"></i>';
-                $sum5++;
-              }
-              if($attendee->fursuiter==0&&$attendee->artist==0){
-                echo '<i class="far fa-times"></i>';
-              }
-              ?></td>
-              <td><?php
-                echo '<img src="'.URL.'public/img/'.$attendee->language.'.png" width="32">';
-                if($attendee->language=='si'){
-                  $sum6++;
-                }
-                else{
-                  $sum7++;
-                }
-              ?></td>
-              <td>
-                <input class="w3-check" type="checkbox" name="<?php echo $attendee->id; ?>" value="true" <?php if($attendee->confirmed==1){echo 'checked'; $sum8++;} ?>>
-              </td>
+                ?></td>
+                <td><?php
+                  echo '<img src="'.URL.'public/img/'.$attendee->language.'.png" width="32">';
+                  if($attendee->language=='si'){
+                    $sum6++;
+                  }
+                  else{
+                    $sum7++;
+                  }
+                ?></td>
+                <td>
+                  <input class="w3-check" type="checkbox" name="<?php echo $attendee->id; ?>" value="true" <?php if($attendee->confirmed==1){echo 'checked'; $sum8++;} ?>>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+            <tr class="w3-pale-green">
+              <td><i class="fas fa-users"></i> <?php echo $sum1;?></td>
+              <td><i class="far fa-sigma"></i> <?php echo $sum2;?>€</td>
+              <td><i class="far fa-sigma"></i> <?php echo $sum3;?>€ (<i class="fas fa-users"></i> <?php echo $sum9;?>)</td>
+              <td><?php echo "$sum4 / $sum5";?></td>
+              <td></i> <?php echo "SI: $sum6 / EN: $sum7";?></td>
+              <td><i class="far fa-sigma"></i> <?php echo $sum8;?></td>
             </tr>
-          <?php endforeach; ?>
-          <tr class="w3-pale-green">
-            <td><i class="fas fa-users"></i> <?php echo $sum1;?></td>
-            <td><i class="far fa-sigma"></i> <?php echo $sum2;?>€</td>
-            <td><i class="far fa-sigma"></i> <?php echo $sum3;?>€ (<i class="fas fa-users"></i> <?php echo $sum9;?>)</td>
-            <td><?php echo "$sum4 / $sum5";?></td>
-            <td></i> <?php echo "SI: $sum6 / EN: $sum7";?></td>
-            <td><i class="far fa-sigma"></i> <?php echo $sum8;?></td>
-          </tr>
-        </table><br>
+          </table><br>
+        </div>
         <div class="w3-center">
           <button type="submit" class="w3-button w3-green w3-round" name="confirm_attendees"><?php echo L::admin_overview_attendees_confirm;?></button><br><br>
           <button type="submit" class="w3-button w3-blue w3-round" name="export_confirmed" disabled><?php echo L::admin_overview_attendees_exportC;?></button>

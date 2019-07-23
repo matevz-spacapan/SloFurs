@@ -26,6 +26,9 @@
 		<!-- Set user status -->
 		<?php if($old_acc->status==OWNER): ?>
 			<h3><?php echo L::admin_account_privilegesH;?></h3>
+			<?php if($old_acc->id==$account->id): ?>
+				<h4 class="w3-text-red"><?php echo L::admin_account_warning;?></h4>
+			<?php endif; ?>
 			<form action="<?php echo URL;?>admin/users?id=<?php echo $_GET['id'];?>" method="post">
 				<input type="hidden" id="profileStatus" value="<?php echo $account->status; ?>">
 				<select id="status" name="status" class="w3-select" required>

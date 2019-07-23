@@ -10,7 +10,7 @@
     <a href="https://twitter.com/SloFurs" target="_blank"><i class="fab fa-twitter w3-hover-opacity"></i></a>
   </div>
   <div class="w3-display-bottomright w3-text-white w3-large" style="padding:70px 48px">
-    <?php echo L::home_c;?> <a href="https://twitter.com/onyxdesignsfx">Onyx</a>
+    <?php echo L::home_c;?> Sambu
   </div>
 </header>
 

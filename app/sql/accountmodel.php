@@ -62,7 +62,9 @@ class AccountModel{
 		$img_param=getimagesize($img_file['tmp_name']);
 		if($img_param!==false){
 			list($width, $height)=$img_param;
-			if($width!=$height){
+			$min=$width-10;
+			$max=$width+10;
+			if($min>=$height&&$height>=$max){
 				return L::alerts_d_notSquare;
 			}
 			$target_file=$target_dir.$file_name.'.png';

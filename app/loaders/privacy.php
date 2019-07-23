@@ -4,8 +4,8 @@ class Privacy extends Connection{
 		$account=$this->getSessionAcc();
 		require 'app/sites/global/header.php';
 		require 'app/sites/global/alerts.php';
-		if(isset($_GET['lang'])){
-			if($_GET['lang']=='si'){
+		if(isset($_SESSION['lang'])){
+			if($_SESSION['lang']=='si'){
 				require 'app/sites/global/politika_o_zasebnosti.html';
 			}
 			else{

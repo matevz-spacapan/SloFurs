@@ -42,7 +42,9 @@ class FursuitModel{
 			$img_param=getimagesize($image['tmp_name']);
 			if($img_param!==false){
 				list($width, $height)=$img_param;
-				if($width==$height){
+				$min=$width-10;
+				$max=$width+10;
+				if($min<=$height&&$height<=$max){
 					$target_file=$target_dir.$file_name.'.png';
 					if(imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
 						$sql="INSERT INTO fursuit(name, animal, img, in_use, acc_id) VALUES (:name, :animal, :img, :in_use, :acc_id)";
@@ -105,7 +107,9 @@ class FursuitModel{
 					$img_param=getimagesize($image['tmp_name']);
 					if($img_param!==false){
 						list($width, $height)=$img_param;
-						if($width==$height){
+						$min=$width-10;
+						$max=$width+10;
+						if($min<=$height&&$height<=$max){
 							$target_file=$target_dir.$file_name.'.png';
 							if(imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
 								unlink($target_dir.$account->img.'.png');

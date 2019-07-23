@@ -1,4 +1,4 @@
-<div class="w3-col l7">
+<div class="w3-col l8">
   <form action="<?php echo URL; ?>admin/event<?php if($editEvent){echo '?id='.$event->id;} ?>" method="post" enctype="multipart/form-data" autocomplete="off">
     <!-- Event details -->
     <h3><?php echo L::admin_form_event_h;?></h3>
@@ -74,45 +74,47 @@
     <!-- Ticket types -->
     <h3 style="display: inline;"><?php echo L::admin_form_tickets_h;?></h3> <i class="w3-opacity w3-small"><?php echo L::admin_form_tickets_hInfo;?></i><br><br>
 
-    <table class="w3-table w3-responsive">
-      <tr>
-        <th><?php echo L::admin_form_tickets_type;?></th>
-        <th><?php echo L::admin_form_tickets_cost;?></th>
-        <th><?php echo L::admin_form_tickets_description;?> <i class="w3-opacity w3-small"><?php echo L::admin_form_tickets_descriptionInfo;?></i></th>
-      </tr>
-      <tr>
-        <td>
-          <input class="w3-check" type="checkbox" id="checkfree" name="ticket" value="free" <?php if($editEvent&&$event->regular_price==0){echo 'checked';} ?>>
-          <label><?php echo L::admin_form_tickets_free;?></label>
-        </td>
-        <td>0</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>
-          <input class="w3-check" type="checkbox" id="checkregular" name="ticket" value="regular" onclick="price('regular')" <?php if($editEvent&&$event->regular_price!=0&&$event->sponsor_price==-1){echo 'checked';} ?>>
-          <label><?php echo L::admin_form_tickets_regular;?></label>
-        </td>
-        <td><input type="number" class="w3-input" id="regular" min="1" disabled value="<?php if($editEvent&&$event->regular_price!=0){echo $event->regular_price;} ?>"></td>
-        <td><textarea class="w3-input" id="regular_text" disabled><?php if($editEvent){echo $event->regular_text;} ?></textarea></td>
-      </tr>
-      <tr>
-        <td>
-          <input class="w3-check" type="checkbox" id="checksponsor" name="ticket" value="sponsor" onclick="price('sponsor')" <?php if($editEvent&&$event->sponsor_price!=-1&&$event->super_price==-1){echo 'checked';} ?>>
-          <label><?php echo L::admin_form_tickets_sponsor;?></label>
-        </td>
-        <td><input type="number" class="w3-input" id="sponsor" min="1" disabled value="<?php if($editEvent&&$event->sponsor_price!=-1){echo $event->sponsor_price;} ?>"></td>
-        <td><textarea class="w3-input" id="sponsor_text" disabled><?php if($editEvent){echo $event->sponsor_text;} ?></textarea></td>
-      </tr>
-      <tr>
-        <td>
-          <input class="w3-check" type="checkbox" id="checksuper" name="ticket" value="super" onclick="price('super')" <?php if($editEvent&&$event->super_price!=-1){echo 'checked';} ?>>
-          <label><?php echo L::admin_form_tickets_super;?></label>
-        </td>
-        <td><input type="number" class="w3-input" id="super" min="1" disabled value="<?php if($editEvent&&$event->super_price!=-1){echo $event->super_price;} ?>"></td>
-        <td><textarea class="w3-input" id="super_text" disabled><?php if($editEvent){echo $event->super_text;} ?></textarea></td>
-      </tr>
-    </table>
+    <div class="w3-responsive">
+      <table class="w3-table">
+        <tr>
+          <th><?php echo L::admin_form_tickets_type;?></th>
+          <th><?php echo L::admin_form_tickets_cost;?></th>
+          <th><?php echo L::admin_form_tickets_description;?> <i class="w3-opacity w3-small"><?php echo L::admin_form_tickets_descriptionInfo;?></i></th>
+        </tr>
+        <tr>
+          <td>
+            <input class="w3-check" type="checkbox" id="checkfree" name="ticket" value="free" <?php if($editEvent&&$event->regular_price==0){echo 'checked';} ?>>
+            <label><?php echo L::admin_form_tickets_free;?></label>
+          </td>
+          <td>0</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <input class="w3-check" type="checkbox" id="checkregular" name="ticket" value="regular" onclick="price('regular')" <?php if($editEvent&&$event->regular_price!=0&&$event->sponsor_price==-1){echo 'checked';} ?>>
+            <label><?php echo L::admin_form_tickets_regular;?></label>
+          </td>
+          <td><input type="number" class="w3-input" id="regular" min="1" disabled value="<?php if($editEvent&&$event->regular_price!=0){echo $event->regular_price;} ?>"></td>
+          <td><textarea class="w3-input" id="regular_text" disabled><?php if($editEvent){echo $event->regular_text;} ?></textarea></td>
+        </tr>
+        <tr>
+          <td>
+            <input class="w3-check" type="checkbox" id="checksponsor" name="ticket" value="sponsor" onclick="price('sponsor')" <?php if($editEvent&&$event->sponsor_price!=-1&&$event->super_price==-1){echo 'checked';} ?>>
+            <label><?php echo L::admin_form_tickets_sponsor;?></label>
+          </td>
+          <td><input type="number" class="w3-input" id="sponsor" min="1" disabled value="<?php if($editEvent&&$event->sponsor_price!=-1){echo $event->sponsor_price;} ?>"></td>
+          <td><textarea class="w3-input" id="sponsor_text" disabled><?php if($editEvent){echo $event->sponsor_text;} ?></textarea></td>
+        </tr>
+        <tr>
+          <td>
+            <input class="w3-check" type="checkbox" id="checksuper" name="ticket" value="super" onclick="price('super')" <?php if($editEvent&&$event->super_price!=-1){echo 'checked';} ?>>
+            <label><?php echo L::admin_form_tickets_super;?></label>
+          </td>
+          <td><input type="number" class="w3-input" id="super" min="1" disabled value="<?php if($editEvent&&$event->super_price!=-1){echo $event->super_price;} ?>"></td>
+          <td><textarea class="w3-input" id="super_text" disabled><?php if($editEvent){echo $event->super_text;} ?></textarea></td>
+        </tr>
+      </table>
+    </div>
 
     <!-- Accomodation -->
     <h3 style="display: inline;"><?php echo L::admin_form_accomodation_h;?></h3> <i class="w3-opacity w3-small"><?php echo L::admin_form_accomodation_hInfo;?></i><br><br>
@@ -121,35 +123,37 @@
       <h3 class="w3-red w3-center">ROOM EDITING IS NOT WORKING YET. ANY CHANGES MADE WILL BE IGNORED.</h3>
     <?php endif; ?>
 
-    <table class="w3-table w3-responsive" id="accomodationTable">
-      <tr>
-        <th><?php echo L::admin_form_accomodation_type;?> <i class="w3-opacity w3-small"><?php echo L::admin_form_accomodation_typeInfo;?></i></th>
-        <th><?php echo L::admin_form_accomodation_persons;?></th>
-        <th><?php echo L::admin_form_accomodation_price;?></th>
-        <th><?php echo L::admin_form_accomodation_quantity;?></th>
-        <th><button class="w3-button w3-green w3-round" onclick="addRow()">+</button></th>
-      </tr>
-      <?php
-        $is_disabled=false;
-        if($editEvent){
-          $rooms=$event_model->getRooms($event->id);
-          if(new DateTime($event->pre_reg_start)<=new DateTime()){
-            $is_disabled=true;
+    <div class="w3-responsive">
+      <table class="w3-table w3-responsive" id="accomodationTable">
+        <tr>
+          <th><?php echo L::admin_form_accomodation_type;?> <i class="w3-opacity w3-small"><?php echo L::admin_form_accomodation_typeInfo;?></i></th>
+          <th><?php echo L::admin_form_accomodation_persons;?></th>
+          <th><?php echo L::admin_form_accomodation_price;?></th>
+          <th><?php echo L::admin_form_accomodation_quantity;?></th>
+          <th><button class="w3-button w3-green w3-round" onclick="addRow()">+</button></th>
+        </tr>
+        <?php
+          $is_disabled=false;
+          if($editEvent){
+            $rooms=$event_model->getRooms($event->id);
+            if(new DateTime($event->pre_reg_start)<=new DateTime()){
+              $is_disabled=true;
+            }
           }
-        }
-      ?>
-      <?php if($editEvent&&count($rooms)>0): ?>
-        <?php foreach($rooms as $room): ?>
-          <tr id="row<?php echo $room->id; ?>">
-            <td><input type="text" class="w3-input" name="type<?php echo $room->id; ?>" required value="<?php echo $room->type; ?>"></td>
-      			<td><input type="number" class="w3-input" name="persons<?php echo $room->id; ?>" min="1" required value="<?php echo $room->persons; ?>" <?php if($is_disabled){echo 'disabled';} ?>></td>
-      			<td><input type="number" class="w3-input" min="1" name="price<?php echo $room->id; ?>" required value="<?php echo $room->price; ?>"></td>
-      			<td><input type="number" class="w3-input" name="quantity<?php echo $room->id; ?>" min="1" required value="<?php echo $room->quantity; ?>"></td>
-      			<td><button class="w3-button w3-red w3-round" onclick="removeRow('row<?php echo $room->id; ?>')" <?php if($is_disabled){echo 'disabled';} ?>><b>-</b></button></td>
-          </tr>
-        <?php endforeach; ?>
-      <?php endif; ?>
-    </table>
+        ?>
+        <?php if($editEvent&&count($rooms)>0): ?>
+          <?php foreach($rooms as $room): ?>
+            <tr id="row<?php echo $room->id; ?>">
+              <td><input type="text" class="w3-input" name="type<?php echo $room->id; ?>" required value="<?php echo $room->type; ?>"></td>
+        			<td><input type="number" class="w3-input" name="persons<?php echo $room->id; ?>" min="1" required value="<?php echo $room->persons; ?>" <?php if($is_disabled){echo 'disabled';} ?>></td>
+        			<td><input type="number" class="w3-input" min="1" name="price<?php echo $room->id; ?>" required value="<?php echo $room->price; ?>"></td>
+        			<td><input type="number" class="w3-input" name="quantity<?php echo $room->id; ?>" min="1" required value="<?php echo $room->quantity; ?>"></td>
+        			<td><button class="w3-button w3-red w3-round" onclick="removeRow('row<?php echo $room->id; ?>')" <?php if($is_disabled){echo 'disabled';} ?>><b>-</b></button></td>
+            </tr>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </table>
+    </div>
     <div class="w3-center">
       <p><?php echo L::admin_form_hint;?></p>
       <?php if(!$editEvent): ?>

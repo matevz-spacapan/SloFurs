@@ -32,43 +32,58 @@
 
   <div class="w3-container">
     <h3><?php echo L::admin_sidebar_accounts;?></h3>
-    <table class="w3-table w3-striped w3-hoverable w3-white w3-responsive">
-      <tr>
-        <th></th>
-        <th><?php echo L::admin_dash_username;?> <i class="far fa-angle-down"></i></th>
-        <th><?php echo L::admin_dash_email;?></th>
-        <th><?php echo L::admin_dash_name;?></th>
-        <th><?php echo L::admin_dash_created;?></th>
-      </tr>
-      <?php $res=$dash_model->list(); ?>
-      <?php foreach($res as $acc): ?>
+    <div class="w3-responsive">
+      <table class="w3-table w3-striped w3-hoverable w3-white">
         <tr>
-          <td width="40">
-            <?php if(file_exists('public/accounts/'.$acc->pfp.'.png')): ?>
-    					<img src="<?php echo URL.'public/accounts/'.$acc->pfp; ?>.png" class="w3-circle w3-margin-right" style="height:35px">
-    				<?php else: ?>
-    					<img src="<?php echo URL.'public/img/account.png' ?>" class="w3-circle w3-margin-right" style="height:35px">
-    				<?php endif; ?>
-          </td>
-          <td>
-            <?php echo $acc->username;?><br>
-            <a href="<?php echo URL;?>admin/users?id=<?php echo $acc->id;?>"><?php echo L::admin_dash_edit;?></a>
-          </td>
-          <td><a href="mailto:<?php echo $acc->email;?>"><?php echo $acc->email;?></a></td>
-          <td>
-            <?php
-              if($acc->fname!=null){
-                echo $acc->fname.' '.$acc->lname;
-              }
-              else{
-                echo '<i>'.L::admin_dash_noProfile.'</i>';
-              }
-            ?>
-          </td>
-          <td><?php echo $acc->created;?></td>
+          <th></th>
+          <th><?php echo L::admin_dash_username;?> <i class="far fa-angle-down"></i></th>
+          <th>Privileges</th>
+          <th><?php echo L::admin_dash_email;?></th>
+          <th><?php echo L::admin_dash_name;?></th>
+          <th><?php echo L::admin_dash_created;?></th>
         </tr>
-      <?php endforeach; ?>
-    </table>
+        <?php $res=$dash_model->list(); ?>
+        <?php foreach($res as $acc): ?>
+          <tr>
+            <td width="40">
+              <?php if(file_exists('public/accounts/'.$acc->pfp.'.png')): ?>
+      					<img src="<?php echo URL.'public/accounts/'.$acc->pfp; ?>.png" class="w3-circle w3-margin-right" style="height:35px">
+      				<?php else: ?>
+      					<img src="<?php echo URL.'public/img/account.png' ?>" class="w3-circle w3-margin-right" style="height:35px">
+      				<?php endif; ?>
+            </td>
+            <td>
+              <?php echo $acc->username;?><br>
+              <a href="<?php echo URL;?>admin/users?id=<?php echo $acc->id;?>"><?php echo L::admin_dash_edit;?></a>
+            </td>
+            <td>
+              <?php
+                switch($acc->status){
+                  case ATTENDEE: echo L::admin_account_status_attendee; break;
+                  case PRE_REG: echo L::admin_account_status_preReg; break;
+                  case STAFF: echo L::admin_account_status_staff; break;
+                  case ADMIN: echo L::admin_account_status_admin; break;
+                  case SUPER: echo L::admin_account_status_super; break;
+                  case OWNER: echo L::admin_account_status_owner; break;
+                }
+              ?>
+            </td>
+            <td><a href="mailto:<?php echo $acc->email;?>"><?php echo $acc->email;?></a></td>
+            <td>
+              <?php
+                if($acc->fname!=null){
+                  echo $acc->fname.' '.$acc->lname;
+                }
+                else{
+                  echo '<i>'.L::admin_dash_noProfile.'</i>';
+                }
+              ?>
+            </td>
+            <td><?php echo $acc->created;?></td>
+          </tr>
+        <?php endforeach; ?>
+      </table>
+    </div>
   </div>
 </div>
 <script>
