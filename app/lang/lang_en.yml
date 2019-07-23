@@ -159,7 +159,7 @@ admin:
 topnavbar:
   home: 'Home'
   event: 'Event registration'
-  blog: 'Blog'
+  blog: 'Home page'
   account: 'Account'
   myAccount: 'My account'
   admin: 'Admin'
@@ -222,7 +222,7 @@ signup:
   pwCond2: 'contain at least 1 number'
   pwCond3: 'contain at least 1 special character (eg. _ ! / etc.)'
   desc3: 'If the button to submit the form is disabled, it\'s for this reason.'
-  desc4: 'The email confirmation will end up in spam for now!'
+  desc4: 'The email confirmation can end up in your spam folder <i class="fal fa-sad-tear"></i>'
   noActivation: 'Didn\'t receive the account confirmation email?'
   noActivationButton: 'Request a resend'
   resend:

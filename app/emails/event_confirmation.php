@@ -1,6 +1,6 @@
 <?php
 $mail = new \SendGrid\Mail\Mail();
-$mail->setFrom("info@slofurs.org", "SloFurs");
+$mail->setFrom("noreply@slofurs.org", "SloFurs");
 $mail->setSubject("Event confirmation");
 $mail->addTo($email, $username);
 $mail->addDynamicTemplateData("event", $event_name);

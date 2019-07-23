@@ -225,7 +225,7 @@ signup:
   pwCond2: 'vsebuje vsaj 1 številko'
   pwCond3: 'vsebuje vsaj 1 poseben znak (npr. _ ! / itd.)'
   desc3: 'Če je gumb za dokončanje registracije onemogočen, je to zaradi tega, ker niste zadostili vsem pogojem.'
-  desc4: 'Sporočilo za potrditev vašega računa boste našli v mapi za nezaželjeno pošto!'
+  desc4: 'Sporočilo za potrditev vašega računa boste lahko našli v mapi za nezaželjeno pošto <i class="fal fa-sad-tear"></i>'
   noActivation: 'Niste prejeli potrditvenega e-poštnega sporočila?'
   noActivationButton: 'Zahtevajte novo'
   resend:

@@ -17,6 +17,7 @@
 		</div>
 		<div class="w3-container">
 			<?php echo L::reset_desc;?>
+			<h5><b><?php echo L::signup_desc4;?></b></h5>
 		</div>
 	</div>
 </div>

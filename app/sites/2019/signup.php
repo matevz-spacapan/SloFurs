@@ -41,7 +41,7 @@
 				</ul>
 			</b>
 			<p><?php echo L::signup_desc3;?></p>
-			<h3 class="w3-text-red"><?php echo L::signup_desc4;?></h3>
+			<h5><b><?php echo L::signup_desc4;?></b></h5>
 		</div>
 	</div>
 </div>

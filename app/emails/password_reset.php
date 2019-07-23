@@ -1,6 +1,6 @@
 <?php
 $mail = new \SendGrid\Mail\Mail();
-$mail->setFrom("info@slofurs.org", "SloFurs");
+$mail->setFrom("noreply@slofurs.org", "SloFurs");
 $mail->setSubject("Reset Password");
 $mail->addTo($email, $username);
 $mail->addDynamicTemplateData("name", $username);

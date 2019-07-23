@@ -18,7 +18,7 @@
 		<div class="w3-container">
 			<?php echo L::signup_resend_desc1;?><br>
 			<?php echo L::signup_resend_desc2;?>
-			<h3 class="w3-text-red"><?php echo L::signup_desc4;?></h3>
+			<h5><b><?php echo L::signup_desc4;?></b></h5>
 		</div>
 	</div>
 </div>
