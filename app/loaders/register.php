@@ -4,16 +4,24 @@ class Register extends Connection{
 		$account=$this->getSessionAcc();
 		$reg_model=$this->loadSQL('RegModel');
 		$account_model=$this->loadSQL('AccountModel');
-		if($account==null){
+		/*if($account==null){
 			$_SESSION['alert']=L::alerts_i_loggedIn;
 			header('location: '.URL.'login');
-		}
+		}*/
 		//check if personal info is complete, show warning if not.
-		$complete_profile=$reg_model->checkProfile();
+		$complete_profile=true;
+		if($account!=null){
+			$complete_profile=$reg_model->checkProfile();
+		}
 		//view registered, upcoming and user's past registered events
-		$rEvents=$reg_model->getREvents(); //registered
-		$cEvents=$reg_model->getCEvents(); //upcoming
-		$pEvents=$reg_model->getPEvents(); //past
+		if($account!=null){
+			$rEvents=$reg_model->getREvents(); //registered
+			$cEvents=$reg_model->getCEvents(); //upcoming
+			$pEvents=$reg_model->getPEvents(); //past
+		}
+		else{
+			$cEvents=$reg_model->getCEvents(true); //upcoming with no acc
+		}
 		if(isset($_POST['update_personal_info'])){
 			$_SESSION['alert']=$account_model->updateProfile($_POST['fname'], $_POST['lname'], $_POST['address'], $_POST['address2'], $_POST['city'], $_POST['postcode'], $_POST['country'], $_POST['phone'], $_POST['dob'], $_POST['gender'], $_POST['language']);
 			header('location: '.URL.'register');
@@ -30,13 +38,13 @@ class Register extends Connection{
 		$new_reg=true;
 		$account=$this->getSessionAcc();
 		$reg_model=$this->loadSQL('RegModel');
-		if($account==null){
+		/*if($account==null){
 			$_SESSION['alert']=L::alerts_i_loggedIn;
 			header('location: '.URL.'login');
-		}
+		}*/
 		$id=$_GET["id"]; //event ID
 		//check if already regged for evt and evt exists
-		if(!$reg_model->registered($id, 'event_id')){
+		if($account!=null&&!$reg_model->registered($id, 'event_id')){
 			if($reg_model->exists($id)){
 				header('location: '.URL.'register/edit?id='.$reg_model->registered($id, 'event_id', false)->id);
 			}
@@ -45,7 +53,7 @@ class Register extends Connection{
 			}
 		}
 		//check if profile is complete
-		if(!$reg_model->checkProfile()){
+		if($account!=null&&!$reg_model->checkProfile()){
 			$_SESSION['alert']=L::alerts_d_personal;
 			header('location: '.URL.'register');
 		}

@@ -162,7 +162,7 @@ admin:
     ban: 'Onemogoči račun'
 topnavbar:
   home: 'Domov'
-  event: 'Prijave na dogodeke'
+  event: 'Dogodki'
   blog: 'Blog'
   account: 'Račun'
   myAccount: 'Moj račun'
@@ -173,6 +173,7 @@ topnavbar:
   changeLang: 'Change language: '
 footer: '<i class="far fa-code"></i> z <i class="fas fa-heart"></i> v Sloveniji.<br><i class="far fa-copyright"></i> SloFurs 2019'
 notFound: 'Opla, izgleda, da ste šli v zelo temen kotiček naše strani. Na žalost, ni nič lepega za videti tukaj.'
+title: 'SloFurs Dogodki'
 home:
   a: 'Dobrodošli na straneh SloFurs!'
   b: 'To je naš nov dom za dogodke.'
@@ -225,7 +226,7 @@ signup:
   pwCond2: 'vsebuje vsaj 1 številko'
   pwCond3: 'vsebuje vsaj 1 poseben znak (npr. _ ! / itd.)'
   desc3: 'Če je gumb za dokončanje registracije onemogočen, je to zaradi tega, ker niste zadostili vsem pogojem.'
-  desc4: 'Sporočilo za potrditev vašega računa boste lahko našli v mapi za nezaželjeno pošto <i class="fal fa-sad-tear"></i>'
+  desc4: 'Če niste prejeli potrditvenega sporočila, kontaktirajte <a href="http://t.me/pur3bolt" target="_blank">Pur3Bolta<i class="far fa-external-link"></i></a>. Prosimo preverite tudi mapo z  nezaželjeno pošto.'
   noActivation: 'Niste prejeli potrditvenega e-poštnega sporočila?'
   noActivationButton: 'Zahtevajte novo'
   resend:
@@ -378,12 +379,15 @@ register:
     age:
       h: 'Starostne omejitve'
       none: 'Ni starostnih omejitev za ta dogodek.'
+      noAcc: 'Za udeležbo morate biti stari vsaj '
       ok: 'Dovolj ste stari za udeležbo na tem dogodku. Minimalna starost je '
       okYears: ' let.'
       restricted: 'Dovolj ste stari za udeležbo na tem dogodeku, vendar z omejitvami.<br>Omejitve so:'
       notOk1: 'Niste dovolj stari za udeležbo na tem dogodku. Minimalna starost je '
       notOk2: ' let in vaša starost ob pričetku dogodka bo '
       notOk3: ' let.'
+    questions: 'Vprašanja?'
+    email: 'Pišite nam'
     buttonRegister: 'Prijava na dogodek!'
     buttonView: 'Preglejte svojo prijavo'
     buttonEdit: 'Uredi prijavo'

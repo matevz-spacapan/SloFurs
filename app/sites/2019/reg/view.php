@@ -23,7 +23,7 @@
 		</div>
 	<?php endif; ?>
 	<!-- REGISTERED EVENTS -->
-	<?php if(count($rEvents)>0): ?>
+	<?php if($account!=null&&count($rEvents)>0): ?>
 		<div class="w3-container">
 			<h3><?php echo L::register_view_registered_h;?></h3>
 			<?php foreach($rEvents as $event): ?>
@@ -50,14 +50,14 @@
 							$color='w3-blue';
 							$text=L::admin_event_text_reg.'<br>'.$reg_model->convertViewable($event->reg_end, 2);
 						}
-						elseif($event->pre_reg_start!=$event->reg_start && new DateTime($event->pre_reg_start)<=new DateTime() && $account->status>=PRE_REG){
+						elseif($event->pre_reg_start!=$event->reg_start && new DateTime($event->pre_reg_start)<=new DateTime() && $account!=null && $account->status>=PRE_REG){
 							$color='w3-light-blue';
 							$text=L::admin_event_text_pre.'<br>'.$reg_model->convertViewable($event->reg_start, 2);
 						}
 						else{
 							$color='w3-light-gray';
 							$text=L::admin_event_text_until.'<br>';
-							$date=($account->status>=PRE_REG)?$reg_model->convertViewable($event->pre_reg_start, 2):$reg_model->convertViewable($event->reg_start, 2);
+							$date=($account!=null && $account->status>=PRE_REG)?$reg_model->convertViewable($event->pre_reg_start, 2):$reg_model->convertViewable($event->reg_start, 2);
 							$text=$text.$date;
 						}
 						if(!$complete_profile){
@@ -74,7 +74,7 @@
 	</div>
 
 	<!-- PAST EVENTS -->
-	<?php if(count($pEvents)>0): ?>
+	<?php if($account!=null&&count($pEvents)>0): ?>
 		<div class="w3-container w3-row-padding w3-padding-32">
 			<h3><?php echo L::register_view_past_h;?></h3>
 			<?php foreach($pEvents as $event): ?>

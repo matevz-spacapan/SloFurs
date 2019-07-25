@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta charset="utf-8">
-	<title>SloFurs Events</title>
+	<title><?php echo L::title; ?></title>
 	<meta name="description" content="">
 	<!-- Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-143816535-1"></script>

@@ -46,13 +46,13 @@
 					$color='w3-green';
 					$text=L::register_form_currently.'<br>'.$reg_model->convertViewable($event->reg_end, 2).'.';
 				}
-				elseif($event->pre_reg_start!=0 && new DateTime($event->pre_reg_start)<=$now && $account->status>=PRE_REG){
+				elseif($event->pre_reg_start!=0 && new DateTime($event->pre_reg_start)<=$now && $account!=null && $account->status>=PRE_REG){
 					$color='w3-green';
 					$text=L::register_form_currently.'<br>'.$reg_model->convertViewable($event->reg_end, 2).'.';
 				}
 				else{
 					$color='w3-dark-gray';
-					$text=L::register_form_upcoming.'<br>'.($account->status>=PRE_REG)?
+					$text=L::register_form_upcoming.'<br>'.($account!=null&&$account->status>=PRE_REG)?
 						$reg_model->convertViewable($event->pre_reg_start, 2):
 						$reg_model->convertViewable($event->reg_start, 2);
 					$text=$text.' '.L::register_form_and.'<br>'.$reg_model->convertViewable($event->reg_end, 2).'.';
@@ -64,9 +64,16 @@
 			<p class="w3-text-dark-gray"> <a href="https://maps.google.com/?q=<?php echo $event->location;?>" target="_blank"><?php echo $event->location;?> <i class="far fa-external-link"></i></a> </p>
 
 			<h5><?php echo L::register_form_age_h;?></h5>
-			<?php $age=(int)date_diff(date_create($event->event_start), date_create($account->dob), true)->format('%y'); ?>
+			<?php
+			$age=null;
+				if($account!=null){
+					$age=(int)date_diff(date_create($event->event_start), date_create($account->dob), true)->format('%y');
+				}?>
 			<?php if($event->age==0): ?>
 				<p class="w3-text-dark-gray"><?php echo L::register_form_age_none;?></p>
+
+			<?php elseif($account==null): ?>
+				<p class="w3-text-dark-gray"><?php echo L::register_form_age_noAcc.$event->restricted_age.L::register_form_age_okYears;?></p>
 
 			<?php elseif($age>=$event->age): ?>
 				<p class="w3-text-dark-gray"><?php echo L::register_form_age_ok.$event->age.L::register_form_age_okYears;?></p>
@@ -78,6 +85,8 @@
 				<?php $color='w3-dark-gray'; ?>
 				<p class="w3-text-red"><?php echo L::register_form_age_notOk1.$event->restricted_age.L::register_form_age_notOk2.$age.L::register_form_age_notOk3;?></p>
 			<?php endif; ?>
+			<h5><?php echo L::register_form_questions;?></h5>
+			<p class="w3-text-dark-gray"><a href="mailto:slofurs@gmail.com" target="_blank"><?php echo L::register_form_email;?></a>, <a href="https://discord.gg/0eaoyLCJ7eiTMBaj" target="_blank">Discord <i class="far fa-external-link"></i></a> </p>
 			<!-- FORM BUTTON -->
 			<?php if($new_reg): ?>
 				<button class="w3-button w3-block w3-round <?php echo $color; ?>" <?php if($color!='w3-green'||$age<$event->restricted_age){echo 'disabled';} else{echo 'onclick="$(\'#register\').show()"';} ?>><?php echo L::register_form_buttonRegister;?></button>

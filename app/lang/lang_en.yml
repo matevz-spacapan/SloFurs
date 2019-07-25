@@ -159,7 +159,7 @@ admin:
     ban: 'Ban account'
 topnavbar:
   home: 'Home'
-  event: 'Event registration'
+  event: 'Events'
   blog: 'Blog'
   account: 'Account'
   myAccount: 'My account'
@@ -170,6 +170,7 @@ topnavbar:
   changeLang: 'Spremeni jezik: '
 footer: '<i class="far fa-code"></i> with <i class="fas fa-heart"></i> in Slovenia.<br><i class="far fa-copyright"></i> SloFurs 2019'
 notFound: 'Whoops, it seems you went into a dark corner. Nothing nice to see here, sadly.'
+title: 'SloFurs Events'
 home:
   a: 'Welcome to SloFurs!'
   b: 'This is our new home for events.'
@@ -222,7 +223,7 @@ signup:
   pwCond2: 'contain at least 1 number'
   pwCond3: 'contain at least 1 special character (eg. _ ! / etc.)'
   desc3: 'If the button to submit the form is disabled, it\'s for this reason.'
-  desc4: 'The email confirmation can end up in your spam folder <i class="fal fa-sad-tear"></i>'
+  desc4: 'If you don\'t get the email confirmation, please contact <a href="http://t.me/pur3bolt" target="_blank">Pur3Bolt<i class="far fa-external-link"></i></a>. Please check your spam folder too.'
   noActivation: 'Didn\'t receive the account confirmation email?'
   noActivationButton: 'Request a resend'
   resend:
@@ -375,12 +376,15 @@ register:
     age:
       h: 'Age restrictions'
       none: 'There are no age restrictions for this event.'
+      noAcc: 'The minimum age for this event is '
       ok: 'You are old enough to attend this event. The minimum age is '
       okYears: ' years.'
       restricted: 'You are old enough to attend this event, but with restrictions.<br>The restrictions are:'
       notOk1: 'You are not old enough to attend this event. The minimum age for it is '
       notOk2: ' years and you will be '
       notOk3: ' years old at the start of the event.'
+    questions: 'Questions?'
+    email: 'Email us'
     buttonRegister: 'Register for event!'
     buttonView: 'View registration data'
     buttonEdit: 'Edit registration'

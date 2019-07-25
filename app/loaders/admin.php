@@ -55,7 +55,7 @@ class Admin extends Connection{
 					header('location: '.URL.'admin/users?id='.$_GET['id']);
 				}
 				elseif(isset($_POST['delete_pfp'])){
-					$dash_model->deletePFP($_GET['id']);
+					$dash_model->deletePFP($_GET['id'], $_SESSION['account']);
 					header('location: '.URL.'admin/users?id='.$_GET['id'], $_SESSION['account']);
 				}
 				elseif(isset($_FILES['image'])){

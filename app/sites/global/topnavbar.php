@@ -1,12 +1,10 @@
-<div class="w3-top">
+<div class="w3-top" style="z-index:50;">
 	<div class="w3-bar w3-large w3-white">
 		<?php if(strpos($_SERVER['REQUEST_URI'], 'admin/')!==false): ?>
 			<button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="$('#sidebar').show()"><i class="far fa-bars"></i>  Menu</button>
 		<?php endif; ?>
 		<a href="<?php echo URL ?>" class="w3-bar-item w3-button"><?php echo L::topnavbar_home;?></a>
-		<?php if($account!=null): ?>
-			<a href="<?php echo URL ?>register" class="w3-bar-item w3-button w3-hide-small"><?php echo L::topnavbar_event;?></a>
-		<?php endif; ?>
+		<a href="<?php echo URL ?>register" class="w3-bar-item w3-button w3-hide-small"><?php echo L::topnavbar_event;?></a>
 		<a href="https://slofurs.org/" class="w3-bar-item w3-button w3-hide-small" target="_blank"><?php echo L::topnavbar_blog;?> <i class="far fa-external-link"></i></a>
 
 		<?php if($account!=null): ?>
