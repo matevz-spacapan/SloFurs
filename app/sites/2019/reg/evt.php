@@ -1,5 +1,12 @@
 <div class="fixer">
-	<?php echo '<a href="'.URL.'register/new?id='.$event->id.'" style="text-decoration: none;">';?>
+	<?php
+	if(isset($edit)&&$edit){
+			echo '<a href="'.URL.'register/edit?id='.$event->id.'" style="text-decoration: none;">';
+	}
+	else{
+		echo '<a href="'.URL.'register/new?id='.$event->id.'" style="text-decoration: none;">';
+	}
+	?>
 	<?php if($event->img!=null): ?>
 		<img src="<?php echo URL.'public/events/'.$event->img.'.png'?>" class="w3-round-xlarge eventImage">
 	<?php else: ?>

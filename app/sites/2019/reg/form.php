@@ -151,12 +151,7 @@
 								<!-- ACCOMODATION / IF NONE skip, ELSE dropdown -->
 								<h5><?php echo L::register_form_modal_accomodation_h;?></h5>
 								<?php
-									if($new_reg){
-										$rooms=$reg_model->getAccomodation($event->id);
-									}
-									else{
-										$rooms=$reg_model->getAccomodation($event->event_id);
-									}
+									$rooms=$reg_model->getAccomodation($evt_id);
 									$event_duration=(int)date_diff(date_create($event->event_start), date_create($event->event_end), true)->format('%d');
 								?>
 								<?php if(count($rooms)>0): ?>
@@ -182,7 +177,7 @@
 												<td><?php echo $room->price; ?>€</td>
 												<td><?php echo $room->persons; ?></td>
 												<?php
-													$result=$room->quantity-$reg_model->getBooked($event->id, $room->id)->quantity;
+													$result=$room->quantity-$reg_model->getBooked($evt_id, $room->id)->quantity;
 													if($result<=0){
 														$result=L::register_form_modal_accomodation_noSpace;
 													}
@@ -248,7 +243,7 @@
 				<div id="chartGender" style="width: 100%; height: 300px;"></div>
 			</div>
 		</div>
-		<?php $attendees=$reg_model->getAttendees($event->id); ?>
+		<?php $attendees=$reg_model->getAttendees($evt_id); ?>
 		<?php if(count($attendees)>0): ?>
 			<div class="w3-row">
 				<div class="w3-padding-32">
@@ -287,7 +282,7 @@
 		<?php endif; ?>
 		<?php
 			$event_model=$this->loadSQL('EventModel');
-			$fursuits=$event_model->getFursuits($event->id);
+			$fursuits=$event_model->getFursuits($evt_id);
 		?>
 		<?php if(count($fursuits)>0): ?>
 			<div class="w3-row">
@@ -354,7 +349,7 @@
 	<?php endif; ?>
 
 	<!-- To event -->
-	<?php $carShares=$reg_model->getAllTo($event->id); ?>
+	<?php $carShares=$reg_model->getAllTo($evt_id); ?>
 	<div class="w3-row">
 		<h4><?php echo L::register_form_car_to;?></h4>
 		<?php if(count($carShares)>0): ?>
@@ -418,7 +413,7 @@
 	</div>
 
 	<!-- From event -->
-	<?php $carShares=$reg_model->getAllFrom($event->id); ?>
+	<?php $carShares=$reg_model->getAllFrom($evt_id); ?>
 	<div class="w3-row">
 		<h4><?php echo L::register_form_car_from;?></h4>
 		<?php if(count($carShares)>0): ?>
@@ -602,7 +597,7 @@ function openTab(evt, tabName){
 
 	<?php
 		$text='';
-		$countries=$reg_model->getCountries($event->id);
+		$countries=$reg_model->getCountries($evt_id);
 		foreach ($countries as $country){
 			$text.='{"country": "'.$country->country.'", "quantity": '.$country->counter.'},';
 		}
@@ -630,7 +625,7 @@ function openTab(evt, tabName){
 
 	<?php
 		$text='';
-		$tickets=$reg_model->getTickets($event->id);
+		$tickets=$reg_model->getTickets($evt_id);
 		if($event->regular_price==0){
 			foreach ($tickets as $ticket){
 				$text.='{"ticket": "Free", "quantity": '.$ticket->counter.'}';
@@ -666,7 +661,7 @@ function openTab(evt, tabName){
 
 	<?php
 		$text='';
-		$genders=$reg_model->getGenders($event->id);
+		$genders=$reg_model->getGenders($evt_id);
 		foreach ($genders as $gender){
 			if($gender->gender=='silent'){
 				$text.='{"gender": "Do not wish to answer", "quantity": '.$gender->counter.'},';
@@ -699,11 +694,11 @@ function openTab(evt, tabName){
 
 	<?php
 		$text='';
-		$rooms=$reg_model->getRooms($event->id);
+		$rooms=$reg_model->getRooms($evt_id);
 		foreach ($rooms as $room){
 			$text.='{"room": "'.ucfirst($room->type).'", "quantity": '.$room->counter.'},';
 		}
-		$room=$reg_model->getNoRoom($event->id);
+		$room=$reg_model->getNoRoom($evt_id);
 		if($room->counter!=0){
 			$text.='{"room": "No accomodation", "quantity": '.$room->counter.'},';
 		}

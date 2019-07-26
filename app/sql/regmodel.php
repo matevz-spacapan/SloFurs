@@ -23,7 +23,16 @@ class RegModel{
 	}
 	// Get all current/upcoming events
 	public function getCEvents($fromHome=false){
-		$sql='SELECT * FROM event WHERE id NOT IN (SELECT event_id FROM registration INNER JOIN event ON event.id=registration.event_id AND acc_id=:acc_id) ORDER BY event_start ASC';
+		$sql='SELECT * FROM event WHERE id NOT IN (SELECT event_id FROM registration INNER JOIN event ON event.id=registration.event_id AND acc_id=:acc_id) AND viewable<=NOW() ORDER BY event_start ASC';
+		if(isset($_SESSION['account'])){
+			$sql2='SELECT * FROM account WHERE id=:id';
+			$query=$this->db->prepare($sql2);
+			$query->execute(array(':id'=>$_SESSION['account']));
+			$account=$query->fetch();
+			if($account->status>=PRE_REG){
+				$sql='SELECT * FROM event WHERE id NOT IN (SELECT event_id FROM registration INNER JOIN event ON event.id=registration.event_id AND acc_id=:acc_id) ORDER BY event_start ASC';
+			}
+		}
 		$query=$this->db->prepare($sql);
 		if(isset($_SESSION['account'])&&!$fromHome){
 			$query->execute(array(':acc_id'=>$_SESSION['account']));
@@ -249,6 +258,24 @@ class RegModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return $query->rowCount()!=0;
+	}
+	public function viewable($id){
+		if(isset($_SESSION['account'])){
+			$sql='SELECT * FROM account WHERE id=:id';
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':id'=>$_SESSION['account']));
+			$account=$query->fetch();
+			if($account->status>=PRE_REG){
+				return true;
+			}
+		}
+		$id=strip_tags($id);
+		$sql='SELECT count(viewable) AS num FROM event WHERE id=:id AND viewable<=NOW()';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		$event=$query->fetch();
+		$event=$event->num;
+		return $event==1;
 	}
 	//Get nr of attendees from each country
 	public function getCountries($id){

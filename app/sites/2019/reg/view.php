@@ -25,7 +25,7 @@
 	<!-- REGISTERED EVENTS -->
 	<?php if($account!=null&&count($rEvents)>0): ?>
 		<div class="w3-container">
-			<h3><?php echo L::register_view_registered_h;?></h3>
+			<h3><?php echo L::register_view_registered_h; $edit=true;?></h3>
 			<?php foreach($rEvents as $event): ?>
 				<?php
 					$color=($event->confirmed==1)?'w3-green':'w3-orange';
@@ -37,7 +37,7 @@
 	<?php endif; ?>
 	<!-- CURRENT/UPCOMING EVENTS -->
 	<div class="w3-container">
-		<h3><?php echo L::register_view_upcoming_h;?></h3>
+		<h3><?php echo L::register_view_upcoming_h; $edit=false;?></h3>
 		<div class="w3-row">
 			<?php if(count($cEvents)>0): ?>
 				<?php foreach($cEvents as $event): ?>
