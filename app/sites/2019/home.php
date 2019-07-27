@@ -7,7 +7,8 @@
   </div>
   <div class="w3-display-bottomleft w3-text-white w3-large" style="padding:70px 48px">
     <a href="https://www.facebook.com/slofurs" style="padding-right:10px;" target="_blank"><i class="fab fa-facebook-f w3-hover-opacity"></i></a>
-    <a href="https://twitter.com/SloFurs" target="_blank"><i class="fab fa-twitter w3-hover-opacity"></i></a>
+    <a href="https://twitter.com/SloFurs" style="padding-right:10px;" target="_blank"><i class="fab fa-twitter w3-hover-opacity"></i></a>
+    <a href="https://discord.gg/0eaoyLCJ7eiTMBaj" target="_blank"><i class="fab fa-discord"></i></a>
   </div>
   <div class="w3-display-bottomright w3-text-white w3-large" style="padding:70px 48px">
     <?php echo L::home_c;?> Sambu
@@ -81,6 +82,7 @@
 <div class="w3-container w3-padding-64 w3-center w3-opacity">
   <div class="w3-xlarge w3-padding-32">
     <a href="https://www.facebook.com/slofurs" style="padding-right:10px;" target="_blank"><i class="fab fa-facebook-f w3-hover-opacity"></i></a>
-    <a href="https://twitter.com/SloFurs" target="_blank"><i class="fab fa-twitter w3-hover-opacity"></i></a>
+    <a href="https://twitter.com/SloFurs" style="padding-right:10px;" target="_blank"><i class="fab fa-twitter w3-hover-opacity"></i></a>
+    <a href="https://discord.gg/0eaoyLCJ7eiTMBaj" target="_blank"><i class="fab fa-discord"></i></a>
  </div>
 </div>

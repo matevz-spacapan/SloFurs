@@ -414,6 +414,8 @@ register:
         h: 'Drugo'
         fursuiter: 'Ste fursuiter?'
         artist: 'Ste umetnik?'
+      rules1: 'S prijavo na ta dogodek, se strinjate z'
+      rules2: 'našimi pravili'
       register: 'Prijavi se!'
       save: 'Shrani spremembe'
     stats:
@@ -449,8 +451,9 @@ register:
       delete: 'Izbriši prevoz'
       none: 'Trenutno ni objavljenih prevozov. <i class="far fa-sad-tear"></i>'
       spots: 'Prostih mest'
-      at: 'Ob'
+      at: 'Odhod ob'
       driver: 'Voznik'
+      info: 'Dodatne informacije'
 alerts:
   d:
     activate: 'dNeveljavna zahteva za aktivacijo računa.'

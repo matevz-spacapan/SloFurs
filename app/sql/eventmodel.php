@@ -50,7 +50,7 @@ class EventModel{
 	//Get fursuits that have in_use=1 and on this event ID...
 	public function getFursuits($id){
 		$id=(int)strip_tags($id);
-		$sql='SELECT username, name, animal, img FROM fursuit INNER JOIN account ON fursuit.acc_id=account.id INNER JOIN registration ON registration.acc_id=account.id WHERE event_id=:id AND in_use=1';
+		$sql='SELECT username, name, animal, img FROM fursuit INNER JOIN account ON fursuit.acc_id=account.id INNER JOIN registration ON registration.acc_id=account.id WHERE event_id=:id AND in_use=1 ORDER BY name';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return $query->fetchAll();
@@ -120,6 +120,10 @@ class EventModel{
 		if($reg_end==''){
 			$reg_end=$start;
 		}
+		$viewable=strip_tags($fields["viewable"]);
+		if($viewable==''){
+			$viewable=$reg_start;
+		}
 		$created=date_format(date_create(), 'Y-m-d H:i:s');
 		$autoconfirm=(array_key_exists('autoconfirm', $fields))?strip_tags($fields['autoconfirm']):0;
 		$age=strip_tags($fields["age"]);
@@ -175,9 +179,9 @@ class EventModel{
 			}
 		}
 		//create event, get event ID for accomodation creation
-		$sql="INSERT INTO event(name, event_start, event_end, reg_start, pre_reg_start, reg_end, location, description, age, restricted_age, restricted_text, regular_price, regular_text, sponsor_price, sponsor_text, super_price, super_text, autoconfirm, img) VALUES (:name, :event_start, :event_end, :reg_start, :pre_reg_start, :reg_end, :location, :description, :age, :restricted_age, :restricted_text, :regular_price, :regular_text, :sponsor_price, :sponsor_text, :super_price, :super_text, :autoconfirm, :img)";
+		$sql="INSERT INTO event(name, event_start, event_end, reg_start, pre_reg_start, reg_end, location, description, age, restricted_age, restricted_text, regular_price, regular_text, sponsor_price, sponsor_text, super_price, super_text, autoconfirm, img, viewable) VALUES (:name, :event_start, :event_end, :reg_start, :pre_reg_start, :reg_end, :location, :description, :age, :restricted_age, :restricted_text, :regular_price, :regular_text, :sponsor_price, :sponsor_text, :super_price, :super_text, :autoconfirm, :img, :viewable)";
 		$query=$this->db->prepare($sql);
-		$query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, ':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm, ':img'=>$file_name));
+		$query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, ':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm, ':img'=>$file_name, ':viewable'=>$viewable));
 		$event_ID=$this->db->lastInsertId();
 
 		//ACCOMODATION
@@ -248,6 +252,10 @@ class EventModel{
 	  if($reg_end==''){
 	    $reg_end=$start;
 	  }
+		$viewable=strip_tags($fields["viewable"]);
+		if($viewable==''){
+			$viewable=$reg_start;
+		}
 	  $autoconfirm=(array_key_exists('autoconfirm', $fields))?strip_tags($fields['autoconfirm']):0;
 	  $age=strip_tags($fields["age"]);
 	  $restricted_age=strip_tags($fields["restricted_age"]);
@@ -273,9 +281,9 @@ class EventModel{
 	      break;
 	  }
 	  //create event, get event ID for accomodation creation
-	  $sql="UPDATE event SET name=:name, event_start=:event_start, event_end=:event_end, reg_start=:reg_start, pre_reg_start=:pre_reg_start, reg_end=:reg_end, location=:location, description=:description, age=:age, restricted_age=:restricted_age, restricted_text=:restricted_text, regular_price=:regular_price, regular_text=:regular_text, sponsor_price=:sponsor_price, sponsor_text=:sponsor_text, super_price=:super_price, super_text=:super_text, autoconfirm=:autoconfirm WHERE id=:id";
+	  $sql="UPDATE event SET name=:name, event_start=:event_start, event_end=:event_end, reg_start=:reg_start, pre_reg_start=:pre_reg_start, reg_end=:reg_end, location=:location, description=:description, age=:age, restricted_age=:restricted_age, restricted_text=:restricted_text, regular_price=:regular_price, regular_text=:regular_text, sponsor_price=:sponsor_price, sponsor_text=:sponsor_text, super_price=:super_price, super_text=:super_text, autoconfirm=:autoconfirm, viewable=:viewable WHERE id=:id";
 	  $query=$this->db->prepare($sql);
-	  $query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, ':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm, ':id'=>$id));
+	  $query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, ':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm, ':id'=>$id, ':viewable'=>$viewable));
 
 		//IMAGE
 		$file_name='';
@@ -425,8 +433,8 @@ class EventModel{
 				izjavljam, da:
 
 				<ul>
-				  <li>Sem natančno prebral$pripona, sem seznanjen$pripona in se v celoti strinjam s Pravili in pogoji, objavljenimi na spletni strani SloFurs: http://slofurs.org/pravila/ v času prijave. Upošteval$pripona bom vsa pravila in pogoje, navedene v omenjenem besedilu in se strinjam z vsemi možnimi sankcijami, ki jih lahko določi organizator.</li>
-				  <li>Sem natančno prebral$pripona, sem seznanjen$pripona in se v celoti strinjam s Politiko o zasebnosti, objavljeno na spletni strani SloFurs dogodkov: http://events.slofurs.org/privacy v času prijave.</li>
+				  <li>Sem natančno prebral$pripona, sem seznanjen$pripona in se v celoti strinjam s Pravili in pogoji, objavljenimi na spletni strani SloFurs: http://slofurs.org/pravila/ v času trajanja dogodka. Upošteval$pripona bom vsa pravila in pogoje, navedene v omenjenem besedilu in se strinjam z vsemi možnimi sankcijami, ki jih lahko določi organizator.</li>
+				  <li>Sem natančno prebral$pripona, sem seznanjen$pripona in se v celoti strinjam s Politiko o zasebnosti, objavljeno na spletni strani SloFurs dogodkov: http://events.slofurs.org/privacy v času dogodka.</li>
 				  <li>Se zavedam, da organizator srečanja ni odgovoren za kakršnokoli poškodbo ali škodo, ki jo lahko doživim ali utrpim med srečanjem. Poleg tega prevzemam polno odgovornost za svoja dejanja med srečanjem.</li>
 				  <li>Se zavedam, da mi organizator ni dolžan nikakršne povrnitve stroškov, v primeru neudeležbe, prepovedi udeležbe ali odstranitve s srečanja zaradi kršitve pravil srečanja.</li>
 				  <li>Bom upošteval$pripona navodila organizatorja na srečanju in se zavedam, da ima organizator popolno pravico do spreminjanja, dodajanja k in tolmačenja Pravil in pogojev.</li>
@@ -447,14 +455,14 @@ class EventModel{
 				declare that:
 
 				<ul>
-				  <li>I have read, am aware and completely agree with the Rules of conduct published on the SloFurs website: http://slofurs.org/pravila/ at the time of registration. I will obide to all the stated rules in the before mentioned document and agree with all possible sanctions, which can be decided by the organiser.</li>
-				  <li>I have read, am aware and completely agree with the Privacy policy published on the SloFurs website: http://events.slofurs.org/privacy at the time of registration.</li>
-				  <li>I am aware, that the event organiser is not held responsible for any injury or damage that can happen to me during the event. I also take full responsibility for my actions during the event.</li>
-				  <li>I am aware, that the organiser is not obligated to any refund or reimbursment of costs in the case of not attending the event, in case of being banned from the event or removal from the event because of a breach in the Rules of conduct.</li>
-				  <li>I will follow the instructions and rules from the organiser during the meet and I am aware, that the organiser has the full right to alter, add or act as an interpreter of the Rules of conduct.</li>
+				  <li>I have read, am aware and completely agree with the Rules of conduct published on the SloFurs website: http://slofurs.org/pravila/ at the time of the event. I will obide to all the stated rules in the before mentioned document and agree with all possible sanctions, which can be decided by the organizer.</li>
+				  <li>I have read, am aware and completely agree with the Privacy policy published on the SloFurs website: http://events.slofurs.org/privacy at the time of the event.</li>
+				  <li>I am aware, that the event organizer is not held responsible for any injury or damage that can happen to me during the event. I also take full responsibility for my actions during the event.</li>
+				  <li>I am aware, that the organizer is not obligated to any refund or reimbursment of costs in the case of not attending the event, in case of being banned from the event or removal from the event because of a breach in the Rules of conduct.</li>
+				  <li>I will follow the instructions and rules from the organizer during the meet and I am aware, that the organizer has the full right to alter, add or interpret the Rules of conduct.</li>
 				  <li>I am aware, that because the event is held in the Republic of Slovenia, that all laws of the constitution of Slovenia are also enforced and have to be followed.</li>
 				  <li>All the personal information stated at the time of registration and stated above is true and accurate.</li>
-				  <li>I am aware, that by signing this release form, I irrevocably commit to adhering to and following all the articles listed in this form and that, in the event of not doing so, I allow the organiser to carry out any sanction.</li>
+				  <li>I am aware, that by signing this declaration, I irrevocably commit to adhering to and following all the articles listed in this declaration and that, in the event of not doing so, I allow the organizer to carry out any sanction.</li>
 				</ul><br><br><br><br><br><br><br><br>
 				Signature: ____________________________";
 			}

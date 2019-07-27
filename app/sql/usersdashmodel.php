@@ -58,11 +58,10 @@ class UsersDashModel{
 		if($email==$acc->email){
 			return L::alerts_d_sameEmail;
 		}
-
 		$forced=strip_tags($forced);
 		$activate_token=bin2hex(random_bytes(32));
 		if($forced){
-			$sql='UPDATE account SET email=:email WHERE id=:id';
+			$sql='UPDATE account SET email=:email, activate=NULL WHERE id=:id';
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':email'=>$email, ':id'=>$id));
 			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
@@ -70,7 +69,7 @@ class UsersDashModel{
 			$query->execute(array(':who'=>$who, ':what'=>'forcefully changed email', ':for_who'=>$id, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
 		}
 		else{
-			$sql='UPDATE account SET newemail=:email, activate=:activate WHERE id=:id';
+			$sql='UPDATE account SET email=:email, activate=:activate WHERE id=:id';
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':email'=>$email, ':activate'=>$activate_token, ':id'=>$id));
 			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";

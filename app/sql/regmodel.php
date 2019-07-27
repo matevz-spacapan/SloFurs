@@ -320,7 +320,7 @@ class RegModel{
 	//Get attendees registered for event
 	public function getAttendees($id){
 		$id=strip_tags($id);
-		$sql='SELECT username, pfp, fursuiter, artist, ticket FROM account INNER JOIN registration ON registration.acc_id=account.id WHERE event_id=:id ORDER BY username';
+		$sql='SELECT username, pfp, fursuiter, artist, ticket FROM account INNER JOIN registration ON registration.acc_id=account.id WHERE event_id=:id ORDER BY ticket DESC, username ASC';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return $query->fetchAll();

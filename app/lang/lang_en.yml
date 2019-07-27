@@ -411,6 +411,8 @@ register:
         h: 'Other'
         fursuiter: 'Are you a fursuiter?'
         artist: 'Are you an artist?'
+      rules1: 'By registering to this event, you agree with'
+      rules2: 'our rules of conduct'
       register: 'Register!'
       save: 'Save changes'
     stats:
@@ -446,8 +448,9 @@ register:
       delete: 'Delete car share'
       none: 'There are currently no car shares. <i class="far fa-sad-tear"></i>'
       spots: 'Available spots'
-      at: 'At'
+      at: 'Time of departure'
       driver: 'Driver'
+      info: 'Additional info'
 alerts:
   d:
     activate: 'dInvalid account activation request.'

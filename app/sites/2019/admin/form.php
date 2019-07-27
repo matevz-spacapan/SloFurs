@@ -43,6 +43,8 @@
     <!-- Registration details -->
     <h3><?php echo L::admin_form_registration_h;?></h3>
 
+    <label>Event visibility</label> <i class="w3-opacity w3-small">when will the event be visible to the general public? If left empty, then it will remain hidden until registration starts.</i>
+    <input type="datetime-local" class="w3-input" name="viewable" value="<?php if($editEvent){echo $event_model->convert($event->viewable);} ?>">
     <label><?php echo L::admin_form_registration_start;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::admin_form_registration_startInfo;?></i>
     <input type="datetime-local" class="w3-input" name="reg_start" required value="<?php if($editEvent){echo $event_model->convert($event->reg_start);} ?>">
 
@@ -146,7 +148,7 @@
             <tr id="row<?php echo $room->id; ?>">
               <td><input type="text" class="w3-input" name="type<?php echo $room->id; ?>" required value="<?php echo $room->type; ?>"></td>
         			<td><input type="number" class="w3-input" name="persons<?php echo $room->id; ?>" min="1" required value="<?php echo $room->persons; ?>" <?php if($is_disabled){echo 'disabled';} ?>></td>
-        			<td><input type="number" class="w3-input" min="1" name="price<?php echo $room->id; ?>" required value="<?php echo $room->price; ?>"></td>
+        			<td><input type="number" class="w3-input" min="0" name="price<?php echo $room->id; ?>" required value="<?php echo $room->price; ?>"></td>
         			<td><input type="number" class="w3-input" name="quantity<?php echo $room->id; ?>" min="1" required value="<?php echo $room->quantity; ?>"></td>
         			<td><button class="w3-button w3-red w3-round" onclick="removeRow('row<?php echo $room->id; ?>')" <?php if($is_disabled){echo 'disabled';} ?>><b>-</b></button></td>
             </tr>
@@ -200,7 +202,7 @@ function addRow(){
 	var row=`<tr id="row#">
 			<td><input type="text" class="w3-input" name="type#" required></td>
 			<td><input type="number" class="w3-input" name="persons#" min="1" required></td>
-			<td><input type="number" class="w3-input" name="price#" min="1" required></td>
+			<td><input type="number" class="w3-input" name="price#" min="0" required></td>
 			<td><input type="number" class="w3-input" name="quantity#" min="1" required></td>
 			<td><button class="w3-button w3-red w3-round" onclick="removeRow('row#')"><b>-</b></button></td>
 		</tr>`;
