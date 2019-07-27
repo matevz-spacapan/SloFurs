@@ -154,6 +154,14 @@ class Admin extends Connection{
 				$_SESSION['alert']=$event_model->editConfirm($_GET['id'], $_POST);
 				header('location: '.URL.'admin/event?id='.$_GET['id']);
 			}
+			elseif(isset($_POST['export_confirmed'])){
+				$event_model->exportForms($_GET['id'], false);
+				//header('location: '.URL.'admin/event?id='.$_GET['id']);
+			}
+			elseif(isset($_POST['export_all'])){
+				$event_model->exportForms($_GET['id'], true);
+				//header('location: '.URL.'admin/event?id='.$_GET['id']);
+			}
 			else{
 				require 'app/sites/global/header.php';
 				require 'app/sites/global/alerts.php';

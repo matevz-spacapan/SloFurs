@@ -113,8 +113,8 @@
         </div>
         <div class="w3-center">
           <button type="submit" class="w3-button w3-green w3-round" name="confirm_attendees"><?php echo L::admin_overview_attendees_confirm;?></button><br><br>
-          <button type="submit" class="w3-button w3-blue w3-round" name="export_confirmed" disabled><?php echo L::admin_overview_attendees_exportC;?></button>
-          <button type="submit" class="w3-button w3-blue w3-round" name="export_all" disabled><?php echo L::admin_overview_attendees_exportA;?></button>
+          <button type="submit" class="w3-button w3-blue w3-round" name="export_confirmed"><?php echo L::admin_overview_attendees_exportC;?></button>
+          <button type="submit" class="w3-button w3-blue w3-round" name="export_all"><?php echo L::admin_overview_attendees_exportA;?></button>
         </div>
       </form>
     <?php else: ?>
