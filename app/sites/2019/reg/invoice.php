@@ -5,11 +5,13 @@
     <div class="w3-right">
       <form action="<?php echo URL;?>register/pay?id=<?php echo $_GET['id'];?>" method="post">
         <button type="submit" class="w3-button w3-round w3-blue" name="download">Download</button>
+        <a href="<?php echo URL;?>register/edit?id=<?php echo $_GET['id'];?>" class="w3-button w3-border-blue w3-border w3-round">Back to event</a>
       </form>
     </div>
   </div>
   <div class="w3-row w3-padding-32 w3-padding-large">
     <div class="w3-left">
+      <i>Issued for:</i><br><br>
       <?php
         echo "{$invoice->fname} {$invoice->lname}<br>
         {$invoice->address}<br>";
@@ -20,7 +22,8 @@
         {$invoice->country}";
       ?>
     </div>
-    <div class="w3-right">
+    <div class="w3-right" style="min-width:120px;">
+      <i>Issued by:</i><br><br>
       SloFurs<br>
       Address<br>
       Post City<br>

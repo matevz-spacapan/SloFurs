@@ -386,6 +386,7 @@ register:
     questions: 'Questions?'
     email: 'Email us'
     buttonRegister: 'Register for event!'
+    login: 'Log in</a> to register for events!'
     buttonView: 'View registration data'
     buttonEdit: 'Edit registration'
     modal:

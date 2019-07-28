@@ -90,6 +90,9 @@
 			<!-- FORM BUTTON -->
 			<?php if($new_reg): ?>
 				<button class="w3-button w3-block w3-round <?php echo $color; ?>" <?php if($color!='w3-green'||$age<$event->restricted_age){echo 'disabled';} else{echo 'onclick="$(\'#register\').show()"';} ?>><?php echo L::register_form_buttonRegister;?></button>
+				<?php if($account==null): ?>
+					<p> <a href="<?php echo URL;?>login"><?php echo L::register_form_login;?></p>
+				<?php endif; ?>
 			<?php elseif($color=='w3-dark-gray'): ?>
 				<button class="w3-button w3-block w3-round w3-border w3-border-blue" onclick="$('#register').show()";><?php echo L::register_form_buttonView;?></button>
 			<?php else: ?>

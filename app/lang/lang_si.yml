@@ -389,6 +389,7 @@ register:
     questions: 'Vprašanja?'
     email: 'Pišite nam'
     buttonRegister: 'Prijava na dogodek!'
+    login: 'Prijavite se s svojim računom</a>, da se prijavite na dogodek!'
     buttonView: 'Preglejte svojo prijavo'
     buttonEdit: 'Uredi prijavo'
     modal:
