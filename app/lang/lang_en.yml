@@ -409,6 +409,8 @@ register:
         noAccomodationI: 'Since this is a multi-day event, we recommend you check the description for accomodation recommendations, if there are any.'
       other:
         h: 'Other'
+        notes: 'Notes for the organizer'
+        notesI: 'Do you have any special requests or need to let us know anything?'
         fursuiter: 'Are you a fursuiter?'
         artist: 'Are you an artist?'
       rules1: 'By registering to this event, you agree with'

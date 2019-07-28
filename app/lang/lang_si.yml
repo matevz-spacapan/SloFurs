@@ -412,6 +412,8 @@ register:
         noAccomodationI: 'Glede na to, da je to večdnevni dogodek, predlagamo, da preverite opis dogodka za nastanitvene predloge, če so navedeni.'
       other:
         h: 'Drugo'
+        notes: 'Opombe za organizatorja'
+        notesI: 'Imate posebne želje ali nam želite kaj sporočiti?'
         fursuiter: 'Ste fursuiter?'
         artist: 'Ste umetnik?'
       rules1: 'S prijavo na ta dogodek, se strinjate z'

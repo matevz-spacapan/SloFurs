@@ -82,5 +82,27 @@
 	</div>
 </div>
 <script>
+function delFursuit(id){
+	$("#del"+id).addClass("scale-out-center");
+	setTimeout(function(){
+		contDel(id);
+	}, 500);
+}
+function contDel(id){
+	$("#del"+id).hide();
+	$("#delconf"+id).css("display", "inline-block");
+	$("#delconf"+id).addClass("scale-in-center");
+	setTimeout(function(){
+		$("#delconf"+id).removeClass("scale-in-center");
+	}, 500);
+}
+function pfp(id){
+	file="file-upload".concat(id);
+	file=document.getElementById(file).value.split(/(\\|\/)/g).pop();
+	document.getElementById("save".concat(id)).innerHTML="<?php echo L::account_fursuit_file;?>: ".concat(file);
+	if(id==0){
+		document.getElementById("submit0").disabled=false;
+	}
+}
 $("#fursuits").addClass("w3-orange");
 </script>

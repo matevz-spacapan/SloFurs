@@ -191,6 +191,8 @@
 								<?php endif; ?>
 								<!-- OTHER DATA -->
 								<h5><?php echo L::register_form_modal_other_h;?></h5>
+								<label><?php echo L::register_form_modal_other_notes;?></label> <i class="far fa-info-circle" title="<?php echo L::register_form_modal_other_notesI;?>"></i><br>
+								<input type="text" name="notes" value="<?php if(!$new_reg){echo $event->notes;} ?>" class="w3-input"><br>
 								<input class="w3-check" type="checkbox" name="fursuit" value="1" <?php if(!$new_reg&&$event->fursuiter==1){echo 'checked';} ?>>
 								<label><?php echo L::register_form_modal_other_fursuiter;?></label><br>
 								<input class="w3-check" type="checkbox" name="artist" value="1" <?php if(!$new_reg&&$event->artist==1){echo 'checked';} ?>>

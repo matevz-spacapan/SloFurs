@@ -101,6 +101,7 @@ class RegModel{
 		}
 		$ticket=(array_key_exists('ticket', $data))?strip_tags($data['ticket']):'regular';
 		$room=(array_key_exists('room', $data)&&$data['room']!=0)?strip_tags($data['room']):null;
+		$notes=strip_tags($data['notes']);
 		$fursuiter=(array_key_exists('fursuit', $data))?strip_tags($data['fursuit']):0;
 		$artist=(array_key_exists('artist', $data))?strip_tags($data['artist']):0;
 		$created=date_format(date_create(), 'Y-m-d H:i:s');
@@ -114,9 +115,9 @@ class RegModel{
 			$result=$room_selected->quantity-$this->getBooked($event->id, $room_selected->id)->quantity;
 			$room_confirmed=($result>0)?1:0;
 		}
-		$sql='INSERT INTO registration(event_id, acc_id, room_id, ticket, confirmed, fursuiter, artist, created, room_confirmed) VALUES (:event_id, :acc_id, :room_id, :ticket, :confirmed, :fursuiter, :artist, :created, :room_confirmed)';
+		$sql='INSERT INTO registration(event_id, acc_id, room_id, ticket, confirmed, fursuiter, artist, created, room_confirmed, notes) VALUES (:event_id, :acc_id, :room_id, :ticket, :confirmed, :fursuiter, :artist, :created, :room_confirmed, :notes)';
 		$query=$this->db->prepare($sql);
-		$query->execute(array(':event_id'=>$id, ':acc_id'=>$_SESSION['account'], ':room_id'=>$room, ':ticket'=>$ticket, ':confirmed'=>$event->autoconfirm, ':fursuiter'=>$fursuiter, ':artist'=>$artist, ':created'=>$created, ':room_confirmed'=>$room_confirmed));
+		$query->execute(array(':event_id'=>$id, ':acc_id'=>$_SESSION['account'], ':room_id'=>$room, ':ticket'=>$ticket, ':confirmed'=>$event->autoconfirm, ':fursuiter'=>$fursuiter, ':artist'=>$artist, ':created'=>$created, ':room_confirmed'=>$room_confirmed, ':notes'=>$notes));
 		//form confirmation email
 		$event_ID=$this->db->lastInsertId();
 		$event_name=$event->name;
@@ -194,11 +195,12 @@ class RegModel{
 		}
 		$ticket=(array_key_exists('ticket', $data))?strip_tags($data['ticket']):'regular';
 		$room=(array_key_exists('room', $data))?($data['room']!=0)?strip_tags($data['room']):null:null;
+		$notes=strip_tags($data['notes']);
 		$fursuiter=(array_key_exists('fursuit', $data))?strip_tags($data['fursuit']):0;
 		$artist=(array_key_exists('artist', $data))?strip_tags($data['artist']):0;
-		$sql='UPDATE registration SET room_id=:room_id, ticket=:ticket, fursuiter=:fursuiter, artist=:artist WHERE id=:id';
+		$sql='UPDATE registration SET room_id=:room_id, ticket=:ticket, fursuiter=:fursuiter, artist=:artist, notes=:notes WHERE id=:id';
 		$query=$this->db->prepare($sql);
-		$query->execute(array(':room_id'=>$room, ':ticket'=>$ticket, ':fursuiter'=>$fursuiter, ':artist'=>$artist, ':id'=>$id));
+		$query->execute(array(':room_id'=>$room, ':ticket'=>$ticket, ':fursuiter'=>$fursuiter, ':artist'=>$artist, ':notes'=>$notes, ':id'=>$id));
 		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"edited their registration data for event ID $id", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
