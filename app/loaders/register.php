@@ -115,4 +115,16 @@ class Register extends Connection{
 			require 'app/sites/global/footer.php';
 		}
 	}
+	public function pay(){
+		$account=$this->getSessionAcc();
+		$inv_model=$this->loadSQL('InvoiceModel');
+		$invoice=$inv_model->getInvoice($_GET['id']);
+		if(isset($_POST['download'])){
+			$inv_model->download($_GET['id']);
+		}
+		require 'app/sites/global/header.php';
+		require 'app/sites/global/alerts.php';
+		require 'app/sites/'.THEME.'/reg/invoice.php';
+		require 'app/sites/global/footer.php';
+	}
 }
