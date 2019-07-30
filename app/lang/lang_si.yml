@@ -93,6 +93,9 @@ admin:
       exportC: 'Izvozi potrjene'
       exportA: 'Izvozi vse'
       none: 'Trenutno še ni podatkov za prikazati, saj ni nobenih prijavljenih udeležencev.'
+      years: 'let'
+      age: 'Dat. roj. & starost'
+      notes: 'Opombe'
     fursuiters:
       h: 'Fursuiterji'
       owned: 'lastnik: '
@@ -495,6 +498,8 @@ alerts:
     notActive: 'iTa račun še ni potrjen, preverite svoj e-poštni naslov.'
     alreadyActive: 'iTa račun je že potrjen.'
     toConfirm: 'iDa potrdite svoj račun, preverite svoj e-poštni naslov.'
+    cookies1: 'ita spletna stran uporablja piškotke seje,<br>da ostanete prijavljeni kot tudi piškotke<br>tretjih oseb za analitiko'
+    cookies2: 'Izvedite več'
   s:
     pfpChanged: 'sVaša profilna slika je spremenjena.'
     accUpdated: 'sVaši osebni podatki so posodobljeni.'

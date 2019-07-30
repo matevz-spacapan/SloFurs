@@ -90,6 +90,9 @@ admin:
       exportC: 'Export confirmed'
       exportA: 'Export all'
       none: 'There's nothing to show here yet as there are no registered users for this event.'
+      years: 'years'
+      age: 'DOB & age'
+      notes: 'User\'s notes'
     fursuiters:
       h: 'Fursuiters'
       owned: 'owned by'
@@ -492,6 +495,8 @@ alerts:
     notActive: 'iThis account has not been activated. Please check your email.'
     alreadyActive: 'iThis account has already been activated.'
     toConfirm: 'iTo confirm your account please check your e-mail.'
+    cookies1: 'iThis site uses session cookies to keep you logged in<br>as well as third-party cookies for analytics'
+    cookies2: 'Learn more'
   s:
     pfpChanged: 'sYour profile picture has been changed.'
     accUpdated: 'sAccount information updated.'

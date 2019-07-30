@@ -42,7 +42,7 @@ class EventModel{
 	//Get registered accounts for event ID...
 	public function getRegistered($id){
 		$id=(int)strip_tags($id);
-		$sql='SELECT registration.id as id, ticket, confirmed, fursuiter, artist, username, type, price, room_confirmed, language FROM registration INNER JOIN account ON registration.acc_id=account.id LEFT JOIN room ON registration.room_id=room.id WHERE event_id=:id ORDER BY registration.created ASC';
+		$sql='SELECT registration.id as id, ticket, confirmed, fursuiter, artist, username, type, price, room_confirmed, language, dob, notes FROM registration INNER JOIN account ON registration.acc_id=account.id LEFT JOIN room ON registration.room_id=room.id WHERE event_id=:id ORDER BY registration.created ASC';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return $query->fetchAll();

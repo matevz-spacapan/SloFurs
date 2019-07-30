@@ -64,7 +64,7 @@ class AccountModel{
 			list($width, $height)=$img_param;
 			$min=$width-10;
 			$max=$width+10;
-			if($min>=$height&&$height>=$max){
+			if($min>=$height||$height>=$max){
 				return L::alerts_d_notSquare;
 			}
 			$target_file=$target_dir.$file_name.'.png';

@@ -43,8 +43,6 @@
 	<label><?php echo L::personalInfo_male;?></label>
 	<input class="w3-radio" type="radio" name="gender" value="female" id="female">
 	<label><?php echo L::personalInfo_female;?></label>
-	<input class="w3-radio" type="radio" name="gender" value="other" id="other">
-	<label><?php echo L::personalInfo_other;?></label>
 	<input class="w3-radio" type="radio" name="gender" value="silent" id="silent">
 	<label><?php echo L::personalInfo_silent;?></label><p>
 

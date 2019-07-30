@@ -322,7 +322,17 @@ class RegModel{
 	//Get attendees registered for event
 	public function getAttendees($id){
 		$id=strip_tags($id);
-		$sql='SELECT username, pfp, fursuiter, artist, ticket FROM account INNER JOIN registration ON registration.acc_id=account.id WHERE event_id=:id ORDER BY ticket DESC, username ASC';
+		$sql='SELECT username, pfp, fursuiter, artist, ticket FROM account INNER JOIN registration ON registration.acc_id=account.id WHERE event_id=:id AND confirmed=1 ORDER BY ticket DESC, username ASC';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetchAll();
+	}
+
+	//Get fursuits for confirmed registrations
+	//Get fursuits that have in_use=1 and on this event ID...
+	public function getFursuits($id){
+		$id=(int)strip_tags($id);
+		$sql='SELECT username, name, animal, img FROM fursuit INNER JOIN account ON fursuit.acc_id=account.id INNER JOIN registration ON registration.acc_id=account.id WHERE event_id=:id AND in_use=1 AND confirmed=1 ORDER BY name';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return $query->fetchAll();

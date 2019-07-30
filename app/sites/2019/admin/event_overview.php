@@ -17,7 +17,7 @@
     <?php $editEvent=true; require 'app/sites/'.THEME.'/admin/form.php'; ?>
   </div>
 
-  <div id="Attendees" class="w3-container tab w3-col l8" style="display:none;">
+  <div id="Attendees" class="w3-container tab" style="display:none;">
     <h3><?php echo L::admin_overview_attendees_h;?></h3>
     <?php if(count($attendees)>0): ?>
       <?php
@@ -41,6 +41,8 @@
               <th><?php echo L::admin_overview_attendees_room;?></th>
               <th><?php echo L::admin_overview_attendees_fursuiterArtist;?></th>
               <th><?php echo L::admin_overview_attendees_language;?></th>
+              <th width="170"><?php echo L::admin_overview_attendees_age;?></th>
+              <th><?php echo L::admin_overview_attendees_notes;?></th>
               <th><?php echo L::admin_overview_attendees_confirmed;?></th>
             </tr>
             <?php foreach($attendees as $attendee): ?>
@@ -97,6 +99,15 @@
                   }
                 ?></td>
                 <td>
+                  <?php
+                    $age=(int)date_diff(date_create($event->event_start), date_create($attendee->dob), true)->format('%y');
+                    echo "{$event_model->convertViewable($attendee->dob, 1)} ($age ".L::admin_overview_attendees_years.")";
+                  ?>
+                </td>
+                <td>
+                  <?php echo $attendee->notes;?>
+                </td>
+                <td>
                   <input class="w3-check" type="checkbox" name="<?php echo $attendee->id; ?>" value="true" <?php if($attendee->confirmed==1){echo 'checked'; $sum8++;} ?>>
                 </td>
               </tr>
@@ -107,6 +118,8 @@
               <td><i class="far fa-sigma"></i> <?php echo $sum3;?>€ (<i class="fas fa-users"></i> <?php echo $sum9;?>)</td>
               <td><?php echo "$sum4 / $sum5";?></td>
               <td></i> <?php echo "SI: $sum6 / EN: $sum7";?></td>
+              <td></td>
+              <td></td>
               <td><i class="far fa-sigma"></i> <?php echo $sum8;?></td>
             </tr>
           </table><br>

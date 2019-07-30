@@ -291,8 +291,7 @@
 			</div>
 		<?php endif; ?>
 		<?php
-			$event_model=$this->loadSQL('EventModel');
-			$fursuits=$event_model->getFursuits($evt_id);
+			$fursuits=$reg_model->getFursuits($evt_id);
 		?>
 		<?php if(count($fursuits)>0): ?>
 			<div class="w3-row">
@@ -373,7 +372,7 @@
 						<th></th>
 					</tr>
 					<?php foreach($carShares as $carShare): ?>
-						<?php if($carShare->accId==$_SESSION['account']): ?>
+						<?php if($account!=null&&$carShare->accId==$_SESSION['account']): ?>
 							<div id="<?php echo $carShare->id; ?>" class="w3-modal">
 								<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
 									<header class="w3-container w3-blue w3-center roundHeaderTop">
@@ -419,7 +418,7 @@
 							<td><?php echo $carShare->passengers; ?></td>
 							<td><?php echo nl2br($carShare->description); ?></td>
 							<td>
-								<?php if($carShare->accId==$_SESSION['account']): ?>
+								<?php if($account!=null&&$carShare->accId==$_SESSION['account']): ?>
 									<button type="button" class="w3-button w3-border w3-border-blue w3-round" onclick="$('#<?php echo $carShare->id; ?>').show()"><?php echo L::admin_dash_edit;?></button>
 								<?php endif; ?>
 							</td>
