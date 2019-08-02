@@ -92,6 +92,7 @@ admin:
       none: 'There's nothing to show here yet as there are no registered users for this event.'
       years: 'years'
       age: 'DOB & age'
+      created: 'Time of registration'
       notes: 'User\'s notes'
     fursuiters:
       h: 'Fursuiters'
@@ -389,7 +390,8 @@ register:
     questions: 'Questions?'
     email: 'Email us'
     buttonRegister: 'Register for event!'
-    login: 'Log in</a> to register for events!'
+    login: 'Log in</a> to register for events.'
+    completeProfile: 'Complete your profile</a> to register for events.'
     buttonView: 'View registration data'
     buttonEdit: 'Edit registration'
     modal:

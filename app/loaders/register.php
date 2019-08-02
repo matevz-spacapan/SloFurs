@@ -53,10 +53,10 @@ class Register extends Connection{
 			}
 		}
 		//check if profile is complete
-		if($account!=null&&!$reg_model->checkProfile()){
+		/*if($account!=null&&!$reg_model->checkProfile()){
 			$_SESSION['alert']=L::alerts_d_personal;
 			header('location: '.URL.'register');
-		}
+		}*/
 		if(!$reg_model->viewable($_GET['id'])){
 			header('location: '.URL.'register');
 		}

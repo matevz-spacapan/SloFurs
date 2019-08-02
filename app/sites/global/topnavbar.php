@@ -69,9 +69,9 @@
 
 	<!-- Small screen navbar -->
 	<div id="navSmall" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large w3-white">
+		<a href="<?php echo URL ?>register" class="w3-bar-item w3-button w3-padding-large"><?php echo L::topnavbar_event;?></a>
 		<a href="https://slofurs.org/" class="w3-bar-item w3-button w3-padding-large" target="_blank"><?php echo L::topnavbar_blog;?> <i class="far fa-external-link"></i></a>
 		<?php if($account!=null): ?>
-			<a href="<?php echo URL ?>register" class="w3-bar-item w3-button w3-padding-large"><?php echo L::topnavbar_event;?></a>
 			<a href="<?php echo URL; ?>account" class="w3-bar-item w3-button w3-padding-large"><?php echo L::topnavbar_myAccount;?></a>
 			<?php if($account->status>=STAFF): ?>
 				<a href="<?php echo URL; ?>admin" class="w3-bar-item w3-button w3-padding-large"><?php echo L::topnavbar_admin;?></a>

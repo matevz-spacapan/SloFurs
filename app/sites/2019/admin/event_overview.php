@@ -37,6 +37,7 @@
           <table class="w3-table w3-striped w3-centered">
             <tr>
               <th><?php echo L::admin_overview_attendees_account;?></th>
+              <th><?php echo L::admin_overview_attendees_created;?></th>
               <th><?php echo L::admin_overview_attendees_type;?></th>
               <th><?php echo L::admin_overview_attendees_room;?></th>
               <th><?php echo L::admin_overview_attendees_fursuiterArtist;?></th>
@@ -48,6 +49,7 @@
             <?php foreach($attendees as $attendee): ?>
               <tr>
                 <td><?php echo $attendee->username; $sum1++; ?></td>
+                <td><?php echo $event_model->convertViewable($attendee->created, 2);?></td>
                 <td><?php
                   if($attendee->ticket=='regular'&&$event->regular_price==0){
                     echo L::admin_form_tickets_free;
@@ -114,6 +116,7 @@
             <?php endforeach; ?>
             <tr class="w3-pale-green">
               <td><i class="fas fa-users"></i> <?php echo $sum1;?></td>
+              <td></td>
               <td><i class="far fa-sigma"></i> <?php echo $sum2;?>€</td>
               <td><i class="far fa-sigma"></i> <?php echo $sum3;?>€ (<i class="fas fa-users"></i> <?php echo $sum9;?>)</td>
               <td><?php echo "$sum4 / $sum5";?></td>

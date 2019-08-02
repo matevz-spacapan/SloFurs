@@ -42,7 +42,7 @@ class EventModel{
 	//Get registered accounts for event ID...
 	public function getRegistered($id){
 		$id=(int)strip_tags($id);
-		$sql='SELECT registration.id as id, ticket, confirmed, fursuiter, artist, username, type, price, room_confirmed, language, dob, notes FROM registration INNER JOIN account ON registration.acc_id=account.id LEFT JOIN room ON registration.room_id=room.id WHERE event_id=:id ORDER BY registration.created ASC';
+		$sql='SELECT registration.id as id, ticket, registration.created as created, confirmed, fursuiter, artist, username, type, price, room_confirmed, language, dob, notes FROM registration INNER JOIN account ON registration.acc_id=account.id LEFT JOIN room ON registration.room_id=room.id WHERE event_id=:id ORDER BY registration.created ASC';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return $query->fetchAll();
@@ -404,14 +404,7 @@ class EventModel{
 	  $query->execute(array(':id'=>$id));
 	  $accounts=$query->fetchAll();
 		$mpdf=new \Mpdf\Mpdf();
-		$first=true;
 		foreach($accounts as $account){
-			if($first){
-				$first=false;
-			}
-			else{
-				$mpdf->AddPage();
-			}
 			$dob=$this->convertViewable($account->dob, 1);
 			if($account->language=='si'){
 				if($account->gender=='female'){
@@ -467,7 +460,40 @@ class EventModel{
 				Signature: ____________________________";
 			}
 			$mpdf->WriteHTML($text);
+			$mpdf->AddPage();
 		}
+		$mpdf->WriteHTML("Spodaj podpisani/-a __________________________ rojen/-a ______________ s stalnim prebivališčem na naslovu<br><br>
+		__________________________________________________________________<br>
+		izjavljam, da:
+		<ul>
+			<li>Sem natančno prebral/-a, sem seznanjen/-a in se v celoti strinjam s Pravili in pogoji, objavljenimi na spletni strani SloFurs: http://slofurs.org/pravila/ v času trajanja dogodka. Upošteval/-a bom vsa pravila in pogoje, navedene v omenjenem besedilu in se strinjam z vsemi možnimi sankcijami, ki jih lahko določi organizator.</li>
+			<li>Sem natančno prebral/-a, sem seznanjen/-a in se v celoti strinjam s Politiko o zasebnosti, objavljeno na spletni strani SloFurs dogodkov: http://events.slofurs.org/privacy v času dogodka.</li>
+			<li>Se zavedam, da organizator srečanja ni odgovoren za kakršnokoli poškodbo ali škodo, ki jo lahko doživim ali utrpim med srečanjem. Poleg tega prevzemam polno odgovornost za svoja dejanja med srečanjem.</li>
+			<li>Se zavedam, da mi organizator ni dolžan nikakršne povrnitve stroškov, v primeru neudeležbe, prepovedi udeležbe ali odstranitve s srečanja zaradi kršitve pravil srečanja.</li>
+			<li>Bom upošteval/-a navodila organizatorja na srečanju in se zavedam, da ima organizator popolno pravico do spreminjanja, dodajanja k in tolmačenja Pravil in pogojev.</li>
+			<li>Se zavedam, da se srečanja odvijajo na ozemlju Republike Slovenije, torej na srečanjih veljajo vsi zakoni ustave Republike Slovenije.</li>
+			<li>So vsi podatki, ki sem jih navedel/-la ob prijavi pravilni in resnični.</li>
+			<li>Se zavedam, da se s podpisom te izjave nepreklicno zavezujem k spoštovanju in upoštevanju vseh členov navedenih v tej izjavi, ter v primeru neupoštevanja le-teh dovoljujem organizatorju izvedbo kakršne koli sankcije.</li>
+		</ul><br><br><br><br><br><br>
+		Podpis: ____________________________");
+		$mpdf->AddPage();
+
+		$mpdf->WriteHTML("I, ______________________________, signed below, born on __________________ with a permanent residence on the address<br><br>
+		________________________________________________________________________________<br>
+		declare that:
+
+		<ul>
+			<li>I have read, am aware and completely agree with the Rules of conduct published on the SloFurs website: http://slofurs.org/pravila/ at the time of the event. I will obide to all the stated rules in the before mentioned document and agree with all possible sanctions, which can be decided by the organizer.</li>
+			<li>I have read, am aware and completely agree with the Privacy policy published on the SloFurs website: http://events.slofurs.org/privacy at the time of the event.</li>
+			<li>I am aware, that the event organizer is not held responsible for any injury or damage that can happen to me during the event. I also take full responsibility for my actions during the event.</li>
+			<li>I am aware, that the organizer is not obligated to any refund or reimbursment of costs in the case of not attending the event, in case of being banned from the event or removal from the event because of a breach in the Rules of conduct.</li>
+			<li>I will follow the instructions and rules from the organizer during the meet and I am aware, that the organizer has the full right to alter, add or interpret the Rules of conduct.</li>
+			<li>I am aware, that because the event is held in the Republic of Slovenia, that all laws of the constitution of Slovenia are also enforced and have to be followed.</li>
+			<li>All the personal information stated at the time of registration and stated above is true and accurate.</li>
+			<li>I am aware, that by signing this declaration, I irrevocably commit to adhering to and following all the articles listed in this declaration and that, in the event of not doing so, I allow the organizer to carry out any sanction.</li>
+		</ul><br><br><br><br><br><br><br><br>
+		Signature: ____________________________");
+
 		$mpdf->SetTitle('Release forms for event ID '.$id);
 		$mpdf->Output('Release_forms_'.$id.'.pdf', \Mpdf\Output\Destination::DOWNLOAD);
 	}

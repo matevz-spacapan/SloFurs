@@ -95,6 +95,7 @@ admin:
       none: 'Trenutno še ni podatkov za prikazati, saj ni nobenih prijavljenih udeležencev.'
       years: 'let'
       age: 'Dat. roj. & starost'
+      created: 'Čas prijave'
       notes: 'Opombe'
     fursuiters:
       h: 'Fursuiterji'
@@ -392,7 +393,8 @@ register:
     questions: 'Vprašanja?'
     email: 'Pišite nam'
     buttonRegister: 'Prijava na dogodek!'
-    login: 'Prijavite se s svojim računom</a>, da se prijavite na dogodek!'
+    login: 'Prijavite se s svojim računom</a>, da se prijavite na dogodek.'
+    completeProfile: 'Dopolnite svoj profil</a>, da se lahko prijavite na dogodek.'
     buttonView: 'Preglejte svojo prijavo'
     buttonEdit: 'Uredi prijavo'
     modal:

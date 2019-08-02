@@ -85,13 +85,18 @@
 				<?php $color='w3-dark-gray'; ?>
 				<p class="w3-text-red"><?php echo L::register_form_age_notOk1.$event->restricted_age.L::register_form_age_notOk2.$age.L::register_form_age_notOk3;?></p>
 			<?php endif; ?>
+			<?php if($account!=null&&!$reg_model->checkProfile()){
+				$color='w3-dark-gray';
+			} ?>
 			<h5><?php echo L::register_form_questions;?></h5>
 			<p class="w3-text-dark-gray"><a href="mailto:slofurs@gmail.com" target="_blank"><?php echo L::register_form_email;?></a>, <a href="https://discord.gg/0eaoyLCJ7eiTMBaj" target="_blank">Discord <i class="far fa-external-link"></i></a> </p>
 			<!-- FORM BUTTON -->
 			<?php if($new_reg): ?>
 				<button class="w3-button w3-block w3-round <?php echo $color; ?>" <?php if($color!='w3-green'||$age<$event->restricted_age){echo 'disabled';} else{echo 'onclick="$(\'#register\').show()"';} ?>><?php echo L::register_form_buttonRegister;?></button>
 				<?php if($account==null): ?>
-					<p> <a href="<?php echo URL;?>login"><?php echo L::register_form_login;?></p>
+					<p><a href="<?php echo URL;?>login"><?php echo L::register_form_login;?></p>
+				<?php elseif($account!=null&&!$reg_model->checkProfile()): ?>
+					<p><a href="<?php echo URL;?>account/contact"><?php echo L::register_form_completeProfile;?></p>
 				<?php endif; ?>
 			<?php elseif($color=='w3-dark-gray'): ?>
 				<button class="w3-button w3-block w3-round w3-border w3-border-blue" onclick="$('#register').show()";><?php echo L::register_form_buttonView;?></button>
