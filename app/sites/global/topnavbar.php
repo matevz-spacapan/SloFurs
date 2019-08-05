@@ -88,6 +88,20 @@
 			<a href="<?php echo $base;?>si" class="w3-bar-item w3-button w3-padding-large"><?php echo L::topnavbar_changeLang.'<img src="'.$src2.'" style="height:23px;">';?></a>
 		<?php endif; ?>
 	</div>
+	<?php if(!isset($_COOKIE['consent'])): ?>
+		<!-- Cookie consent warning -->
+		<div class="w3-bar w3-light-gray w3-container" id="onlyOnce">
+			<h4><?php echo L::cookies_h;?></h4>
+			<p><?php echo L::cookies_p;?> <a href="<?php echo URL;?>privacy"><?php echo L::cookies_a;?></a></p>
+			<form>
+				<input class="w3-check" type="checkbox" checked disabled>
+				<label><?php echo L::cookies_necessary;?></label>
+				<input class="w3-check" type="checkbox" value="analytics" id="analytics" checked>
+				<label><?php echo L::cookies_stats;?></label>
+				<button type="button" class="w3-button w3-round w3-border w3-border-green" name="button" onclick="setCookies()" style="margin-left: 20px;">Save preferences</button><p>
+			</form>
+		</div>
+	<?php endif;?>
 </div>
 <div style="margin-top:43px;"></div>
 <script>
@@ -100,5 +114,12 @@
 			$("#navSmall").addClass("w3-show");
 			$("#navSmall").removeClass("w3-hide");
 		}
+	}
+	function setCookies(){
+		document.cookie = "consent=true; expires=Tue, 1 Jan 2030 12:00:00 UTC; path=/";
+		if($('#analytics').is(':checked')){
+			document.cookie = "analytics=true; expires=Tue, 1 Jan 2030 12:00:00 UTC; path=/";
+		}
+		$('#onlyOnce').remove();
 	}
 </script>

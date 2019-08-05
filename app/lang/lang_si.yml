@@ -462,6 +462,12 @@ register:
       at: 'Odhod ob'
       driver: 'Voznik'
       info: 'Dodatne informacije'
+cookies:
+  h: 'Privolitev za piškotke'
+  p: 'Ta spletna stran uporablja piškotke, da si vas zapomnemo v tekoči seji brskalnika in, da analiziramo promet na strani (statistika).Za te namene uporabljamo piškotke seje, da ostanete prijavljeni in piškotke tretjih oseb za analitiko.'
+  a: 'Izvedite več'
+  necessary: 'Nujni'
+  stats: 'Statistika'
 alerts:
   d:
     activate: 'dNeveljavna zahteva za aktivacijo računa.'
@@ -500,8 +506,6 @@ alerts:
     notActive: 'iTa račun še ni potrjen, preverite svoj e-poštni naslov.'
     alreadyActive: 'iTa račun je že potrjen.'
     toConfirm: 'iDa potrdite svoj račun, preverite svoj e-poštni naslov.'
-    cookies1: 'ita spletna stran uporablja piškotke seje,<br>da ostanete prijavljeni kot tudi piškotke<br>tretjih oseb za analitiko'
-    cookies2: 'Izvedite več'
   s:
     pfpChanged: 'sVaša profilna slika je spremenjena.'
     accUpdated: 'sVaši osebni podatki so posodobljeni.'
