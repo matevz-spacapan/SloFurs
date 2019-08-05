@@ -22,7 +22,7 @@
 				'opacity': 1,
 				'right': '20px'
 			}, 350);
-			<?php if(!$_SESSION['permanent']): ?>
+			<?php if($_SESSION['permanent']==false): ?>
 				setTimeout(hideAlert, 4500);
 			<?php endif; ?>
 		}
@@ -35,3 +35,4 @@
 		showAlert();
 	</script>
 <?php endif; ?>
+<?php $_SESSION['permanent']=false;?>

@@ -163,7 +163,7 @@ class EventModel{
 			$img_param=getimagesize($image['tmp_name']);
 			if($img_param!==false){
 				list($width, $height)=$img_param;
-				if($width==$height&&$width==170){
+				if($width>=173&&$height>=110&&round($height/$width, 2)==1.57){
 					$target_file=$target_dir.$file_name.'.png';
 					if(imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){}
 					else{
@@ -304,7 +304,7 @@ class EventModel{
 			$img_param=getimagesize($image['tmp_name']);
 			if($img_param!==false){
 				list($width, $height)=$img_param;
-				if($width==$height){
+				if($width>=173&&$height>=110&&round($height/$width, 2)==1.57){
 					$target_file=$target_dir.$file_name.'.png';
 					if(imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
 						if(file_exists($target_dir.$event->img.'.png')){
@@ -319,7 +319,7 @@ class EventModel{
 					}
 				}
 				else{
-					return L::alerts_d_notSquare;
+					return L::alerts_d_not170;
 				}
 			}
 			else{

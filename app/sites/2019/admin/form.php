@@ -27,7 +27,7 @@
           $photo=URL.'public/events/'.$event->img.'.png';
         }
       ?>
-      <img src="<?php echo $photo;?>" class="w3-round-large" style="width:100%">
+      <img src="<?php echo $photo;?>" class="w3-round-large" style="height:173px; margin: 45px;">
       <div class="w3-display-middle">
         <label for="file-upload" class="w3-button w3-round w3-border w3-border-blue w3-white"><?php echo L::account_fursuit_addPhoto;?></label>
         <input id="file-upload" type="file" style="display:none" name="image" onchange="photo()">

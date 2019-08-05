@@ -48,7 +48,7 @@
   				<?php foreach($cEvents as $event): ?>
   					<?php
   						if(new DateTime($event->reg_end)<=new DateTime()){
-  							$color='w3-light-gray';
+  							$color='w3-dark-gray';
   							$text=L::admin_event_text_closed;;
   						}
   						elseif(new DateTime($event->reg_start)<=new DateTime()){
@@ -60,7 +60,7 @@
   							$text=L::admin_event_text_pre.'<br>'.$reg_model->convertViewable($event->reg_start, 2);
   						}
   						else{
-  							$color='w3-light-gray';
+  							$color='w3-dark-gray';
   							$text=L::admin_event_text_until.'<br>';
   							$date=(isset($account) && $account->status>=PRE_REG)?$reg_model->convertViewable($event->pre_reg_start, 2):$reg_model->convertViewable($event->reg_start, 2);
   							$text=$text.$date;

@@ -28,7 +28,7 @@ admin:
       locationInfo: 'this will turn into a Google Maps link, so make sure you can search for this query in it'
       description: 'Description'
       descriptionInfo: 'this field allows HTML tags if you wish to make it pretty'
-      photo: 'If you wish, you can set a photo for the event. It must be sized 170px by 170px. Otherwise the photo shown below will be used.'
+      photo: 'If you wish, you can set a photo for the event. It must be sized at least 110px in width and 173px in height or if larger it must be in the ratio of 1:1.56. Otherwise the photo shown below will be used.'
       delete: 'Delete current photo'
     registration:
       h: 'Registration details'
@@ -476,7 +476,7 @@ alerts:
     invalidPwFormat: 'dYour new password is not in valid format.'
     invalidPwFormatSignup: 'dYour password is not in valid format.'
     cantDoThat: 'dYou can\'t do that.'
-    not170: 'dThe image is not 170x170px.'
+    not170: 'dThe image is not the correct size or ratio.'
     noPhoto: 'dThere is no photo set for this event.'
     invalidLogin: 'dInvalid password or email account.'
     invalidActivate: 'dInvalid email and/or activation token.'

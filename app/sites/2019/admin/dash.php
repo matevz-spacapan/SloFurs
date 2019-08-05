@@ -165,7 +165,7 @@
       <h5><?php echo L::admin_dash_countries;?></h5>
       <?php $res=$dash_model->countries(); ?>
       <div class="w3-responsive">
-        <table class="w3-table w3-striped w3-hoverable w3-white w3-responsive">
+        <table class="w3-table w3-striped w3-hoverable w3-white">
           <?php foreach($res as $row): ?>
             <tr>
               <td><?php echo $row->country;?></td>

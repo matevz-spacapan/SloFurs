@@ -23,14 +23,14 @@ class RegModel{
 	}
 	// Get all current/upcoming events
 	public function getCEvents($fromHome=false){
-		$sql='SELECT * FROM event WHERE id NOT IN (SELECT event_id FROM registration INNER JOIN event ON event.id=registration.event_id AND acc_id=:acc_id) AND viewable<=NOW() ORDER BY event_start ASC';
+		$sql='SELECT * FROM event WHERE id NOT IN (SELECT event_id FROM registration INNER JOIN event ON event.id=registration.event_id AND acc_id=:acc_id) AND viewable<=NOW() AND event_end>=NOW() ORDER BY event_start ASC';
 		if(isset($_SESSION['account'])){
 			$sql2='SELECT * FROM account WHERE id=:id';
 			$query=$this->db->prepare($sql2);
 			$query->execute(array(':id'=>$_SESSION['account']));
 			$account=$query->fetch();
-			if($account->status>=PRE_REG){
-				$sql='SELECT * FROM event WHERE id NOT IN (SELECT event_id FROM registration INNER JOIN event ON event.id=registration.event_id AND acc_id=:acc_id) ORDER BY event_start ASC';
+			if($account->status>=STAFF){
+				$sql='SELECT * FROM event WHERE id NOT IN (SELECT event_id FROM registration INNER JOIN event ON event.id=registration.event_id AND acc_id=:acc_id) AND event_end>=NOW() ORDER BY event_start ASC';
 			}
 		}
 		$query=$this->db->prepare($sql);
