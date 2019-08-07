@@ -155,14 +155,16 @@
         <?php endif; ?>
       </table>
     </div>
-    <div class="w3-center">
-      <p><?php echo L::admin_form_hint;?></p>
-      <?php if(!$editEvent): ?>
-        <button type="submit" id="submitBtn" name="new_event" class="w3-button w3-green w3-round" disabled><?php echo L::admin_form_create;?></button>
-      <?php else: ?>
-        <button type="submit" id="submitBtn" name="edit_event" class="w3-button w3-green w3-round" disabled><?php echo L::admin_form_save;?></button>
-      <?php endif; ?>
-    </div>
+    <?php if($account->status>=ADMIN): ?>
+      <div class="w3-center">
+        <p><?php echo L::admin_form_hint;?></p>
+        <?php if(!$editEvent): ?>
+          <button type="submit" id="submitBtn" name="new_event" class="w3-button w3-green w3-round" disabled><?php echo L::admin_form_create;?></button>
+        <?php else: ?>
+          <button type="submit" id="submitBtn" name="edit_event" class="w3-button w3-green w3-round" disabled><?php echo L::admin_form_save;?></button>
+        <?php endif; ?>
+      </div>
+    <?php endif;?>
   </form>
 </div>
 

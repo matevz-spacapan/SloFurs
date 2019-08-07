@@ -178,30 +178,32 @@
     <hr>
 
   <!-- Recent changes -->
-  <div class="w3-panel">
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <h5><?php echo L::admin_dash_changes;?></h5>
-      <div class="w3-responsive">
-        <table class="w3-table w3-striped w3-hoverable w3-white">
-          <tr>
-            <th><?php echo L::admin_dash_who;?></th>
-            <th><?php echo L::admin_dash_type;?></th>
-            <th><?php echo L::admin_dash_for;?></th>
-            <th><?php echo L::admin_dash_time;?></th>
-          </tr>
-          <?php $res=$dash_model->changes(); ?>
-          <?php foreach($res as $row): ?>
+  <?php if($account->status>=SUPER): ?>
+    <div class="w3-panel">
+      <div class="w3-row-padding" style="margin:0 -16px">
+        <h5><?php echo L::admin_dash_changes;?></h5>
+        <div class="w3-responsive">
+          <table class="w3-table w3-striped w3-hoverable w3-white">
             <tr>
-              <td>ID <?php echo $row->who;?> (<b><?php echo $row->whoU;?></b>)</td>
-              <td><?php echo $row->what;?></td>
-              <td>ID <?php echo $row->for_who;?> (<b><?php echo $row->forU;?></b>)</td>
-              <td><?php echo $row->changed_at;?></td>
+              <th><?php echo L::admin_dash_who;?></th>
+              <th><?php echo L::admin_dash_type;?></th>
+              <th><?php echo L::admin_dash_for;?></th>
+              <th><?php echo L::admin_dash_time;?></th>
             </tr>
-          <?php endforeach; ?>
-        </table>
+            <?php $res=$dash_model->changes(); ?>
+            <?php foreach($res as $row): ?>
+              <tr>
+                <td>ID <?php echo $row->who;?> (<b><?php echo $row->whoU;?></b>)</td>
+                <td><?php echo $row->what;?></td>
+                <td>ID <?php echo $row->for_who;?> (<b><?php echo $row->forU;?></b>)</td>
+                <td><?php echo $row->changed_at;?></td>
+              </tr>
+            <?php endforeach; ?>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
+  <?php endif;?>
 
 </div>
 <script>

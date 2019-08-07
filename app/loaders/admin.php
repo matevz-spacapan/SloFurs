@@ -18,7 +18,7 @@ class Admin extends Connection{
 		if($account==null){
 			header('location: '.URL.'login');
 		}
-		elseif($account->status>=ADMIN){
+		elseif($account->status>=STAFF){
 			$dash_model=$this->loadSQL('DashboardModel');
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/alerts.php';
@@ -130,7 +130,7 @@ class Admin extends Connection{
 		if($account==null){
 			header('location: '.URL.'login');
 		}
-		elseif($account->status>=ADMIN){
+		elseif($account->status>=STAFF){
 			//create new event
 			if(isset($_POST['new_event'])){
 				$event_model=$this->loadSQL('EventModel');
