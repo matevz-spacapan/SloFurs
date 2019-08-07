@@ -1,10 +1,18 @@
 <div class="w3-main">
+<?php if($new_reg): ?>
 <div class="w3-blue">
+<?php elseif($event->confirmed==1): ?>
+<div class="w3-green">
+<?php else: ?>
+<div class="w3-orange">
+<?php endif;?>
 	<div class="w3-container">
 		<?php if($new_reg): ?>
-			<h1><?php echo L::register_form_h.': '.$event->name;?></h1>
+			<h1><?php echo L::register_form_h.": {$event->name}";?></h1>
 		<?php else: ?>
-			<h1><?php echo $event->name; ?></h1>
+			<h1><?php
+				$text=($event->confirmed==1)?L::register_view_registered_confirmed:L::register_view_registered_notConfirmed;
+				echo "{$event->name} ($text)";?></h1>
 		<?php endif; ?>
 	</div>
 </div>

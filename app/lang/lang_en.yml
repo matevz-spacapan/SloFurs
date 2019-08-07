@@ -32,6 +32,8 @@ admin:
       delete: 'Delete current photo'
     registration:
       h: 'Registration details'
+      visibility: 'Event visibility'
+      visibilityInfo: 'when will the event be visible to the general public? If left empty, then it will remain hidden until registration starts.'
       start: 'Start'
       startInfo: 'when attendees can register for the event'
       pre: 'Pre-reg start'
@@ -356,8 +358,8 @@ register:
       link: 'on the account pages'
     registered:
       h: 'Upcoming events you\'ve registered for'
-      confirmed: 'Registration confirmed.'
-      notConfirmed: 'Registration not confirmed yet.'
+      confirmed: 'Registration confirmed'
+      notConfirmed: 'Registration not confirmed yet'
     upcoming:
       h: 'Upcoming events'
       complete: 'Complete profile to register.'
