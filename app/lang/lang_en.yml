@@ -63,7 +63,7 @@ admin:
     accomodation:
       h: 'Accomodation'
       hInfo: 'if there is no accomodation for this event, don\'t add any rows below'
-      warning: '<i class="far fa-exclamation-triangle"></i> <b>WARNING</b> <i class="far fa-exclamation-triangle"></i> Rooms can be removed or fully edited only before (pre-)registration starts. After this you can only add new rooms or edit the Type, Price and Quantity of existing rooms. <b>Double-check before saving and notify attendees of changes.</b>'
+      warning: '<i class="far fa-exclamation-triangle"></i> <b>WARNING</b> <i class="far fa-exclamation-triangle"></i> Accomodation can be removed or fully edited only before any reservations for this accomodation type have been made. After this you can add a new accomodations or edit the Type, Price and Quantity of existing ones. <b>Double-check before saving and notify attendees of changes.</b>'
       type: 'Type'
       typeInfo: 'description of the room (eg. Single, Double, Deluxe, ...)'
       persons: 'Persons/room'
@@ -465,6 +465,7 @@ cookies:
   a: 'Learn more'
   necessary: 'Necessary'
   stats: 'Statistics'
+  button: 'Save preferences'
 alerts:
   d:
     activate: 'dInvalid account activation request.'

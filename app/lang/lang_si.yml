@@ -63,7 +63,7 @@ admin:
     accomodation:
       h: 'Namestitev'
       hInfo: 'če ni namestitve za ta dogodek, potem ne dodajte nobene vrstice spodaj'
-      warning: '<i class="far fa-exclamation-triangle"></i> <b>OPOZORILO</b> <i class="far fa-exclamation-triangle"></i> Sobe se lahko odstrani oz. v celoti ureja le pred pričetkom (pred-)prijav. Po tem lahko le dodate nove sobe ali urejate Tip, Ceno in Razpoložljivost obstoječih sob. <b>Dobro preverite preden shranite in obvestite udeležence o spremembah.</b>'
+      warning: '<i class="far fa-exclamation-triangle"></i> <b>OPOZORILO</b> <i class="far fa-exclamation-triangle"></i> Namestitev se lahko odstrani oz. v celoti ureja dokler ni narejene nobene rezervacije zanjo. Po tem lahko le dodate nove namestitve ali urejate Tip, Ceno in Razpoložljivost obstoječih. <b>Dobro preverite preden shranite in obvestite udeležence o spremembah.</b>'
       type: 'Tip'
       typeInfo: 'opis sobe (npr. Enojna, Dvojna, Deluxe, ...)'
       persons: 'Oseb/sobo'
@@ -468,6 +468,7 @@ cookies:
   a: 'Izvedite več'
   necessary: 'Nujni'
   stats: 'Statistika'
+  button: 'Shrani'
 alerts:
   d:
     activate: 'dNeveljavna zahteva za aktivacijo računa.'

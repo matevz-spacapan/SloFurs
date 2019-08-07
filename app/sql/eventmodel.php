@@ -34,10 +34,24 @@ class EventModel{
 	//Get rooms for event ID...
 	public function getRooms($id){
 		$id=(int)strip_tags($id);
-		$sql='SELECT etr.id AS id, quantity, type, persons, price FROM event_to_room AS etr INNER JOIN room ON etr.room_id=room.id WHERE event_id=:id';
+		$sql='SELECT room.id AS id, etr.id AS etrid, quantity, type, persons, price FROM event_to_room AS etr INNER JOIN room ON etr.room_id=room.id WHERE event_id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return $query->fetchAll();
+	}
+	//Get number of booked rooms for the given room ID
+	public function getBooked($id){
+		$id=(int)strip_tags($id);
+		$sql='SELECT count(id) AS counter FROM registration WHERE room_id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetch();
+	}
+	public function allRooms(){
+		$sql='SELECT count(id) AS counter FROM room';
+		$query=$this->db->prepare($sql);
+		$query->execute();
+		return $query->fetch();
 	}
 	//Get registered accounts for event ID...
 	public function getRegistered($id){
@@ -185,15 +199,15 @@ class EventModel{
 		$event_ID=$this->db->lastInsertId();
 
 		//ACCOMODATION
-		$keys=preg_grep('/(type\d)+/m', array_keys($fields));
+		$keys=preg_grep('/(type\d\*)+/m', array_keys($fields));
 		if(!empty($keys)){
 			foreach($keys as $key){
 				//type#, persons#, price#, quantity#
-				$id=substr($key, -1);
-				$type=strip_tags($fields["type".$id]);
-				$persons=strip_tags($fields["persons".$id]);
-				$price=strip_tags($fields["price".$id]);
-				$quantity=strip_tags($fields["quantity".$id]);
+				$id=substr($key, 4);
+				$type=strip_tags($fields["type$id"]);
+				$persons=strip_tags($fields["persons$id"]);
+				$price=strip_tags($fields["price$id"]);
+				$quantity=strip_tags($fields["quantity$id"]);
 
 				//check if item (room) with these parameters already exists to prevent duplicate entries
 				$sql_check='SELECT id FROM room WHERE type=:type AND persons=:persons AND price=:price';
@@ -327,8 +341,69 @@ class EventModel{
 			}
 		}
 
-	  //ACCOMODATION (TODO)
+		//ACCOMODATION
 		//get all rooms for this event, compare for deleted items, update all others
+		$evt_id=$id;
+		$existing=$this->getRooms($id);
+		$keys=preg_grep('/(type\d\**)+/m', array_keys($fields));
+		if(!empty($keys)){
+			foreach($keys as $key){
+				//type#, persons#, price#, quantity#
+				$id=substr($key, 4);
+				$type=strip_tags($fields["type$id"]);
+				$persons=strip_tags($fields["persons$id"]);
+				$price=strip_tags($fields["price$id"]);
+				$quantity=strip_tags($fields["quantity$id"]);
+
+				//new room
+				if(strpos($id, '*')!==false){
+					//check if item (room) with these parameters already exists to prevent duplicate entries
+					$sql_check='SELECT id FROM room WHERE type=:type AND persons=:persons AND price=:price';
+					$query_check=$this->db->prepare($sql_check);
+					$query_check->execute(array(':type'=>$type, ':persons'=>$persons, ':price'=>$price));
+					//NEW ROOM
+					$room_ID=null;
+					if($query_check->rowCount()==0){
+						$sql="INSERT INTO room(type, persons, price) VALUES (:type, :persons, :price)";
+						$query=$this->db->prepare($sql);
+						$query->execute(array(':type'=>$type, ':persons'=>$persons, ':price'=>$price));
+						$room_ID=$this->db->lastInsertId();
+					}
+					//EXISTING ROOM
+					else{
+						$room_ID=$query_check->fetch()->id;
+					}
+
+					//EVENT_TO_ROOM
+					$sql="INSERT INTO event_to_room(quantity, event_id, room_id) VALUES (:quantity, :event_id, :room_id)";
+					$query=$this->db->prepare($sql);
+					$query->execute(array(':quantity'=>$quantity, ':event_id'=>$evt_id, ':room_id'=>$room_ID));
+				}
+
+				//room already exists, save new values
+				else{
+					$sql="UPDATE room SET type=:type, persons=:persons, price=:price WHERE id=:id";
+					$query=$this->db->prepare($sql);
+					$query->execute(array(':type'=>$type, ':persons'=>$persons, ':price'=>$price, ':id'=>$id));
+					$sql="UPDATE event_to_room SET quantity=:quantity WHERE event_id=:event_id AND room_id=:room_id)";
+					$query=$this->db->prepare($sql);
+					$query->execute(array(':quantity'=>$quantity, ':event_id'=>$evt_id, ':room_id'=>$id));
+				}
+			}
+		}
+		if(!empty($existing)){
+			foreach($existing as $room){
+				$id=$room->id;
+				if(!array_key_exists("type$id", $fields)){
+					$sql="DELETE FROM event_to_room WHERE id=:id";
+					$query=$this->db->prepare($sql);
+					$query->execute(array(':id'=>$room->etrid));
+					$sql="DELETE FROM room WHERE id=:id";
+					$query=$this->db->prepare($sql);
+					$query->execute(array(':id'=>$id));
+				}
+			}
+		}
 
 		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
 		$query=$this->db->prepare($sql);

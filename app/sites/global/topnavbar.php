@@ -98,7 +98,7 @@
 				<label><?php echo L::cookies_necessary;?></label>
 				<input class="w3-check" type="checkbox" value="analytics" id="analytics" checked>
 				<label><?php echo L::cookies_stats;?></label>
-				<button type="button" class="w3-button w3-round w3-border w3-border-green" name="button" onclick="setCookies()" style="margin-left: 20px;">Save preferences</button><p>
+				<button type="button" class="w3-button w3-round w3-border w3-border-green" name="button" onclick="setCookies()" style="margin-left: 20px;"><?php echo L::cookies_button;?></button><p>
 			</form>
 		</div>
 	<?php endif;?>

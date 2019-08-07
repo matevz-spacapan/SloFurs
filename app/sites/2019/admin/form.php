@@ -1,5 +1,5 @@
 <div class="w3-col l8">
-  <form action="<?php echo URL; ?>admin/event<?php if($editEvent){echo '?id='.$event->id;} ?>" method="post" enctype="multipart/form-data" autocomplete="off">
+  <form action="<?php echo URL; ?>admin/event<?php if($editEvent){echo '?id='.$event->id;} ?>" method="post" enctype="multipart/form-data" autocomplete="off" id="mainform">
     <!-- Event details -->
     <h3><?php echo L::admin_form_event_h;?></h3>
 
@@ -122,7 +122,6 @@
     <h3 style="display: inline;"><?php echo L::admin_form_accomodation_h;?></h3> <i class="w3-opacity w3-small"><?php echo L::admin_form_accomodation_hInfo;?></i><br><br>
     <?php if($editEvent): ?>
       <p class="w3-text-red"><?php echo L::admin_form_accomodation_warning;?></p>
-      <h3 class="w3-red w3-center">ROOM EDITING IS NOT WORKING YET. ANY CHANGES MADE WILL BE IGNORED.</h3>
     <?php endif; ?>
 
     <div class="w3-responsive">
@@ -135,22 +134,22 @@
           <th><button class="w3-button w3-green w3-round" onclick="addRow()">+</button></th>
         </tr>
         <?php
-          $is_disabled=false;
           if($editEvent){
             $rooms=$event_model->getRooms($event->id);
-            if(new DateTime($event->pre_reg_start)<=new DateTime()){
-              $is_disabled=true;
-            }
           }
         ?>
         <?php if($editEvent&&count($rooms)>0): ?>
           <?php foreach($rooms as $room): ?>
+            <?php
+              $booked=$event_model->getBooked($room->id);
+              $booked=$booked->counter!=0;
+            ?>
             <tr id="row<?php echo $room->id; ?>">
               <td><input type="text" class="w3-input" name="type<?php echo $room->id; ?>" required value="<?php echo $room->type; ?>"></td>
-        			<td><input type="number" class="w3-input" name="persons<?php echo $room->id; ?>" min="1" required value="<?php echo $room->persons; ?>" <?php if($is_disabled){echo 'disabled';} ?>></td>
+        			<td><input type="number" class="w3-input" name="persons<?php echo $room->id; ?>" min="1" required value="<?php echo $room->persons; ?>" <?php if($booked){echo 'disabled';} ?>></td>
         			<td><input type="number" class="w3-input" min="0" name="price<?php echo $room->id; ?>" required value="<?php echo $room->price; ?>"></td>
         			<td><input type="number" class="w3-input" name="quantity<?php echo $room->id; ?>" min="1" required value="<?php echo $room->quantity; ?>"></td>
-        			<td><button class="w3-button w3-red w3-round" onclick="removeRow('row<?php echo $room->id; ?>')" <?php if($is_disabled){echo 'disabled';} ?>><b>-</b></button></td>
+        			<td><button class="w3-button w3-red w3-round" onclick="removeRow('row<?php echo $room->id; ?>')" <?php if($booked){echo 'disabled';} ?>><b>-</b></button></td>
             </tr>
           <?php endforeach; ?>
         <?php endif; ?>
@@ -197,14 +196,17 @@ function displayAge(){
 		$("#ageSettings").hide();
 	}
 }
-var nr=0;
+<?php
+  $rooms=$event_model->allRooms();
+?>
+var nr=<?php echo $rooms->counter;?>+1;
 function addRow(){
-	var row=`<tr id="row#">
-			<td><input type="text" class="w3-input" name="type#" required></td>
-			<td><input type="number" class="w3-input" name="persons#" min="1" required></td>
-			<td><input type="number" class="w3-input" name="price#" min="0" required></td>
-			<td><input type="number" class="w3-input" name="quantity#" min="1" required></td>
-			<td><button class="w3-button w3-red w3-round" onclick="removeRow('row#')"><b>-</b></button></td>
+	var row=`<tr id="row#*">
+			<td><input type="text" class="w3-input" name="type#*" required></td>
+			<td><input type="number" class="w3-input" name="persons#*" min="1" required></td>
+			<td><input type="number" class="w3-input" name="price#*" min="0" required></td>
+			<td><input type="number" class="w3-input" name="quantity#*" min="1" required></td>
+			<td><button class="w3-button w3-red w3-round" onclick="removeRow('row#*')"><b>-</b></button></td>
 		</tr>`;
 	nr++;
 	row=row.replace(/#/g, nr);
@@ -310,4 +312,7 @@ price("sponsor");
 price("regular");
 displayAge();
 <?php endif; ?>
+<?php if($account->status==STAFF): ?>
+$("#mainform :input").prop("disabled", true);
+<?php endif;?>
 </script>
