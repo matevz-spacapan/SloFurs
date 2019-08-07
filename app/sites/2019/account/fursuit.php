@@ -49,7 +49,7 @@
 	</div>
 	<br><br>
 
-	<!-- CREATED FURSUITS, LOOPED -->
+	<!-- CREATED FURSUITS -->
 	<div class="w3-row">
 		<?php if(count($fursuits) > 0): ?>
 			<?php foreach($fursuits as $fursuit): ?>

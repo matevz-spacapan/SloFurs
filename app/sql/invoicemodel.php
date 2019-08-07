@@ -17,16 +17,11 @@ class InvoiceModel{
 	//Get information needed to show/print an invoice
 	public function getInvoice($id){
 		$id=strip_tags($id);
-		$sql='SELECT registration.id AS id, event_start AS due, ticket, room_confirmed AS rconfirmed, room.type AS rtype, room.price AS rprice, event.name AS ename, regular_price AS regular, sponsor_price AS sponsor, super_price AS super, fname, lname, address, address2, post, city, country, registration.acc_id as regAcc FROM registration INNER JOIN event ON event.id=registration.event_id INNER JOIN room ON registration.room_id=room.id INNER JOIN account ON account.id=registration.acc_id WHERE registration.id=:id';
+		$sql='SELECT registration.id AS id, event_start AS due, ticket, room_confirmed AS rconfirmed, room.type AS rtype, room.price AS rprice, event.name AS ename, regular_price AS regular, sponsor_price AS sponsor, super_price AS super, fname, lname, address, address2, post, city, country, account.id as regacc FROM registration INNER JOIN event ON event.id=registration.event_id INNER JOIN room ON registration.room_id=room.id INNER JOIN account ON account.id=registration.acc_id WHERE registration.id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
-		$event=$query->fetch();
-		if($_SESSION['account']==$event->regAcc){
-			return $event;
-		}
-		else{
-			return null;
-		}
+		$invoice=$query->fetch();
+		return ($_SESSION['account']==$invoice->regacc)?$invoice:null;
 	}
 
 	//how=true or 1: just date; how=false or 0: just hours; how=2: both

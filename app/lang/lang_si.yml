@@ -479,7 +479,7 @@ alerts:
     invalidPw: 'dNeveljavno geslo. Spremembe se niso shranile.'
     allFields: 'dProsimo izpolnite vsa vnosna polja.'
     allMandatory: 'dProsimo izpolnite vsa zahtevana polja.'
-    notSquare: 'dSlika ni kvadratne oblike.'
+    notSquare: 'dSlika ni kvadratne oblike (±10px).'
     errorupload: 'dPrišlo je do napake pri shranjevanju slike.'
     onlyPic: 'dProsimo izberite le slike.'
     cantDeleteAcc1: 'dTega ne morete storiti - prijavljeni ste na prihajajoče dogodke.'

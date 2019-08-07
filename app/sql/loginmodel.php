@@ -9,92 +9,84 @@ class LogInModel{
 			exit('Database connection could not be established.');
 		}
 	}
+	//Changes storage
+	public function changes($who, $what, $for_who){
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$who, ':what'=>$what, ':for_who'=>$for_who, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+	}
 	// Login Account
 	public function login($email, $password){
-		if(!empty($email)&&!empty($password)){
-			$email=strip_tags($email);
-			$password=strip_tags($password);
-			$sql_check='SELECT * FROM account WHERE email=:email';
-			$query_check=$this->db->prepare($sql_check);
-			$query_check->execute(array(':email'=>$email));
-			$account=$query_check->fetch();
-			if($account){
-				if(password_verify($password, $account->password)){
-					if($account->activate==""||($account->newemail!=null&&$account->activate!=null)){
-						if($account->password_reset!=null){
-							$sql='UPDATE account SET password_reset=NULL WHERE email=:email';
-							$query=$this->db->prepare($sql);
-							$query->execute(array(':email'=>$email));
-						}
-						if($account->banned==1){
-							return L::alerts_d_banned;
-						}
-						$_SESSION['account']=$account->id;
-						$_SESSION['lang']=$account->language;
-					}
-					else{
-						return L::alerts_i_notActive;
-					}
-				}
-				else{
-					return L::alerts_d_invalidLogin;
-				}
+		if(empty($email)||empty($password)){
+			return L::alerts_d_allFields;
+		}
+		$email=strip_tags($email);
+		$password=strip_tags($password);
+		$sql_check='SELECT * FROM account WHERE email=:email';
+		$query_check=$this->db->prepare($sql_check);
+		$query_check->execute(array(':email'=>$email));
+		$account=$query_check->fetch();
+		if($query_check->rowCount()==0){
+			return L::alerts_d_invalidLogin;
+		}
+		if(!password_verify($password, $account->password)){
+			return L::alerts_d_invalidLogin;
+		}
+		if($account->activate==""||($account->newemail!=null&&$account->activate!=null)){
+			if($account->password_reset!=null){
+				$sql='UPDATE account SET password_reset=NULL WHERE email=:email';
+				$query=$this->db->prepare($sql);
+				$query->execute(array(':email'=>$email));
 			}
-			else{
-				return L::alerts_d_invalidLogin;
+			if($account->banned==1){
+				return L::alerts_d_banned;
 			}
+			$_SESSION['account']=$account->id;
+			$_SESSION['lang']=$account->language;
 		}
 		else{
-			return L::alerts_d_allFields;
+			return L::alerts_i_notActive;
 		}
 	}
 	// Activate Account
 	public function activate($email, $activate_token){
-		if(!empty($email)&&!empty($activate_token)){
-			$email=strip_tags($email);
-			$activate_token=strip_tags($activate_token);
-			$sql_check='SELECT * FROM account WHERE email=:email OR newemail=:email';
-			$query_check=$this->db->prepare($sql_check);
-			$query_check->execute(array(':email'=>$email));
-			$account=$query_check->fetch();
-			if($account){
-				if($activate_token===$account->activate){
-					if($account->newemail==null){ //new account
-						$sql='UPDATE account SET activate=null WHERE email=:email';
-						$query=$this->db->prepare($sql);
-						$query->execute(array(':email'=>$email));
-						$_SESSION['account']=$account->id;
-						$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-						$query=$this->db->prepare($sql);
-						$query->execute(array(':who'=>$_SESSION['account'], ':what'=>'confirmed their account', ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
-						return L::alerts_s_activated;
-					}
-					else if($account->newemail==$email){ //change email on existing account
-						$sql='UPDATE account SET activate=null, email=:email, newemail=null WHERE newemail=:email';
-						$query=$this->db->prepare($sql);
-						$query->execute(array(':email'=>$email));
-						$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-						$query=$this->db->prepare($sql);
-						$query->execute(array(':who'=>$_SESSION['account'], ':what'=>'changed their email address', ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
-						return L::alerts_s_emailUpdated;
-					}
-					else{
-						return L::alerts_d_invalidActivate;
-					}
-				}
-				elseif($account->activate==""){
-					return L::alerts_i_alreadyActive;
-				}
-				else{
-					return L::alerts_d_invalidActivate;
-				}
-			}
-			else{
-				return L::alerts_d_noAccount;
-			}
+		if(empty($email)||empty($activate_token)){
+			return L::alerts_d_invalidActivateParam;
+		}
+		$email=strip_tags($email);
+		$activate_token=strip_tags($activate_token);
+		$sql_check='SELECT * FROM account WHERE email=:email OR newemail=:email';
+		$query_check=$this->db->prepare($sql_check);
+		$query_check->execute(array(':email'=>$email));
+		$account=$query_check->fetch();
+		if($query_check->rowCount()==0){
+			return L::alerts_d_noAccount;
+		}
+		if($account->activate==''){
+			return L::alerts_i_alreadyActive;
+		}
+		elseif($activate_token!==$account->activate){
+			return L::alerts_d_invalidActivate;
+		}
+		//new account
+		if($account->newemail==null){
+			$sql='UPDATE account SET activate=null WHERE email=:email';
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':email'=>$email));
+			$_SESSION['account']=$account->id;
+			$this->changes($_SESSION['account'], 'confirmed their account', $_SESSION['account']);
+			return L::alerts_s_activated;
+		}
+		//change email on existing account
+		else if($account->newemail==$email){
+			$sql='UPDATE account SET activate=null, email=:email, newemail=null WHERE newemail=:email';
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':email'=>$email));
+			$this->changes($_SESSION['account'], 'changed their email address', $_SESSION['account']);
+			return L::alerts_s_emailUpdated;
 		}
 		else{
-			return L::alerts_d_invalidActivateParam;
+			return L::alerts_d_invalidActivate;
 		}
 	}
 	public function logout(){
@@ -116,9 +108,7 @@ class LogInModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':email'=>$email, ':password_reset'=>$token));
 		require 'app/emails/password_reset.php';
-		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-		$query=$this->db->prepare($sql);
-		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>'initiated a password reset for their account', ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+		$this->changes($_SESSION['account'], 'initiated a password reset for their account', $_SESSION['account']);
 		return L::alerts_s_resetPwEmail;
 	}
 	public function passwordReset2($email, $token){
@@ -143,9 +133,7 @@ class LogInModel{
 		$sql='UPDATE account SET password=:pwd WHERE email=:email';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':email'=>$email, ':pwd'=>$password));
-		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-		$query=$this->db->prepare($sql);
-		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>'changed their password via password reset', ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+		$this->changes($_SESSION['account'], 'changed their password via password reset', $_SESSION['account']);
 		return L::alerts_s_resetPw;
 	}
 }

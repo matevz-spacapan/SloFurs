@@ -476,7 +476,7 @@ alerts:
     invalidPw: 'dInvalid password. No changes were made.'
     allFields: 'dPlease fill all the input fields.'
     allMandatory: 'dPlease fill all the mandatory input fields.'
-    notSquare: 'dThe image is not square shaped.'
+    notSquare: 'dThe image is not square shaped (±10px).'
     errorupload: 'dThere was an error uploading the picture.'
     onlyPic: 'dPlease choose only pictures.'
     cantDeleteAcc1: 'dYou can\'t do that - you have registered for upcoming events.'

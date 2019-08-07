@@ -9,6 +9,12 @@ class EventModel{
 			exit('Database connection could not be established.');
 		}
 	}
+	//Changes storage
+	public function changes($who, $what, $for_who){
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$who, ':what'=>$what, ':for_who'=>$for_who, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+	}
 	// Get all current/upcoming events
 	public function getCEvents(){
 		$sql='SELECT * FROM event WHERE (event_start<=NOW() AND event_end>=NOW()) OR event_start>NOW() ORDER BY event_start ASC';
@@ -45,12 +51,6 @@ class EventModel{
 		$sql='SELECT count(id) AS counter FROM registration WHERE room_id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
-		return $query->fetch();
-	}
-	public function allRooms(){
-		$sql='SELECT count(id) AS counter FROM room';
-		$query=$this->db->prepare($sql);
-		$query->execute();
 		return $query->fetch();
 	}
 	//Get registered accounts for event ID...
@@ -112,37 +112,36 @@ class EventModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$_SESSION['account']));
 		$account=$query->fetch();
+		//account doesn't have privileges
 		if($account->status<ADMIN){
-			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-			$query=$this->db->prepare($sql);
-			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"attempted to create an event", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+			$this->changes($_SESSION['account'], 'attempted to create an event', $_SESSION['account']);
 			return L::alerts_d_cantDoThat;
 		}
 
 		//EVENT
-		$name=strip_tags($fields["name"]);
-		$start=strip_tags($fields["start"]);
-		$end=strip_tags($fields["end"]);
-		$location=strip_tags($fields["location"]);
-		$description=$fields["description"];
-		$reg_start=strip_tags($fields["reg_start"]);
-		$pre_reg=strip_tags($fields["pre_reg"]);
+		$name=strip_tags($fields['name']);
+		$start=strip_tags($fields['start']);
+		$end=strip_tags($fields['end']);
+		$location=strip_tags($fields['location']);
+		$description=$fields['description'];
+		$reg_start=strip_tags($fields['reg_start']);
+		$pre_reg=strip_tags($fields['pre_reg']);
 		if($pre_reg==''){
 			$pre_reg=$reg_start;
 		}
-		$reg_end=strip_tags($fields["reg_end"]);
+		$reg_end=strip_tags($fields['reg_end']);
 		if($reg_end==''){
 			$reg_end=$start;
 		}
-		$viewable=strip_tags($fields["viewable"]);
+		$viewable=strip_tags($fields['viewable']);
 		if($viewable==''){
 			$viewable=$reg_start;
 		}
 		$created=date_format(date_create(), 'Y-m-d H:i:s');
 		$autoconfirm=(array_key_exists('autoconfirm', $fields))?strip_tags($fields['autoconfirm']):0;
-		$age=strip_tags($fields["age"]);
-		$restricted_age=strip_tags($fields["restricted_age"]);
-		$restricted_text=$fields["restricted_text"];
+		$age=strip_tags($fields['age']);
+		$restricted_age=strip_tags($fields['restricted_age']);
+		$restricted_text=$fields['restricted_text'];
 		$regular_price=0;
 		$regular_text='';
 		$sponsor_price=-1;
@@ -150,16 +149,16 @@ class EventModel{
 		$super_price=-1;
 		$super_text='';
 		//if price!=free, then update all prices
-		switch(strip_tags($fields["ticket"])){
+		switch(strip_tags($fields['ticket'])){
 			case 'super':
-				$super_price=strip_tags($fields["super_price"]);
-				$super_text=$fields["super_text"];
+				$super_price=strip_tags($fields['super_price']);
+				$super_text=$fields['super_text'];
 			case 'sponsor':
-				$sponsor_price=strip_tags($fields["sponsor_price"]);
-				$sponsor_text=$fields["sponsor_text"];
+				$sponsor_price=strip_tags($fields['sponsor_price']);
+				$sponsor_text=$fields['sponsor_text'];
 			case 'regular':
-				$regular_price=strip_tags($fields["regular_price"]);
-				$regular_text=$fields["regular_text"];
+				$regular_price=strip_tags($fields['regular_price']);
+				$regular_text=$fields['regular_text'];
 			default:
 				break;
 		}
@@ -175,34 +174,30 @@ class EventModel{
 				}
 			}
 			$img_param=getimagesize($image['tmp_name']);
-			if($img_param!==false){
-				list($width, $height)=$img_param;
-				if($width>=173&&$height>=110&&round($height/$width, 2)==1.57){
-					$target_file=$target_dir.$file_name.'.png';
-					if(imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){}
-					else{
-						return L::alerts_d_errorupload;
-					}
-				}
-				else{
-					return L::alerts_d_not170;
-				}
-			}
-			else{
+			if(!$img_param){
 				return L::alerts_d_onlyPic;
+			}
+			list($width, $height)=$img_param;
+			if($width<173||$height<110||round($height/$width, 2)!=1.57){
+				return L::alerts_d_not170;
+			}
+			$target_file=$target_dir.$file_name.'.png';
+			if(!imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
+				return L::alerts_d_errorupload;
 			}
 		}
 		//create event, get event ID for accomodation creation
 		$sql="INSERT INTO event(name, event_start, event_end, reg_start, pre_reg_start, reg_end, location, description, age, restricted_age, restricted_text, regular_price, regular_text, sponsor_price, sponsor_text, super_price, super_text, autoconfirm, img, viewable) VALUES (:name, :event_start, :event_end, :reg_start, :pre_reg_start, :reg_end, :location, :description, :age, :restricted_age, :restricted_text, :regular_price, :regular_text, :sponsor_price, :sponsor_text, :super_price, :super_text, :autoconfirm, :img, :viewable)";
 		$query=$this->db->prepare($sql);
-		$query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, ':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm, ':img'=>$file_name, ':viewable'=>$viewable));
+		$query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text,
+		'regular_price'=>$regular_price, ':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm, ':img'=>$file_name, ':viewable'=>$viewable));
 		$event_ID=$this->db->lastInsertId();
 
 		//ACCOMODATION
 		$keys=preg_grep('/(type\d\*)+/m', array_keys($fields));
 		if(!empty($keys)){
 			foreach($keys as $key){
-				//type#, persons#, price#, quantity#
+				//type#*, persons#*, price#*, quantity#*
 				$id=substr($key, 4);
 				$type=strip_tags($fields["type$id"]);
 				$persons=strip_tags($fields["persons$id"]);
@@ -232,9 +227,7 @@ class EventModel{
 				$query->execute(array(':quantity'=>$quantity, ':event_id'=>$event_ID, ':room_id'=>$room_ID));
 			}
 		}
-		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-		$query=$this->db->prepare($sql);
-		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"created an event $event_ID ($name)", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+		$this->changes($_SESSION['account'], "created an event $event_ID ($name)", $_SESSION['account']);
 		return L::alerts_s_evtCreated;
 	}
 	// Edit an event
@@ -244,36 +237,34 @@ class EventModel{
 	  $query->execute(array(':id'=>$_SESSION['account']));
 	  $account=$query->fetch();
 	  if($account->status<ADMIN){
-			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-			$query=$this->db->prepare($sql);
-			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"attempted to edit event ID ".$fields['name'], ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
-	    return L::alerts_d_cantDoThat;
+			$this->changes($_SESSION['account'], "attempted to edit event ID {$fields['name']}", $_SESSION['account']);
+			return L::alerts_d_cantDoThat;
 	  }
 
 	  //EVENT
 	  $id=strip_tags($id);
-	  $name=strip_tags($fields["name"]);
-	  $start=strip_tags($fields["start"]);
-	  $end=strip_tags($fields["end"]);
-	  $location=strip_tags($fields["location"]);
-	  $description=$fields["description"];
-	  $reg_start=strip_tags($fields["reg_start"]);
-	  $pre_reg=strip_tags($fields["pre_reg"]);
+	  $name=strip_tags($fields['name']);
+	  $start=strip_tags($fields['start']);
+	  $end=strip_tags($fields['end']);
+	  $location=strip_tags($fields['location']);
+	  $description=$fields['description'];
+	  $reg_start=strip_tags($fields['reg_start']);
+	  $pre_reg=strip_tags($fields['pre_reg']);
 	  if($pre_reg==''){
 	    $pre_reg=$reg_start;
 	  }
-	  $reg_end=strip_tags($fields["reg_end"]);
+	  $reg_end=strip_tags($fields['reg_end']);
 	  if($reg_end==''){
 	    $reg_end=$start;
 	  }
-		$viewable=strip_tags($fields["viewable"]);
+		$viewable=strip_tags($fields['viewable']);
 		if($viewable==''){
 			$viewable=$reg_start;
 		}
 	  $autoconfirm=(array_key_exists('autoconfirm', $fields))?strip_tags($fields['autoconfirm']):0;
-	  $age=strip_tags($fields["age"]);
-	  $restricted_age=strip_tags($fields["restricted_age"]);
-	  $restricted_text=$fields["restricted_text"];
+	  $age=strip_tags($fields['age']);
+	  $restricted_age=strip_tags($fields['restricted_age']);
+	  $restricted_text=$fields['restricted_text'];
 	  $regular_price=0;
 	  $regular_text='';
 	  $sponsor_price=-1;
@@ -281,23 +272,24 @@ class EventModel{
 	  $super_price=-1;
 	  $super_text='';
 	  //if price!=free, then update all prices
-	  switch(strip_tags($fields["ticket"])){
+	  switch(strip_tags($fields['ticket'])){
 	    case 'super':
-	      $super_price=strip_tags($fields["super_price"]);
-	      $super_text=$fields["super_text"];
+	      $super_price=strip_tags($fields['super_price']);
+	      $super_text=$fields['super_text'];
 	    case 'sponsor':
-	      $sponsor_price=strip_tags($fields["sponsor_price"]);
-	      $sponsor_text=$fields["sponsor_text"];
+	      $sponsor_price=strip_tags($fields['sponsor_price']);
+	      $sponsor_text=$fields['sponsor_text'];
 	    case 'regular':
-	      $regular_price=strip_tags($fields["regular_price"]);
-	      $regular_text=$fields["regular_text"];
+	      $regular_price=strip_tags($fields['regular_price']);
+	      $regular_text=$fields['regular_text'];
 	    default:
 	      break;
 	  }
 	  //create event, get event ID for accomodation creation
 	  $sql="UPDATE event SET name=:name, event_start=:event_start, event_end=:event_end, reg_start=:reg_start, pre_reg_start=:pre_reg_start, reg_end=:reg_end, location=:location, description=:description, age=:age, restricted_age=:restricted_age, restricted_text=:restricted_text, regular_price=:regular_price, regular_text=:regular_text, sponsor_price=:sponsor_price, sponsor_text=:sponsor_text, super_price=:super_price, super_text=:super_text, autoconfirm=:autoconfirm, viewable=:viewable WHERE id=:id";
 	  $query=$this->db->prepare($sql);
-	  $query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price, ':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm, ':id'=>$id, ':viewable'=>$viewable));
+	  $query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price,
+		':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm, ':id'=>$id, ':viewable'=>$viewable));
 
 		//IMAGE
 		$file_name='';
@@ -311,38 +303,32 @@ class EventModel{
 			}
 		}
 		if($file_name!=''){
+			$img_param=getimagesize($image['tmp_name']);
+			if(!$img_param){
+				return L::alerts_d_onlyPic;
+			}
+			list($width, $height)=$img_param;
+			if($width<173||$height<110||round($height/$width, 2)!=1.57){
+				return L::alerts_d_not170;
+			}
+			$target_file=$target_dir.$file_name.'.png';
+			if(!imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
+				return L::alerts_d_errorupload;
+			}
 			$sql='SELECT img FROM event WHERE id=:id';
 		  $query=$this->db->prepare($sql);
 		  $query->execute(array(':id'=>$id));
 		  $event=$query->fetch();
-			$img_param=getimagesize($image['tmp_name']);
-			if($img_param!==false){
-				list($width, $height)=$img_param;
-				if($width>=173&&$height>=110&&round($height/$width, 2)==1.57){
-					$target_file=$target_dir.$file_name.'.png';
-					if(imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
-						if(file_exists($target_dir.$event->img.'.png')){
-							unlink($target_dir.$event->img.'.png');
-						}
-						$sql='UPDATE event SET img=:img WHERE id=:id';
-						$query=$this->db->prepare($sql);
-						$query->execute(array(':img'=>$file_name, ':id'=>$id));
-					}
-					else{
-						return L::alerts_d_errorupload;
-					}
-				}
-				else{
-					return L::alerts_d_not170;
-				}
+			if(file_exists($target_dir.$event->img.'.png')){
+				unlink($target_dir.$event->img.'.png');
 			}
-			else{
-				return L::alerts_d_onlyPic;
-			}
+			$sql='UPDATE event SET img=:img WHERE id=:id';
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':img'=>$file_name, ':id'=>$id));
 		}
 
 		//ACCOMODATION
-		//get all rooms for this event, compare for deleted items, update all others
+		//get all rooms for this event, compare for deleted rooms, check for new ones, update all others
 		$evt_id=$id;
 		$existing=$this->getRooms($id);
 		$keys=preg_grep('/(type\d\**)+/m', array_keys($fields));
@@ -391,6 +377,7 @@ class EventModel{
 				}
 			}
 		}
+		//check for deleted rooms
 		if(!empty($existing)){
 			foreach($existing as $room){
 				$id=$room->id;
@@ -404,10 +391,7 @@ class EventModel{
 				}
 			}
 		}
-
-		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-		$query=$this->db->prepare($sql);
-		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"edited an event $id ($name)", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+		$this->changes($_SESSION['account'], "edited an event $id ($name)", $_SESSION['account']);
 	  return L::alerts_s_saved;
 	}
 	//Delete event photo
@@ -417,9 +401,7 @@ class EventModel{
 	  $query->execute(array(':id'=>$_SESSION['account']));
 	  $account=$query->fetch();
 	  if($account->status<ADMIN){
-			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-			$query=$this->db->prepare($sql);
-			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"attempted to delete event ID $id photo", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+			$this->changes($_SESSION['account'], "attempted to delete event ID $id photo", $_SESSION['account']);
 	    return L::alerts_d_cantDoThat;
 	  }
 		$id=strip_tags($id);
@@ -437,6 +419,7 @@ class EventModel{
 		$sql='UPDATE event SET img=null WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
+		$this->changes($_SESSION['account'], "deleted the event ID $id photo", $_SESSION['account']);
 		return L::alerts_s_evtPhotoReset;
 	}
 	//Change confirmed status of Attendees for event ID
@@ -446,34 +429,31 @@ class EventModel{
 	  $query->execute(array(':id'=>$_SESSION['account']));
 	  $account=$query->fetch();
 	  if($account->status<ADMIN){
-			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-			$query=$this->db->prepare($sql);
-			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"attempted to change confirmed statuses of event ID $event", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
-	    return L::alerts_d_cantDoThat;
+			$this->changes($_SESSION['account'], "attempted to change confirmed statuses of event ID $event", $_SESSION['account']);
+			return L::alerts_d_cantDoThat;
 	  }
 		$event=strip_tags($event);
-		$sql='SELECT id FROM registration WHERE event_id=:id';
+		$sql='SELECT id, confirmed FROM registration WHERE event_id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$event));
 		$attendees=$query->fetchAll();
-		foreach($attendees as $id){
-			$confirmed=(array_key_exists($id->id, $ids))?1:0;
+		foreach($attendees as $attendee){
+			$confirmed=(array_key_exists($attendee->id, $ids))?1:0;
+			if($confirmed==$attendee->confirmed){
+				continue;
+			}
 			$sql="UPDATE registration SET confirmed=:confirmed WHERE id=:id";
 		  $query=$this->db->prepare($sql);
-		  $query->execute(array(':confirmed'=>$confirmed, ':id'=>$id->id));
+		  $query->execute(array(':confirmed'=>$confirmed, ':id'=>$attendee->id));
 		}
-		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-		$query=$this->db->prepare($sql);
-		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"changed confirmed statuses of users for event ID $event", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+		$this->changes($_SESSION['account'], "changed confirmed statuses of users for event ID $event", $_SESSION['account']);
 		return L::alerts_s_confStatus;
 	}
 	// Exports registered users into release forms
 	public function exportForms($id, $all){
-		if($all){
-			$sql='SELECT fname, lname, dob, address, address2, post, city, country, gender, language FROM account INNER JOIN registration ON account.id=registration.acc_id WHERE event_id=:id';
-		}
-		else{
-				$sql='SELECT fname, lname, dob, address, address2, post, city, country, gender, language FROM account INNER JOIN registration ON account.id=registration.acc_id WHERE event_id=:id AND confirmed=1';
+		$sql='SELECT fname, lname, dob, address, address2, post, city, country, gender, language FROM account INNER JOIN registration ON account.id=registration.acc_id WHERE event_id=:id';
+		if(!$all){
+			$sql.=' AND confirmed=1';
 		}
 		$query=$this->db->prepare($sql);
 	  $query->execute(array(':id'=>$id));

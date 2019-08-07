@@ -4,10 +4,6 @@ class Register extends Connection{
 		$account=$this->getSessionAcc();
 		$reg_model=$this->loadSQL('RegModel');
 		$account_model=$this->loadSQL('AccountModel');
-		/*if($account==null){
-			$_SESSION['alert']=L::alerts_i_loggedIn;
-			header('location: '.URL.'login');
-		}*/
 		//check if personal info is complete, show warning if not.
 		$complete_profile=true;
 		if($account!=null){
@@ -38,10 +34,6 @@ class Register extends Connection{
 		$new_reg=true;
 		$account=$this->getSessionAcc();
 		$reg_model=$this->loadSQL('RegModel');
-		/*if($account==null){
-			$_SESSION['alert']=L::alerts_i_loggedIn;
-			header('location: '.URL.'login');
-		}*/
 		$id=$_GET["id"]; //event ID
 		//check if already regged for evt and evt exists
 		if($account!=null&&!$reg_model->registered($id, 'event_id')){
@@ -52,11 +44,6 @@ class Register extends Connection{
 				header('location: '.URL.'register');
 			}
 		}
-		//check if profile is complete
-		/*if($account!=null&&!$reg_model->checkProfile()){
-			$_SESSION['alert']=L::alerts_d_personal;
-			header('location: '.URL.'register');
-		}*/
 		if(!$reg_model->viewable($_GET['id'])){
 			header('location: '.URL.'register');
 		}
@@ -108,7 +95,6 @@ class Register extends Connection{
 			header('location: '.URL.'register/edit?id='.$id);
 		}
 		else{
-			//$event=$reg_model->existingReg($id);
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/reg/form.php';

@@ -238,10 +238,7 @@ function displayAge(){
 		$("#ageSettings").hide();
 	}
 }
-<?php
-  $rooms=$event_model->allRooms();
-?>
-var nr=<?php echo $rooms->counter;?>+1;
+var nr=1;
 function addRow(){
 	var row=`<tr id="row#*">
 			<td><input type="text" class="w3-input" name="type#*" required></td>
