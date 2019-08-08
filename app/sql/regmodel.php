@@ -9,6 +9,12 @@ class RegModel{
 			exit('Database connection could not be established.');
 		}
 	}
+	//Changes storage
+	public function changes($who, $what, $for_who){
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$who, ':what'=>$what, ':for_who'=>$for_who, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+	}
 
 	/*
 	 * DISPLAYING EVENTS
@@ -118,7 +124,8 @@ class RegModel{
 		$sql='INSERT INTO registration(event_id, acc_id, room_id, ticket, confirmed, fursuiter, artist, created, room_confirmed, notes) VALUES (:event_id, :acc_id, :room_id, :ticket, :confirmed, :fursuiter, :artist, :created, :room_confirmed, :notes)';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':event_id'=>$id, ':acc_id'=>$_SESSION['account'], ':room_id'=>$room, ':ticket'=>$ticket, ':confirmed'=>$event->autoconfirm, ':fursuiter'=>$fursuiter, ':artist'=>$artist, ':created'=>$created, ':room_confirmed'=>$room_confirmed, ':notes'=>$notes));
-		//form confirmation email
+
+		//registration confirmation email
 		$event_ID=$this->db->lastInsertId();
 		$event_name=$event->name;
 		$username=$account->username;
@@ -154,17 +161,13 @@ class RegModel{
 		if($event->autoconfirm==1){
 			$confirmed=L::register_model_confirmed;
 			require 'app/emails/event_confirmation.php'; //$event_name, $username, $url (edit url), $recap, $bad_news, $email
-			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-			$query=$this->db->prepare($sql);
-			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"registered for an event ID $id", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+			$this->changes($_SESSION['account'], "registered for an event ID $id", $_SESSION['account']);
 			return L::alerts_s_regSucc;
 		}
 		else{
 			$confirmed=L::register_model_manual;
 			require 'app/emails/event_confirmation.php'; //$event_name, $username, $url (edit url), $recap, $bad_news, $email
-			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-			$query=$this->db->prepare($sql);
-			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"registered for an event ID $id", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+			$this->changes($_SESSION['account'], "registered for an event ID $id", $_SESSION['account']);
 			return L::alerts_s_regManual;
 		}
 	}
@@ -198,12 +201,31 @@ class RegModel{
 		$notes=strip_tags($data['notes']);
 		$fursuiter=(array_key_exists('fursuit', $data))?strip_tags($data['fursuit']):0;
 		$artist=(array_key_exists('artist', $data))?strip_tags($data['artist']):0;
-		$sql='UPDATE registration SET room_id=:room_id, ticket=:ticket, fursuiter=:fursuiter, artist=:artist, notes=:notes WHERE id=:id';
+
+		//if room has changed
+		$room_confirmed=1;
+		if($room!=$event->room_id){
+			//a room is selected, calculate availability for this room
+			if($room!=null){
+				$sql='SELECT room.id as id, type, price, quantity FROM room INNER JOIN event_to_room ON room.id=event_to_room.room_id WHERE room.id=:id';
+				$query=$this->db->prepare($sql);
+				$query->execute(array(':id'=>$room));
+				$room_selected=$query->fetch();
+				$result=$room_selected->quantity-$this->getBooked($event->event_id, $room_selected->id)->quantity;
+				$room_confirmed=($result>0)?1:0;
+			}
+			//give previous room to next in waitlist if room was confirmed
+			if($event->room_confirmed==1){
+				$sql='UPDATE registration SET room_confirmed=1 WHERE room_id=:room AND event_id=:event AND room_confirmed=0 ORDER BY created ASC LIMIT 1';
+				$query=$this->db->prepare($sql);
+				$query->execute(array(':room'=>$event->room_id, ':event'=>$event->event_id));
+			}
+		}
+		//update the registration
+		$sql='UPDATE registration SET room_id=:room_id, room_confirmed=:room_confirmed, ticket=:ticket, fursuiter=:fursuiter, artist=:artist, notes=:notes WHERE id=:id';
 		$query=$this->db->prepare($sql);
-		$query->execute(array(':room_id'=>$room, ':ticket'=>$ticket, ':fursuiter'=>$fursuiter, ':artist'=>$artist, ':notes'=>$notes, ':id'=>$id));
-		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-		$query=$this->db->prepare($sql);
-		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"edited their registration data for event ID $id", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+		$query->execute(array(':room_id'=>$room, ':room_confirmed'=>$room_confirmed, ':ticket'=>$ticket, ':fursuiter'=>$fursuiter, ':artist'=>$artist, ':notes'=>$notes, ':id'=>$id));
+		$this->changes($_SESSION['account'], "edited their registration data for event ID $id", $_SESSION['account']);
 		return L::alerts_s_evtSuccUpdate;
 	}
 

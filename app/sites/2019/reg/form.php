@@ -132,7 +132,7 @@
 						</header>
 						<div class="w3-container">
 							<form action="<?php echo URL; ?>register/<?php echo $form_type; ?>?id=<?php echo $event->id; ?>" method="post">
-								<!-- TICKET TYPES / IF FREE state it, ELSE radio buttons -->
+								<!-- TICKET TYPES / IF FREE show <p>, ELSE radio buttons -->
 								<h5><?php echo L::register_form_modal_prices_h;?></h5>
 								<?php if($event->regular_price==0): ?>
 									<p class="w3-text-dark-gray"><?php echo L::register_form_modal_prices_free;?></p>
@@ -164,7 +164,7 @@
 										<?php endif; ?>
 									</table>
 								<?php endif; ?>
-								<!-- ACCOMODATION / IF NONE skip, ELSE dropdown -->
+								<!-- ACCOMODATION / IF NONE show <p>, ELSE radio buttons -->
 								<h5><?php echo L::register_form_modal_accomodation_h;?></h5>
 								<?php
 									$rooms=$reg_model->getAccomodation($evt_id);
@@ -188,16 +188,21 @@
 										</tr>
 										<?php foreach($rooms as $room): ?>
 											<tr>
-												<td class="w3-center"><input class="w3-radio" type="radio" name="room" value="<?php echo $room->id; ?>" <?php if(!$new_reg&&$event->room_id==$room->id){echo 'checked';} ?>></td>
+												<?php $result=$room->quantity-$reg_model->getBooked($evt_id, $room->id)->quantity;?>
+												<td class="w3-center"><input class="w3-radio" type="radio" name="room" value="<?php echo $room->id; ?>"
+													<?php
+														if(!$new_reg&&$event->room_id==$room->id){
+															echo 'checked ';
+														}
+														if($result<=0){
+															echo 'disabled';
+															$result=L::register_form_modal_accomodation_noSpace;
+														}
+														?>>
+												</td>
 												<td><?php echo $room->type; ?></td>
 												<td><?php echo $room->price; ?>€</td>
 												<td><?php echo $room->persons; ?></td>
-												<?php
-													$result=$room->quantity-$reg_model->getBooked($evt_id, $room->id)->quantity;
-													if($result<=0){
-														$result=L::register_form_modal_accomodation_noSpace;
-													}
-												?>
 												<td><?php echo $result; ?></td>
 											</tr>
 										<?php endforeach; ?>

@@ -412,7 +412,7 @@ register:
         availability: 'Availability'
         availabilityI: 'This is the number of rooms of this type still available when you loaded the page.'
         none: 'None'
-        noSpace: 'No availability - waitlist.'
+        noSpace: 'No availability'
         noAccomodation: 'This event has no accomodation options.'
         noAccomodationI: 'Since this is a multi-day event, we recommend you check the description for accomodation recommendations, if there are any.'
       other:

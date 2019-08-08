@@ -415,7 +415,7 @@ register:
         availability: 'Razpoložljivost'
         availabilityI: 'To je število sob tega tipa, ki so še vedno na voljo ob nalaganju spletne strani.'
         none: 'Brez'
-        noSpace: 'Ni razpoložljivosti - čakalni seznam.'
+        noSpace: 'Ni razpoložljivosti'
         noAccomodation: 'Ta dogodek nima nastanitve.'
         noAccomodationI: 'Glede na to, da je to večdnevni dogodek, predlagamo, da preverite opis dogodka za nastanitvene predloge, če so navedeni.'
       other:
