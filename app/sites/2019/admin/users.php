@@ -37,7 +37,7 @@
         <tr>
           <th></th>
           <th><?php echo L::admin_dash_username;?> <i class="far fa-angle-down"></i></th>
-          <th>Privileges</th>
+          <th><?php echo L::admin_dash_privileges;?></th>
           <th><?php echo L::admin_dash_email;?></th>
           <th><?php echo L::admin_dash_name;?></th>
           <th><?php echo L::admin_dash_created;?></th>

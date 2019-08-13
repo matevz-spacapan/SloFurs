@@ -107,7 +107,7 @@
         <td><input type="number" class="w3-input" id="regular" min="1" disabled value="<?php if($editEvent&&$event->regular_price!=0){echo $event->regular_price;} ?>"></td>
         <td><!--<textarea class="w3-input" id="regular_text" disabled><?php if($editEvent){echo $event->regular_text;} ?></textarea>-->
           <div id="regular_div">
-            <textarea name="description" id="regular_text"><?php if($editEvent){echo $event->regular_text;} ?></textarea>
+            <textarea id="regular_text"><?php if($editEvent){echo $event->regular_text;} ?></textarea>
           </div>
           <script>
             ClassicEditor
@@ -126,7 +126,7 @@
         <td><input type="number" class="w3-input" id="sponsor" min="1" disabled value="<?php if($editEvent&&$event->sponsor_price!=-1){echo $event->sponsor_price;} ?>"></td>
         <td><!--<textarea class="w3-input" id="sponsor_text" disabled><?php if($editEvent){echo $event->sponsor_text;} ?></textarea>-->
           <div id="sponsor_div">
-            <textarea name="description" id="sponsor_text"><?php if($editEvent){echo $event->sponsor_text;} ?></textarea>
+            <textarea id="sponsor_text"><?php if($editEvent){echo $event->sponsor_text;} ?></textarea>
           </div>
           <script>
             ClassicEditor
@@ -145,7 +145,7 @@
         <td><input type="number" class="w3-input" id="super" min="1" disabled value="<?php if($editEvent&&$event->super_price!=-1){echo $event->super_price;} ?>"></td>
         <td><!--<textarea class="w3-input" id="super_text" disabled><?php if($editEvent){echo $event->super_text;} ?></textarea>-->
           <div id="super_div">
-            <textarea name="description" id="super_text"><?php if($editEvent){echo $event->super_text;} ?></textarea>
+            <textarea id="super_text"><?php if($editEvent){echo $event->super_text;} ?></textarea>
           </div>
           <script>
             ClassicEditor
@@ -324,17 +324,17 @@ function validate(){
 			}
 		}
 	});
+  price("super");
 	if($("#checksuper").is(":checked")){
 		$("#checksponsor").prop("checked", true);
-		price("sponsor");
 	}
+  price("sponsor");
 	if($("#checksponsor").is(":checked")){
 		$("#checkregular").prop("checked", true);
-		price("regular");
 	}
+  price("regular");
 	if($("#checkregular").is(":checked")){
 		$("#checkfree").prop("checked", false);
-		console.log("uncheck");
 	}
 
 	//check if required and inputed equals (all required filled) and if at least one price category is selected

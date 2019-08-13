@@ -135,6 +135,7 @@ admin:
     newest: 'Newest'
     username: 'Username'
     email: 'Email'
+    privileges: 'Privileges'
     name: 'Name'
     created: 'Created'
     edit: 'Edit'

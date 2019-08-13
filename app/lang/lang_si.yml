@@ -138,6 +138,7 @@ admin:
     newest: 'Najnovejših'
     username: 'Uporabniško ime'
     email: 'E-poštni naslov'
+    privileges: 'Privilegiji'
     name: 'Ime'
     created: 'Ustvarjen ob'
     edit: 'Uredi'

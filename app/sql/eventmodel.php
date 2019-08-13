@@ -164,6 +164,7 @@ class EventModel{
 		}
 		//photo
 		$file_name=null;
+		$err=null;
 		if($image['size']!=0){
 			$target_dir='public/events/';
 			$file_name='';
@@ -175,17 +176,24 @@ class EventModel{
 			}
 			$img_param=getimagesize($image['tmp_name']);
 			if(!$img_param){
-				return L::alerts_d_onlyPic;
+				$err=L::alerts_d_onlyPic;
+				$file_name=null;
+				goto inserting;
 			}
 			list($width, $height)=$img_param;
 			if($width<173||$height<110||round($height/$width, 2)!=1.57){
-				return L::alerts_d_not170;
+				$err=L::alerts_d_not170;
+				$file_name=null;
+				goto inserting;
 			}
 			$target_file=$target_dir.$file_name.'.png';
 			if(!imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
-				return L::alerts_d_errorupload;
+				$err=L::alerts_d_errorupload;
+				$file_name=null;
+				goto inserting;
 			}
 		}
+		inserting:
 		//create event, get event ID for accomodation creation
 		$sql="INSERT INTO event(name, event_start, event_end, reg_start, pre_reg_start, reg_end, location, description, age, restricted_age, restricted_text, regular_price, regular_text, sponsor_price, sponsor_text, super_price, super_text, autoconfirm, img, viewable) VALUES (:name, :event_start, :event_end, :reg_start, :pre_reg_start, :reg_end, :location, :description, :age, :restricted_age, :restricted_text, :regular_price, :regular_text, :sponsor_price, :sponsor_text, :super_price, :super_text, :autoconfirm, :img, :viewable)";
 		$query=$this->db->prepare($sql);
@@ -228,7 +236,13 @@ class EventModel{
 			}
 		}
 		$this->changes($_SESSION['account'], "created an event $event_ID ($name)", $_SESSION['account']);
-		return L::alerts_s_evtCreated;
+		if($err==null){
+			return L::alerts_s_evtCreated;
+		}
+		else{
+			$err=substr($err, 1);
+			return L::alerts_s_evtCreated.'<br>'.$err;
+		}
 	}
 	// Edit an event
 	public function editEvent($id, $fields, $image){
@@ -292,6 +306,7 @@ class EventModel{
 		':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm, ':id'=>$id, ':viewable'=>$viewable));
 
 		//IMAGE
+		$err=null;
 		$file_name='';
 		$target_dir='public/events/';
 		if($image['size']!=0){
@@ -305,15 +320,18 @@ class EventModel{
 		if($file_name!=''){
 			$img_param=getimagesize($image['tmp_name']);
 			if(!$img_param){
-				return L::alerts_d_onlyPic;
+				$err=L::alerts_d_onlyPic;
+				goto skipping;
 			}
 			list($width, $height)=$img_param;
 			if($width<173||$height<110||round($height/$width, 2)!=1.57){
-				return L::alerts_d_not170;
+				$err=L::alerts_d_not170;
+				goto skipping;
 			}
 			$target_file=$target_dir.$file_name.'.png';
 			if(!imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
-				return L::alerts_d_errorupload;
+				$err=L::alerts_d_errorupload;
+				goto skipping;
 			}
 			$sql='SELECT img FROM event WHERE id=:id';
 		  $query=$this->db->prepare($sql);
@@ -326,7 +344,7 @@ class EventModel{
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':img'=>$file_name, ':id'=>$id));
 		}
-
+		skipping:
 		//ACCOMODATION
 		//get all rooms for this event, compare for deleted rooms, check for new ones, update all others
 		$evt_id=$id;
@@ -392,7 +410,13 @@ class EventModel{
 			}
 		}
 		$this->changes($_SESSION['account'], "edited an event $id ($name)", $_SESSION['account']);
-	  return L::alerts_s_saved;
+		if($err==null){
+			return L::alerts_s_saved;
+		}
+		else{
+			$err=substr($err, 1);
+			return L::alerts_s_saved.'<br>'.$err;
+		}
 	}
 	//Delete event photo
 	public function deletePhoto($id){
