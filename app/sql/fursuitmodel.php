@@ -97,7 +97,7 @@ class FursuitModel{
 		$sql='UPDATE fursuit SET name=:name, animal=:animal, in_use=:in_use WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':name'=>$name, ':animal'=>$animal, ':in_use'=>$in_use, ':id'=>$id));
-		$this->changes($_SESSION['account'], "updated their fursuit ID $id", $_SESSION['account'];
+		$this->changes($_SESSION['account'], "updated their fursuit ID $id", $_SESSION['account']);
 		//changing the image too
 		if($file_name!=''){
 			$img_param=getimagesize($image['tmp_name']);
