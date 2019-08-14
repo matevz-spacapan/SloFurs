@@ -131,7 +131,7 @@ class AccountModel{
 	}
 	// Change password
 	public function changePw($oldPw, $newPw){
-		$validPw='/^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).*$/m';
+		$validPw='/^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9\W_]).*$/m';
 		$newPw=strip_tags($newPw);
 		if(preg_match($validPw, $newPw)!=1){
 			return L::alerts_d_invalidPwFormat;

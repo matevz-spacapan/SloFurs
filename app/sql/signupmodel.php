@@ -18,7 +18,7 @@ class SignUpModel{
 			if(!$responseData->success){
 				return L::alerts_d_captcha;
 			}
-			$validPw='/^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W_]).*$/m';
+			$validPw='/^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9\W_]).*$/m';
 			$username=strip_tags($username);
 			$email=strip_tags($email);
 			$password=password_hash(strip_tags($password), PASSWORD_DEFAULT);
