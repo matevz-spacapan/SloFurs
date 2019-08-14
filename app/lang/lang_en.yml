@@ -269,7 +269,7 @@ account:
     label: 'Change photo'
   contact:
     h: 'Contact information'
-    hInfo: 'This information is kept private and validated at the event by staff. It will also show up on your invoice.'
+    hInfo: 'This information is kept private and validated at the event by staff.'
   password:
     h: 'Update your password'
     current: 'Current password'
@@ -328,6 +328,7 @@ personalInfo:
   other: 'Other'
   silent: 'Prefer not to say'
   language: 'Language'
+  languageI: 'used for release forms and automatic setting of website language when signed in.'
   save: 'Save'
   delete1: 'Delete all'
   delete2: 'Are you sure?'

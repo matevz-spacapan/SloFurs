@@ -46,7 +46,7 @@
 	<input class="w3-radio" type="radio" name="gender" value="silent" id="silent">
 	<label><?php echo L::personalInfo_silent;?></label><p>
 
-	<label><?php echo L::personalInfo_language;?></label><br/>
+	<label><?php echo L::personalInfo_language;?></label> <i class="w3-opacity w3-small"><?php echo L::personalInfo_languageI;?></i><br/>
 	<input type="hidden" id="profileLanguage" value="<?php echo $account->language; ?>">
 	<input class="w3-radio" type="radio" name="language" value="si" id="si" required>
 	<label><img src="<?php echo URL?>public/img/si.png" alt="Slovenščina" height="40" class="w3-circle"></label>

@@ -272,7 +272,7 @@ account:
     label: 'Spremeni sliko'
   contact:
     h: 'Kontaktne informacije'
-    hInfo: 'Tej podatki so zasebni in preverjeni iz strani organizatorja dogodka. Tej podatki so tudi vidni na vaših računih.'
+    hInfo: 'Tej podatki so zasebni in preverjeni iz strani organizatorja dogodka.'
   password:
     h: 'Spremeni svoje geslo'
     current: 'Trenutno geslo'
@@ -331,6 +331,7 @@ personalInfo:
   other: 'Drugo'
   silent: 'Ne želim povedati'
   language: 'Jezik'
+  languageI: 'uporabljen za izjave in samodejno nastavljanje jezika strani ob prijavi.'
   save: 'Shrani'
   delete1: 'Izbriši vse'
   delete2: 'Ste prepričani?'

@@ -5,7 +5,7 @@
 		<h1><?php echo L::account_h;?></h1>
 	</div>
 </div>
-<div class="w3-container w3-col l6 m8">
+<div class="w3-container">
 	<!-- Email -->
 	<h3><?php echo L::account_email_h;?></h3>
 	<i class="w3-text-gray"><?php echo $account->email; ?></i>
