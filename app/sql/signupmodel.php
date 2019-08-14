@@ -12,8 +12,7 @@ class SignUpModel{
 	// Create Account
 	public function signupAcc($username, $email, $password, $captcha){
 		if(!empty($username) && !empty($email) && !empty($password)){
-			$secret='6Leegq0UAAAAALXssdWnbWSfrGuT01ZaKFcwslq1';
-			$verifyResponse=file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$captcha);
+			$verifyResponse=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Leegq0UAAAAALXssdWnbWSfrGuT01ZaKFcwslq1&response=$captcha");
 			$responseData=json_decode($verifyResponse);
 			if(!$responseData->success){
 				return L::alerts_d_captcha;

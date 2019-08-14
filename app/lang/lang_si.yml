@@ -199,7 +199,6 @@ home:
 login:
   h: 'Prijavi se s svojim računom'
   email: 'E-poštni naslov'
-  emailP: 'E-poštni naslov'
   pw: 'Geslo'
   pwP: 'Geslo računa'
   button: 'Prijava'
@@ -212,7 +211,6 @@ login:
 signup:
   h: 'Ustvari račun'
   email: 'E-poštni naslov'
-  emailP: 'E-poštni naslov'
   username: 'Vzdevek'
   usernameI: 'Kar bodo lahko javno videli drugi uporabniki strani.'
   usernameP: 'Vaš željen vzdevek'
@@ -231,8 +229,8 @@ signup:
   desc2: 'Vaše geslo mora vsebovati vsaj 8 znakov in mora zadostiti vsem sledečim pogojem:'
   pwCond1: 'vsebuje vsaj 1 črko'
   pwCond2: 'vsebuje vsaj 1 številko ali vsaj 1 poseben znak (npr. _ ! / itd.)'
-  desc3: 'Če je gumb za dokončanje registracije onemogočen, je to zaradi tega, ker niste zadostili vsem pogojem.'
-  desc4: 'Če niste prejeli potrditvenega sporočila, kontaktirajte <a href="http://t.me/pur3bolt" target="_blank">Pur3Bolta<i class="far fa-external-link"></i></a>. Prosimo preverite tudi mapo z  nezaželjeno pošto.'
+  desc3: 'Če je gumb na dnu obrazca onemogočen, je to zaradi tega, ker niste zadostili vsem pogojem.'
+  desc4: 'Če niste prejeli potrditvenega sporočila, kontaktirajte <a href="http://t.me/pur3bolt" target="_blank">Pur3Bolta <i class="far fa-external-link"></i></a>. Prosimo preverite tudi mapo z  nezaželjeno pošto.'
   noActivation: 'Niste prejeli potrditvenega e-poštnega sporočila?'
   noActivationButton: 'Zahtevajte novo'
   resend:
@@ -249,17 +247,11 @@ reset:
   desc: 'Če ste pozabili svoje geslo, ga lahko ponastavite. Poslali vam bomo e-poštno sporočilo s povezavo, kjer si lahko nastavite novo geslo.'
   pw: 'Geslo'
   pwP: 'Izberite si geslo'
-  pwT: 'Vsaj 8 znakov, številka in poseben znak'
   confirm: 'ponovno'
   confirmP: 'Potrdite svoje geslo'
   save: 'Shrani'
   select: 'Izberite novo geslo'
   desc1: 'Da dokončate postopek ponastavljanja gesla izpolnite obrazec.'
-  desc2: 'Vaše geslo mora vsebovati vsaj 8 znakov in mora zadostiti vsem sledečim pogojem:'
-  pwCond1: 'vsebuje vsaj 1 črko'
-  pwCond2: 'vsebuje vsaj 1 številko'
-  pwCond3: 'vsebuje vsaj 1 poseben znak (npr. _ ! / itd.)'
-  desc3: 'Če je gumb onemogočen, je to zaradi tega, ker niste zadostili vsem pogojem.'
 account:
   sidebar:
     close: 'Zapri'

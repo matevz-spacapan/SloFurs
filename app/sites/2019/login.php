@@ -5,7 +5,7 @@
 		</div>
 		<form action="<?php echo URL; ?>login" method="post">
 			<label><?php echo L::login_email;?></label>
-			<input class="w3-input" type="email" name="email" placeholder="<?php echo L::login_emailP;?>" required autofocus>
+			<input class="w3-input" type="email" name="email" placeholder="<?php echo L::login_email;?>" required autofocus>
 			<label><?php echo L::login_pw;?></label>
 			<input class="w3-input" type="password" name="password" placeholder="<?php echo L::login_pwP;?>" required><br>
 			<button type="submit" name="log_in_acc" class="w3-button w3-round w3-border w3-border-blue"><?php echo L::login_button;?></button><p>

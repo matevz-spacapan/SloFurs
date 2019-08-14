@@ -195,8 +195,7 @@ home:
   fuzzy: 'STAY FUZZY'
 login:
   h: 'Log in to your account'
-  email: 'E-mail'
-  emailP: 'E-mail Address'
+  email: 'E-mail Address'
   pw: 'Password'
   pwP: 'Account Password'
   button: 'Log In'
@@ -208,8 +207,7 @@ login:
   desc: 'To use all the website features, such as registering for an event you'll need to be logged in.'
 signup:
   h: 'Create an account'
-  email: 'E-mail'
-  emailP: 'E-mail address'
+  email: 'E-mail Address'
   username: 'Nickname'
   usernameI: 'What other users will be able to see publicly.'
   usernameP: 'Your desired nickname'
@@ -229,7 +227,7 @@ signup:
   pwCond1: 'contain at least 1 letter'
   pwCond2: 'contain at least 1 number or at least 1 special character (eg. _ ! / etc.)'
   desc3: 'If the button to submit the form is disabled, it\'s for this reason.'
-  desc4: 'If you don\'t get the email confirmation, please contact <a href="http://t.me/pur3bolt" target="_blank">Pur3Bolt<i class="far fa-external-link"></i></a>. Please check your spam folder too.'
+  desc4: 'If you don\'t get the email confirmation, please contact <a href="http://t.me/pur3bolt" target="_blank">Pur3Bolt <i class="far fa-external-link"></i></a>. Please check your spam folder too.'
   noActivation: 'Didn\'t receive the account confirmation email?'
   noActivationButton: 'Request a resend'
   resend:
@@ -246,17 +244,11 @@ reset:
   desc: 'If you forgot your password, you can reset it. We\'ll send you an email with a link so you can choose a new password.'
   pw: 'Password'
   pwP: 'Create a password'
-  pwT: 'At least 8 characters containing at least 1 number or a special character'
   confirm: 'confirm'
   confirmP: 'Confirm your password'
   save: 'Save'
   select: 'Select a new password'
   desc1: 'To finish resetting your password, please fill out the form.'
-  desc2: 'Your password needs to be at least 8 characters long and meet all of the following:'
-  pwCond1: 'contain at least 1 letter'
-  pwCond2: 'contain at least 1 number'
-  pwCond3: 'contain at least 1 special character (eg. _ ! / etc.)'
-  desc3: 'If the button to submit the form is disabled, it\'s for this reason.'
 account:
   sidebar:
     close: 'Close'

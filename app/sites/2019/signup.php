@@ -6,7 +6,7 @@
 		</div>
 		<form action="<?php echo URL; ?>signup" method="post">
 			<label><?php echo L::signup_email;?></label>
-			<input class="w3-input" type="email" name="email" placeholder="<?php echo L::signup_emailP;?>" required autofocus>
+			<input class="w3-input" type="email" name="email" placeholder="<?php echo L::signup_email;?>" required autofocus>
 			<label><?php echo L::signup_username;?></label> <i class="far fa-info-circle" title="<?php echo L::signup_usernameI;?>"></i>
 			<input class="w3-input" type="text" name="username" placeholder="<?php echo L::signup_usernameP;?>" required>
 			<label><?php echo L::signup_pw;?></label> <i id="correct1" class="far fa-times"></i>
