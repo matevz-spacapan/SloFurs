@@ -320,7 +320,7 @@ personalInfo:
   postcodeP: 'Vaša poštna številka'
   country: 'Država'
   countrySelect: 'Izberite iz seznama...'
-  phone: 'Telefonsk številka'
+  phone: 'Telefonska številka'
   phoneI: 'po možnosti mobilna številka, v primeru, da se kaj zgodi. Prosimo vpišite tudi kodo države (npr. +386), brez presledkov.'
   phoneP: 'npr. +38641123456'
   dob: 'Datum rojstva'

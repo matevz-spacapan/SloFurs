@@ -82,6 +82,23 @@ class AccountModel{
 			return L::alerts_d_errorupload;
 		}
 	}
+	// Delete PFP
+	public function deletePFP(){
+		$target_dir='public/accounts/';
+		$sql='SELECT pfp FROM account WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$_SESSION['account']));
+		$account=$query->fetch();
+		if($account->pfp!=null){
+			unlink($target_dir.$account->pfp.'.png');
+			$sql='UPDATE account SET pfp=null WHERE id=:id';
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':id'=>$_SESSION['account']));
+			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':who'=>$_SESSION['account'], ':what'=>'deleted their PFP', ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+		}
+	}
 	// Update contact info
 	public function updateProfile($fname, $lname, $address, $address2, $city, $postcode, $country, $phone, $dob, $gender, $language){
 		if(empty($fname)||empty($lname)||empty($address)||empty($city)||empty($postcode)||empty($country)||empty($phone)||empty($dob)||empty($gender)){

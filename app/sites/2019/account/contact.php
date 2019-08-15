@@ -35,6 +35,11 @@
 				<input id="file-upload" type="file" style="display:none" name="image" onchange="$('#updatePFP').submit()"/>
 			</div>
 		</div>
+		<?php if($account->pfp!=null): ?>
+			<p>
+			<button type="button" class="w3-button w3-round w3-border w3-border-red" id="delpfp" onclick="delData('pfp')" style="margin-left:30px;"><?php echo L::admin_account_removePFP;?></button>
+			<button type="submit" name="delete_pfp" class="w3-button w3-round w3-red" id="delconfpfp" style="display:none; margin-left:37px;"><?php echo L::personalInfo_delete2;?></button>
+		<?php endif; ?>
 	</form>
 
 	<!-- Contact info -->

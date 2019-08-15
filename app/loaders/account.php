@@ -20,6 +20,10 @@ class Account extends Connection{
 			$_SESSION['alert']=$account_model->changeEmail($_POST['newemail'], $_POST['verifypassword']);
 			header('location: '.URL.'account/contact');
 		}
+		elseif(isset($_POST{'delete_pfp'})){
+			$_SESSION['alert']=$account_model->deletePFP();
+			header('location: '.URL.'account/contact');
+		}
 		elseif(isset($_FILES['image'])){
 			$_SESSION['alert']=$account_model->changePFP($_FILES['image']);
 			header('location: '.URL.'account/contact');
