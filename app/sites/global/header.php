@@ -31,4 +31,5 @@
 <body>
 	<?php
 		require 'app/sites/global/topnavbar.php';
+		require 'app/sites/global/loading.php';
 	?>
