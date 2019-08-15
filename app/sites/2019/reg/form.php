@@ -140,11 +140,13 @@
 									<table class="w3-table">
 										<tr>
 											<th class="w3-center"><?php echo L::register_form_modal_selection;?></th>
+											<th><?php echo L::register_form_modal_type;?></th>
 											<th><?php echo L::register_form_modal_price;?></th>
 											<th><?php echo L::register_form_modal_prices_info;?></th>
 										</tr>
 										<tr>
-											<td class="w3-center" style="vertical-align: middle;"><input class="w3-radio" type="radio" name="ticket" value="regular" <?php if(!$new_reg&&$event->ticket=='regular'){echo 'checked';} ?> required> <?php echo L::admin_form_tickets_regular;?></td>
+											<td class="w3-center" style="vertical-align: middle;"><input class="w3-radio" type="radio" name="ticket" value="regular" <?php if(!$new_reg&&$event->ticket=='regular'){echo 'checked';} ?> required></td>
+											<td><?php echo L::admin_form_tickets_regular;?></td>
 											<td style="vertical-align: middle;"><?php echo $event->regular_price; ?>€</td>
 											<td><?php echo nl2br($event->regular_text); ?></td>
 										</tr>
@@ -227,6 +229,7 @@
 									<?php elseif($color=='w3-green'): ?>
 										<button type="submit" name="edit_registration" class="w3-button w3-green w3-round"><?php echo L::register_form_modal_save;?></button>
 									<?php endif; ?>
+									<p>
 								</div>
 							</form>
 						</div>
@@ -341,7 +344,8 @@
 <div class="w3-container tab" id="Rides" style="display:none">
 	<h3><?php echo L::register_form_car_h;?></h3>
 	<!-- Add new -->
-	<?php if(strpos($_SERVER['REQUEST_URI'], 'edit')!==false): ?>
+	<?php $limiter=date_create(); $limiter->add(new DateInterval('P1D')); ?>
+	<?php if(strpos($_SERVER['REQUEST_URI'], 'edit')!==false&&date_create($event->event_end)>=$limiter): ?>
 		<button onclick="$('#addNew').removeClass('w3-hide')" class="w3-button w3-round w3-border w3-border-blue"><?php echo L::register_form_car_new;?></button><br>
 		<div class="w3-hide w3-col l6 m10" id="addNew">
 			<br>

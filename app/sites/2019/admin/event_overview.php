@@ -32,7 +32,7 @@
         $sum8=0; //sum of confirmed
       ?>
       <p><?php echo L::admin_overview_attendees_info;?></p>
-      <form action="<?php echo URL; ?>admin/event?id=<?php echo $event->id; ?>" method="post">
+      <form action="<?php echo URL; ?>admin/event?id=<?php echo $event->id; ?>" method="post" class="allforms">
         <div class="w3-responsive">
           <table class="w3-table w3-striped w3-centered">
             <tr>
@@ -127,11 +127,13 @@
             </tr>
           </table><br>
         </div>
+        <?php if($account->status>=ADMIN): ?>
         <div class="w3-center">
           <button type="submit" class="w3-button w3-green w3-round" name="confirm_attendees"><?php echo L::admin_overview_attendees_confirm;?></button><br><br>
           <button type="submit" class="w3-button w3-blue w3-round" name="export_confirmed"><?php echo L::admin_overview_attendees_exportC;?></button>
           <button type="submit" class="w3-button w3-blue w3-round" name="export_all"><?php echo L::admin_overview_attendees_exportA;?></button>
         </div>
+        <?php endif;?>
       </form>
     <?php else: ?>
       <p><?php echo L::admin_overview_attendees_none;?></p>
@@ -142,7 +144,7 @@
     <h3><?php echo L::admin_overview_fursuiters_h;?></h3>
     <div class="w3-row">
       <?php foreach($fursuits as $fursuit): ?>
-        <div class="card">
+        <div class="card" style="cursor: default;">
           <?php if(file_exists('public/fursuits/'.$fursuit->img.'.png')): ?>
             <img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="roundImg">
           <?php else: ?>

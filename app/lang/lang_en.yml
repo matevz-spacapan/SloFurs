@@ -133,7 +133,7 @@ admin:
     for: 'Change on account'
     time: 'Time of change'
     newest: 'Newest'
-    username: 'Username'
+    username: 'Nickname'
     email: 'Email'
     privileges: 'Privileges'
     name: 'Name'
@@ -392,6 +392,7 @@ register:
     modal:
       h: 'Registration form'
       selection: 'Selection'
+      type: 'Price (type)'
       price: 'Price'
       prices:
         h: 'Attendance prices'

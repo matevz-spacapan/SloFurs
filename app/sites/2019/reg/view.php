@@ -5,8 +5,8 @@
 </div>
 	<!-- COMPLETE PROFILE WARNING -->
 	<?php if(!$complete_profile): ?>
-		<h3 class="w3-text-red"><i><?php echo L::register_view_profile_h;?></i></h3>
-		<div>
+		<div class="w3-container">
+			<h3 class="w3-text-red"><i><?php echo L::register_view_profile_h;?></i></h3>
 			<?php echo L::register_view_profile_desc1;?><br> <button class="w3-button w3-border w3-round w3-border-red" onclick="$('#personal').show()"><?php echo L::register_view_profile_button;?></button><br> <?php echo L::register_view_profile_desc2;?> <a href="<?php echo URL; ?>account/contact"><?php echo L::register_view_profile_link;?></a>.
 			<div id="personal" class="w3-modal">
 				<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
@@ -76,7 +76,7 @@
 	<!-- PAST EVENTS -->
 	<?php if($account!=null&&count($pEvents)>0): ?>
 		<div class="w3-container w3-row-padding w3-padding-32">
-			<h3><?php echo L::register_view_past_h;?></h3>
+			<h3><?php echo L::register_view_past_h; $edit=true;?></h3>
 			<?php foreach($pEvents as $event): ?>
 				<?php
 					$color='w3-gray';

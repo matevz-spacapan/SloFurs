@@ -41,7 +41,7 @@
 
     <div class="w3-quarter">
       <?php
-        if($account->status>=ADMIN){
+        if($account->status>=STAFF){
           echo '<a href="'.URL.'admin/event">';
           $color='w3-pale-green';
         }
@@ -65,7 +65,7 @@
           </div>
         </div>
       </div>
-      <?php if($account->status>=ADMIN){echo '</a>';}?>
+      <?php if($account->status>=STAFF){echo '</a>';}?>
     </div>
 
     <div class="w3-quarter">
@@ -123,8 +123,12 @@
         <table class="w3-table w3-striped w3-hoverable w3-white">
           <tr>
             <th><?php echo L::admin_dash_username;?></th>
+
+            <?php if($account->status>=ADMIN): ?>
             <th><?php echo L::admin_dash_email;?></th>
             <th><?php echo L::admin_dash_name;?></th>
+            <?php endif;?>
+
             <th><?php echo L::admin_dash_created;?> <i class="far fa-angle-down"></i></th>
           </tr>
           <?php $res=$dash_model->newest(); ?>
@@ -142,6 +146,8 @@
                     echo ' (not confirmed)';
                   }
                 ?></td>
+
+              <?php if($account->status>=ADMIN): ?>
               <td><a href="mailto:<?php echo $acc->email;?>"><?php echo $acc->email;?></a></td>
               <td>
                 <?php
@@ -153,6 +159,8 @@
                   }
                 ?>
               </td>
+            <?php endif;?>
+
               <td><?php echo $acc->created;?></td>
             </tr>
           <?php endforeach; ?>

@@ -2,7 +2,7 @@
 class Admin extends Connection{
 	public function index(){
 		$account=$this->getSessionAcc();
-		if($account!=null&&$account->status>=ADMIN){
+		if($account!=null&&$account->status>=STAFF){
 			header('location: '.URL.'admin/dash');
 		}
 		elseif($account->status<STAFF){
@@ -131,42 +131,48 @@ class Admin extends Connection{
 			header('location: '.URL.'login');
 		}
 		elseif($account->status>=STAFF){
-			//create new event
-			if(isset($_POST['new_event'])){
-				$event_model=$this->loadSQL('EventModel');
-				$_SESSION['alert']=$event_model->addEvent($_POST, $_FILES['image']);
-				header('location: '.URL.'admin/event');
-			}
-			//edit event with given ID
-			elseif(isset($_POST['edit_event'])){
-				$event_model=$this->loadSQL('EventModel');
-				$_SESSION['alert']=$event_model->editEvent($_GET['id'], $_POST, $_FILES['image']);
-				header('location: '.URL.'admin/event?id='.$_GET['id']);
-			}
-			//delete event photo with given ID
-			elseif(isset($_POST['delete_photo'])){
-				$event_model=$this->loadSQL('EventModel');
-				$_SESSION['alert']=$event_model->deletePhoto($_GET['id']);
-				header('location: '.URL.'admin/event?id='.$_GET['id']);
-			}
-			//edit confirmed users
-			elseif(isset($_POST['confirm_attendees'])){
-				$_SESSION['alert']=$event_model->editConfirm($_GET['id'], $_POST);
-				header('location: '.URL.'admin/event?id='.$_GET['id']);
-			}
-			elseif(isset($_POST['export_confirmed'])){
-				$event_model->exportForms($_GET['id'], false);
-				//header('location: '.URL.'admin/event?id='.$_GET['id']);
-			}
-			elseif(isset($_POST['export_all'])){
-				$event_model->exportForms($_GET['id'], true);
-				//header('location: '.URL.'admin/event?id='.$_GET['id']);
+			if($account->status>=ADMIN){
+				//create new event
+				if(isset($_POST['new_event'])){
+					$event_model=$this->loadSQL('EventModel');
+					$_SESSION['alert']=$event_model->addEvent($_POST, $_FILES['image']);
+					header('location: '.URL.'admin/event');
+				}
+				//edit event with given ID
+				elseif(isset($_POST['edit_event'])){
+					$event_model=$this->loadSQL('EventModel');
+					$_SESSION['alert']=$event_model->editEvent($_GET['id'], $_POST, $_FILES['image']);
+					header('location: '.URL.'admin/event?id='.$_GET['id']);
+				}
+				//delete event photo with given ID
+				elseif(isset($_POST['delete_photo'])){
+					$event_model=$this->loadSQL('EventModel');
+					$_SESSION['alert']=$event_model->deletePhoto($_GET['id']);
+					header('location: '.URL.'admin/event?id='.$_GET['id']);
+				}
+				//edit confirmed users
+				elseif(isset($_POST['confirm_attendees'])){
+					$_SESSION['alert']=$event_model->editConfirm($_GET['id'], $_POST);
+					header('location: '.URL.'admin/event?id='.$_GET['id']);
+				}
+				elseif(isset($_POST['export_confirmed'])){
+					$event_model->exportForms($_GET['id'], false);
+					//header('location: '.URL.'admin/event?id='.$_GET['id']);
+				}
+				elseif(isset($_POST['export_all'])){
+					$event_model->exportForms($_GET['id'], true);
+					//header('location: '.URL.'admin/event?id='.$_GET['id']);
+				}
+				else{
+					goto noactions;
+				}
 			}
 			else{
+				noactions:
 				require 'app/sites/global/header.php';
 				require 'app/sites/global/alerts.php';
 				//go to new event creation page
-				if($action=='new'){
+				if($account->status>=ADMIN&&$action=='new'){
 					require 'app/sites/'.THEME.'/admin/sidebar.php';
 					require 'app/sites/'.THEME.'/admin/newevent.php';
 				}

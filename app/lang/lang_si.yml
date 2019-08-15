@@ -136,7 +136,7 @@ admin:
     for: 'Sprememba na računu'
     time: 'Čas spremembe'
     newest: 'Najnovejših'
-    username: 'Uporabniško ime'
+    username: 'Vzdevek'
     email: 'E-poštni naslov'
     privileges: 'Privilegiji'
     name: 'Ime'
@@ -395,9 +395,10 @@ register:
     modal:
       h: 'Prijavni obrazec'
       selection: 'Izbira'
+      type: 'Cena (opisno)'
       price: 'Cena'
       prices:
-        h: 'Cene udeležbe'
+        h: 'Cena udeležbe'
         free: 'Ta dogodek je brezplačen.'
         info: 'Dodatne informacije'
       accomodation:
@@ -434,7 +435,7 @@ register:
       fursuiters: 'Pričakujte te kosmatinčke:'
       noStats: 'Trenutno ne moremo prikazati statistik, ker se registracija še ni pričela.'
     car:
-      h: 'Prevozi na dogodek'
+      h: 'Prevozi na/iz dogodka'
       p: 'Te podatke lahko kadarkoli spremenite po tem, ko je prevoz ustvarjen. Samo kliknite na prevoz na seznamu, da ga uredite.'
       new: 'Dodaj novega'
       direction: 'Smer prevoza'

@@ -1,5 +1,5 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/12.3.1/classic/ckeditor.js"></script>
-<form action="<?php echo URL; ?>admin/event<?php if($editEvent){echo '?id='.$event->id;} ?>" method="post" enctype="multipart/form-data" autocomplete="off" id="mainform">
+<form action="<?php echo URL; ?>admin/event<?php if($editEvent){echo '?id='.$event->id;} ?>" method="post" enctype="multipart/form-data" autocomplete="off" class="allforms">
   <!-- Event details -->
   <h3><?php echo L::admin_form_event_h;?></h3>
 
@@ -265,6 +265,9 @@ $(document).ready(function(){
 	$(document).on("keyup", "input", validate);
 	$("input[type=checkbox][name='ticket']").on("change", validate);
 	$("input[type=datetime-local]").on("change", validate);
+  <?php if($account->status==STAFF): ?>
+  $(".allforms :input").prop("disabled", true);
+  <?php endif;?>
 });
 function validate(){
 	var dateOK=true;
@@ -351,7 +354,4 @@ price("sponsor");
 price("regular");
 displayAge();
 <?php endif; ?>
-<?php if($account->status==STAFF): ?>
-$("#mainform :input").prop("disabled", true);
-<?php endif;?>
 </script>

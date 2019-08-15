@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<div class="w3-container w3-col l6 m8"><p>
+<div class="w3-container"><p>
 	<form action="<?php echo URL; ?>account/password" method="post">
 			<label><?php echo L::account_password_current;?></label>
 			<input class="w3-input" type="password" name="oldpassword" required placeholder="<?php echo L::account_password_current;?>">
