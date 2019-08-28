@@ -16,8 +16,6 @@
   <input type="text" class="w3-input" name="location" value="<?php if($editEvent){echo $event->location;} ?>">
 
   <label><?php echo L::admin_form_event_description;?></label> <i class="w3-opacity w3-small"><?php echo L::admin_form_event_descriptionInfo;?></i>
-  <!--<textarea class="w3-input" name="description"><?php if($editEvent){echo $event->description;} ?>
-  </textarea><p>-->
   <textarea name="description" id="editor"><?php if($editEvent){echo $event->description;} ?></textarea>
   <script>
     ClassicEditor
@@ -105,7 +103,7 @@
           <label><?php echo L::admin_form_tickets_regular;?></label>
         </td>
         <td><input type="number" class="w3-input" id="regular" min="1" disabled value="<?php if($editEvent&&$event->regular_price!=0){echo $event->regular_price;} ?>"></td>
-        <td><!--<textarea class="w3-input" id="regular_text" disabled><?php if($editEvent){echo $event->regular_text;} ?></textarea>-->
+        <td>
           <div id="regular_div">
             <textarea id="regular_text"><?php if($editEvent){echo $event->regular_text;} ?></textarea>
           </div>
@@ -124,7 +122,7 @@
           <label><?php echo L::admin_form_tickets_sponsor;?></label>
         </td>
         <td><input type="number" class="w3-input" id="sponsor" min="1" disabled value="<?php if($editEvent&&$event->sponsor_price!=-1){echo $event->sponsor_price;} ?>"></td>
-        <td><!--<textarea class="w3-input" id="sponsor_text" disabled><?php if($editEvent){echo $event->sponsor_text;} ?></textarea>-->
+        <td>
           <div id="sponsor_div">
             <textarea id="sponsor_text"><?php if($editEvent){echo $event->sponsor_text;} ?></textarea>
           </div>
@@ -143,7 +141,7 @@
           <label><?php echo L::admin_form_tickets_super;?></label>
         </td>
         <td><input type="number" class="w3-input" id="super" min="1" disabled value="<?php if($editEvent&&$event->super_price!=-1){echo $event->super_price;} ?>"></td>
-        <td><!--<textarea class="w3-input" id="super_text" disabled><?php if($editEvent){echo $event->super_text;} ?></textarea>-->
+        <td>
           <div id="super_div">
             <textarea id="super_text"><?php if($editEvent){echo $event->super_text;} ?></textarea>
           </div>

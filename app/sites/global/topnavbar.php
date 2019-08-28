@@ -1,6 +1,6 @@
 <div class="w3-top" style="z-index:50;">
 	<div class="w3-bar w3-large w3-white">
-		<?php if(strpos($_SERVER['REQUEST_URI'], 'admin/')!==false): ?>
+		<?php if(strpos($this->getBaseUrl(), 'admin/')!==false): ?>
 			<button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="$('#sidebar').show()"><i class="far fa-bars"></i>  Menu</button>
 		<?php endif; ?>
 		<a href="<?php echo URL ?>" class="w3-bar-item w3-button"><?php echo L::topnavbar_home;?></a>
@@ -50,8 +50,8 @@
 					}
 					echo '<img src="'.$src1.'" style="height:23px;" class="w3-circle">';
 					$base='?lang=';
-					if(strpos($_SERVER['REQUEST_URI'], '?')!==false){
-						$base=BASEURL.$_SERVER['REQUEST_URI'].'&lang=';
+					if(strpos($this->getBaseUrl(), '?')!==false){
+						$base=BASEURL.$this->getBaseUrl().'&lang=';
 					}
 				?>
 			</button>

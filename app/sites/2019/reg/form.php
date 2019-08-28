@@ -345,7 +345,7 @@
 	<h3><?php echo L::register_form_car_h;?></h3>
 	<!-- Add new -->
 	<?php $limiter=date_create(); $limiter->add(new DateInterval('P1D')); ?>
-	<?php if(strpos($_SERVER['REQUEST_URI'], 'edit')!==false&&date_create($event->event_end)>=$limiter): ?>
+	<?php if(strpos($this->getBaseUrl(), 'edit')!==false&&date_create($event->event_end)>=$limiter): ?>
 		<button onclick="$('#addNew').removeClass('w3-hide')" class="w3-button w3-round w3-border w3-border-blue"><?php echo L::register_form_car_new;?></button><br>
 		<div class="w3-hide w3-col l6 m10" id="addNew">
 			<br>

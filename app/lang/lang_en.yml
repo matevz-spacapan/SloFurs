@@ -33,7 +33,7 @@ admin:
     registration:
       h: 'Registration details'
       visibility: 'Event visibility'
-      visibilityInfo: 'when will the event be visible to the general public? If left empty, then it will remain hidden until registration starts.'
+      visibilityInfo: 'until when is the event only visible to staff and above? If left empty, then it will remain hidden until registration starts, which means users with the privilege "pre-reg" won\'t be able to pre-reg.'
       start: 'Start'
       startInfo: 'when attendees can register for the event'
       pre: 'Pre-reg start'
@@ -82,7 +82,7 @@ admin:
       info: 'You can view all registered attendees on the list below. To confirm changes in the Confirmed column, click Confirm attendees. To export release forms, click the appropriate button.'
       account: 'Account'
       type: 'Ticket type'
-      room: 'Requested room'
+      room: 'Requested accommodation'
       fursuiterArtist: 'Fursuiter/Artist'
       language: 'Language'
       confirmed: 'Confirmed'

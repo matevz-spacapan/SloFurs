@@ -244,7 +244,11 @@ class EventModel{
 			return L::alerts_s_evtCreated.'<br>'.$err;
 		}
 	}
-	// Edit an event
+	/*
+	 *
+	 * Edit an event
+	 *
+	 */
 	public function editEvent($id, $fields, $image){
 	  $sql='SELECT * FROM account WHERE id=:id';
 	  $query=$this->db->prepare($sql);
@@ -254,7 +258,6 @@ class EventModel{
 			$this->changes($_SESSION['account'], "attempted to edit event ID {$fields['name']}", $_SESSION['account']);
 			return L::alerts_d_cantDoThat;
 	  }
-
 	  //EVENT
 	  $id=strip_tags($id);
 	  $name=strip_tags($fields['name']);
