@@ -193,7 +193,7 @@ class RegModel{
 		$id=strip_tags($id);
 		$event=$this->existingReg($id);
 		//check if can edit reg (reg end)
-		if(new DateTime($event->reg_end)<=new DateTime()){
+		if(new DateTime($event->reg_end)>=new DateTime()){
 			return L::alerts_d_noModeEdit;
 		}
 		$ticket=(array_key_exists('ticket', $data))?strip_tags($data['ticket']):'regular';
