@@ -3,12 +3,12 @@
 <?php require 'app/sites/'.THEME.'/admin/sidebar.php';?>
 
 <div class="w3-main" style="margin-left:300px;">
-	<?php $old_acc=$account; $account=$dash_model->define($_GET['id']); ?>
+	<?php $old_acc=$account; $account=$dash_model->define(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT)); ?>
 	<div class="w3-container w3-col l6 m8">
 		<!-- Email -->
 		<h3><?php echo L::account_email_h;?></h3>
 		<p><?php echo L::admin_account_current;?>: <i class="w3-text-gray"><?php echo $account->email; ?></i></p>
-		<form action="<?php echo URL;?>admin/users?id=<?php echo $_GET['id'];?>" method="post" autocomplete="off">
+		<form action="<?php echo URL;?>admin/users?id=<?php echo filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);?>" method="post" autocomplete="off">
 			<label><?php echo L::admin_account_changeEmail;?></label>
 			<input class="w3-input" type="email" name="email" required><p>
 			<button type="submit" name="change_email" class="w3-button w3-round w3-green" title="<?php echo L::admin_account_saveSendI;?>"><?php echo L::admin_account_saveSend;?></button>
@@ -18,7 +18,7 @@
 		<!-- Password -->
 		<h3><?php echo L::admin_account_pwH;?></h3>
 		<p><?php echo L::admin_account_pwText;?></p>
-		<form action="<?php echo URL;?>admin/users?id=<?php echo $_GET['id'];?>" method="post">
+		<form action="<?php echo URL;?>admin/users?id=<?php echo filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);?>" method="post">
 			<button type="button" class="w3-button w3-round w3-border w3-border-red" id="delpw" onclick="delData('pw')"><?php echo L::admin_account_pwBtn;?></button>
 			<button type="submit" name="reset_pw" class="w3-button w3-round w3-red" id="delconfpw" style="display:none;"><?php echo L::personalInfo_delete2;?></button>
 		</form>
@@ -29,7 +29,7 @@
 			<?php if($old_acc->id==$account->id): ?>
 				<h4 class="w3-text-red"><?php echo L::admin_account_warning;?></h4>
 			<?php endif; ?>
-			<form action="<?php echo URL;?>admin/users?id=<?php echo $_GET['id'];?>" method="post">
+			<form action="<?php echo URL;?>admin/users?id=<?php echo filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);?>" method="post">
 				<input type="hidden" id="profileStatus" value="<?php echo $account->status; ?>">
 				<select id="status" name="status" class="w3-select" required>
 					<option value="<?php echo ATTENDEE;?>"><?php echo L::admin_account_status_attendee;?> (<?php echo ATTENDEE;?>)</option>
@@ -46,7 +46,7 @@
 		<!-- Profile picture -->
 		<h3><?php echo L::account_pfp_h;?></h3>
 		<p><?php echo L::account_pfp_desc;?></p>
-		<form action="<?php echo URL; ?>admin/users?id=<?php echo $_GET['id'];?>" method="post" enctype="multipart/form-data" id="updatePFP">
+		<form action="<?php echo URL; ?>admin/users?id=<?php echo filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);?>" method="post" enctype="multipart/form-data" id="updatePFP">
 			<div class="w3-display-container" style="max-height:200px;max-width:200px">
 				<?php if(file_exists('public/accounts/'.$account->pfp.'.png')): ?>
 					<img src="<?php echo URL.'public/accounts/'.$account->pfp; ?>.png" style="width:100%" id="pfp">
@@ -73,7 +73,7 @@
 		?>
 
 		<h3 class="w3-text-red"><?php echo L::admin_account_dangerH;?></h3>
-		<form action="<?php echo URL; ?>admin/users?id=<?php echo $_GET['id'];?>" method="post">
+		<form action="<?php echo URL; ?>admin/users?id=<?php echo filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);?>" method="post">
 			<?php if($account->banned): ?>
 				<button type="submit" name="ban_account" class="w3-button w3-round w3-green"><?php echo L::admin_account_unban;?></button>
 			<?php else: ?>

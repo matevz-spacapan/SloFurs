@@ -64,7 +64,7 @@ class Account extends Connection{
 		}
 	}
 	// Fursuits page
-	public function fursuit($id=null){
+	public function fursuit(){
 		$account=$this->getSessionAcc();
 		if($account==null){
 			header('location: '.URL.'login');

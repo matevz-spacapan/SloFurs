@@ -3,9 +3,9 @@
   <div class="w3-row w3-padding-32 w3-padding-large">
     <h1 class="w3-left">Invoice #: <?php echo $invoice->id;?></h1>
     <div class="w3-right">
-      <form action="<?php echo URL;?>register/pay?id=<?php echo $_GET['id'];?>" method="post">
+      <form action="<?php echo URL;?>register/pay?id=<?php echo filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);?>" method="post">
         <button type="submit" class="w3-button w3-round w3-blue" name="download">Download</button>
-        <a href="<?php echo URL;?>register/edit?id=<?php echo $_GET['id'];?>" class="w3-button w3-border-blue w3-border w3-round">Back to event</a>
+        <a href="<?php echo URL;?>register/edit?id=<?php echo filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);?>" class="w3-button w3-border-blue w3-border w3-round">Back to event</a>
       </form>
     </div>
   </div>

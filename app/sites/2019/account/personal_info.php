@@ -1,7 +1,7 @@
 <form action="<?php
 	echo URL;
 	if($account->id!=$_SESSION['account']){
-		echo "admin/users?id=".$_GET['id'];
+		echo "admin/users?id=".filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
 	}
 	elseif(!$register){
 		echo 'account/contact';

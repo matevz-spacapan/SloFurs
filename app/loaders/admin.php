@@ -101,7 +101,7 @@ class Admin extends Connection{
 		}
 		elseif($account->status>=SUPER){
 			$dash_model=$this->loadSQL('FursuitDashModel');
-			if(isset(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT))){
+			if(isset($_GET['id'])){
 				if(isset($_POST['edit_fursuit'])){
 						$_SESSION['alert']=$dash_model->editFursuit(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['suitname']), strip_tags($_POST['animal']), strip_tags($_POST['in_use']), $_FILES['image']);
 						header('location: '.URL.'admin/fursuits');
