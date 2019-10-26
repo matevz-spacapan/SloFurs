@@ -5,9 +5,7 @@ class EventModel{
 		try{
 			$this->db=$db;
 		}
-		catch (PDOException $e){
-			exit('Database connection could not be established.');
-		}
+		catch (PDOException $e){}
 	}
 	//Changes storage
 	public function changes($who, $what, $for_who){
@@ -70,7 +68,7 @@ class EventModel{
 	}
 	//how=true or 1: just date; how=false or 0: just hours; how=2: both
 	public function convertViewable($date, $how){
-		if(gettype($how)=='boolean'){
+		if(is_bool($how)){
 			return ($how)?date_format(new DateTime($date),"d.m.Y"):date_format(new DateTime($date),"H:i");
 		}
 		else{
@@ -132,7 +130,6 @@ class EventModel{
 		if($viewable==''){
 			$viewable=$reg_start;
 		}
-		$created=date_format(date_create(), 'Y-m-d H:i:s');
 		$autoconfirm=(array_key_exists('autoconfirm', $fields))?strip_tags($fields['autoconfirm']):0;
 		$age=strip_tags($fields['age']);
 		$restricted_age=strip_tags($fields['restricted_age']);

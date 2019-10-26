@@ -5,9 +5,7 @@ class UsersDashModel{
 		try{
 			$this->db=$db;
 		}
-		catch (PDOException $e){
-			exit('Database connection could not be established.');
-		}
+		catch (PDOException $e){}
 	}
 	// Get account with given ID
 	public function define($id){

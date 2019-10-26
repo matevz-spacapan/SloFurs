@@ -17,7 +17,7 @@ class Account extends Connection{
 		}
 		$account_model=$this->loadSQL('AccountModel');
 		if(isset($_POST['change_email'])){
-			$_SESSION['alert']=$account_model->changeEmail(strip_tags($_POST['newemail']), strip_tags($_POST['verifypassword']));
+			$_SESSION['alert']=$account_model->changeEmail(filter_var($_POST['newemail'], FILTER_SANITIZE_EMAIL), strip_tags($_POST['verifypassword']));
 			header('location: '.URL.'account/contact');
 		}
 		elseif(isset($_POST{'delete_pfp'})){
@@ -29,7 +29,7 @@ class Account extends Connection{
 			header('location: '.URL.'account/contact');
 		}
 		elseif(isset($_POST['update_personal_info'])){
-			$_SESSION['alert']=$account_model->updateProfile(strip_tags($_POST['fname']), strip_tags($_POST['lname']), strip_tags($_POST['address']), strip_tags($_POST['address2']), strip_tags($_POST['city']), strip_tags($_POST['postcode']), strip_tags($_POST['country']), strip_tags($_POST['phone']), strip_tags($_POST['dob']), strip_tags($_POST['gender']), strip_tags($_POST['language']));
+			$_SESSION['alert']=$account_model->updateProfile(strip_tags($_POST['fname']), strip_tags($_POST['lname']), strip_tags($_POST['address']), strip_tags($_POST['address2']), strip_tags($_POST['city']), strip_tags($_POST['postcode']), strip_tags($_POST['country']), filter_var($_POST['phone'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['dob']), strip_tags($_POST['gender']), strip_tags($_POST['language']));
 			header('location: '.URL.'account/contact');
 		}
 		elseif(isset($_POST['delete_personal_info'])){
@@ -75,11 +75,11 @@ class Account extends Connection{
 			header('location: '.URL.'account/fursuit');
 		}
 		elseif(isset($_POST['edit_fursuit'])){
-				$_SESSION['alert']=$fursuit_model->editFursuit(strip_tags($_GET['id']), strip_tags($_POST['suitname']), strip_tags($_POST['animal']), strip_tags($_POST['in_use']), $_FILES['image']);
+				$_SESSION['alert']=$fursuit_model->editFursuit(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['suitname']), strip_tags($_POST['animal']), strip_tags($_POST['in_use']), $_FILES['image']);
 				header('location: '.URL.'account/fursuit');
 		}
 		elseif(isset($_POST['delete_fursuit'])){
-			$_SESSION['alert']=$fursuit_model->delFursuit(strip_tags($_GET['id']));
+			$_SESSION['alert']=$fursuit_model->delFursuit(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT));
 			header('location: '.URL.'account/fursuit');
 		}
 		else{

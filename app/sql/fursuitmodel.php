@@ -5,9 +5,7 @@ class FursuitModel{
 		try{
 			$this->db=$db;
 		}
-		catch (PDOException $e){
-			exit('Database connection could not be established.');
-		}
+		catch (PDOException $e){}
 	}
 	//Changes storage
 	public function changes($who, $what, $for_who){

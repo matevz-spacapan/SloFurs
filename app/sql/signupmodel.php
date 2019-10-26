@@ -5,9 +5,7 @@ class SignUpModel{
 		try{
 			$this->db=$db;
 		}
-		catch(PDOException $e){
-			exit('Database connection could not be established.');
-		}
+		catch (PDOException $e){}
 	}
 	// Create Account
 	public function signupAcc($username, $email, $password, $captcha){

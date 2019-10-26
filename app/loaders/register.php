@@ -44,7 +44,7 @@ class Register extends Connection{
 				header('location: '.URL.'register');
 			}
 		}
-		if(!$reg_model->viewable($_GET['id'])){
+		if(!$reg_model->viewable(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT))){
 			header('location: '.URL.'register');
 		}
 		//if submitting the registration form
@@ -83,11 +83,11 @@ class Register extends Connection{
 		}
 		//if submitting a new car share
 		elseif(isset($_POST['new_car_share'])){
-			$_SESSION['alert']=$reg_model->newCarShare($evt_id, strip_tags($_POST['direction']), strip_tags($_POST['passengers']), strip_tags($_POST['outbound']), strip_tags($_POST['price']), strip_tags($_POST['description']));
+			$_SESSION['alert']=$reg_model->newCarShare($evt_id, strip_tags($_POST['direction']), filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['outbound']), filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['description']));
 			header('location: '.URL.'register/edit?id='.$id);
 		}
 		elseif(isset($_POST['edit_car_share'])){
-			$_SESSION['alert']=$reg_model->editCarShare(strip_tags($_GET['carshare']), strip_tags($_POST['direction']), strip_tags($_POST['passengers']), strip_tags($_POST['outbound']), strip_tags($_POST['price']), strip_tags($_POST['description']));
+			$_SESSION['alert']=$reg_model->editCarShare(strip_tags($_GET['carshare']), strip_tags($_POST['direction']), filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['outbound']), filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['description']));
 			header('location: '.URL.'register/edit?id='.$id);
 		}
 		elseif(isset($_POST['delete_car_share'])){
@@ -104,13 +104,13 @@ class Register extends Connection{
 	public function pay(){
 		$account=$this->getSessionAcc();
 		$inv_model=$this->loadSQL('InvoiceModel');
-		$invoice=$inv_model->getInvoice(strip_tags($_GET['id']));
+		$invoice=$inv_model->getInvoice(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT));
 		if($invoice==null){
 			header('location: '.URL.'register');
 		}
 		else{
 			if(isset($_POST['download'])){
-				$inv_model->download(strip_tags($_GET['id']));
+				$inv_model->download(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT));
 			}
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/alerts.php';

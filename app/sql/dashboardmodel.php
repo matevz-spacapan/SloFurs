@@ -5,9 +5,7 @@ class DashboardModel{
 		try{
 			$this->db=$db;
 		}
-		catch (PDOException $e){
-			exit('Database connection could not be established.');
-		}
+		catch (PDOException $e){}
 	}
 	// Account brief
 	public function accountsB1(){
