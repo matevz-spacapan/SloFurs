@@ -39,40 +39,40 @@ class Admin extends Connection{
 			$dash_model=$this->loadSQL('UsersDashModel');
 			if(isset($_GET['id'])){
 				if(isset($_POST['change_email'])){
-					$_SESSION['alert']=$dash_model->changeEmail($_POST['email'], $_GET['id'], false, $_SESSION['account']);
+					$_SESSION['alert']=$dash_model->changeEmail(strip_tags($_POST['email']), $_GET['id'], false, $_SESSION['account']);
 					header('location: '.URL.'admin/users?id='.$_GET['id']);
 				}
 				elseif(isset($_POST['force_email'])){
-					$_SESSION['alert']=$dash_model->changeEmail($_POST['email'], $_GET['id'], true, $_SESSION['account']);
+					$_SESSION['alert']=$dash_model->changeEmail(strip_tags($_POST['email']), strip_tags($_GET['id']), true, $_SESSION['account']);
 					header('location: '.URL.'admin/users?id='.$_GET['id']);
 				}
 				elseif(isset($_POST['reset_pw'])){
-					$_SESSION['alert']=$dash_model->resetPw($_GET['id'], $_SESSION['account']);
-					header('location: '.URL.'admin/users?id='.$_GET['id']);
+					$_SESSION['alert']=$dash_model->resetPw(strip_tags($_GET['id']), $_SESSION['account']);
+					header('location: '.URL.'admin/users?id='.strip_tags($_GET['id']));
 				}
 				elseif(isset($_POST['account_status'])){
-					$dash_model->setStatus($_POST['status'], $_GET['id'], $_SESSION['account']);
-					header('location: '.URL.'admin/users?id='.$_GET['id']);
+					$dash_model->setStatus(strip_tags($_POST['status']), strip_tags($_GET['id']), $_SESSION['account']);
+					header('location: '.URL.'admin/users?id='.strip_tags($_GET['id']));
 				}
 				elseif(isset($_POST['delete_pfp'])){
-					$dash_model->deletePFP($_GET['id'], $_SESSION['account']);
-					header('location: '.URL.'admin/users?id='.$_GET['id'], $_SESSION['account']);
+					$dash_model->deletePFP(strip_tags($_GET['id']), $_SESSION['account']);
+					header('location: '.URL.'admin/users?id='.strip_tags($_GET['id']), $_SESSION['account']);
 				}
 				elseif(isset($_FILES['image'])){
-					$_SESSION['alert']=$dash_model->changePFP($_FILES['image'], $_GET['id'], $_SESSION['account']);
-					header('location: '.URL.'admin/users?id='.$_GET['id']);
+					$_SESSION['alert']=$dash_model->changePFP($_FILES['image'], strip_tags($_GET['id']), $_SESSION['account']);
+					header('location: '.URL.'admin/users?id='.strip_tags($_GET['id']));
 				}
 				elseif(isset($_POST['update_personal_info'])){
-					$_SESSION['alert']=$dash_model->updateProfile($_POST['fname'], $_POST['lname'], $_POST['address'], $_POST['address2'], $_POST['city'], $_POST['postcode'], $_POST['country'], $_POST['phone'], $_POST['dob'], $_POST['gender'], $_POST['language'], $_GET['id'], $_SESSION['account']);
-					header('location: '.URL.'admin/users?id='.$_GET['id']);
+					$_SESSION['alert']=$dash_model->updateProfile(strip_tags($_POST['fname']), strip_tags($_POST['lname']), strip_tags($_POST['address']), strip_tags($_POST['address2']), strip_tags($_POST['city']), strip_tags($_POST['postcode']), strip_tags($_POST['country']), strip_tags($_POST['phone']), strip_tags($_POST['dob']), strip_tags($_POST['gender']), strip_tags($_POST['language']), strip_tags($_GET['id']), $_SESSION['account']);
+					header('location: '.URL.'admin/users?id='.strip_tags($_GET['id']));
 				}
 				elseif(isset($_POST['delete_personal_info'])){
-					$dash_model->deleteProfile($_GET['id'], $_SESSION['account']);
-					header('location: '.URL.'admin/users?id='.$_GET['id']);
+					$dash_model->deleteProfile(strip_tags($_GET['id']), strip_tags($_SESSION['account']));
+					header('location: '.URL.'admin/users?id='.strip_tags($_GET['id']));
 				}
 				elseif(isset($_POST['ban_account'])){
-					$dash_model->ban($_GET['id'], $_SESSION['account']);
-					header('location: '.URL.'admin/users?id='.$_GET['id']);
+					$dash_model->ban(strip_tags($_GET['id']), $_SESSION['account']);
+					header('location: '.URL.'admin/users?id='.strip_tags($_GET['id']));
 				}
 				else{
 					require 'app/sites/global/header.php';
@@ -103,7 +103,7 @@ class Admin extends Connection{
 			$dash_model=$this->loadSQL('FursuitDashModel');
 			if(isset($_GET['id'])){
 				if(isset($_POST['edit_fursuit'])){
-						$_SESSION['alert']=$dash_model->editFursuit($_GET['id'], $_POST['suitname'], $_POST['animal'], $_POST['in_use'], $_FILES['image']);
+						$_SESSION['alert']=$dash_model->editFursuit(strip_tags($_GET['id']), strip_tags($_POST['suitname']), strip_tags($_POST['animal']), strip_tags($_POST['in_use']), $_FILES['image']);
 						header('location: '.URL.'admin/fursuits');
 				}
 				elseif(isset($_POST['delete_fursuit'])){
@@ -141,26 +141,26 @@ class Admin extends Connection{
 				//edit event with given ID
 				elseif(isset($_POST['edit_event'])){
 					$event_model=$this->loadSQL('EventModel');
-					$_SESSION['alert']=$event_model->editEvent($_GET['id'], $_POST, $_FILES['image']);
-					header('location: '.URL.'admin/event?id='.$_GET['id']);
+					$_SESSION['alert']=$event_model->editEvent(strip_tags($_GET['id']), $_POST, $_FILES['image']);
+					header('location: '.URL.'admin/event?id='.strip_tags($_GET['id']));
 				}
 				//delete event photo with given ID
 				elseif(isset($_POST['delete_photo'])){
 					$event_model=$this->loadSQL('EventModel');
-					$_SESSION['alert']=$event_model->deletePhoto($_GET['id']);
-					header('location: '.URL.'admin/event?id='.$_GET['id']);
+					$_SESSION['alert']=$event_model->deletePhoto(strip_tags($_GET['id']));
+					header('location: '.URL.'admin/event?id='.strip_tags($_GET['id']));
 				}
 				//edit confirmed users
 				elseif(isset($_POST['confirm_attendees'])){
-					$_SESSION['alert']=$event_model->editConfirm($_GET['id'], $_POST);
-					header('location: '.URL.'admin/event?id='.$_GET['id']);
+					$_SESSION['alert']=$event_model->editConfirm(strip_tags($_GET['id']), $_POST);
+					header('location: '.URL.'admin/event?id='.strip_tags($_GET['id']));
 				}
 				elseif(isset($_POST['export_confirmed'])){
-					$event_model->exportForms($_GET['id'], false);
+					$event_model->exportForms(strip_tags($_GET['id']), false);
 					//header('location: '.URL.'admin/event?id='.$_GET['id']);
 				}
 				elseif(isset($_POST['export_all'])){
-					$event_model->exportForms($_GET['id'], true);
+					$event_model->exportForms(strip_tags($_GET['id']), true);
 					//header('location: '.URL.'admin/event?id='.$_GET['id']);
 				}
 				else{
@@ -179,10 +179,10 @@ class Admin extends Connection{
 				//go to edit/view event page
 				else{
 					if(isset($_GET['id'])){
-						$event=$event_model->getEvent($_GET['id']);
-						$attendees=$event_model->getRegistered($_GET['id']);
+						$event=$event_model->getEvent(strip_tags($_GET['id']));
+						$attendees=$event_model->getRegistered(strip_tags($_GET['id']));
 						//$rooms=$event_model->getRooms($_GET['id']);
-						$fursuits=$event_model->getFursuits($_GET['id']);
+						$fursuits=$event_model->getFursuits(strip_tags($_GET['id']));
 						require 'app/sites/'.THEME.'/admin/event_overview.php';
 					}
 					//list events

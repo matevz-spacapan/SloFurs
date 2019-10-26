@@ -20,8 +20,6 @@ class LogInModel{
 		if(empty($email)||empty($password)){
 			return L::alerts_d_allFields;
 		}
-		$email=strip_tags($email);
-		$password=strip_tags($password);
 		$sql_check='SELECT * FROM account WHERE email=:email';
 		$query_check=$this->db->prepare($sql_check);
 		$query_check->execute(array(':email'=>$email));
@@ -53,8 +51,6 @@ class LogInModel{
 		if(empty($email)||empty($activate_token)){
 			return L::alerts_d_invalidActivateParam;
 		}
-		$email=strip_tags($email);
-		$activate_token=strip_tags($activate_token);
 		$sql_check='SELECT * FROM account WHERE email=:email OR newemail=:email';
 		$query_check=$this->db->prepare($sql_check);
 		$query_check->execute(array(':email'=>$email));
@@ -94,7 +90,6 @@ class LogInModel{
 		session_unset();
 	}
 	public function passwordReset1($email){
-		$email=strip_tags($email);
 		$sql='SELECT username FROM account WHERE email=:email';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':email'=>$email));
@@ -112,8 +107,6 @@ class LogInModel{
 		return L::alerts_s_resetPwEmail;
 	}
 	public function passwordReset2($email, $token){
-		$email=strip_tags($email);
-		$token=strip_tags($token);
 		$sql='SELECT * FROM account WHERE email=:email AND password_reset=:token';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':email'=>$email, ':token'=>$token));
@@ -127,7 +120,7 @@ class LogInModel{
 		return true;
 	}
 	public function passwordReset3($password){
-		$password=password_hash(strip_tags($password), PASSWORD_DEFAULT);
+		$password=password_hash($password, PASSWORD_DEFAULT);
 		$email=$_SESSION['reset_email'];
 		$_SESSION['reset_email']=null;
 		$sql='UPDATE account SET password=:pwd WHERE email=:email';

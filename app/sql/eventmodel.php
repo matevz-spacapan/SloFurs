@@ -31,7 +31,6 @@ class EventModel{
 	}
 	//Get info from event ID...
 	public function getEvent($id){
-		$id=(int)strip_tags($id);
 		$sql='SELECT * FROM event WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -39,7 +38,6 @@ class EventModel{
 	}
 	//Get rooms for event ID...
 	public function getRooms($id){
-		$id=(int)strip_tags($id);
 		$sql='SELECT room.id AS id, etr.id AS etrid, quantity, type, persons, price FROM event_to_room AS etr INNER JOIN room ON etr.room_id=room.id WHERE event_id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -47,7 +45,6 @@ class EventModel{
 	}
 	//Get number of booked rooms for the given room ID
 	public function getBooked($id){
-		$id=(int)strip_tags($id);
 		$sql='SELECT count(id) AS counter FROM registration WHERE room_id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -55,7 +52,6 @@ class EventModel{
 	}
 	//Get registered accounts for event ID...
 	public function getRegistered($id){
-		$id=(int)strip_tags($id);
 		$sql='SELECT registration.id as id, ticket, registration.created as created, confirmed, fursuiter, artist, username, type, price, room_confirmed, language, dob, notes FROM registration INNER JOIN account ON registration.acc_id=account.id LEFT JOIN room ON registration.room_id=room.id WHERE event_id=:id ORDER BY registration.created ASC';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -63,7 +59,6 @@ class EventModel{
 	}
 	//Get fursuits that have in_use=1 and on this event ID...
 	public function getFursuits($id){
-		$id=(int)strip_tags($id);
 		$sql='SELECT username, name, animal, img FROM fursuit INNER JOIN account ON fursuit.acc_id=account.id INNER JOIN registration ON registration.acc_id=account.id WHERE event_id=:id AND in_use=1 ORDER BY name';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -431,7 +426,6 @@ class EventModel{
 			$this->changes($_SESSION['account'], "attempted to delete event ID $id photo", $_SESSION['account']);
 	    return L::alerts_d_cantDoThat;
 	  }
-		$id=strip_tags($id);
 		$sql='SELECT img FROM event WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -459,7 +453,6 @@ class EventModel{
 			$this->changes($_SESSION['account'], "attempted to change confirmed statuses of event ID $event", $_SESSION['account']);
 			return L::alerts_d_cantDoThat;
 	  }
-		$event=strip_tags($event);
 		$sql='SELECT id, confirmed FROM registration WHERE event_id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$event));

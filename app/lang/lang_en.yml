@@ -457,7 +457,7 @@ register:
       info: 'Additional info'
 cookies:
   h: 'Cookies consent'
-  p: 'This site uses cookies to remember you through the current browsing session and to analyze our traffic (statistics). For this we use session cookies to keep you logged in as well as third-party cookies for analytics.'
+  p: 'This site uses cookies to remember you through the current browsing session and to analyze our traffic (statistics). For this we use session cookies to keep you logged in as well as third-party cookies for analytics. The consent is valid until 1.1.2030 or until you clear the cookies for this website inside your web browser.'
   a: 'Learn more'
   necessary: 'Necessary'
   stats: 'Statistics'

@@ -19,7 +19,7 @@ class Register extends Connection{
 			$cEvents=$reg_model->getCEvents(true); //upcoming with no acc
 		}
 		if(isset($_POST['update_personal_info'])){
-			$_SESSION['alert']=$account_model->updateProfile($_POST['fname'], $_POST['lname'], $_POST['address'], $_POST['address2'], $_POST['city'], $_POST['postcode'], $_POST['country'], $_POST['phone'], $_POST['dob'], $_POST['gender'], $_POST['language']);
+			$_SESSION['alert']=$account_model->updateProfile(strip_tags($_POST['fname']), strip_tags($_POST['lname']), strip_tags($_POST['address']), strip_tags($_POST['address2']), strip_tags($_POST['city']), strip_tags($_POST['postcode']), strip_tags($_POST['country']), strip_tags($_POST['phone']), strip_tags($_POST['dob']), strip_tags($_POST['gender']), strip_tags($_POST['language']));
 			header('location: '.URL.'register');
 		}
 		else{
@@ -34,7 +34,7 @@ class Register extends Connection{
 		$new_reg=true;
 		$account=$this->getSessionAcc();
 		$reg_model=$this->loadSQL('RegModel');
-		$id=$_GET["id"]; //event ID
+		$id=strip_tags($_GET["id"]); //event ID
 		//check if already regged for evt and evt exists
 		if($account!=null&&!$reg_model->registered($id, 'event_id')){
 			if($reg_model->exists($id)){
@@ -49,7 +49,7 @@ class Register extends Connection{
 		}
 		//if submitting the registration form
 		if(isset($_POST['new_registration'])){
-			$_SESSION['alert']=$reg_model->doReg($_GET['id'],$_POST);
+			$_SESSION['alert']=$reg_model->doReg($id, $_POST);
 			header('location: '.URL.'register');
 		}
 		else{
@@ -69,7 +69,7 @@ class Register extends Connection{
 			$_SESSION['alert']=L::alerts_i_loggedIn;
 			header('location: '.URL.'login');
 		}
-		$id=$_GET["id"];
+		$id=strip_tags($_GET["id"]);
 		$event=$reg_model->existingReg($id);
 		$evt_id=$event->event_id;
 		//check if actually regged for evt
@@ -83,15 +83,15 @@ class Register extends Connection{
 		}
 		//if submitting a new car share
 		elseif(isset($_POST['new_car_share'])){
-			$_SESSION['alert']=$reg_model->newCarShare($evt_id, $_POST['direction'], $_POST['passengers'], $_POST['outbound'], $_POST['price'], $_POST['description']);
+			$_SESSION['alert']=$reg_model->newCarShare($evt_id, strip_tags($_POST['direction']), strip_tags($_POST['passengers']), strip_tags($_POST['outbound']), strip_tags($_POST['price']), strip_tags($_POST['description']));
 			header('location: '.URL.'register/edit?id='.$id);
 		}
 		elseif(isset($_POST['edit_car_share'])){
-			$_SESSION['alert']=$reg_model->editCarShare($_GET['carshare'], $_POST['direction'], $_POST['passengers'], $_POST['outbound'], $_POST['price'], $_POST['description']);
+			$_SESSION['alert']=$reg_model->editCarShare(strip_tags($_GET['carshare']), strip_tags($_POST['direction']), strip_tags($_POST['passengers']), strip_tags($_POST['outbound']), strip_tags($_POST['price']), strip_tags($_POST['description']));
 			header('location: '.URL.'register/edit?id='.$id);
 		}
 		elseif(isset($_POST['delete_car_share'])){
-			$_SESSION['alert']=$reg_model->deleteCarShare($_GET['carshare']);
+			$_SESSION['alert']=$reg_model->deleteCarShare(strip_tags($_GET['carshare']));
 			header('location: '.URL.'register/edit?id='.$id);
 		}
 		else{
@@ -104,13 +104,13 @@ class Register extends Connection{
 	public function pay(){
 		$account=$this->getSessionAcc();
 		$inv_model=$this->loadSQL('InvoiceModel');
-		$invoice=$inv_model->getInvoice($_GET['id']);
+		$invoice=$inv_model->getInvoice(strip_tags($_GET['id']));
 		if($invoice==null){
 			header('location: '.URL.'register');
 		}
 		else{
 			if(isset($_POST['download'])){
-				$inv_model->download($_GET['id']);
+				$inv_model->download(strip_tags($_GET['id']));
 			}
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/alerts.php';

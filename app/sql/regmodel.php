@@ -62,7 +62,6 @@ class RegModel{
 
 	//Get details for selected event
 	public function newReg($id){
-		$id=strip_tags($id);
 		$sql='SELECT * FROM event WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -70,7 +69,6 @@ class RegModel{
 	}
 	//Get all rooms for given event_id
 	public function getAccomodation($id){
-		$id=strip_tags($id);
 		$sql='SELECT room.id as id, type, persons, price, quantity FROM room INNER JOIN event_to_room ON room.id=event_to_room.room_id WHERE event_id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -78,8 +76,6 @@ class RegModel{
 	}
 	//Get number of booked rooms for given event_id and room_id
 	public function getBooked($eid, $rid){
-		$eid=strip_tags($eid);
-		$rid=strip_tags($rid);
 		$sql='SELECT count(id) as quantity FROM registration WHERE event_id=:eid AND room_id=:rid';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':eid'=>$eid, ':rid'=>$rid));
@@ -87,7 +83,6 @@ class RegModel{
 	}
 	//id=event id, data=null or [ticket selection and/or room selection and/or fursuiter and/or artist]
 	public function doReg($id, $data){
-		$id=strip_tags($id);
 		$event=$this->newReg($id);
 		//check if can reg (bday, reg dates)
 		$sql='SELECT dob, status, username, email FROM account WHERE id=:id';
@@ -178,7 +173,6 @@ class RegModel{
 
 	//Get details for selected event
 	public function existingReg($id, $all=false){
-		$id=strip_tags($id);
 		$sql='SELECT * FROM event INNER JOIN registration ON event.id=registration.event_id WHERE registration.id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -190,7 +184,6 @@ class RegModel{
 
 	//Edit existing registration
 	public function editReg($id, $data){
-		$id=strip_tags($id);
 		$event=$this->existingReg($id);
 		//check if can edit reg (reg end)
 		if(new DateTime($event->reg_end)>=new DateTime()){
@@ -263,8 +256,6 @@ class RegModel{
 	}
 	// Check if account has already registered for event
 	public function registered($id, $type_id, $return_type=true){
-		$id=strip_tags($id);
-		$type_id=strip_tags($type_id);
 		$sql='SELECT id FROM registration WHERE acc_id=:id AND '.$type_id.'=:type_id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$_SESSION['account'], ':type_id'=>$id));
@@ -277,7 +268,6 @@ class RegModel{
 	}
 	// Check if event exists
 	public function exists($id){
-		$id=strip_tags($id);
 		$sql='SELECT id FROM event WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -293,7 +283,6 @@ class RegModel{
 				return true;
 			}
 		}
-		$id=strip_tags($id);
 		$sql='SELECT count(viewable) AS num FROM event WHERE id=:id AND viewable<=NOW()';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -303,7 +292,6 @@ class RegModel{
 	}
 	//Get nr of attendees from each country
 	public function getCountries($id){
-		$id=strip_tags($id);
 		$sql='SELECT country, COUNT(country) AS counter FROM account INNER JOIN registration ON account.id=registration.acc_id WHERE event_id=:id GROUP BY country';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -311,7 +299,6 @@ class RegModel{
 	}
 	//Get nr of tickets by category
 	public function getTickets($id){
-		$id=strip_tags($id);
 		$sql='SELECT ticket, COUNT(ticket) AS counter FROM registration WHERE event_id=:id GROUP BY ticket';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -319,7 +306,6 @@ class RegModel{
 	}
 	//Get nr of attendees by gender
 	public function getGenders($id){
-		$id=strip_tags($id);
 		$sql='SELECT gender, COUNT(gender) AS counter FROM account INNER JOIN registration ON account.id=registration.acc_id WHERE event_id=:id GROUP BY gender';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -327,7 +313,6 @@ class RegModel{
 	}
 	//Get nr of attendees by room selection
 	public function getRooms($id){
-		$id=strip_tags($id);
 		$sql='SELECT type, COUNT(type) AS counter FROM room INNER JOIN registration ON room.id=registration.room_id WHERE event_id=:id GROUP BY type';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -335,7 +320,6 @@ class RegModel{
 	}
 	//Get nr of attendees that selected no room
 	public function getNoRoom($id){
-		$id=strip_tags($id);
 		$sql='SELECT COUNT(*) AS counter FROM registration WHERE event_id=:id AND room_id IS NULL';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -343,7 +327,6 @@ class RegModel{
 	}
 	//Get attendees registered for event
 	public function getAttendees($id){
-		$id=strip_tags($id);
 		$sql='SELECT username, pfp, fursuiter, artist, ticket FROM account INNER JOIN registration ON registration.acc_id=account.id WHERE event_id=:id AND confirmed=1 ORDER BY ticket DESC, username ASC';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -353,7 +336,6 @@ class RegModel{
 	//Get fursuits for confirmed registrations
 	//Get fursuits that have in_use=1 and on this event ID...
 	public function getFursuits($id){
-		$id=(int)strip_tags($id);
 		$sql='SELECT username, name, animal, img FROM fursuit INNER JOIN account ON fursuit.acc_id=account.id INNER JOIN registration ON registration.acc_id=account.id WHERE event_id=:id AND in_use=1 AND confirmed=1 ORDER BY name';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -366,7 +348,6 @@ class RegModel{
 
 	//Get car shares for this event (to event)
 	public function getAllTo($id){
-		$id=strip_tags($id);
 		$sql='SELECT car_share.id as id, price, description, outbound, direction, passengers, username, account.id as accId FROM car_share INNER JOIN account ON account.id=owner WHERE event_id=:id AND direction=0 ORDER BY outbound ASC';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -374,7 +355,6 @@ class RegModel{
 	}
 	//Get car shares for this event (from event)
 	public function getAllFrom($id){
-		$id=strip_tags($id);
 		$sql='SELECT car_share.id as id, price, description, outbound, direction, passengers, username, account.id as accId FROM car_share INNER JOIN account ON account.id=owner WHERE event_id=:id AND direction=1 ORDER BY outbound ASC';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -382,7 +362,6 @@ class RegModel{
 	}
 	//Get selected car share
 	public function getCarShare($id){
-		$id=strip_tags($id);
 		$sql='SELECT * FROM car_share WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -397,12 +376,6 @@ class RegModel{
 		if($query->rowCount()==0){
 			return L::alerts_d_reggedForEvt;
 		}
-		$id=strip_tags($id);
-		$direction=strip_tags($direction);
-		$passengers=strip_tags($passengers);
-		$outbound=strip_tags($outbound);
-		$price=strip_tags($price);
-		$description=strip_tags($description);
 		$sql='INSERT INTO car_share(price, description, outbound, direction, passengers, event_id, owner) VALUES (:price, :description, :outbound, :direction, :passengers, :event_id, :owner)';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':price'=>$price, ':description'=>$description, ':outbound'=>$outbound, ':direction'=>$direction, ':passengers'=>$passengers, ':event_id'=>$id, 'owner'=>$_SESSION['account']));
@@ -412,7 +385,6 @@ class RegModel{
 	}
 	//edit existing car share
 	public function editCarShare($id, $direction, $passengers, $outbound, $price, $description){
-		$id=strip_tags($id);
 		//check if user is the owner of the car share
 		$sql='SELECT * FROM car_share WHERE id=:id AND owner=:acc_id';
 		$query=$this->db->prepare($sql);
@@ -420,11 +392,6 @@ class RegModel{
 		if($query->rowCount()==0){
 			return L::alerts_d_cantDoThat;
 		}
-		$direction=strip_tags($direction);
-		$passengers=strip_tags($passengers);
-		$outbound=strip_tags($outbound);
-		$price=strip_tags($price);
-		$description=strip_tags($description);
 		$sql='UPDATE car_share SET price=:price, description=:description, outbound=:outbound, direction=:direction, passengers=:passengers WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':price'=>$price, ':description'=>$description, ':outbound'=>$outbound, ':direction'=>$direction, ':passengers'=>$passengers, ':id'=>$id));
@@ -435,7 +402,6 @@ class RegModel{
 	}
 	//edit existing car share
 	public function deleteCarShare($id){
-		$id=strip_tags($id);
 		//check if user is the owner of the car share
 		$sql='SELECT * FROM car_share WHERE id=:id AND owner=:acc_id';
 		$query=$this->db->prepare($sql);

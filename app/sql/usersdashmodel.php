@@ -11,7 +11,6 @@ class UsersDashModel{
 	}
 	// Get account with given ID
 	public function define($id){
-		$id=strip_tags($id);
 		$sql='SELECT * FROM account WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -47,9 +46,6 @@ class UsersDashModel{
 		if(empty($email)){
 			return L::alerts_d_allFields;
 		}
-		$email=strip_tags($email);
-		$id=strip_tags($id);
-		$who=strip_tags($who);
 		//check if current email is the same as the new one
 		$sql='SELECT email FROM account WHERE id=:id';
 		$query=$this->db->prepare($sql);
@@ -58,7 +54,6 @@ class UsersDashModel{
 		if($email==$acc->email){
 			return L::alerts_d_sameEmail;
 		}
-		$forced=strip_tags($forced);
 		$activate_token=bin2hex(random_bytes(32));
 		if($forced){
 			$sql='UPDATE account SET email=:email, activate=NULL WHERE id=:id';
@@ -89,8 +84,6 @@ class UsersDashModel{
 
 	//Reset password
 	public function resetPw($id, $who){
-		$id=strip_tags($id);
-		$who=strip_tags($who);
 		$sql='SELECT username, email, password FROM account WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -111,9 +104,6 @@ class UsersDashModel{
 
 	// Set account status
 	public function setStatus($status, $id, $who){
-		$id=strip_tags($id);
-		$who=strip_tags($who);
-		$status=strip_tags($status);
 		$sql='UPDATE account SET status=:status WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':status'=>$status, ':id'=>$id));
@@ -124,8 +114,6 @@ class UsersDashModel{
 
 	// Change PFP
 	public function changePFP($img_file, $id, $who){
-		$id=strip_tags($id);
-		$who=strip_tags($who);
 		$target_dir='public/accounts/';
 		//check if pfp was already uploaded
 		$sql='SELECT pfp FROM account WHERE id=:id';
@@ -169,8 +157,6 @@ class UsersDashModel{
 
 	// Delete PFP
 	public function deletePFP($id, $who){
-		$id=strip_tags($id);
-		$who=strip_tags($who);
 		$target_dir='public/accounts/';
 		$sql='SELECT pfp FROM account WHERE id=:id';
 		$query=$this->db->prepare($sql);
@@ -190,19 +176,6 @@ class UsersDashModel{
 	// Update contact info
 	public function updateProfile($fname, $lname, $address, $address2, $city, $postcode, $country, $phone, $dob, $gender, $language, $id, $who){
 		if(!empty($fname)&&!empty($lname)&&!empty($address)&&!empty($city)&&!empty($postcode)&&!empty($country)&&!empty($phone)&&!empty($dob)&&!empty($gender)){
-			$fname=strip_tags($fname);
-			$lname=strip_tags($lname);
-			$address=strip_tags($address);
-			$address2=strip_tags($address2);
-			$city=strip_tags($city);
-			$postcode=strip_tags($postcode);
-			$country=strip_tags($country);
-			$phone=strip_tags($phone);
-			$dob=strip_tags($dob);
-			$gender=strip_tags($gender);
-			$language=strip_tags($language);
-			$id=strip_tags($id);
-			$who=strip_tags($who);
 			$sql='UPDATE account SET fname=:fname, lname=:lname, address=:address, address2=:address2, post=:post, city=:city, country=:country, phone=:phone, dob=:dob, gender=:gender, language=:language WHERE id=:id';
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':fname'=>$fname, ':lname'=>$lname, ':address'=>$address, ':address2'=>$address2, ':post'=>$postcode, ':city'=>$city, ':country'=>$country, ':phone'=>$phone, ':dob'=>$dob, ':gender'=>$gender, ':language'=>$language, ':id'=>$id));
@@ -218,8 +191,6 @@ class UsersDashModel{
 
 	// Delete profile info, if possible
 	public function deleteProfile($id, $who){
-		$id=strip_tags($id);
-		$who=strip_tags($who);
 		//if no upcoming Evt
 		$sql='SELECT registration.id AS id, name, event_start, event_end, reg_end, confirmed, fursuiter, artist FROM event INNER JOIN registration ON event.id=registration.event_id WHERE ((event_start<=NOW() AND event_end>=NOW()) OR event_start>NOW()) AND acc_id=:acc_id ORDER BY event_start ASC';
 		$query=$this->db->prepare($sql);
@@ -247,8 +218,6 @@ class UsersDashModel{
 
 	// Change ban status
 	public function ban($id, $who){
-		$id=strip_tags($id);
-		$who=strip_tags($who);
 		$sql='SELECT banned FROM account WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));

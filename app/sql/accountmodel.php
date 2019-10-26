@@ -20,7 +20,6 @@ class AccountModel{
 		if(empty($email)||empty($password)){
 			return L::alerts_d_allFields;
 		}
-		$email=strip_tags($email);
 		$sql='SELECT * FROM account WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$_SESSION['account']));
@@ -30,7 +29,6 @@ class AccountModel{
 			return L::alerts_d_sameEmail;
 		}
 		//if password is invalid
-		$password=strip_tags($password);
 		if(!password_verify($password, $account->password)){
 			return L::alerts_d_invalidPw;
 		}
@@ -104,17 +102,6 @@ class AccountModel{
 		if(empty($fname)||empty($lname)||empty($address)||empty($city)||empty($postcode)||empty($country)||empty($phone)||empty($dob)||empty($gender)){
 			return L::alerts_d_allMandatory;
 		}
-		$fname=strip_tags($fname);
-		$lname=strip_tags($lname);
-		$address=strip_tags($address);
-		$address2=strip_tags($address2);
-		$city=strip_tags($city);
-		$postcode=strip_tags($postcode);
-		$country=strip_tags($country);
-		$phone=strip_tags($phone);
-		$dob=strip_tags($dob);
-		$gender=strip_tags($gender);
-		$language=strip_tags($language);
 		$_SESSION['lang']=$language;
 		$sql='UPDATE account SET fname=:fname, lname=:lname, address=:address, address2=:address2, post=:post, city=:city, country=:country, phone=:phone, dob=:dob, gender=:gender, language=:language WHERE id=:id';
 		$query=$this->db->prepare($sql);
@@ -149,11 +136,9 @@ class AccountModel{
 	// Change password
 	public function changePw($oldPw, $newPw){
 		$validPw='/^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9\W_]).*$/m';
-		$newPw=strip_tags($newPw);
 		if(preg_match($validPw, $newPw)!=1){
 			return L::alerts_d_invalidPwFormat;
 		}
-		$oldPw=strip_tags($oldPw);
 		$sql='SELECT password FROM account WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$_SESSION['account']));
@@ -161,7 +146,7 @@ class AccountModel{
 		if(!password_verify($oldPw, $account->password)){
 			return L::alerts_d_currPwInvalid;
 		}
-		$newPw=password_hash(strip_tags($newPw), PASSWORD_DEFAULT);
+		$newPw=password_hash($newPw, PASSWORD_DEFAULT);
 		$sql='UPDATE account SET password=:password WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':password'=>$newPw, ':id'=>$_SESSION['account']));

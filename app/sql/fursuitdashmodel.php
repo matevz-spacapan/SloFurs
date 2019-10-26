@@ -50,8 +50,6 @@ class FursuitDashModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		$account=$query->fetch();
-		$name=strip_tags($name);
-		$animal=strip_tags($animal);
 		$in_use=isset($in_use)?1:0;
 		$target_dir='public/fursuits/';
 		$file_name='';
@@ -71,10 +69,10 @@ class FursuitDashModel{
 
 		//changing the image too
 		if($file_name!=''){
-			return L::alerts_d_onlyPic;
-		}
-		$img_param=getimagesize($image['tmp_name']);
-		if(!$img_param){
+			$img_param=getimagesize($image['tmp_name']);
+			if(!$img_param){
+				return L::alerts_d_onlyPic;
+			}
 			list($width, $height)=$img_param;
 			$min=$width-10;
 			$max=$width+10;

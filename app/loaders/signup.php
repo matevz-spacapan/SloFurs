@@ -8,7 +8,7 @@ class SignUp extends Connection{
 		//sign up account
 		elseif(isset($_POST['sign_up_acc'])){
 			$sign_up_model=$this->loadSQL('SignUpModel');
-			$_SESSION['alert']=$sign_up_model->signupAcc($_POST['username'], $_POST['email'], $_POST['password'], $_POST['g-recaptcha-response']);
+			$_SESSION['alert']=$sign_up_model->signupAcc(strip_tags($_POST['username']), strip_tags($_POST['email']), strip_tags($_POST['password']), strip_tags($_POST['g-recaptcha-response']));
 			if(strpos($_SESSION['alert'], 'd')===0){
 				header('location: '.URL.'signup');
 			}
@@ -30,7 +30,7 @@ class SignUp extends Connection{
 		}
 		elseif(isset($_POST['send_email'])){
 			$sign_up_model=$this->loadSQL('SignUpModel');
-			$_SESSION['alert']=$sign_up_model->resendEmail($_POST['email']);
+			$_SESSION['alert']=$sign_up_model->resendEmail(strip_tags($_POST['email']));
 			header('location: '.URL.'login');
 		}
 		else{

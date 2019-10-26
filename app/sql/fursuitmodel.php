@@ -17,7 +17,6 @@ class FursuitModel{
 	}
 	// Get all fursuits from the user
 	public function getAccFursuits($id){
-		$id=strip_tags($id);
 		$sql='SELECT * FROM fursuit WHERE acc_id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -25,7 +24,6 @@ class FursuitModel{
 	}
 	// Count printable fursuits - badges
 	public function countFursuitBadges($id){
-		$id=strip_tags($id);
 		$sql='SELECT COUNT(*) AS num FROM fursuit WHERE acc_id=:id AND in_use=1';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -36,8 +34,6 @@ class FursuitModel{
 		if(empty($name)||empty($animal)||$image['size']==0){
 			return L::alerts_d_allFields;
 		}
-		$name=strip_tags($name);
-		$animal=strip_tags($animal);
 		$in_use=isset($in_use)?1:0;
 		$target_dir='public/fursuits/';
 		while(true){
@@ -81,8 +77,6 @@ class FursuitModel{
 		if(empty($name)||empty($animal)){
 			return L::alerts_d_allFields;
 		}
-		$name=strip_tags($name);
-		$animal=strip_tags($animal);
 		$in_use=isset($in_use)?1:0;
 		$target_dir='public/fursuits/';
 		if($image['size']!=0){
@@ -125,7 +119,6 @@ class FursuitModel{
 	}
 	public function delFursuit($id){
 		//check if fursuit id and account id match
-		$id=strip_tags($id);
 		$sql='SELECT * FROM fursuit WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
