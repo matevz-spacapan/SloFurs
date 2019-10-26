@@ -12,6 +12,8 @@ All website files are included in the project, however before the website will s
 * [W3.css](https://www.w3schools.com/w3css/) - W3.css for styling
 * [jQuery](https://jquery.com/) - JavaScript library
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e87dc0cd44694747b3a5fa19ac5286ae)](https://www.codacy.com/manual/Pur3Bolt/SloFurs?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Pur3Bolt/SloFurs&amp;utm_campaign=Badge_Grade)
+
 ### Dependencies
 
 * [Composer](https://getcomposer.org/) - Dependency manager

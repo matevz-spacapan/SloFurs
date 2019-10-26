@@ -31,8 +31,8 @@
 		<?php endif; ?>
 		<!-- LANGUAGE SELECTION -->
 		<?php
-			if(isset($_GET['lang'])&&($_GET['lang']=='si'||$_GET['lang']=='en')){
-				$_SESSION['lang']=$_GET['lang'];
+			if(isset($_GET['lang'])&&(strip_tags($_GET['lang'])=='si'||strip_tags($_GET['lang'])=='en')){
+				$_SESSION['lang']=strip_tags($_GET['lang']);
 			}
 		?>
 		<div class="w3-dropdown-hover w3-right w3-hide-small">

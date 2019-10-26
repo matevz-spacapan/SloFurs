@@ -16,8 +16,8 @@ class Application{
 		if(!isset($_SESSION['lang'])){
 			$_SESSION['lang']='si';
 		}
-		if(isset($_GET['lang'])&&($_GET['lang']=='si'||$_GET['lang']=='en')){
-			$_SESSION['lang']=$_GET['lang'];
+		if(isset($_GET['lang'])&&(strip_tags($_GET['lang'])=='si'||strip_tags($_GET['lang'])=='en')){
+			$_SESSION['lang']=strip_tags($_GET['lang']);
 		}
 		//require_once "public/spyc/spyc.php";
 		require_once 'public/i18n/i18n.class.php';
@@ -69,7 +69,7 @@ class Application{
 	}
 	private function splitUrl(){
 		if(isset($_GET['url'])){
-			$url=rtrim($_GET['url'], '/');
+			$url=rtrim(strip_tags($_GET['url']), '/');
 			$url=filter_var($url, FILTER_SANITIZE_URL);
 			$url=explode('/', $url);
 			$this->site=(isset($url[0]) ? $url[0] : null);
