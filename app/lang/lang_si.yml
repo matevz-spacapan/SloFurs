@@ -381,6 +381,9 @@ register:
     currently: 'Prijave za ta dogodek se zaprejo dne'
     upcoming: 'Prijave za ta dogodek so na voljo med'
     location: 'Lokacija'
+    gallery: 'Galerija'
+    galleryD: 'Imate slike, ki jih želite deliti ali pa želite videti slike ostalih udeležencev?'
+    galleryL: 'Kliknite tukaj'
     age:
       h: 'Starostne omejitve'
       none: 'Ni starostnih omejitev za ta dogodek.'

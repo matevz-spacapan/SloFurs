@@ -378,6 +378,9 @@ register:
     upcoming: 'Registrations for this event are available between'
     and: 'and'
     location: 'Location'
+    gallery: 'Gallery'
+    galleryD: 'Do you have any photos to share or want to see photos from other attendees?'
+    galleryL: 'Click here'
     age:
       h: 'Age restrictions'
       none: 'There are no age restrictions for this event.'

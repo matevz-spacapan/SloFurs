@@ -71,6 +71,9 @@
 			<h5><?php echo L::register_form_location;?></h5>
 			<p class="w3-text-dark-gray"> <a href="https://maps.google.com/?q=<?php echo $event->location;?>" target="_blank"><?php echo $event->location;?> <i class="far fa-external-link"></i></a> </p>
 
+			<h5><?php echo L::register_form_gallery;?></h5>
+			<p class="w3-text-dark-gray"><?php echo L::register_form_galleryD;?><br><a href="<?php echo $event->gallery;?>" target="_blank"><?php echo L::register_form_galleryL;?> <i class="far fa-external-link"></i></a></p>
+
 			<h5><?php echo L::register_form_age_h;?></h5>
 			<?php
 			$age=null;

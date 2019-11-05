@@ -56,6 +56,7 @@
 				<?php foreach($pEvents as $event): ?>
 					<?php
 						$color='w3-light-gray';
+						$text='';
 						require 'app/sites/'.THEME.'/admin/evt.php';
 					?>
 				<?php endforeach; ?>
