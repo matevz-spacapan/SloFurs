@@ -260,11 +260,13 @@ account:
     fursuits: 'Fursuiti'
     welcome: 'Pozdravljeni'
   h: 'Podatki o računu'
+  fillOutField: 'Please fill out this field.'
   email:
-    h: 'E-poštni naslov računa'
+    h: 'Spremeni e-poštni naslov'
     update: 'Spremeni'
     new: 'Nov e-poštni naslov'
     pw: 'Potrdite geslo'
+    invalid: 'Plese enter a valid email address.'
     save: 'Shrani'
     newsletterSub: 'Prijavljeni ste na novice.'
     newsletterNotSub: 'Niste prijavljeni na novice.'
@@ -276,13 +278,13 @@ account:
     label: 'Spremeni sliko'
   contact:
     h: 'Osebni podatki'
-    hInfo: 'Tej podatki so zasebni in preverjeni iz strani organizatorja dogodka.'
   password:
-    h: 'Spremeni svoje geslo'
+    h: 'Spremeni geslo'
+    password: 'Geslo:'
     current: 'Trenutno geslo'
     new: 'Novo geslo'
     newI: 'Geslo mora vsebovati vsaj 8 znakov, od tega vsaj eno številko ali poseben znak.'
-    confirm: 'ponovi'
+    invalid: 'Geslo ni skladno z zgornjimi pravili.'
     save: 'Shrani'
   fursuit:
     h: 'Fursuit kotiček'

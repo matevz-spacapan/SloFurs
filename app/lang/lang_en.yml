@@ -257,11 +257,13 @@ account:
     fursuits: 'Fursuits'
     welcome: 'Welcome'
   h: 'Account information'
+  fillOutField: 'Please fill out this field.'
   email:
-    h: 'Account email'
+    h: 'Change email'
     update: 'Update'
     new: 'New email address'
     pw: 'Verify password'
+    invalid: 'Plese enter a valid email address.'
     save: 'Save'
     newsletterSub: 'You are subscribed to the newsletter.'
     newsletterNotSub: 'You aren\'t subscribed to the newsletter.'
@@ -273,13 +275,13 @@ account:
     label: 'Change photo'
   contact:
     h: 'Personal information'
-    hInfo: 'This information is kept private and validated at the event by staff.'
   password:
-    h: 'Update your password'
+    h: 'Change password'
+    password: 'Password:'
     current: 'Current password'
     new: 'New password'
     newI: 'The password must be at least 8 characters long and contain a number or a special character.'
-    confirm: 'confirm'
+    invalid: 'The password does not follow the above rules.'
     save: 'Save'
   fursuit:
     h: 'Fursuit corner'

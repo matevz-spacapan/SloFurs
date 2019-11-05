@@ -20,7 +20,7 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-			        <h4 class="modal-title">Change email</h4>
+			        <h4 class="modal-title"><?php echo L::account_email_h;?></h4>
 			        <button type="button" class="close" data-dismiss="modal">&times;</button>
 			      </div>
 						<form action="<?php echo URL; ?>account/contact" method="post" autocomplete="off" class="needs-validation" novalidate>
@@ -28,12 +28,12 @@
 								<div class="form-group">
 									<label for="newemail"><?php echo L::account_email_new;?></label>
 									<input class="form-control" type="email" name="newemail" required>
-									<div class="invalid-feedback">Plese enter a valid email address.</div>
+									<div class="invalid-feedback"><?php echo L::account_email_invalid;?></div>
 								</div>
 								<div class="form-group">
 									<label for="verifypassword"><?php echo L::account_email_pw;?></label>
 									<input class="form-control" type="password" name="verifypassword" required>
-									<div class="invalid-feedback">Please fill out this field.</div>
+									<div class="invalid-feedback"><?php echo L::account_fillOutField;?></div>
 								</div>
 					    </div>
 							<div class="modal-footer">
@@ -67,7 +67,7 @@
 			<!-- Password -->
 			<div class="d-flex flex-row mb-4" style="min-width: 350px;">
 				<div class="">
-					<h5 style="display:inline;">Geslo: </h5>
+					<h5 style="display:inline;"><?php echo L::account_password_password;?></h5>
 					<i class="text-muted">********</i>
 				</div>
 				<div class="ml-auto">
@@ -78,7 +78,7 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-			        <h4 class="modal-title">Change password</h4>
+			        <h4 class="modal-title"><?php echo L::account_password_h;?></h4>
 			        <button type="button" class="close" data-dismiss="modal">&times;</button>
 			      </div>
 						<form id="passwordForm" action="<?php echo URL; ?>account/contact" method="post" class="needs-validation" novalidate>
@@ -86,13 +86,13 @@
 								<div class="form-group">
 									<label for="oldpassword"><?php echo L::account_password_current;?></label>
 									<input class="form-control" type="password" name="oldpassword" required>
-									<div class="invalid-feedback">Please fill out the field.</div>
+									<div class="invalid-feedback"><?php echo L::account_fillOutField;?></div>
 								</div>
 								<div class="form-group">
 									<label for="newpassword"><?php echo L::account_password_new;?></label>
 									<input class="form-control" id="pwd" type="password" name="newpassword" pattern="^(?=.{8,}$)(?=.*[a-zA-Z])(?=.*[0-9\W_]).*$" required>
 									<small class="form-text text-muted"><?php echo L::account_password_newI;?></small>
-									<div class="invalid-feedback">The password does not comply the above rule.</div>
+									<div class="invalid-feedback"><?php echo L::account_password_invalid;?></div>
 								</div>
 					    </div>
 							<div class="modal-footer">
@@ -104,29 +104,27 @@
 			</div>
 
 			<!-- Profile picture -->
-			<div class="container">
-				<h3><?php echo L::account_pfp_h;?></h3>
-				<p><?php echo L::account_pfp_desc;?></p>
-				<form action="<?php echo URL; ?>account/contact" method="post" enctype="multipart/form-data" id="updatePFP">
-					<div class="w3-display-container" style="max-height:200px;max-width:200px; margin: 0 auto;">
-						<?php if(file_exists('public/accounts/'.$account->pfp.'.png')): ?>
-							<img src="<?php echo URL.'public/accounts/'.$account->pfp; ?>.png" style="width:100%" id="pfp">
-						<?php else: ?>
-							<img src="<?php echo URL.'public/img/account.png' ?>" style="width:100%" id="pfp">
-						<?php endif; ?>
-						<div class="w3-display-middle w3-display-hover">
-							<label for="file-upload" class="btn btn-light"><?php echo L::account_pfp_label;?></label>
-							<input id="file-upload" type="file" style="display:none" name="image" onchange="$('#updatePFP').submit()"/>
-						</div>
-					</div>
-					<?php if($account->pfp!=null): ?>
-						<div class="container text-center mt-3">
-							<button type="button" class="btn btn-outline-danger" id="delpfp" onclick="delData('pfp')"><?php echo L::admin_account_removePFP;?></button>
-							<button type="submit" name="delete_pfp" class="btn btn-danger" id="delconfpfp" style="display:none;"><?php echo L::personalInfo_delete2;?></button>
-						</div>
+			<h3><?php echo L::account_pfp_h;?></h3>
+			<p><?php echo L::account_pfp_desc;?></p>
+			<form action="<?php echo URL; ?>account/contact" method="post" enctype="multipart/form-data" id="updatePFP">
+				<div class="w3-display-container" style="max-height:200px;max-width:200px; margin: 0 auto;">
+					<?php if(file_exists('public/accounts/'.$account->pfp.'.png')): ?>
+						<img src="<?php echo URL.'public/accounts/'.$account->pfp; ?>.png" style="width:100%" id="pfp">
+					<?php else: ?>
+						<img src="<?php echo URL.'public/img/account.png' ?>" style="width:100%" id="pfp">
 					<?php endif; ?>
-				</form>
-			</div>
+					<div class="w3-display-middle w3-display-hover">
+						<label for="file-upload" class="btn btn-light"><?php echo L::account_pfp_label;?></label>
+						<input id="file-upload" type="file" style="display:none" name="image" onchange="$('#updatePFP').submit()"/>
+					</div>
+				</div>
+				<?php if($account->pfp!=null): ?>
+					<div class="container text-center mt-3">
+						<button type="button" class="btn btn-outline-danger" id="delpfp" onclick="delData('pfp')"><?php echo L::admin_account_removePFP;?></button>
+						<button type="submit" name="delete_pfp" class="btn btn-danger" id="delconfpfp" style="display:none;"><?php echo L::personalInfo_delete2;?></button>
+					</div>
+				<?php endif; ?>
+			</form>
 
 		</div>
 		<div class="col">
