@@ -41,7 +41,7 @@ admin:
       end: 'Konec'
       endInfo: 'ko se udeleženci ne morejo več prijaviti. Če pustite prazno, se lahko prijavijo do pričetka dogodka'
       auto: 'Samodejno potrjevanje prijav'
-      autoInfo: 'če obkljukano, bodo vse prijave na dogodek sprejete samodejno, brez potrebe po ročnem potrjevanju iz strani osebja'
+      autoInfo: 'če obkljukate, bodo vse prijave na dogodek sprejete samodejno, brez potrebe po ročnem potrjevanju iz strani osebja'
     age:
       h: 'Starostne omejitve'
       check: 'Starostno omejen dogodek'
@@ -266,18 +266,22 @@ account:
     new: 'Nov e-poštni naslov'
     pw: 'Potrdite geslo'
     save: 'Shrani'
+    newsletterSub: 'Prijavljeni ste na novice.'
+    newsletterNotSub: 'Niste prijavljeni na novice.'
+    bSub: 'Prijava na novice'
+    bUnsub: 'Odjava novic'
   pfp:
     h: 'Profilna slika'
     desc: 'Slika mora biti kvadratna. Preverite, da je, preden jo prenesete.'
     label: 'Spremeni sliko'
   contact:
-    h: 'Kontaktne informacije'
+    h: 'Osebni podatki'
     hInfo: 'Tej podatki so zasebni in preverjeni iz strani organizatorja dogodka.'
   password:
     h: 'Spremeni svoje geslo'
     current: 'Trenutno geslo'
     new: 'Novo geslo'
-    newI: 'mora vsebovati vsaj 8 znakov, od tega vsaj eno številko ali poseben znak'
+    newI: 'Geslo mora vsebovati vsaj 8 znakov, od tega vsaj eno številko ali poseben znak.'
     confirm: 'ponovi'
     save: 'Shrani'
   fursuit:
@@ -292,7 +296,7 @@ account:
     name: 'Ime fursuita'
     animal: 'Žival'
     use: 'Uporabi kot značko'
-    useI: 'Če obkljukano, bo ta fursuit natisnjen na značko na dogodkih.'
+    useI: 'Če obkljukate, bo ta fursuit natisnjen na značko na dogodkih.'
     useIEdit: 'Slika mora biti kvadratne oblike.'
     photo: 'Slika fursuita'
     photoI: 'Za shranjevanje morate dodati sliko fursuita. Slika mora biti kvadratne oblike.'
@@ -521,3 +525,4 @@ alerts:
     evtSuccUpdate: 'sPodatki o prijavi na ta dogodek so uspešno posodobljeni.'
     pwAdminReset: 'sGeslo uspešno ponastavljeno.'
     deleted: 'sRačun uspešno izbrisan.'
+    newsletter: 'sUspešno ste spremenili svojo naročnino na novice.'

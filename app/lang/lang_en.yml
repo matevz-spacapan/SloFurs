@@ -263,18 +263,22 @@ account:
     new: 'New email address'
     pw: 'Verify password'
     save: 'Save'
+    newsletterSub: 'You are subscribed to the newsletter.'
+    newsletterNotSub: 'You aren\'t subscribed to the newsletter.'
+    bSub: 'Subscribe'
+    bUnsub: 'Unsubscribe'
   pfp:
     h: 'Profile photo'
     desc: 'When uploading a profile photo, please make sure it\'s square shaped.'
     label: 'Change photo'
   contact:
-    h: 'Contact information'
+    h: 'Personal information'
     hInfo: 'This information is kept private and validated at the event by staff.'
   password:
     h: 'Update your password'
     current: 'Current password'
     new: 'New password'
-    newI: 'must be at least 8 characters long and contain a number or a special character'
+    newI: 'The password must be at least 8 characters long and contain a number or a special character.'
     confirm: 'confirm'
     save: 'Save'
   fursuit:
@@ -518,3 +522,4 @@ alerts:
     evtSuccUpdate: 'sYour event registration data was successfully updated.'
     pwAdminReset: 'sPassword successfully reset.'
     deleted: 'sAccount deleted successfully.'
+    newsletter: 'sYou have successfully changed your subscription.'

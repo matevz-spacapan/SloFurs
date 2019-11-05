@@ -214,6 +214,32 @@ class UsersDashModel{
 		return L::alerts_s_accDeleted;
 	}
 
+
+	// Change newsletter status
+	public function newsletter($id, $who){
+		$sql='SELECT newsletter FROM account WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		$account=$query->fetch();
+		$new=0;
+		if($account->newsletter==0){
+			$new=1;
+		}
+		$sql='UPDATE account SET newsletter=:newsletter WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':newsletter'=>$new, ':id'=>$id));
+		if($new==1){
+			$what='subscribed to the newsletter for the account';
+		}
+		else{
+			$what='unsubscribed from the newsletter for the account';
+		}
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$who, ':what'=>$what, ':for_who'=>$id, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+		return L::alerts_s_pwChanged;
+	}
+
 	// Change ban status
 	public function ban($id, $who){
 		$sql='SELECT banned FROM account WHERE id=:id';

@@ -151,4 +151,25 @@ class AccountModel{
 		$this->changes($_SESSION['account'], 'changed their password', $_SESSION['account']);
 		return L::alerts_s_pwChanged;
 	}
+	// Change newsletter status
+	public function newsletter(){
+		$sql='SELECT newsletter FROM account WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$_SESSION['account']));
+		$account=$query->fetch();
+		$new=0;
+		if($account->newsletter==0){
+			$new=1;
+		}
+		$sql='UPDATE account SET newsletter=:newsletter WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':newsletter'=>$new, ':id'=>$_SESSION['account']));
+		if($new==1){
+			$this->changes($_SESSION['account'], 'subscribed to the newsletter', $_SESSION['account']);
+		}
+		else{
+			$this->changes($_SESSION['account'], 'unsubscribed from the newsletter', $_SESSION['account']);
+		}
+		return L::alerts_s_newsletter;
+	}
 }

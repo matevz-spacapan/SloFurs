@@ -20,6 +20,14 @@ class Account extends Connection{
 			$_SESSION['alert']=$account_model->changeEmail(filter_var($_POST['newemail'], FILTER_SANITIZE_EMAIL), strip_tags($_POST['verifypassword']));
 			header('location: '.URL.'account/contact');
 		}
+		elseif(isset($_POST['newsletter'])){
+			$_SESSION['alert']=$account_model->newsletter();
+			header('location: '.URL.'account/contact');
+		}
+		elseif(isset($_POST['change_password'])){
+			$_SESSION['alert']=$account_model->changePw(strip_tags($_POST['oldpassword']), strip_tags($_POST['newpassword']));
+			header('location: '.URL.'account/contact');
+		}
 		elseif(isset($_POST{'delete_pfp'})){
 			$_SESSION['alert']=$account_model->deletePFP();
 			header('location: '.URL.'account/contact');
@@ -45,7 +53,7 @@ class Account extends Connection{
 		}
 	}
 	// Password page
-	public function password(){
+	/*public function password(){
 		$account=$this->getSessionAcc();
 		$account_model=$this->loadSQL('AccountModel');
 		if($account==null){
@@ -62,7 +70,7 @@ class Account extends Connection{
 			require 'app/sites/'.THEME.'/account/password.php';
 			require 'app/sites/global/footer.php';
 		}
-	}
+	}*/
 	// Fursuits page
 	public function fursuit(){
 		$account=$this->getSessionAcc();

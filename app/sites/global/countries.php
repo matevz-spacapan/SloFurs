@@ -1,4 +1,4 @@
-<select id="country" name="country" class="w3-select" required>
+<select id="country" name="country" class="custom-select" required>
 	<option hidden="true" value=""><?php echo L::personalInfo_countrySelect;?></option>
 	<option value="Slovenia">Slovenia</option>
 	<option value="Austria">Austria</option>

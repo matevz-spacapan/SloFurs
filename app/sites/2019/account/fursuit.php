@@ -1,11 +1,10 @@
 <div class="w3-main" style="margin-left:200px">
-<div class="w3-blue">
-	<button class="w3-button w3-blue w3-xlarge w3-hide-large" onclick="$('#accSidebar').show();">&#9776;</button>
-	<div class="w3-container">
-		<h1><?php echo L::account_fursuit_h;?></h1>
+<div class="bg-primary text-white">
+	<button class="btn btn-primary btn-lg w3-hide-large" onclick="$('#accSidebar').show()">&#9776;</button>
+	<div class="container-fluid">
 	</div>
 </div>
-<div class="w3-container">
+<div class="container-fluid">
 	<div>
 		<?php echo L::account_fursuit_currently1;?> <?php echo count($fursuits).' '; echo (count($fursuits) > 0 ? (count($fursuits) > 1 ? L::account_fursuit_fursuits : L::account_fursuit_fursuit) : L::account_fursuit_fursuits); ?> <?php echo L::account_fursuit_currently2;?><p>
 		<?php if(count($fursuits)>0): ?>
@@ -14,34 +13,46 @@
 	</div>
 
 	<!-- NEW FURSUIT -->
-	<button class="w3-button w3-border-blue w3-border w3-round" onclick="$('#fursuit0').show()"><?php echo L::account_fursuit_new;?></button>
-	<div id="fursuit0" class="w3-modal">
-		<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
-			<header class="w3-container w3-blue w3-center roundHeaderTop">
-				<span onclick="$('#fursuit0').hide()"
-				class="w3-button w3-display-topright roundXTop">&times;</span>
-				<h2><?php echo L::account_fursuit_newH;?></h2>
-			</header>
-			<div class="w3-container">
-				<form action="<?php echo URL; ?>account/fursuit" method="post" enctype="multipart/form-data">
-					<label><?php echo L::account_fursuit_name;?></label>
-					<input type="text" class="w3-input" name="suitname" required>
-					<label><?php echo L::account_fursuit_animal;?></label>
-					<input type="text" class="w3-input" name="animal" required><p>
-					<input class="w3-check" type="checkbox" name="in_use">
-					<label><?php echo L::account_fursuit_use;?></label> <i class="w3-opacity w3-small"><?php echo L::account_fursuit_useI;?></i><p>
-					<label><?php echo L::account_fursuit_photo;?></label> <i class="w3-opacity w3-small"><?php echo L::account_fursuit_photoI;?></i>
-					<div class="w3-display-container photoContainer">
-						<img src="<?php echo URL.'public/img/account.png'; ?>" class="w3-round-large" style="width:100%">
-						<div class="w3-display-middle">
-							<label for="file-upload0" class="w3-button w3-round w3-border w3-border-blue w3-white"><?php echo L::account_fursuit_addPhoto;?></label>
-							<input id="file-upload0" type="file" style="display:none" name="image" onchange="pfp(0)">
-							<i id="save0"><?php echo L::account_fursuit_selectPhoto;?></i>
+	<button type="button" data-toggle="modal" data-target="#fursuit0" class="btn btn-outline-primary"><?php echo L::account_fursuit_new;?></button>
+
+	<div class="modal fade" id="fursuit0">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title"><?php echo L::account_fursuit_newH;?></h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<form action="<?php echo URL; ?>account/fursuit" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="suitname"><?php echo L::account_fursuit_name;?></label>
+							<input type="text" class="form-control" name="suitname" required>
+						</div>
+						<div class="form-group">
+							<label for="animal"><?php echo L::account_fursuit_animal;?></label>
+							<input type="text" class="form-control" name="animal" required>
+						</div>
+						<div class="form-group">
+							<div class="custom-control custom-checkbox">
+								<input class="custom-control-input" type="checkbox" name="in_use" id="in_use">
+								<label class="custom-control-label" for="in_use"><?php echo L::account_fursuit_use;?></label> <small class="text-muted"><?php echo L::account_fursuit_useI;?></small>
+							</div>
+						</div>
+						<div class="form-group">
+							<label><?php echo L::account_fursuit_photo;?></label> <small class="text-muted"><?php echo L::account_fursuit_photoI;?></small>
+							<div class="w3-display-container photoContainer">
+								<img src="<?php echo URL.'public/img/account.png'; ?>" class="w3-round-large" style="width:100%">
+								<div class="w3-display-middle">
+									<label for="file-upload0" class="btn btn-light"><?php echo L::account_fursuit_addPhoto;?></label>
+									<input id="file-upload0" type="file" style="display:none" name="image" onchange="pfp(0)" required class="custom-file">
+									<i id="save0"><?php echo L::account_fursuit_selectPhoto;?></i>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="w3-center">
-						<p>
-						<button type="submit" id="submit0" name="new_fursuit" class="w3-button w3-green w3-round" disabled><?php echo L::account_fursuit_save;?></button>
+					<div class="modal-footer">
+						<button type="submit" id="submit0" name="new_fursuit" class="btn btn-success"><?php echo L::account_fursuit_save;?></button>
+						</form>
 					</div>
 				</form>
 			</div>
@@ -54,7 +65,7 @@
 		<?php if(count($fursuits) > 0): ?>
 			<?php foreach($fursuits as $fursuit): ?>
 				<!-- On the list -->
-				<div class="card" onclick="$('#fursuit<?php echo $fursuit->id; ?>').show()">
+				<div class="card" data-toggle="modal" data-target="#fursuit<?php echo $fursuit->id; ?>">
 					<?php if(file_exists('public/fursuits/'.$fursuit->img.'.png')): ?>
 						<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="roundImg">
 					<?php else: ?>
@@ -63,39 +74,50 @@
 					<p class="w3-center"><?php if($fursuit->in_use==1){echo '<i class="far fa-id-card-alt fa-lg"></i> ';} echo $fursuit->name; ?></p>
 				</div>
 				<!-- Pop-up modal editor -->
-				<div id="fursuit<?php echo $fursuit->id; ?>" class="w3-modal">
-					<div class="w3-modal-content w3-card-4 w3-round-large" style="max-width:600px">
-						<header class="w3-container w3-blue w3-center roundHeaderTop">
-							<span onclick="$('#fursuit<?php echo $fursuit->id; ?>').hide()"
-							class="w3-button w3-display-topright roundXTop">&times;</span>
-							<h2><?php echo $fursuit->name; ?></h2>
-						</header>
-						<div class="w3-container">
-							<form action="<?php echo URL; ?>account/fursuit/?id=<?php echo $fursuit->id; ?>" method="post" enctype="multipart/form-data">
-								<label><?php echo L::account_fursuit_name;?></label>
-								<input type="text" class="w3-input" name="suitname" value="<?php echo $fursuit->name; ?>" required>
-								<label><?php echo L::account_fursuit_animal;?></label>
-								<input type="text" class="w3-input" name="animal" value="<?php echo $fursuit->animal; ?>" required><p>
-								<input class="w3-check" type="checkbox" name="in_use" <?php if($fursuit->in_use==1){echo 'checked';} ?>>
-								<label><?php echo L::account_fursuit_use;?></label> <i class="w3-opacity w3-small"><?php echo L::account_fursuit_useI;?></i><p>
-								<label><?php echo L::account_fursuit_photo;?></label> <i class="w3-opacity w3-small"><?php echo L::account_fursuit_useIEdit;?></i>
-								<div class="w3-display-container photoContainer">
-									<?php if(file_exists('public/fursuits/'.$fursuit->img.'.png')): ?>
-										<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="w3-round-large" style="width:100%">
-									<?php else: ?>
-										<img src="<?php echo URL.'public/img/account.png' ?>" style="width:100%">
-									<?php endif; ?>
-									<div class="w3-display-middle w3-display-hover">
-										<label for="file-upload<?php echo $fursuit->id; ?>" class="w3-button w3-round w3-border w3-border-blue w3-white"><?php echo L::account_fursuit_changePhoto;?></label>
-										<input id="file-upload<?php echo $fursuit->id; ?>" type="file" style="display:none" name="image" onchange="pfp('<?php echo $fursuit->id; ?>')">
-										<div class="w3-container w3-white w3-opacity w3-round" id="save<?php echo $fursuit->id; ?>"><?php echo L::account_fursuit_selectPhotoChange;?></div>
+				<div class="modal fade" id="fursuit<?php echo $fursuit->id; ?>">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title"><?php echo $fursuit->name; ?></h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							<form action="<?php echo URL; ?>account/fursuit/?id=<?php echo $fursuit->id; ?>" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+								<div class="modal-body">
+									<div class="form-group">
+										<label for="suitname"><?php echo L::account_fursuit_name;?></label>
+										<input type="text" class="form-control" name="suitname" required value="<?php echo $fursuit->name; ?>">
+									</div>
+									<div class="form-group">
+										<label for="animal"><?php echo L::account_fursuit_animal;?></label>
+										<input type="text" class="form-control" name="animal" required value="<?php echo $fursuit->animal; ?>">
+									</div>
+									<div class="form-group">
+										<div class="custom-control custom-checkbox">
+											<input class="custom-control-input" type="checkbox" name="in_use" id="in_use" <?php if($fursuit->in_use==1){echo 'checked';} ?>>
+											<label class="custom-control-label" for="in_use"><?php echo L::account_fursuit_use;?></label> <small class="text-muted"><?php echo L::account_fursuit_useI;?></small>
+										</div>
+									</div>
+									<div class="form-group">
+										<label><?php echo L::account_fursuit_photo;?></label> <small class="text-muted"><?php echo L::account_fursuit_photoI;?></small>
+										<div class="w3-display-container photoContainer">
+											<?php if(file_exists('public/fursuits/'.$fursuit->img.'.png')): ?>
+												<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="w3-round-large" style="width:100%">
+											<?php else: ?>
+												<img src="<?php echo URL.'public/img/account.png' ?>" style="width:100%">
+											<?php endif; ?>
+											<div class="w3-display-middle w3-display-hover">
+												<label for="file-upload<?php echo $fursuit->id; ?>" class="btn btn-light"><?php echo L::account_fursuit_changePhoto;?></label>
+												<input id="file-upload<?php echo $fursuit->id; ?>" type="file" style="display:none" name="image" onchange="pfp('<?php echo $fursuit->id; ?>')">
+												<div class="w3-container w3-white w3-opacity w3-round" id="save<?php echo $fursuit->id; ?>"><?php echo L::account_fursuit_selectPhotoChange;?></div>
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="w3-center">
-									<p>
-									<button type="submit" name="edit_fursuit" class="w3-button w3-green w3-round"><?php echo L::account_fursuit_save;?></button>
-									<button type="button" class="w3-button w3-red w3-round" id="del<?php echo $fursuit->id; ?>" onclick="delFursuit('<?php echo $fursuit->id; ?>')"><?php echo L::account_fursuit_delete1;?></button>
-									<button type="submit" name="delete_fursuit" id="delconf<?php echo $fursuit->id; ?>" class="w3-button w3-red w3-round" style="display: none;"><?php echo L::account_fursuit_delete2;?></button>
+								<div class="modal-footer">
+									<button type="submit" name="edit_fursuit" class="btn btn-success"><?php echo L::account_fursuit_save;?></button>
+									<button type="button" class="btn btn-outline-danger" id="del<?php echo $fursuit->id; ?>" onclick="delFursuit('<?php echo $fursuit->id; ?>')"><?php echo L::account_fursuit_delete1;?></button>
+									<button type="submit" name="delete_fursuit" id="delconf<?php echo $fursuit->id; ?>" class="btn btn-danger" style="display: none;"><?php echo L::account_fursuit_delete2;?></button>
+									</form>
 								</div>
 							</form>
 						</div>
@@ -129,5 +151,25 @@ function pfp(id){
 		document.getElementById("submit0").disabled=false;
 	}
 }
-$("#fursuit").addClass("w3-blue");
+$("#fursuit").removeClass("text-body btn-link");
+$("#fursuit").addClass("btn-primary");
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
 </script>
