@@ -82,6 +82,12 @@ class RegModel{
 	//id=event id, data=null or [ticket selection and/or room selection and/or fursuiter and/or artist]
 	public function doReg($id, $data){
 		$event=$this->newReg($id);
+		//if not subscribed to newsletter and ticked to subscribe, do this here
+		if(array_key_exists('newsletter', $data)){
+			$sql='UPDATE account SET newsletter=1 WHERE id=:id';
+			$query=$this->db->prepare($sql);
+			$query->execute(array(':id'=>$_SESSION['account']));
+		}
 		//check if can reg (bday, reg dates)
 		$sql='SELECT dob, status, username, email FROM account WHERE id=:id';
 		$query=$this->db->prepare($sql);

@@ -1,3 +1,25 @@
+<!--<nav class="navbar navbar-expand-md">
+	<?php if(strpos($this->getBaseUrl(), 'admin/')!==false): ?>
+		<button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="$('#sidebar').show()"><i class="far fa-bars"></i>  Menu</button>
+	<?php endif; ?>
+  <a class="navbar-brand" href="<?php echo URL ?>"><?php echo L::topnavbar_home;?></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo URL ?>register"><?php echo L::topnavbar_event;?></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://slofurs.org/" target="_blank"><?php echo L::topnavbar_blog;?> <i class="far fa-external-link"></i></a>
+      </li>
+    </ul>
+  </div>
+	<ul class="navbar-nav ml-auto">
+
+	</ul>
+</nav>-->
 <div class="w3-top" style="z-index:50;">
 	<div class="w3-bar w3-large w3-white">
 		<?php if(strpos($this->getBaseUrl(), 'admin/')!==false): ?>
@@ -27,7 +49,7 @@
 
 		<?php else: ?>
 			<!-- Not logged in -->
-			<a href="<?php echo URL; ?>login" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white"><?php echo L::topnavbar_logIn;?></a>
+			<button type="button" data-toggle="modal" data-target="#loginModal" class="w3-right btn btn-link text-body"><?php echo L::topnavbar_logIn;?></button>
 		<?php endif; ?>
 		<!-- LANGUAGE SELECTION -->
 		<?php

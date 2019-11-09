@@ -9,14 +9,14 @@ class Admin extends Connection{
 			header('location: '.URL.'404');
 		}
 		else{
-			header('location: '.URL.'login');
+			header('location: '.URL);
 		}
 	}
 	// Dashboard
 	public function dash(){
 		$account=$this->getSessionAcc();
 		if($account==null){
-			header('location: '.URL.'login');
+			header('location: '.URL);
 		}
 		elseif($account->status>=STAFF){
 			$dash_model=$this->loadSQL('DashboardModel');
@@ -33,7 +33,7 @@ class Admin extends Connection{
 	public function users(){
 		$account=$this->getSessionAcc();
 		if($account==null){
-			header('location: '.URL.'login');
+			header('location: '.URL);
 		}
 		elseif($account->status>=SUPER){
 			$dash_model=$this->loadSQL('UsersDashModel');
@@ -97,7 +97,7 @@ class Admin extends Connection{
 	public function fursuits(){
 		$account=$this->getSessionAcc();
 		if($account==null){
-			header('location: '.URL.'login');
+			header('location: '.URL);
 		}
 		elseif($account->status>=SUPER){
 			$dash_model=$this->loadSQL('FursuitDashModel');
@@ -128,7 +128,7 @@ class Admin extends Connection{
 		$account=$this->getSessionAcc();
 		$event_model=$this->loadSQL('EventModel');
 		if($account==null){
-			header('location: '.URL.'login');
+			header('location: '.URL);
 		}
 		elseif($account->status>=STAFF){
 			if($account->status>=ADMIN){

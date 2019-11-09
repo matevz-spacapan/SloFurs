@@ -6,7 +6,7 @@ class Account extends Connection{
 			header('location: '.URL.'account/contact');
 		}
 		else{
-			header('location: '.URL.'login');
+			echo '<script>window.history.back();</script>';
 		}
 	}
 	// Contact info page

@@ -109,19 +109,13 @@ class LogInModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':email'=>$email, ':token'=>$token));
 		$account=$query->fetchAll();
-		if(count($account)==0){
-			return false;
-		}
-		$sql='UPDATE account SET password_reset=NULL WHERE email=:email';
-		$query=$this->db->prepare($sql);
-		$query->execute(array(':email'=>$email));
-		return true;
+		return count($account)!=0;
 	}
 	public function passwordReset3($password){
 		$password=password_hash($password, PASSWORD_DEFAULT);
 		$email=$_SESSION['reset_email'];
 		$_SESSION['reset_email']=null;
-		$sql='UPDATE account SET password=:pwd WHERE email=:email';
+		$sql='UPDATE account SET password=:pwd, password_reset=NULL WHERE email=:email';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':email'=>$email, ':pwd'=>$password));
 		$this->changes($_SESSION['account'], 'changed their password via password reset', $_SESSION['account']);

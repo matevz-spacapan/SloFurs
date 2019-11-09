@@ -67,7 +67,7 @@ class Register extends Connection{
 		$reg_model=$this->loadSQL('RegModel');
 		if($account==null){
 			$_SESSION['alert']=L::alerts_i_loggedIn;
-			header('location: '.URL.'login');
+			header('location: '.URL);
 		}
 		$id=strip_tags($_GET["id"]);
 		$event=$reg_model->existingReg($id);

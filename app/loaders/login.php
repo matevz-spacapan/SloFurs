@@ -10,17 +10,14 @@ class LogIn extends Connection{
 			$log_in_model=$this->loadSQL('LogInModel');
 			$_SESSION['alert']=$log_in_model->login(strip_tags($_POST['email']), strip_tags($_POST['password']));
 			if(isset($_SESSION['account'])){
-				header('location: '.URL);
+				header('location: '.URL.'account');
 			}
 			else{
-				header('location: '.URL.'login');
+				echo '<script>window.history.back();</script>';
 			}
 		}
 		else{
-			require 'app/sites/global/header.php';
-			require 'app/sites/global/alerts.php';
-			require 'app/sites/'.THEME.'/login.php';
-			require 'app/sites/global/footer.php';
+			echo '<script>window.history.back();</script>';
 		}
 	}
 	// Activate Account
@@ -32,7 +29,7 @@ class LogIn extends Connection{
 		}
 		else{
 			$_SESSION['alert']=L::alerts_d_activate;
-			header('location: '.URL.'login');
+			header('location: '.URL);
 		}
 	}
 
@@ -45,7 +42,7 @@ class LogIn extends Connection{
 		$log_in_model=$this->loadSQL('LogInModel');
 		if(isset($_POST['password_reset'])){
 			$_SESSION['alert']=$log_in_model->passwordReset1(filter_var($_POST['email'], FILTER_SANITIZE_EMAIL));
-			header('location: '.URL.'login');
+			echo '<script>window.history.back();</script>';
 		}
 		elseif(isset($email)&&isset($token)){
 			$account=$this->getSessionAcc();
@@ -53,7 +50,7 @@ class LogIn extends Connection{
 			$valid=$log_in_model->passwordReset2(filter_var($email, FILTER_SANITIZE_EMAIL), strip_tags($token));
 			if(!$valid){
 				$_SESSION['alert']=L::alerts_d_pw;
-				header('location: '.URL.'login');
+				header('location: '.URL);
 			}
 			else{
 				require 'app/sites/global/header.php';
@@ -64,14 +61,10 @@ class LogIn extends Connection{
 		}
 		elseif(isset($_POST['finish_reset'])){
 			$_SESSION['alert']=$log_in_model->passwordReset3(strip_tags($_POST['password']));
-			header('location: '.URL.'login');
+			header('location: '.URL);
 		}
 		else{
-			$account=$this->getSessionAcc();
-			require 'app/sites/global/header.php';
-			require 'app/sites/global/alerts.php';
-			require 'app/sites/'.THEME.'/password_reset.php';
-			require 'app/sites/global/footer.php';
+			echo '<script>window.history.back();</script>';
 		}
 	}
 	// Logout

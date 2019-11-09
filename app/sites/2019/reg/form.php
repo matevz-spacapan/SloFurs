@@ -69,11 +69,16 @@
 			<p class="w3-text-dark-gray"><?php echo $text; ?></p>
 
 			<h5><?php echo L::register_form_location;?></h5>
-			<p class="w3-text-dark-gray"> <a href="https://maps.google.com/?q=<?php echo $event->location;?>" target="_blank"><?php echo $event->location;?> <i class="far fa-external-link"></i></a> </p>
+			<p class="w3-text-dark-gray"> <a href="https://maps.google.com/?q=<?php echo $event->location;?>" target="_blank"><?php echo $event->location;?> <i class="far fa-external-link"></i></a></p>
 
 			<h5><?php echo L::register_form_gallery;?></h5>
-			<p class="w3-text-dark-gray"><?php echo L::register_form_galleryD;?><br><a href="<?php echo $event->gallery;?>" target="_blank"><?php echo L::register_form_galleryL;?> <i class="far fa-external-link"></i></a></p>
-
+			<p class="w3-text-dark-gray"><?php echo L::register_form_galleryD;?><br>
+			<?php if($event->gallery!=null): ?>
+				<a href="<?php echo $event->gallery;?>" target="_blank"><?php echo L::register_form_galleryL;?> <i class="far fa-external-link"></i></a>
+			<?php else: ?>
+				<?php echo L::register_form_galleryNone;?>
+			<?php endif; ?>
+			</p>
 			<h5><?php echo L::register_form_age_h;?></h5>
 			<?php
 			$age=null;
@@ -224,8 +229,14 @@
 								<input class="w3-check" type="checkbox" name="fursuit" value="1" <?php if(!$new_reg&&$event->fursuiter==1){echo 'checked';} ?>>
 								<label><?php echo L::register_form_modal_other_fursuiter;?></label><br>
 								<input class="w3-check" type="checkbox" name="artist" value="1" <?php if(!$new_reg&&$event->artist==1){echo 'checked';} ?>>
-								<label><?php echo L::register_form_modal_other_artist;?></label><p></p>
+								<label><?php echo L::register_form_modal_other_artist;?></label>
+								<hr>
 								<?php if($new_reg): ?>
+									<?php if($account->newsletter==0): ?>
+										<input class="w3-check" type="checkbox" name="newsletter" value="1"?>
+										<label>Subscribe to the newsletter and get notified of future events</label>
+									<?php endif; ?>
+									<p></p>
 									<p><?php echo L::register_form_modal_rules1;?> <a href="<?php echo URL;?>rules" target="_blank"><?php echo L::register_form_modal_rules2;?> <i class="far fa-external-link"></i></a>.</p>
 								<?php endif; ?>
 								<div class="w3-center">
