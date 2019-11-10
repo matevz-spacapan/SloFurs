@@ -154,14 +154,22 @@
 										</tr>
 										<tr>
 											<td class="w3-center" style="vertical-align: middle;"><input class="w3-radio" type="radio" name="ticket" value="regular" <?php if(!$new_reg&&$event->ticket=='regular'){echo 'checked';} ?> required></td>
-											<td><?php echo L::admin_form_tickets_regular;?></td>
+											<?php if(strlen($event->regular_title)!=0): ?>
+												<td><?php echo $event->regular_title;?></td>
+											<?php else: ?>
+												<td><?php echo L::admin_form_tickets_regular;?></td>
+											<?php endif; ?>
 											<td style="vertical-align: middle;"><?php echo $event->regular_price; ?>€</td>
 											<td><?php echo nl2br($event->regular_text); ?></td>
 										</tr>
 										<?php if($event->sponsor_price!=-1): ?>
 										<tr>
 											<td class="w3-center" style="vertical-align: middle;"><input class="w3-radio" type="radio" name="ticket" value="sponsor" <?php if(!$new_reg&&$event->ticket=='sponsor'){echo 'checked';} ?>></td>
-											<td><?php echo L::admin_form_tickets_sponsor;?></td>
+											<?php if(strlen($event->sponsor_title)!=0): ?>
+												<td><?php echo $event->sponsor_title;?></td>
+											<?php else: ?>
+												<td><?php echo L::admin_form_tickets_sponsor;?></td>
+											<?php endif; ?>
 											<td style="vertical-align: middle;"><?php echo $event->sponsor_price; ?>€</td>
 											<td><?php echo nl2br($event->sponsor_text); ?></td>
 										</tr>
@@ -169,7 +177,11 @@
 										<?php if($event->super_price!=-1): ?>
 										<tr>
 											<td class="w3-center" style="vertical-align: middle;"><input class="w3-radio" type="radio" name="ticket" value="super" <?php if(!$new_reg&&$event->ticket=='sponsor'){echo 'checked';} ?>></td>
+											<?php if(strlen($event->super_title)!=0): ?>
+												<td><?php echo $event->super_title;?></td>
+											<?php else: ?>
 											<td><?php echo L::admin_form_tickets_super;?></td>
+											<?php endif; ?>
 											<td style="vertical-align: middle;"><?php echo $event->super_price; ?>€</td>
 											<td><?php echo nl2br($event->super_text); ?></td>
 										</tr>

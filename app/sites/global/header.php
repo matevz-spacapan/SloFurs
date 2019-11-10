@@ -12,6 +12,13 @@
 		  gtag('js', new Date());
 		  gtag('config', 'UA-143816535-1');
 		</script>
+		<!-- Heatly -->
+		<script>
+			(function(d,v,s,h,t,m,a,p){d.heatmapObj=t;d[t]=d[t]||function()
+			{(d[t].q=d[t].q||[]).push(arguments)},d[t].l=1*new Date();a=v.createElement(s),
+			p=v.getElementsByTagName(s)[0];a.async=1;a.src=h;a.setAttribute('data-hmuid',m);p.parentNode.insertBefore(a,p)
+			})(window,document,'script','https://app.heatlyanalytics.com/js/heatmap.js','hm','hm-29952gj')
+		</script>
 	<?php endif;?>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- w3.css stylesheet -->
