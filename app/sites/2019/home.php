@@ -44,7 +44,7 @@
         <?php else: ?>
           <h5 class="w3-padding-16"><?php echo L::home_second_c;?> <i class="fal fa-laugh-beam"></i></h5>
         <?php endif; ?>
-        <div class="w3-row">
+        <div class="row">
   				<?php foreach($cEvents as $event): ?>
   					<?php
   						if(new DateTime($event->reg_end)<=new DateTime()){

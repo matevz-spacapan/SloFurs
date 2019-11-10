@@ -325,6 +325,7 @@ personalInfo:
   phoneP: 'npr. +38641123456'
   dob: 'Datum rojstva'
   dobI: 'Nekateri dogodki lahko zahtevajo, da ste vsaj določene starosti.'
+  dobP: 'llll-mm-dd'
   gender: 'Spol'
   male: 'Moški'
   female: 'Ženski'
@@ -346,23 +347,34 @@ register:
     manual: 'Your registration is now complete, but will have to be manually checked by our staff. We are looking forward to seeing you soon!'
   view:
     h: 'Prijava na dogodke'
+    free: 'Brezplačen dogodek'
+    from: 'Že od '
     profile:
       h: 'Dopolnite vaš profil!'
-      desc1: 'Preden se lahko prijavite na dogodke, morate dopolniti vaš profil z osebnimi podatki. Te podatke potrebujemo iz administrativnih in varnostnih razlogov.'
-      button: 'Dodajte osebne podatke'
-      desc2: 'Alternativno lahko vidite podatke vašega računa'
+      desc1: 'Preden se lahko prijavite na dogodke, morate dopolniti vaš profil z osebnimi podatki. Te podatke potrebujemo za organizacijo dogodkov.'
+      button: 'Dodajte svoje osebne podatke'
+      desc2: ', katere lahko naknadno urejate'
       link: 'na uporabniških straneh'
     registered:
       h: 'Prihajajoči dogodki, na katere ste se prijavili'
       confirmed: 'Prijava potrjena'
-      notConfirmed: 'Prijava ni še potrjena'
+      notConfirmed: 'Prijava še nepotrjena'
     upcoming:
       h: 'Prihajajoči dogodki'
       complete: 'Dopolnite profil, da se prijavite.'
       none: 'Trenutno ni (drugih) prihajajočih dogodkov'
     past:
-      h: 'Pretekli dogodki, na katere ste se prijavili'
+      h: 'Pretekli dogodki'
       ended: 'Dogodek zaključen.'
+    date:
+      mon: 'pon'
+      tue: 'tor'
+      wed: 'sre'
+      thu: 'čet'
+      fri: 'pet'
+      sat: 'sob'
+      sun: 'ned'
+      multiple: '(več dni)'
   form:
     details: 'Podrobnosti dogodka'
     statistics: 'Statistike'

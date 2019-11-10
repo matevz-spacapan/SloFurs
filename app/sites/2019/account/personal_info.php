@@ -76,7 +76,7 @@
 			<link rel="stylesheet" href="<?php echo URL;?>/public/datepicker/css/bootstrap-datepicker3.min.css">
 			<div class="form-group">
 				<label for="dob"><?php echo L::personalInfo_dob;?></label>
-				<input data-provide="datepicker" data-date-autoclose="true" class="form-control datepicker" name="dob" value="<?php echo $account->dob; ?>" required style="background-color: #fff !important; cursor: text !important;" required>
+				<input data-provide="datepicker" data-date-autoclose="true" class="form-control datepicker" name="dob" value="<?php echo $account->dob; ?>" required style="background-color: #fff !important; cursor: text !important;" placeholder="<?php echo L::personalInfo_dobP;?>">
 				<small class="form-text text-muted"><?php echo L::personalInfo_dobI;?></small>
 			</div>
 			<script type="text/javascript">

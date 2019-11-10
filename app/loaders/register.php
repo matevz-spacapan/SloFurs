@@ -8,16 +8,15 @@ class Register extends Connection{
 		$complete_profile=true;
 		if($account!=null){
 			$complete_profile=$reg_model->checkProfile();
-		}
-		//view registered, upcoming and user's past registered events
-		if($account!=null){
 			$rEvents=$reg_model->getREvents(); //registered
-			$cEvents=$reg_model->getCEvents(); //upcoming
-			$pEvents=$reg_model->getPEvents(); //past
+			if($complete_profile){
+				$cEvents=$reg_model->getCEvents(); //upcoming with complete profile - show unregistered
+			}
+			else{
+				$cEvents=$reg_model->getCEvents(true); //upcoming with incomplete profile - show all
+			}
 		}
-		else{
-			$cEvents=$reg_model->getCEvents(true); //upcoming with no acc
-		}
+		$pEvents=$reg_model->getPEvents(true); //past
 		if(isset($_POST['update_personal_info'])){
 			$_SESSION['alert']=$account_model->updateProfile(strip_tags($_POST['fname']), strip_tags($_POST['lname']), strip_tags($_POST['address']), strip_tags($_POST['address2']), strip_tags($_POST['city']), strip_tags($_POST['postcode']), strip_tags($_POST['country']), strip_tags($_POST['phone']), strip_tags($_POST['dob']), strip_tags($_POST['gender']), strip_tags($_POST['language']));
 			header('location: '.URL.'register');

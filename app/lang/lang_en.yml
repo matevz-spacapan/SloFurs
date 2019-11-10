@@ -322,6 +322,7 @@ personalInfo:
   phoneP: 'eg. +38641123456'
   dob: 'Date of birth'
   dobI: 'Some events might require you to be of a certain age.'
+  dobP: 'yyyy-mm-dd'
   gender: 'Gender'
   male: 'Male'
   female: 'Female'
@@ -343,6 +344,8 @@ register:
     manual: 'Your registration is now complete, but will have to be manually checked by our staff. We are looking forward to seeing you soon!'
   view:
     h: 'Event registration'
+    free: 'Free event'
+    from: 'Starting at '
     profile:
       h: 'Complete your profile!'
       desc1: 'Before you can register for any event you\'ll have to complete your profile with personal information. We need this information for administrative and security reasons.'
@@ -351,15 +354,24 @@ register:
       link: 'on the account pages'
     registered:
       h: 'Upcoming events you\'ve registered for'
-      confirmed: 'Registration confirmed'
-      notConfirmed: 'Registration not confirmed yet'
+      confirmed: 'Confirmed'
+      notConfirmed: 'Not yet confirmed'
     upcoming:
       h: 'Upcoming events'
       complete: 'Complete profile to register.'
       none: 'There are no (other) upcoming events'
     past:
-      h: 'Past events you\'ve registered for'
+      h: 'Past events'
       ended: 'Event ended.'
+    date:
+      mon: 'Mon'
+      tue: 'Tue'
+      wed: 'Wed'
+      thu: 'Thu'
+      fri: 'Fri'
+      sat: 'Sat'
+      sun: 'Sun'
+      multiple: '(multi-day)'
   form:
     details: 'Event details'
     statistics: 'Stats'

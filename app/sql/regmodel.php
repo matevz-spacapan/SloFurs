@@ -20,13 +20,13 @@ class RegModel{
 
 	// Get all usere's registered current events: id, event name, duration (start, end), reg end (changes possible until then). confirmed, fursuiter, artist
 	public function getREvents(){
-		$sql='SELECT registration.id AS id, name, event_start, event_end, reg_end, confirmed, fursuiter, artist, img FROM event INNER JOIN registration ON event.id=registration.event_id WHERE ((event_start<=NOW() AND event_end>=NOW()) OR event_start>NOW()) AND acc_id=:acc_id ORDER BY event_start ASC';
+		$sql='SELECT registration.id AS id, name, event_start, event_end, reg_end, confirmed, fursuiter, artist, img, location, regular_price FROM event INNER JOIN registration ON event.id=registration.event_id WHERE ((event_start<=NOW() AND event_end>=NOW()) OR event_start>NOW()) AND acc_id=:acc_id ORDER BY event_start ASC';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':acc_id'=>$_SESSION['account']));
 		return $query->fetchAll();
 	}
 	// Get all current/upcoming events
-	public function getCEvents($fromHome=false){
+	public function getCEvents($all=false){
 		$sql='SELECT * FROM event WHERE id NOT IN (SELECT event_id FROM registration INNER JOIN event ON event.id=registration.event_id AND acc_id=:acc_id) AND viewable<=NOW() AND event_end>=NOW() ORDER BY event_start ASC';
 		if(isset($_SESSION['account'])){
 			$sql2='SELECT * FROM account WHERE id=:id';
@@ -38,7 +38,7 @@ class RegModel{
 			}
 		}
 		$query=$this->db->prepare($sql);
-		if(isset($_SESSION['account'])&&!$fromHome){
+		if(isset($_SESSION['account'])&&!$all){
 			$query->execute(array(':acc_id'=>$_SESSION['account']));
 		}
 		else{
@@ -47,8 +47,11 @@ class RegModel{
 		return $query->fetchAll();
 	}
 	// Get all past events
-	public function getPEvents(){
+	public function getPEvents($all=false){
 		$sql='SELECT * FROM event INNER JOIN registration ON event.id=registration.event_id WHERE event_end<NOW() AND acc_id=:id ORDER BY event_end ASC';
+		if($all){
+			$sql='SELECT * FROM event WHERE event_end<NOW() ORDER BY event_end ASC';
+		}
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$_SESSION['account']));
 		return $query->fetchAll();
@@ -247,6 +250,51 @@ class RegModel{
 			}
 		}
 	}
+	//convert dates for cards (home page, events page)
+	public function convertCard($date, $singleDay){
+		$date=strtotime($date);
+		$text='';
+		$d=date('j', $date);
+		$m=date('n', $date);
+		$y=date('Y', $date);
+		$mWord=date('M', $date);
+		$min=date('i', $date);
+		$hr=date('G', $date);
+		$dayOfWeek=date('w', $date);
+		switch($dayOfWeek){
+			case '0':
+				$text.=L::register_view_date_sun;
+				break;
+			case '1':
+				$text.=L::register_view_date_mon;
+				break;
+			case '2':
+				$text.=L::register_view_date_tue;
+				break;
+			case '3':
+				$text.=L::register_view_date_wed;
+				break;
+			case '4':
+				$text.=L::register_view_date_thu;
+				break;
+			case '5':
+				$text.=L::register_view_date_fri;
+				break;
+			case '6':
+				$text.=L::register_view_date_sat;
+		}
+		if($_SESSION['lang']=='si'){
+			$text.=', '.$d.'.'.$m.'.'.$y.', '.$hr.':'.$min;
+		}
+		else{
+			$text.=', '.$mWord.' '.$d.' '.$y.', '.$hr.':'.$min;
+		}
+		if(!$singleDay){
+			$text.=' '.L::register_view_date_multiple;
+		}
+		return $text;
+	}
+
 	// Convert MySQL datetime to HTML datetime
 	public function convert($date){
 		return date_format(new DateTime($date),"Y-m-d\TH:i");

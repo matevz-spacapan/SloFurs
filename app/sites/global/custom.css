@@ -72,7 +72,7 @@ html, body{
 	max-width:200px;
 	margin: 0 auto;
 }
-.card{
+/*.card{
 	width: 250px;
 	min-height: 173px;
 	display: inline-block;
@@ -93,6 +93,25 @@ html, body{
 .fixer{
 	position: relative;
 	width: 350px;
+}*/
+.card{
+  width:300px;
+  border: 0px solid white!important;
+  transition: box-shadow .3s;
+}
+.card:hover{
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+.img-container{
+	position: relative;
+	display: inline-block;
+}
+.confirmation{
+  max-width: 200px;
+  position: absolute;
+  right:-20px;
+  top:30px;
+  border: 0px solid white!important;
 }
 textarea{
 	resize: vertical;
