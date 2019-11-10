@@ -42,6 +42,6 @@
 </head>
 <body>
 	<?php
-		require 'app/sites/global/topnavbar.php';
+		require 'app/sites/global/navigation.php';
 		require 'app/sites/global/loading.php';
 	?>
