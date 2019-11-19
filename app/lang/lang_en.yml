@@ -411,7 +411,7 @@ register:
       type: 'Price (type)'
       price: 'Price'
       prices:
-        h: 'Attendance prices'
+        h: 'Event tickets'
         free: 'This event is free of charge.'
         info: 'Additional info'
       accomodation:
@@ -431,6 +431,7 @@ register:
         notesI: 'Do you have any special requests or need to let us know anything?'
         fursuiter: 'Are you a fursuiter?'
         artist: 'Are you an artist?'
+        newsletter: 'Subscribe to the newsletter and get notified of future events'
       rules1: 'By registering to this event, you agree with'
       rules2: 'our rules of conduct'
       register: 'Register!'

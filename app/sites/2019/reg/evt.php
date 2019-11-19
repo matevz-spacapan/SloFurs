@@ -1,4 +1,4 @@
-<div class="card mr-5 my-2">
+<div class="card mr-5 my-2 bg-light">
 	<div class="img-container">
 		<?php if(isset($edit)&&$edit): ?>
 			<div class="confirmation btn btn-light py-3 px-2 <?php echo $color; ?>">
@@ -44,7 +44,7 @@
 					echo L::register_view_free;
 				}
 				else{
-					echo L::register_view_from.$event->regular_price.'€.';
+					echo L::register_view_from.$event->regular_price.'€';
 				}
 			?>
 		</p>

@@ -414,7 +414,7 @@ register:
       type: 'Cena (opisno)'
       price: 'Cena'
       prices:
-        h: 'Cena udeležbe'
+        h: 'Vstopnina'
         free: 'Ta dogodek je brezplačen.'
         info: 'Dodatne informacije'
       accomodation:
@@ -434,6 +434,7 @@ register:
         notesI: 'Imate posebne želje ali nam želite kaj sporočiti?'
         fursuiter: 'Ste fursuiter?'
         artist: 'Ste umetnik?'
+        newsletter: 'Prijavite se na novičke, da vas lažje obvestimo o novih dogodkih'
       rules1: 'S prijavo na ta dogodek, se strinjate z'
       rules2: 'našimi pravili'
       register: 'Prijavi se!'

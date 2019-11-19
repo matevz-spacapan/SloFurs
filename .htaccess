@@ -1,6 +1,10 @@
 #URL rewriting (npr. myproject.com/controller/action/1/2/3)
 RewriteEngine On
 
+#vsili HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
 #Ne dovoli gledanja v npr. /public/
 Options -Indexes
 
