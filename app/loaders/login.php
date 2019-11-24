@@ -10,7 +10,7 @@ class LogIn extends Connection{
 			$log_in_model=$this->loadSQL('LogInModel');
 			$_SESSION['alert']=$log_in_model->login(strip_tags($_POST['email']), strip_tags($_POST['password']));
 			if(isset($_SESSION['account'])){
-				header('location: '.URL.'account');
+				echo '<script>window.history.back();</script>';
 			}
 			else{
 				echo '<script>window.history.back();</script>';
@@ -71,6 +71,6 @@ class LogIn extends Connection{
 	public function logout(){
 		$log_in_model=$this->loadSQL('LogInModel');
 		$log_in_model->logout();
-		header('location: '.URL);
+		echo '<script>window.history.back();</script>';
 	}
 }

@@ -80,8 +80,8 @@
 			<!-- FORM BUTTON -->
 			<?php if($new_reg): ?>
 				<button class="btn-block btn <?php echo $color; ?>" <?php if($color!='btn-success'||$age<$event->restricted_age){echo 'disabled';} else{echo 'data-toggle="modal" data-target="#register"';} ?>><?php echo L::register_form_buttonRegister;?></button>
-				<?php if($account==null): ?>
-					<p><a href="<?php echo URL;?>login"><?php echo L::register_form_login;?></p>
+				<?php if($account==null&&$color=='btn-success'): ?>
+					<p><a href="#" data-toggle="modal" data-target="#loginModal"><?php echo L::register_form_login;?></p>
 				<?php elseif($account!=null&&!$reg_model->checkProfile()): ?>
 					<p><a href="<?php echo URL;?>account/contact"><?php echo L::register_form_completeProfile;?></p>
 				<?php endif; ?>
