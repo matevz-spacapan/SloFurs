@@ -65,7 +65,7 @@
 		<?php if(count($fursuits) > 0): ?>
 			<?php foreach($fursuits as $fursuit): ?>
 				<!-- On the list -->
-				<div class="card" data-toggle="modal" data-target="#fursuit<?php echo $fursuit->id; ?>">
+				<div class="card fursuit card-round" data-toggle="modal" data-target="#fursuit<?php echo $fursuit->id; ?>">
 					<?php if(file_exists('public/fursuits/'.$fursuit->img.'.png')): ?>
 						<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="roundImg">
 					<?php else: ?>
@@ -153,23 +153,5 @@ function pfp(id){
 }
 $("#fursuit").removeClass("text-body btn-link");
 $("#fursuit").addClass("btn-primary");
-
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function() {
-  'use strict';
-  window.addEventListener('load', function() {
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName('needs-validation');
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function(form) {
-      form.addEventListener('submit', function(event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-      }, false);
-    });
-  }, false);
-})();
 </script>
+<?php require 'app/sites/global/validate_form.php'; ?>

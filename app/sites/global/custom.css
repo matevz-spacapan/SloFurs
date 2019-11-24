@@ -18,6 +18,13 @@
   justify-content: space-between;
 }
 
+.fursuit{
+  cursor: pointer;
+}
+.card-round{
+  border-radius: 16px;
+}
+
 .balls div {
   width: 0.8em;
   height: 0.8em;

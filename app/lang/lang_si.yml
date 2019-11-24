@@ -378,6 +378,7 @@ register:
   form:
     details: 'Podrobnosti dogodka'
     statistics: 'Statistike'
+    attendees: 'Udeleženci'
     h: 'Nova prijava'
     description: 'Opis dogodka'
     date: 'Datum in ura'
@@ -450,7 +451,7 @@ register:
       sponsor: 'Sponzor'
       super: 'Super-sponzor'
       fursuiters: 'Pričakujte te kosmatinčke:'
-      noStats: 'Trenutno ne moremo prikazati statistik, ker se registracija še ni pričela.'
+      noStats: 'Trenutno ne moremo prikazati statistik za ta dogodek.'
     car:
       h: 'Prevozi na/iz dogodka'
       p: 'Te podatke lahko kadarkoli spremenite po tem, ko je prevoz ustvarjen. Samo kliknite na prevoz na seznamu, da ga uredite.'

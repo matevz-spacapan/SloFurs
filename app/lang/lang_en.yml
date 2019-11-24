@@ -375,6 +375,7 @@ register:
   form:
     details: 'Event details'
     statistics: 'Stats'
+    attendees: 'Attendees'
     h: 'New registration'
     description: 'Description'
     date: 'Date & Time'
@@ -447,7 +448,7 @@ register:
       sponsor: 'Sponsor'
       super: 'Super-sponsor'
       fursuiters: 'Expect these adorable fuzzies:'
-      noStats: 'Currently we can\'t show you any stats as the event registration hasn\'t started yet.'
+      noStats: 'Currently we can\'t show you any stats for this event yet.'
     car:
       h: 'Car sharing'
       p: 'You can edit this info at any time after you create the car share. Simply click on the car share on the list to do so.'
