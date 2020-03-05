@@ -28,7 +28,7 @@ admin:
       locationInfo: 'this will turn into a Google Maps link, so make sure you can search for this query in it'
       description: 'Description'
       descriptionInfo: 'this field allows HTML tags if you wish to make it pretty'
-      photo: 'If you wish, you can set a photo for the event. It must be sized at least 110px in width and 173px in height or if larger it must be in the ratio of 1:1.56. Otherwise the photo shown below will be used.'
+      photo: 'If you wish, you can set a photo for the event. It must be sized at least 300px in width and 158px in height or if larger it must be in the ratio of 1.9:1. Otherwise the photo shown below will be used.'
       delete: 'Delete current photo'
     registration:
       h: 'Registration details'

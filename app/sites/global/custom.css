@@ -75,8 +75,8 @@ html, body{
 	border-top-right-radius: 8px;
 }
 .photoContainer{
-	max-height:200px;
-	max-width:200px;
+	height:158px;
+	width:300px;
 	margin: 0 auto;
 }
 /*.card{

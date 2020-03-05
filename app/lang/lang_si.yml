@@ -28,7 +28,7 @@ admin:
       locationInfo: 'to se prevori v Google Maps povezavo, zato se prepričajte, da se vnos lahko išče v Maps'
       description: 'Opis'
       descriptionInfo: 'v tem polju lahko uporabljate HTML značke, da olepšate videz besedila'
-      photo: 'Če želite, lahko nastavite sliko dogodka. Slika mora biti velikosti vsaj 110px po širini in 173px po višini ali, če je večja, biti v razmeru 1:1,56. Če ne izberete druge slike, bo uporabljena spodnja.'
+      photo: 'Če želite, lahko nastavite sliko dogodka. Slika mora biti velikosti vsaj 300px po širini in 158px po višini ali, če je večja, biti v razmeru 1,9:1. Če ne izberete druge slike, bo uporabljena spodnja.'
       delete: 'Izbriši trenutno sliko'
     registration:
       h: 'Podrobnosti o prijavah'

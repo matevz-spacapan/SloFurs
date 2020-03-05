@@ -173,7 +173,7 @@ class EventModel{
 				goto inserting;
 			}
 			list($width, $height)=$img_param;
-			if($width<173||$height<110||round($height/$width, 2)!=1.57){
+			if($width<300||$height<158||round($width/$height, 2)!=1.90){
 				$err=L::alerts_d_not170;
 				$file_name=null;
 				goto inserting;
@@ -319,7 +319,7 @@ class EventModel{
 				goto skipping;
 			}
 			list($width, $height)=$img_param;
-			if($width<173||$height<110||round($height/$width, 2)!=1.57){
+			if($width<300||$height<158||round($width/$height, 2)!=1.90){
 				$err=L::alerts_d_not170;
 				goto skipping;
 			}

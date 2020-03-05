@@ -23,7 +23,7 @@
 			<a class="nav-link active" data-toggle="tab" href="#Event"><?php echo L::register_form_details;?></a>
 		</li>
 		<?php $attendees=$reg_model->getAttendees($evt_id); ?>
-		<?php if($attendees>0):?>
+		<?php if(count($attendees)>0):?>
 			<li class="nav-item">
 				<a class="nav-link" data-toggle="tab" href="#Stats"><?php echo L::register_form_statistics;?></a>
 			</li>

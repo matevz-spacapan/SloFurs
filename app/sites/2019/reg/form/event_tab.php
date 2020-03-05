@@ -31,16 +31,17 @@
 				else{
 					//upcoming registrations
 					$color='btn-light';
-					$text=L::register_form_upcoming.'<br>'.($account!=null&&$account->status>=PRE_REG)?
+					$textDate=($account!=null&&$account->status>=PRE_REG)?
 						$reg_model->convertViewable($event->pre_reg_start, 2):
 						$reg_model->convertViewable($event->reg_start, 2);
-					$text=$text.' '.L::register_form_and.'<br>'.$reg_model->convertViewable($event->reg_end, 2).'.';
+					$text=L::register_form_upcoming.'<br>'.$textDate.' '.L::register_form_and.'<br>'.$reg_model->convertViewable($event->reg_end, 2).'.';
 				}
 			?>
 			<p class="text-dark"><?php echo $text; ?></p>
-
-			<h5><?php echo L::register_form_location;?></h5>
-			<p class="text-dark"> <a href="https://maps.google.com/?q=<?php echo $event->location;?>" target="_blank"><?php echo $event->location;?> <i class="far fa-external-link"></i></a></p>
+			<?php if(isset($event->location)&&strlen($event->location)>0): ?>
+				<h5><?php echo L::register_form_location;?></h5>
+				<p class="text-dark"> <a href="https://maps.google.com/?q=<?php echo $event->location;?>" target="_blank"><?php echo $event->location;?> <i class="far fa-external-link"></i></a></p>
+			<?php endif; ?>
 
 			<h5><?php echo L::register_form_gallery;?></h5>
 			<p class="text-dark"><?php echo L::register_form_galleryD;?><br>
