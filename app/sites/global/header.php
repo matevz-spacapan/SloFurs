@@ -31,7 +31,7 @@
 	<!-- Muli typefont -->
 	<link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
 	<!-- Custom styles -->
-	<link href="<?php echo URL; ?>app/sites/global/custom.css" rel="stylesheet">
+	<link href="<?php echo URL; ?>app/sites/global/custom.css?rnd=<?=time();?>" rel="stylesheet">
 	<!-- FontAwesome -->
 	<script src="https://kit.fontawesome.com/925a2b5078.js"></script>
 	<!-- jQuery -->
