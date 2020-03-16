@@ -184,15 +184,11 @@ home:
   c: 'Image by'
   first:
     a: 'Our new event home'
-    b: 'Welcome to SloFurs\' new home for events! This is where we\'ll handle registrations for our events from now on.'
-    c: 'It is worth mentioning that these pages are still being worked on. There might be things that don\'t work properly or that break.'
+    b: 'Welcome to SloFurs\' new home for events! This is where you can see and register for our upcoming events and see an archive of our past gatherings.'
+    c: 'We continue to make new features for these pages. There might be things that don\'t work properly.'
     d: 'If you find any bugs, please send a message to <a href="http://t.me/pur3bolt" target="_blank">Pur3Bolt <i class="far fa-external-link"></i></a> on Telegram.'
-    e: 'You can check if an issue has already been reported to me on <a href="https://trello.com/b/OKE6arXk/slofurs-registration" target="_blank">this Trello <i class="far fa-external-link"></i></a>. You can also vote for already made suggestins if you have an account on the website (this way I can prioritize things to work on). Thanks!'
   second:
     a: 'Our upcoming events'
-    b: 'Log in</a> to your account so you can register for these events! We\'ll be very happy to see you join us!'
-    c: 'If you\'d like to register for any of these events, just click on it'
-  fuzzy: 'STAY FUZZY'
 login:
   h: 'Log in to your account'
   email: 'E-mail Address'

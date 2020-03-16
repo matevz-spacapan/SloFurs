@@ -124,11 +124,12 @@ textarea{
 	resize: vertical;
 	height: 104px;
 }
-.bgimg-1 {
+.bgimg {
   background-position: center;
   background-size: cover;
   background-image: url("https://events.slofurs.org/public/img/header.jpg");
   min-height: 100%;
+  filter: grayscale(50%);
 }
 
 .alerts-box {
@@ -240,4 +241,22 @@ textarea{
 		transform: scale(1);
 		opacity: 1;
 	}
+}
+
+.display-bottomleft{
+  position:absolute;
+  left:0;
+  bottom:0;
+}
+.display-bottomright{
+  position:absolute;
+  right:0;
+  bottom:0;
+}
+.display-left{
+  position:absolute;
+  top:50%;
+  left:0%;
+  transform:translate(0%,-50%);
+  -ms-transform:translate(-0%,-50%);
 }

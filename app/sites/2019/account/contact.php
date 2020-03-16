@@ -1,6 +1,6 @@
 <div class="w3-main" style="margin-left:200px">
 <div class="bg-primary text-white">
-	<button class="btn btn-primary btn-lg w3-hide-large" onclick="$('#accSidebar').show()">&#9776;</button>
+	<button class="btn btn-primary btn-lg d-lg-none" onclick="$('#accSidebar').show()">&#9776;</button>
 	<div class="container-fluid">
 	</div>
 </div>

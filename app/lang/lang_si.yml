@@ -187,15 +187,11 @@ home:
   c: 'Slikal'
   first:
     a: 'Naš nov dom za dogodke'
-    b: 'Dobrodošli na SloFursovem novem domu za dogodke! Tukaj bomo urejali prijave na dogodke od zdaj dalje.'
-    c: 'Vredno je omeniti, da so te strani še v izdelavi. Lahko se zgodi, da nekatere stvari ne bodo delale pravilno.'
+    b: 'Dobrodošli na SloFursovem novem domu za dogodke! Tukaj lahko vidite naše prihajajoče dogodke, se nanje prijavite ter si ogledate arhiv preteklih druženj.'
+    c: 'Strani dopolnjujemo še z raznimi novostmi in lahko se zgodi, da nekatere od njih ne bodo delale pravilno.'
     d: 'Če najdete kakšno napako, jo prosim javite <a href="http://t.me/pur3bolt" target="_blank">Pur3Boltu <i class="far fa-external-link"></i></a> na Telegramu.'
-    e: 'Že prijavljene napake lahko preverite <a href="https://trello.com/b/OKE6arXk/slofurs-registration" target="_blank">na tem Trellu <i class="far fa-external-link"></i></a>. Tam lahko tudi glasujete za predloge in želje, če imate račun na strani (tako lahko ustvarim bolj priljubljene stvari najprej). Hvala!'
   second:
     a: 'Naši prihajajoči dogodki'
-    b: 'Prijavite se</a> s svojim računom, da se prijavite na dogodke! Zelo bomo veseli, da se nam pridružite!'
-    c: 'Če bi se radi prijavili na katerega izmed dogodkov, kliknite nanj'
-  fuzzy: 'STAY FUZZY'
 login:
   h: 'Prijavi se s svojim računom'
   email: 'E-poštni naslov'
