@@ -27,7 +27,7 @@
 				'right': '20px'
 			}, 350);
 			<?php if($_SESSION['permanent']==false): ?>
-				setTimeout(hideAlert, 4500);
+				setTimeout(hideAlert, 10000);
 			<?php endif; ?>
 		}
 		function hideAlert(){

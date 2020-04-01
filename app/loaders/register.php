@@ -47,7 +47,8 @@ class Register extends Connection{
 		//if submitting the registration form
 		if(isset($_POST['new_registration'])){
 			$_SESSION['alert']=$reg_model->doReg($id, $_POST);
-			header('location: '.URL.'register');
+			$_SESSION['paynow']=true;
+			header('location: '.URL.'register/new?id='.$id);
 		}
 		else{
 			$event=$reg_model->newReg($id);
@@ -75,7 +76,7 @@ class Register extends Connection{
 		}
 		//if submitting the registration form
 		if(isset($_POST['edit_registration'])){
-			$_SESSION['alert']=$reg_model->editReg($evt_id, $_POST);
+			$_SESSION['alert']=$reg_model->editReg($id, $_POST);
 			header('location: '.URL.'register/edit?id='.$id);
 		}
 		//if submitting a new car share
@@ -92,26 +93,35 @@ class Register extends Connection{
 			header('location: '.URL.'register/edit?id='.$id);
 		}
 		else{
+			//create Stripe session for payment processing
+			\Stripe\Stripe::setApiKey(STRIPE_PRIVATE);
+			if($event->ticket=='regular'){
+				$price=$event->regular_price;
+			}
+			elseif($event->ticket=='sponsor'){
+				$price=$event->sponsor_price;
+			}
+			else{
+				$price=$event->super_price;
+			}
+			$session = \Stripe\Checkout\Session::create([
+				'customer_email' => $account->email,
+			  'payment_method_types' => ['card'],
+			  'line_items' => [[
+			    'name' => 'Vstopnina',
+			    'description' => "Vstopnina za dogodek {$event->name} - {$event->ticket}",
+			    'amount' => $price*100,
+			    'currency' => 'eur',
+			    'quantity' => 1,
+			  ]],
+			  'success_url' => URL.'register/edit?id='.$id.'&session_id={CHECKOUT_SESSION_ID}',
+			  'cancel_url' => URL.'register/edit?id='.$id.'&cancel=1',
+			]);
+			
+			//load site
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/reg/form.php';
-			require 'app/sites/global/footer.php';
-		}
-	}
-	public function pay(){
-		$account=$this->getSessionAcc();
-		$inv_model=$this->loadSQL('InvoiceModel');
-		$invoice=$inv_model->getInvoice(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT));
-		if($invoice==null){
-			header('location: '.URL.'register');
-		}
-		else{
-			if(isset($_POST['download'])){
-				$inv_model->download(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT));
-			}
-			require 'app/sites/global/header.php';
-			require 'app/sites/global/alerts.php';
-			require 'app/sites/'.THEME.'/reg/invoice.php';
 			require 'app/sites/global/footer.php';
 		}
 	}
