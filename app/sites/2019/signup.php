@@ -35,7 +35,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="g-recaptcha" data-sitekey="<?php echo $RECAPTCHA_PUBLIC;?>"></div>
+						<div class="g-recaptcha" data-sitekey="<?php echo RECAPTCHA_PUBLIC;?>"></div>
 					</div>
 					<button type="submit" name="sign_up_acc" class="btn btn-primary btn-block text-uppercase"><?php echo L::signup_register;?></button><br>
 				</div>

@@ -76,8 +76,9 @@ html, body{
 }
 .photoContainer{
 	height:158px;
-	width:300px;
+	width:158px;
 	margin: 0 auto;
+  text-align: center;
 }
 /*.card{
 	width: 250px;
