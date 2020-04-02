@@ -1,16 +1,14 @@
-<div class="w3-main" style="margin-left:200px">
+<div class="w3-main" style="margin-left:210px">
 <div class="bg-primary text-white">
 	<button class="btn btn-primary btn-lg w3-hide-large" onclick="$('#accSidebar').show()">&#9776;</button>
-	<div class="container-fluid">
-	</div>
 </div>
 <div class="container-fluid">
-	<div>
-		<?php echo L::account_fursuit_currently1;?> <?php echo count($fursuits).' '; echo (count($fursuits) > 0 ? (count($fursuits) > 1 ? L::account_fursuit_fursuits : L::account_fursuit_fursuit) : L::account_fursuit_fursuits); ?> <?php echo L::account_fursuit_currently2;?><p>
-		<?php if(count($fursuits)>0): ?>
-			<?php echo L::account_fursuit_notice;?><p>
-		<?php endif; ?>
-	</div>
+	<p class="mt-4"><?php echo L::account_fursuit_currently1;?> <?php echo count($fursuits).' '; echo (count($fursuits) > 0 ? (count($fursuits) > 1 ? L::account_fursuit_fursuits : L::account_fursuit_fursuit) : L::account_fursuit_fursuits); ?><?php echo L::account_fursuit_currently2;?></p>
+	<?php
+	/*if(count($fursuits)>0){
+		echo L::account_fursuit_notice.'<p>';
+	}*/
+	?>
 
 	<!-- NEW FURSUIT -->
 	<button type="button" data-toggle="modal" data-target="#fursuit0" class="btn btn-outline-primary"><?php echo L::account_fursuit_new;?></button>
@@ -32,12 +30,12 @@
 							<label for="animal"><?php echo L::account_fursuit_animal;?></label>
 							<input type="text" class="form-control" name="animal" required>
 						</div>
-						<div class="form-group">
+						<!--<div class="form-group">
 							<div class="custom-control custom-checkbox">
 								<input class="custom-control-input" type="checkbox" name="in_use" id="in_use">
 								<label class="custom-control-label" for="in_use"><?php echo L::account_fursuit_use;?></label> <small class="text-muted"><?php echo L::account_fursuit_useI;?></small>
 							</div>
-						</div>
+						</div>-->
 						<div class="form-group">
 							<label><?php echo L::account_fursuit_photo;?></label> <small class="text-muted"><?php echo L::account_fursuit_photoI;?></small>
 							<div class="w3-display-container photoContainer">
@@ -61,17 +59,17 @@
 	<br><br>
 
 	<!-- CREATED FURSUITS -->
-	<div class="w3-row">
+	<div class="row">
 		<?php if(count($fursuits) > 0): ?>
 			<?php foreach($fursuits as $fursuit): ?>
 				<!-- On the list -->
-				<div class="card fursuit card-round" data-toggle="modal" data-target="#fursuit<?php echo $fursuit->id; ?>">
+				<div class="card fursuit card-round mr-3 bg-light" data-toggle="modal" data-target="#fursuit<?php echo $fursuit->id; ?>">
 					<?php if(file_exists('public/fursuits/'.$fursuit->img.'.png')): ?>
 						<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="roundImg">
 					<?php else: ?>
 						<img src="<?php echo URL.'public/img/account.png' ?>" class="roundImg">
 					<?php endif; ?>
-					<p class="w3-center"><?php if($fursuit->in_use==1){echo '<i class="far fa-id-card-alt fa-lg"></i> ';} echo $fursuit->name; ?></p>
+					<p class="text-center pt-2"><b><?php /*if($fursuit->in_use==1){echo '<i class="far fa-id-card-alt fa-lg"></i> ';}*/ echo $fursuit->name; ?></b></p>
 				</div>
 				<!-- Pop-up modal editor -->
 				<div class="modal fade" id="fursuit<?php echo $fursuit->id; ?>">
@@ -91,12 +89,12 @@
 										<label for="animal"><?php echo L::account_fursuit_animal;?></label>
 										<input type="text" class="form-control" name="animal" required value="<?php echo $fursuit->animal; ?>">
 									</div>
-									<div class="form-group">
+									<!--<div class="form-group">
 										<div class="custom-control custom-checkbox">
 											<input class="custom-control-input" type="checkbox" name="in_use" id="in_use" <?php if($fursuit->in_use==1){echo 'checked';} ?>>
 											<label class="custom-control-label" for="in_use"><?php echo L::account_fursuit_use;?></label> <small class="text-muted"><?php echo L::account_fursuit_useI;?></small>
 										</div>
-									</div>
+									</div>-->
 									<div class="form-group">
 										<label><?php echo L::account_fursuit_photo;?></label> <small class="text-muted"><?php echo L::account_fursuit_photoI;?></small>
 										<div class="w3-display-container photoContainer">

@@ -103,7 +103,7 @@ html, body{
 	width: 350px;
 }*/
 .card{
-  width:300px;
+  width:250px;
   border: 0px solid white!important;
   transition: box-shadow .3s;
 }
