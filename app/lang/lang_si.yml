@@ -281,7 +281,7 @@ account:
     currently1: 'Trenutno imate'
     fursuit: 'fursuit'
     fursuits: 'fursuitov'
-    currently2: '.'
+    currently2: ''
     notice: 'Fursuiti z znakom <i class="far fa-id-card-alt fa-lg"></i> poleg imena bodo natisnjeni za dogodke (če ni drugače napisano na dogodku). <i class="w3-opacity w3-small">Vedite, da bo le ena takšna značka natisnjena brezplačno. Dodatne značke bodo zaračunane, cene pa so objavljene na dogodku.</i>'
     new: 'Dodaj novega'
     newH: 'Dodaj nov fursuit'

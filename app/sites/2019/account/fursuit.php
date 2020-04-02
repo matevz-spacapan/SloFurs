@@ -3,7 +3,7 @@
 	<button class="btn btn-primary btn-lg w3-hide-large" onclick="$('#accSidebar').show()">&#9776;</button>
 </div>
 <div class="container-fluid">
-	<p class="mt-4"><?php echo L::account_fursuit_currently1;?> <?php echo count($fursuits).' '; echo (count($fursuits) > 0 ? (count($fursuits) > 1 ? L::account_fursuit_fursuits : L::account_fursuit_fursuit) : L::account_fursuit_fursuits); ?><?php echo L::account_fursuit_currently2;?></p>
+	<p class="mt-4"><?php echo L::account_fursuit_currently1;?> <?php echo count($fursuits).' '; echo (count($fursuits) > 0 ? (count($fursuits) > 1 ? L::account_fursuit_fursuits : L::account_fursuit_fursuit) : L::account_fursuit_fursuits); ?> <?php echo L::account_fursuit_currently2;?></p>
 	<?php
 	/*if(count($fursuits)>0){
 		echo L::account_fursuit_notice.'<p>';

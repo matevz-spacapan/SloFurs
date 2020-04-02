@@ -278,7 +278,7 @@ account:
     currently1: 'Currently, you have'
     fursuit: 'fursuit'
     fursuits: 'fursuits'
-    currently2: 'on record.'
+    currently2: 'on record'
     notice: 'Fursuits with <i class="far fa-id-card-alt fa-lg"></i> next to their name will be printed for events (unless otherwise stated on the event).<i class="w3-opacity w3-small">Please note that only one such badge will be printed free of charge. Additional badges will be charged, the cost for this is posted on each event.</i>'
     new: 'Add new'
     newH: 'Add a new fursuit'
