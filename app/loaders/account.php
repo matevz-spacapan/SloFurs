@@ -79,11 +79,11 @@ class Account extends Connection{
 		}
 		$fursuit_model=$this->loadSQL('FursuitModel');
 		if(isset($_POST['new_fursuit'])){
-			$_SESSION['alert']=$fursuit_model->addFursuit(strip_tags($_POST['suitname']), strip_tags($_POST['animal']), null/*$_POST['in_use']*/, $_FILES['image']);
+			$_SESSION['alert']=$fursuit_model->addFursuit(strip_tags($_POST['suitname']), strip_tags($_POST['animal']), 1/*$_POST['in_use']*/, $_FILES['image']);
 			header('location: '.URL.'account/fursuit');
 		}
 		elseif(isset($_POST['edit_fursuit'])){
-				$_SESSION['alert']=$fursuit_model->editFursuit(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['suitname']), strip_tags($_POST['animal']), null/*$_POST['in_use']*/, $_FILES['image']);
+				$_SESSION['alert']=$fursuit_model->editFursuit(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['suitname']), strip_tags($_POST['animal']), 1/*$_POST['in_use']*/, $_FILES['image']);
 				header('location: '.URL.'account/fursuit');
 		}
 		elseif(isset($_POST['delete_fursuit'])){
