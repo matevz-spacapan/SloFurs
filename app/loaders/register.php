@@ -94,7 +94,6 @@ class Register extends Connection{
 		}
 		else{
 			//create Stripe session for payment processing
-			\Stripe\Stripe::setApiKey(STRIPE_PRIVATE);
 			if($event->ticket=='regular'){
 				$price=$event->regular_price;
 			}
@@ -104,20 +103,22 @@ class Register extends Connection{
 			else{
 				$price=$event->super_price;
 			}
-			$session = \Stripe\Checkout\Session::create([
-				'customer_email' => $account->email,
-			  'payment_method_types' => ['card'],
-			  'line_items' => [[
-			    'name' => 'Vstopnina',
-			    'description' => "Vstopnina za dogodek {$event->name} - {$event->ticket}",
-			    'amount' => $price*100,
-			    'currency' => 'eur',
-			    'quantity' => 1,
-			  ]],
-			  'success_url' => URL.'register/edit?id='.$id.'&session_id={CHECKOUT_SESSION_ID}',
-			  'cancel_url' => URL.'register/edit?id='.$id.'&cancel=1',
-			]);
-			
+			if($price>0){
+				\Stripe\Stripe::setApiKey(STRIPE_PRIVATE);
+				$session = \Stripe\Checkout\Session::create([
+					'customer_email' => $account->email,
+				  'payment_method_types' => ['card'],
+				  'line_items' => [[
+				    'name' => 'Vstopnina',
+				    'description' => "Vstopnina za dogodek {$event->name} - {$event->ticket}",
+				    'amount' => $price*100,
+				    'currency' => 'eur',
+				    'quantity' => 1,
+				  ]],
+				  'success_url' => URL.'register/edit?id='.$id.'&session_id={CHECKOUT_SESSION_ID}',
+				  'cancel_url' => URL.'register/edit?id='.$id.'&cancel=1',
+				]);
+			}
 			//load site
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/alerts.php';

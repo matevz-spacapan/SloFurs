@@ -358,7 +358,7 @@ register:
       none: 'There are no (other) upcoming events'
     past:
       h: 'Past events'
-      ended: 'Event ended.'
+      ended: 'Event ended'
     date:
       mon: 'Mon'
       tue: 'Tue'

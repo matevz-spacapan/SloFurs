@@ -40,25 +40,25 @@
 		<?php foreach($cEvents as $event): ?>
 			<?php
 				if(new DateTime($event->reg_end)<=new DateTime()){
-					$color='w3-light-gray';
+					$color='bg-primary text-white';
 					$text=L::admin_event_text_closed;
 				}
 				elseif(new DateTime($event->reg_start)<=new DateTime()){
-					$color='w3-blue';
+					$color='bg-primary text-white';
 					$text=L::admin_event_text_reg.'<br>'.$reg_model->convertViewable($event->reg_end, 2);
 				}
 				elseif($event->pre_reg_start!=$event->reg_start && new DateTime($event->pre_reg_start)<=new DateTime() && $account!=null && $account->status>=PRE_REG){
-					$color='w3-light-blue';
+					$color='bg-info text-white';
 					$text=L::admin_event_text_pre.'<br>'.$reg_model->convertViewable($event->reg_start, 2);
 				}
 				else{
-					$color='w3-light-gray';
+					$color='bg-secondary text-white';
 					$text=L::admin_event_text_until.'<br>';
 					$date=($account!=null && $account->status>=PRE_REG)?$reg_model->convertViewable($event->pre_reg_start, 2):$reg_model->convertViewable($event->reg_start, 2);
 					$text=$text.$date;
 				}
 				if(!$complete_profile){
-					$color='w3-light-gray';
+					$color='bg-secondary text-white';
 					$text=L::register_view_upcoming_complete;
 				}
 			?>
@@ -77,7 +77,7 @@
 		<div class="row ml-1">
 			<?php foreach($pEvents as $event): ?>
 				<?php
-					$color='w3-gray';
+					$color='bg-secondary text-white';
 					$text=L::register_view_past_ended;
 					require 'app/sites/'.THEME.'/reg/evt.php';
 				?>

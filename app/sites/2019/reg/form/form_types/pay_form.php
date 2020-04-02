@@ -11,7 +11,6 @@
     });
   }
 </script>
-
 <button class="btn-block btn btn-success mt-2" data-toggle="modal" data-target="#payment" id="payButton">Plačaj zdaj<?php //echo L::register_form_buttonView;?></button>
 <div id="payment" class="modal fade">
   <div class="modal-dialog modal-lg">

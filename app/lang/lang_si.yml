@@ -361,7 +361,7 @@ register:
       none: 'Trenutno ni (drugih) prihajajočih dogodkov'
     past:
       h: 'Pretekli dogodki'
-      ended: 'Dogodek zaključen.'
+      ended: 'Dogodek zaključen'
     date:
       mon: 'pon'
       tue: 'tor'
