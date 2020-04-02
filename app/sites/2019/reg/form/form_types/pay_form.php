@@ -21,7 +21,6 @@
         <button type="button" class="close" data-dismiss="modal" style="font-weight: 1;">Plačaj kasneje &times;</button>
       </div>
       <div class="modal-body">
-        <!-- Payment types -->
         <?php
           if($event->ticket=='regular'){
             $price=$event->regular_price;
@@ -35,6 +34,7 @@
         ?>
         <div class="text-center">
           <h5>Skupaj za plačilo: <?php //echo L::register_form_modal_prices_h;?><?php echo $price;?>€</h5>
+          <small class="text-muted"><i>Cena vsebuje 8,5% DDV. Vsa plačila so obvezujoča (po plačilu ni možno vračilo celotne kupnine). Pri plačilu veljajo <a href="<?php echo URL;?>rules" target="_blank">pogoji SloFurs srečanj <i class="far fa-external-link"></i></a>.</i></small><br><br>
           <button class="btn btn-primary" onclick="goStripe()"><i class="fab fa-stripe fa-3x"></i><br>spletno plačilo</button>
         </div>
         <hr>

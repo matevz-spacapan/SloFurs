@@ -1,7 +1,8 @@
-<div class="w3-container">
-  <h1>Pravila in pogoji SloFurs srečanj</h1>
+<div class="container-fluid">
+  <h1>Pravila SloFurs srečanj in pogoji poslovanja</h1>
   <p>Namen srečanj je pripraviti sproščeno in prijetno vzdušje vsem furryijem in njihovim gostom, ki se odločijo udeležiti srečanja. Srečanja poskušamo voditi s čim manj formalnosti in določenih pravil, saj se zanašamo na zdravo pamet vsakega posameznika. Kljub temu smo opazili potrebo po določitvi nekaterih osnovnih pravil, ki bodo preprečila morebitne organizacijske, vedenjske in zakonske zaplete. Pravila so zapisana okvirno, vsebujejo smernice za določene vnaprej pričakovane primere, v vseh drugih primerih predvsem veljajo prva tri pravila. V splošnem velja, da boste s kratkim razmislekom vedeli, kaj je primerno in kaj ne. Če ste v dvomih, vprašajte organizatorje.</p>
   <p>Vse različice teh pravil in pogojev so javno objavljene na spletni strani SloFurs, dostopni <a href="https://slofurs.org/pravila/">tukaj</a>, najnovejša različica, pa je dostopna na strani kjer se nahajate sedaj. V času določenega srečanja so veljavna najnovejša objavljena pravila ob začetku srečanja. Zaradi preglednosti se v besedilu uporabljajo oblike za moški spol.</p>
+  <p>S spletno prodajo na strani events.slofurs.org upravlja društvo SloFurs, Gregorčičeva ulica 33, 5000 Nova Gorica, matična številka: XXXXXXXXXX, davčna številka: XXXXXXXXXX, ki je ponudnik storitev (v nadaljevanju tudi prodajalec).</p>
 
   <h3>Osnovna pravila</h3>
   <ol>
@@ -22,6 +23,27 @@
     <li>Prijavo lahko potrdi le organizator. Prijave oseb s prepovedjo udeležbe ne bodo obravnavane. V primeru, da se plačilo stroškov udeležbe zahteva pred srečanjem, je le-to pogoj za potrditev udeležbe. Organizator v primeru neudeležbe ni dolžan povrnitve stroškov, razen v primeru vnaprej sklenjenega dogovora, ki določa drugače. V primeru prepovedi udeležbe zaradi kršenja pravil udeleženec ni upravičen do nikakršne povrnitve stroškov.</li>
     <li>Ob prijavi potrjujete, da se strinjate s pravili in pogoji srečanja. Ob začetku srečanja boste morda morali podpisati pisno izjavo, da se strinjate s pravili in pogoji srečanja.</li>
   </ol>
+
+  <h4>Načini plačila</h4>
+  <p>Če je potrebno za udeležbo na dogodku poravnati stroške, vam omogočamo naslednje načine plačila:</p>
+  <ul>
+    <li>z nakazilom na račun društva SloFurs,</li>
+    <li>s plačilno oziroma kreditno kartico preko sistema Stripe,</li>
+    <li>osebno na dogodku v gotovini.</li>
+  </ul>
+  <p>Kateri način plačila bo na voljo za dogodek je odvisno od odločitve organizatorja. Vsa plačila v naprej so obvezujoča, kot opredeljeno v razdelku <b>reklamacije vstopnic</b>.</p>
+
+  <h3>Prenosljivost vstopnic</h3>
+  <p>V primeru, da se dogodka ne morete udeležiti in ste vstopnico zanj že kupili, jo lahko brez dodatnih stroškov prenesete na drugo osebo. V tem primeru, nas po elektronski pošti obvestite o vaši želji, v sporočilu pa navedite še elektronski naslov uporabnika kateremu prenašate vstopnico. Navedeni uporabnik mora pred tem imeti potrjeno prijavo na istem dogodku, sicer vam vstopnice ne bomo morali prenesti.</p>
+  <p>Vstopnic se ne da prenašati iz enega dogodka na drugega.</p>
+
+  <h3>Vračilo kupnine in reklamacije vstopnic</h3>
+  <p>V skladu z 12. točko 43.č člena Zakona o varstvu potrošnikov potrošnik nima pravice do odstopa od pogodbe pri storitvah za prosti čas, pri katerih se izvajalec zaveže, da bo izpolnil svojo obveznost ob točno določenem datumu ali v točno določenem roku. Glede na navedeno zakonsko izjemo, v skladu s katero potrošnik nima pravice do odstopa od nakupa vstopnic, so vsa naročila vstopnic obvezujoča, ne glede na način naročila (osebno ali preko spleta). Vstopnice za vse dogodke ne glede na lokacijo izvajanja dogodka ni mogoče vrniti in zanje zahtevati vračila denarja.</p>
+  <p>V primeru odpovedi dogodka ali spremembe datuma ali lokacije izvajanja dogodka je za urejanje nastale situacije in vračilo denarja v vseh primerih odgovoren prodajalec. Ob nastanku navedenih okoliščin bo prodajalec kupce vstopnic v najkrajšem možnem času obvestil o možnostih vračila denarja. Če kupec v roku 14 od naznanitve sprememb ne zahteva povračila kupnine, se z navedenimi spremembami strinja in po tem roku ponovno ni upravičen do povračila kupnine.</p>
+  <p>V primeru vrača denarja bodo imetniki vstopnic prejeli povrnjen znesek, brez dodatnih zahtev, na isti način, kot so plačali vstopnice. S tem vstopnice postanejo neveljavne.</p>
+  <p>Minimalne ali upravičene spremembe v izvedbi dogodka so pridržana pravica. V primeru odpovedi, spremembe datuma ali lokacije dogodka ali spremembe v programu, dodatni stroški, ki jih utegnete imeti (npr. stroški potovanja, hotel, stroški dostave, stroški plačil, ipd.), ne bodo povrnjeni.</p>
+  <p>Prodajalec se trudi zagotoviti, da so vse cene na spletni strani točne, a vseeno lahko pride do napak. Če prodajalec odkrije napako v ceni vstopnice, ki jo je kupec že naročil, ga bo prodajalec o tem obvestil v najkrajšem možnem času ter kupcu dal možnost, da ponovno potrdi svoje naročilo po pravi ceni ali svoje naročilo prekliče. V kolikor prodajalec s kupcem ne bo uspelo vzpostaviti kontakta, se kupec strinja s tem, da bo prodajalec kupčevo vstopnico obravnavalo kot odpovedano. Če se kupec odloči za preklic vstopnice z nepravilno ceno po že izvršenem njegovem plačilu, mu bo prodajalec vrnil denar.</p>
+  <p>Reklamacije rešujeta kupec vstopnic in prodajalec, in sicer v reklamacijskem roku, ki je osem dni od prejema pisne pritožbe s strani pritožnika. V tem roku je prodajalec dolžen pritožniku posredovati pisni ali ustni odgovor na posredovano pritožbo.</p>
 
   <h3>Obnašanje</h3>
   <ol>
@@ -87,4 +109,11 @@
     <li>V primeru nasilja oziroma če udeleženec ne zapusti srečanja na organizatorjevo zahtevo, si organizator pridržuje pravico, da v izrednih primerih (če udeleženec ogroža ostale udeležence, organizatorje ali druge ljudi oziroma živali) pokliče pristojne organe za odstranitev udeleženca s srečanja. Udeleženec lahko izgubi pravico do udeležbe na nadaljnjih srečanjih.</li>
     <li>V primeru potrebe po pristojnih organih kršitelj krije stroške.</li>
   </ol>
+
+  <h3>Kontaktni podatki</h3>
+  <p>V primeru vprašanj, težav ali nejasnosti nas lahko kontaktirate po elektronski pošti na naslovu <a href="mailto:slofurs@gmail.com" target="_blank">slofurs@gmail.com</a>.</p>
+  <p>V primeru, da želite stopiti v stik z nami preko pošte, lahko pismo naslovite na:<br>
+  Društvo SloFurs<br>
+  Gregorčičeva ulica 33<br>
+  5000 Nova Gorica</p>
 </div>

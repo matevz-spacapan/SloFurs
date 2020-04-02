@@ -1,7 +1,8 @@
-<div class="w3-container">
-  <h1>Rules of conduct for SloFurs events</h1>
+<div class="container-fluid">
+  <h1>Rules of Conduct for SloFurs events and Terms of Service</h1>
   <p>The events are held with the intention to create a relaxed and pleasant atmosphere for furries and their guests, who decide to attend. We try to avoid as many formalities and written rules as possible, depending on our attendees' common sense. Nonetheless, we have noticed a need to prepare and publish these basic rules in order to avoid unnecessary complications regarding organization, attendee conduct or law abidance. As these rules are merely an outline, they contain guidelines for certain expected situations, in all other cases the first three general rules apply. Most of the time, common sense will help you decide what is acceptable and what not. If in doubt, ask a member of the organization team.</p>
   <p>All versions of these Rules of conduct are publicly available <a href="https://slofurs.org/pravila/">here</a>, with the lastest version being available on this page. For the duration of an event, the most recent version of the Rules of conduct, available at the beginning of the event, apply.</p>
+  <p>Web sales on the website events.slofurs.org are managed by društvo SloFurs (SloFurs organisation), Gregorčičeva ulica 33, 5000 Nova Gorica, identification number: XXXXXXXXXX, tax number: XXXXXXXXXX, which is the provider of the services (referred also as the seller).</p>
 
   <h3>General rules</h3>
   <ol>
@@ -19,8 +20,29 @@
     <li>Only a registered person with a confirmed registration (referred to as member) may attend a SloFurs event, unless stated otherwise.</li>
     <li>Prior to registration, you need to specify accurate personal information which include, but are not limited to your name and surname, date of birth and address of residency. In case of doubt, the organizer will request to see a valid personal identification document, issued by the country of residence. Inaccurate information will lead to membership revocation and a potential ban from future events.</li>
     <li>A registration may only be confirmed by the organizer. Registrations made by banned individuals will be immediately rejected. If cost payment is required before an event, registration will only be confirmed once full payment has been completed. Registered attendees, which do not attend the event, are not eligible for a refund, unless a different agreement has been reached between the attendee and the organizer prior to registration. In case of membership revocation due to Rules of conduct violation, the attendee is not eligible for any kind of refund.</li>
-    <li>By registering you agree that you have read, understand and will follow the Rules of conduct for SloFurs events. At the beginning of an event you may be asked to sign a declaration, that you have read, understand and will follow the Rules of conduct.</li>
+    <li>By registering you agree that you have read, understand and will follow the Rules of conduct for SloFurs events and agree with our Terms of Service. At the beginning of an event you may be asked to sign a declaration, that you have read, understand and will follow the Rules of conduct and agree to our Terms of Service.</li>
   </ol>
+
+  <h4>Payment methods</h4>
+  <p>If attendance to an event requires cost payment, we allow you to pay the following ways:</p>
+  <ul>
+    <li>payment through bank transfer,</li>
+    <li>credit or debit card using the Stripe system,</li>
+    <li>on the spot with cash.</li>
+  </ul>
+  <p>Which payment methods will be available to you depend by the organisers decision. All payments in advance are final and binding, as explained in the <b>complaints and refunds</b> section.</p>
+
+  <h3>Transferability of tickets</h3>
+  <p>In the case that you can't attend an event for which you have already purchased a ticket for, you may transfer it to another person. In this case, please email us with your wish and let us know the email address of the user you're transferring the ticket to. The user must already have a confirmed registration for the same event, otherwise we won't be able to transfer the ticket.</p>
+  <p>Tickets can't be transferred between different events.</p>
+
+  <h3>Complaints and refunds</h3>
+  <p>In accordance to Slovenian law, the consumer is not entitled to withdraw from the contract for leisure services in which the contractor undertakes to fulfill his obligation at a specific date or within a specified time limit. This means that all purchases are binding and final no matter how you completed the purchase (in person or online). You cannot return any purchased ticket for any event no mater where it's being held and demand a refund for them.</p>
+  <p>In the case that an event is cancelled or has it's date or location changed, the seller is responsible for handling the situation and for handling refunds. Upon the occurrence of these circumstances, the seller will inform ticket buyers as soon as possible regarding refund options. If the buyer does not request a refund within 14 days of these changes being made public, he/she agrees with the aforementioned changes and after that period he/she is again not entitled to a refund.</p>
+  <p>In the event of a refund, ticket holders will receive a refund, without any further request, in the same way they paid the tickets. This invalidates the ticket.</p>
+  <p>Minimal or justified changes to the event are reserved. In the event of cancellation, change of the date or location of the event or change in the program, any additional costs you may incur (eg. travel, hotel, delivery, payment, etc.) will not be reimbursed.</p>
+  <p>The seller does his best to ensure that all prices on the website are accurate, but errors can still occur. If the seller detects a mistake in the ticket price already purchased by the buyer, the seller will inform the buyer as soon as possible and give the buyer the opportunity to re-confirm the order at the right price or cancel it. Should the seller fail to contact the buyer, the buyer agrees to treat the seller's ticket as canceled. If the buyer chooses to cancel the ticket at the wrong price after his payment has already been made, the seller will refund him the money.</p>
+  <p>Complaints are resolved by the ticket buyer and the seller within the complaint period, which is eight days from the receipt of the written complaint by the complainant. Within this period, the seller is obliged to provide the complainant with a written or oral response to the submitted complaint.</p>
 
   <h3>Conduct</h3>
   <ol>
@@ -84,4 +106,12 @@
     <li>If an attendee is violent or their behaviour endangers other participants, the organizer will be forced to utilize the authorities or emergency services to remove the person from the event. Such acts will result in a permanent ban from attending future events.</li>
     <li>In case of intervention by the authorities or emergency services, all expenses are covered by the perpetrator.</li>
   </ol>
+
+  <h3>Contact information</h3>
+  <p>In case of questions, issues or ambiguities you may contact us via email at <a href="mailto:slofurs@gmail.com" target="_blank">slofurs@gmail.com</a>.</p>
+  <p>If you wish to contact us via post, you can send your letter to:<br>
+  Društvo SloFurs<br>
+  Gregorčičeva ulica 33<br>
+  5000 Nova Gorica<br>
+  Slovenia</p>
 </div>

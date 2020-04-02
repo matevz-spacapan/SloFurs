@@ -112,7 +112,7 @@
 	</div>
 </div>
 <?php require 'app/sites/global/validate_form.php'; ?>
-<?php if($view_only):?>
+<?php if(isset($view_only)&&$view_only):?>
 <script>
 	$("#regForm :input").attr("disabled", true);
 </script>

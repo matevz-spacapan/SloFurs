@@ -5,14 +5,14 @@ class Rules extends Connection{
 		require 'app/sites/global/header.php';
 		if(isset($_SESSION['lang'])){
 			if($_SESSION['lang']=='si'){
-				require 'app/sites/global/pravila.html';
+				require 'app/sites/global/pravila.php';
 			}
 			else{
-				require 'app/sites/global/rules.html';
+				require 'app/sites/global/rules.php';
 			}
 		}
 		else{
-			require 'app/sites/global/pravila.html';
+			require 'app/sites/global/pravila.php';
 		}
 		require 'app/sites/global/footer.php';
 	}
