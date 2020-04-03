@@ -31,14 +31,14 @@
     <li>s plačilno oziroma kreditno kartico preko sistema Stripe,</li>
     <li>osebno na dogodku v gotovini.</li>
   </ul>
-  <p>Kateri način plačila bo na voljo za dogodek je odvisno od odločitve organizatorja. Vsa plačila v naprej so obvezujoča, kot opredeljeno v razdelku <b>reklamacije vstopnic</b>.</p>
+  <p>Kateri način plačila bo na voljo za dogodek je odvisno od odločitve organizatorja. Vsa plačila v naprej so obvezujoča, kot opredeljeno v razdelku <b>vračilo kupnine in reklamacije vstopnic</b>.</p>
 
   <h3>Prenosljivost vstopnic</h3>
   <p>V primeru, da se dogodka ne morete udeležiti in ste vstopnico zanj že kupili, jo lahko brez dodatnih stroškov prenesete na drugo osebo. V tem primeru, nas po elektronski pošti obvestite o vaši želji, v sporočilu pa navedite še elektronski naslov uporabnika kateremu prenašate vstopnico. Navedeni uporabnik mora pred tem imeti potrjeno prijavo na istem dogodku, sicer vam vstopnice ne bomo morali prenesti.</p>
   <p>Vstopnic se ne da prenašati iz enega dogodka na drugega.</p>
 
   <h3>Vračilo kupnine in reklamacije vstopnic</h3>
-  <p>V skladu z 12. točko 43.č člena Zakona o varstvu potrošnikov potrošnik nima pravice do odstopa od pogodbe pri storitvah za prosti čas, pri katerih se izvajalec zaveže, da bo izpolnil svojo obveznost ob točno določenem datumu ali v točno določenem roku. Glede na navedeno zakonsko izjemo, v skladu s katero potrošnik nima pravice do odstopa od nakupa vstopnic, so vsa naročila vstopnic obvezujoča, ne glede na način naročila (osebno ali preko spleta). Vstopnice za vse dogodke ne glede na lokacijo izvajanja dogodka ni mogoče vrniti in zanje zahtevati vračila denarja.</p>
+  <p>V skladu z 12. točko 43.č člena Zakona o varstvu potrošnikov potrošnik nima pravice do odstopa od pogodbe pri storitvah za prosti čas, pri katerih se izvajalec zaveže, da bo izpolnil svojo obveznost ob točno določenem datumu ali v točno določenem roku. Glede na navedeno zakonsko izjemo, v skladu s katero potrošnik nima pravice do odstopa od nakupa vstopnic, so vsa naročila vstopnic obvezujoča, ne glede na način naročila (osebno ali preko spleta). V drugih besedah; vstopnice za vse dogodke, ne glede na lokacijo izvajanja dogodka, ni mogoče vrniti in zanje zahtevati vračila denarja.</p>
   <p>V primeru odpovedi dogodka ali spremembe datuma ali lokacije izvajanja dogodka je za urejanje nastale situacije in vračilo denarja v vseh primerih odgovoren prodajalec. Ob nastanku navedenih okoliščin bo prodajalec kupce vstopnic v najkrajšem možnem času obvestil o možnostih vračila denarja. Če kupec v roku 14 od naznanitve sprememb ne zahteva povračila kupnine, se z navedenimi spremembami strinja in po tem roku ponovno ni upravičen do povračila kupnine.</p>
   <p>V primeru vrača denarja bodo imetniki vstopnic prejeli povrnjen znesek, brez dodatnih zahtev, na isti način, kot so plačali vstopnice. S tem vstopnice postanejo neveljavne.</p>
   <p>Minimalne ali upravičene spremembe v izvedbi dogodka so pridržana pravica. V primeru odpovedi, spremembe datuma ali lokacije dogodka ali spremembe v programu, dodatni stroški, ki jih utegnete imeti (npr. stroški potovanja, hotel, stroški dostave, stroški plačil, ipd.), ne bodo povrnjeni.</p>
