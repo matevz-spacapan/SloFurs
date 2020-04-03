@@ -70,7 +70,7 @@
             <tr>
               <td>
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input class="custom-control-input" type="radio" name="ticket" value="super" id="super" <?php if(!$new_reg&&$event->ticket=='sponsor'){echo 'checked';} ?>>
+                  <input class="custom-control-input" type="radio" name="ticket" value="super" id="super" <?php if(!$new_reg&&$event->ticket=='super'){echo 'checked';} ?>>
                   <label for="super" class="custom-control-label">
                     <?php if(strlen($event->super_title)!=0): ?>
                       <?php echo $event->super_title;?>
