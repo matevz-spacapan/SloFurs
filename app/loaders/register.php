@@ -93,32 +93,8 @@ class Register extends Connection{
 			header('location: '.URL.'register/edit?id='.$id);
 		}
 		else{
-			//create Stripe session for payment processing
-			if($event->ticket=='regular'){
-				$price=$event->regular_price;
-			}
-			elseif($event->ticket=='sponsor'){
-				$price=$event->sponsor_price;
-			}
-			else{
-				$price=$event->super_price;
-			}
-			if($price>0){
-				\Stripe\Stripe::setApiKey(STRIPE_PRIVATE);
-				$session = \Stripe\Checkout\Session::create([
-					'customer_email' => $account->email,
-				  'payment_method_types' => ['card'],
-				  'line_items' => [[
-				    'name' => 'Vstopnina',
-				    'description' => "Vstopnina za dogodek {$event->name} - {$event->ticket}",
-				    'amount' => $price*100,
-				    'currency' => 'eur',
-				    'quantity' => 1,
-				  ]],
-				  'success_url' => URL.'register/edit?id='.$id.'&session_id={CHECKOUT_SESSION_ID}',
-				  'cancel_url' => URL.'register/edit?id='.$id.'&cancel=1',
-				]);
-			}
+			//do Stripe payment setup and checks
+			require 'app/loaders/support/stripe.php';
 			//load site
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/alerts.php';

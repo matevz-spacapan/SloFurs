@@ -1,6 +1,6 @@
 <div id="register" class="modal fade">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content" style="max-width:600px">
+    <div class="modal-content" style="max-width:650px">
       <?php
         $view_only=false;
         if($new_reg){
@@ -19,7 +19,7 @@
         <h4 class="modal-title <?php echo $c; ?>"><?php echo L::register_form_modal_h;?></h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-      <form action="<?php echo URL; ?>register/<?php echo $form_type; ?>?id=<?php echo $event->id; ?>" method="post" class="needs-validation" novalidate id="regForm">
+      <form action="<?php echo URL; ?>register/<?php echo $form_type; ?>?id=<?php echo $id; ?>" method="post" class="needs-validation" novalidate id="regForm">
       <div class="modal-body">
         <!-- TICKET TYPES -->
         <h5><?php echo L::register_form_modal_prices_h;?></h5>

@@ -104,8 +104,13 @@
 					require 'app/sites/2019/reg/form/form_types/reg_form.php';
 				}
 				//payment form
-				if(!$new_reg && $event->regular_price!=0 && $color=='btn-success' &&isset($session)){
-					require 'app/sites/2019/reg/form/form_types/pay_form.php';
+				if(!$new_reg && $color=='btn-success'){
+					if(isset($session)){
+						require 'app/sites/2019/reg/form/form_types/pay_form.php';
+					}
+					elseif($event->pay_button==1){
+						echo '<button class="btn-block btn btn-success mt-2 disabled"><i class="far fa-check-circle"></i> Vstopnina plačana v celoti ('.$paid.'€)</button>';
+					}
 				}
 			?>
 		</div>

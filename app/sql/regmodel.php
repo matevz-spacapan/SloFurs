@@ -177,7 +177,7 @@ class RegModel{
 
 	//Get details for selected event
 	public function existingReg($id, $all=false){
-		$sql='SELECT * FROM event INNER JOIN registration ON event.id=registration.event_id WHERE registration.id=:id';
+		$sql='SELECT * FROM event INNER JOIN registration ON event.id=registration.event_id LEFT JOIN payment ON registration.id=payment.reg_id WHERE registration.id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		if($all){
@@ -464,5 +464,65 @@ class RegModel{
 		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"deleted a car share ID $id", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+	}
+
+	/*
+	 * PAYMENT PROCESSING
+	*/
+
+	//record payment session before going to Stripe. id=registration ID, session=session ID from Stripe
+	public function startStripeSession($id, $session, $amount){
+		//check if user is the owner of the car share
+		$sql='INSERT INTO payment(reg_id, session_id, amount, start_time) VALUES (:id, :session, :amount, :start_time)';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id, ':session'=>$session, ':amount'=>$amount, ':start_time'=>date_format(date_create(), 'Y-m-d H:i:s')));
+	}
+	//record when user returned to SloFurs after Stripe payment, id=registration ID, session=session ID from Stripe
+	public function returnFromStripe($id, $session){
+		//check if user is the owner of the car share
+		$sql='UPDATE payment SET returned=1 WHERE session_id=:session';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':session'=>$session));
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$_SESSION['account'], ':what'=>"returned from Stripe for registration ID $id", ':for_who'=>$_SESSION['account'], ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+	}
+	//check if Stripe payment is in DB. session=session ID from Stripe
+	public function checkStripePayment($session){
+		$sql='SELECT * FROM payment WHERE session_id=:session AND stripe_verified=1';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':session'=>$session));
+		if($query->rowCount()==0){
+			return 'sVaše plačilo je v obdelavi.';
+		}
+		return 'sVaše plačilo smo prejeli.';
+	}
+	//sum up payments for registration
+	public function sumPayments($id){
+		$sql='SELECT SUM(amount) AS paid FROM payment WHERE reg_id=:id AND stripe_verified=1';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetch();
+	}
+	//add payment amount to session
+	public function hookPaymentStripe($session){
+		//check if user is the owner of the car share
+		$sql='UPDATE payment SET stripe_verified=1 WHERE session_id=:session';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':session'=>$session));
+	}
+	//sum of pending payments for registration
+	public function sumPendingPayments($id){
+		$sql='SELECT SUM(amount) AS paid FROM payment WHERE reg_id=:id AND stripe_verified=0 AND returned=1';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetch();
+	}
+	//list of pending payments
+	public function pendingPayments($id){
+		$sql='SELECT * FROM payment WHERE reg_id=:id AND stripe_verified=0 AND returned=1';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetchAll();
 	}
 }

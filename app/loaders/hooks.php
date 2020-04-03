@@ -2,7 +2,7 @@
 class Hooks extends Connection{
 	public function index(){
     \Stripe\Stripe::setApiKey(STRIPE_PRIVATE);
-    $endpoint_secret = 'whsec_...';
+    $endpoint_secret = 'whsec_o35gcbIhGFswkWzft6HMkQDVoL9Q3GOi';
 		$account=$this->getSessionAcc();
     $payload = @file_get_contents('php://input');
     $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
@@ -23,8 +23,9 @@ class Hooks extends Connection{
     // Handle the checkout.session.completed event
     if ($event->type == 'checkout.session.completed') {
       $session = $event->data->object;
-      //handle payment into DB (amount, session_id); connect payment to registration on redirect from Stripe on client side
-      
+      //update payment into DB (amount, session_id)
+			$reg_model=$this->loadSQL('RegModel');
+      $reg_model->hookPaymentStripe($session['id']);
     }
     http_response_code(200);
 	}

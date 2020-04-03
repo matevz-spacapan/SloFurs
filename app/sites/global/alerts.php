@@ -15,7 +15,7 @@
 		<div class="alerts-box-icon <?php echo $alert_type ?>">
 			<?php echo $alert_icon; ?>
 		</div>
-		<div class="alerts-box-text">
+		<div class="alerts-box-text bg-light">
 			<span><?php echo substr($_SESSION['alert'], 1); ?></span>
 		</div>
 	</div>
