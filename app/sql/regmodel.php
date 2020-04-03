@@ -473,9 +473,9 @@ class RegModel{
 	//record payment session before going to Stripe. id=registration ID, session=session ID from Stripe
 	public function startStripeSession($id, $session, $amount){
 		//check if user is the owner of the car share
-		$sql='INSERT INTO payment(reg_id, session_id, amount, start_time) VALUES (:id, :session, :amount, :start_time)';
+		$sql='INSERT INTO payment(reg_id, session_id, amount, start_time) VALUES (:id, :session, :amount, NOW())';
 		$query=$this->db->prepare($sql);
-		$query->execute(array(':id'=>$id, ':session'=>$session, ':amount'=>$amount, ':start_time'=>date_format(date_create(), 'Y-m-d H:i:s')));
+		$query->execute(array(':id'=>$id, ':session'=>$session, ':amount'=>$amount));
 	}
 	//record when user returned to SloFurs after Stripe payment, id=registration ID, session=session ID from Stripe
 	public function returnFromStripe($id, $session){

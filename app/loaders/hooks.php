@@ -2,14 +2,13 @@
 class Hooks extends Connection{
 	public function index(){
     \Stripe\Stripe::setApiKey(STRIPE_PRIVATE);
-    $endpoint_secret = 'whsec_o35gcbIhGFswkWzft6HMkQDVoL9Q3GOi';
 		$account=$this->getSessionAcc();
     $payload = @file_get_contents('php://input');
     $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
     $event = null;
     try {
       $event = \Stripe\Webhook::constructEvent(
-        $payload, $sig_header, $endpoint_secret
+        $payload, $sig_header, STRIPE_WEBHOOK
       );
     } catch(\UnexpectedValueException $e) {
       // Invalid payload
