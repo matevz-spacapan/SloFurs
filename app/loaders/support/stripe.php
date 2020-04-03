@@ -1,6 +1,6 @@
 <?php
 //if event is set for pre-payments
-if($event->pay_button==1){
+if($event->pay_button==1 && $event->confirmed==1){
   //get price of this registration
   if($event->ticket=='regular'){
     $price=$event->regular_price;

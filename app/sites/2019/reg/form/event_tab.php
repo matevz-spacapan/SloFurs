@@ -108,7 +108,7 @@
 					if(isset($session)){
 						require 'app/sites/2019/reg/form/form_types/pay_form.php';
 					}
-					elseif($event->pay_button==1){
+					elseif($event->pay_button==1 && $event->confirmed==1){
 						echo '<button class="btn-block btn btn-success mt-2 disabled"><i class="far fa-check-circle"></i> Vstopnina plačana v celoti ('.$paid.'€)</button>';
 					}
 				}
