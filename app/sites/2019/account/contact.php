@@ -37,12 +37,17 @@
 								</div>
 					    </div>
 							<div class="modal-footer">
-								<button type="submit" name="change_email" class="btn btn-success"><?php echo L::account_email_save;?></button>
+								<button type="submit" name="change_email" id="submitemail" class="btn btn-success"><?php echo L::account_email_save;?></button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
+			<script>
+			$("#submitemail").click(function(){
+				$("#submitemail").html('<i class="fas fa-spinner-third fa-spin"></i>');
+			});
+			</script>
 
 			<div class="d-flex flex-row mb-3">
 				<div class=""><p></p>
@@ -96,12 +101,17 @@
 								</div>
 					    </div>
 							<div class="modal-footer">
-								<button type="submit" id="btn" name="change_password" class="btn btn-success"><?php echo L::account_password_save;?></button>
+								<button type="submit" id="submitpw" name="change_password" class="btn btn-success"><?php echo L::account_password_save;?></button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
+			<script>
+			$("#submitpw").click(function(){
+				$("#submitpw").html('<i class="fas fa-spinner-third fa-spin"></i>');
+			});
+			</script>
 
 			<!-- Profile picture -->
 			<h3><?php echo L::account_pfp_h;?></h3>

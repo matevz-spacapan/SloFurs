@@ -168,12 +168,17 @@
       <div class="modal-footer">
         <span class="form-control-static"><?php echo L::register_form_modal_rules1;?> <a href="<?php echo URL;?>rules" target="_blank"><?php echo L::register_form_modal_rules2;?> <i class="far fa-external-link"></i></a></span>
         <?php if($new_reg): ?>
-          <button type="submit" name="new_registration" class="btn btn-success"><?php echo L::register_form_modal_register;?></button>
+          <button type="submit" name="new_registration" id="submitform" class="btn btn-success"><?php echo L::register_form_modal_register;?></button>
         <?php elseif($color=='btn-success'): ?>
-          <button type="submit" name="edit_registration" class="btn btn-success"><?php echo L::register_form_modal_save;?></button>
+          <button type="submit" name="edit_registration" id="submitform" class="btn btn-success"><?php echo L::register_form_modal_save;?></button>
         <?php endif; ?>
       </div>
       </form>
     </div>
   </div>
 </div>
+<script>
+$("#submitform").click(function(){
+  $("#submitform").html('<i class="fas fa-spinner-third fa-spin"></i>');
+});
+</script>

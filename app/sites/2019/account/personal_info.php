@@ -142,11 +142,14 @@
 	</div>
 
 	<div class="text-center">
-		<button type="submit" name="update_personal_info" class="btn btn-success"><?php echo L::personalInfo_save;?></button>
+		<button type="submit" name="update_personal_info" class="btn btn-success" id="submitinfo"><?php echo L::personalInfo_save;?></button>
 		<?php	if(!$register): ?>
 			<button type="button" class="btn btn-outline-danger" id="delcontact" onclick="delData('contact')"><?php echo L::personalInfo_delete1;?></button>
 			<button type="submit" name="delete_personal_info" id="delconfcontact" class="btn btn-danger" style="display: none;"><?php echo L::personalInfo_delete2;?></button>
 			<script>
+			$("#submitinfo").click(function(){
+				$("#submitinfo").html('<i class="fas fa-spinner-third fa-spin"></i>');
+			});
 			function delData(id){
 				$("#del"+id).addClass("scale-out-center");
 				setTimeout(function(){
