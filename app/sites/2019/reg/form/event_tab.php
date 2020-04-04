@@ -109,7 +109,7 @@
 						require 'app/sites/2019/reg/form/form_types/pay_form.php';
 					}
 					elseif($event->pay_button==1 && $event->confirmed==1){
-						echo '<button class="btn-block btn btn-success mt-2 disabled"><i class="far fa-check-circle"></i> Vstopnina plačana v celoti ('.$paid.'€)</button>';
+						echo '<button class="btn-block btn btn-success mt-2 disabled"><i class="far fa-check-circle"></i> '.L::register_form_buttonPaid.' ('.$paid.'€)</button>';
 					}
 				}
 			?>
@@ -122,11 +122,3 @@
 	$("#regForm :input").attr("disabled", true);
 </script>
 <?php endif;?>
-<?php if(isset($_SESSION['paynow'])&&$_SESSION['paynow']==true): ?>
-	<script>
-		$(document).ready(function(){
-			//$('#payButton').click();
-		});
-	</script>
-	<?php //$_SESSION['paynow']=false; ?>
-<?php endif; ?>

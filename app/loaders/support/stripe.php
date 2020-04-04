@@ -14,7 +14,7 @@ if($event->pay_button==1 && $event->confirmed==1){
 
   //if Stripe payment was cancelled
   if(isset($_GET["cancel"])){
-    $_SESSION['alert']='dPlačilo ni uspelo, poskusite ponovno.';
+    $_SESSION['alert']=L::alerts_d_paymentFailed;
   }
   //if customer returned successfully from Stripe
   elseif(isset($_GET["session"])){
@@ -36,8 +36,8 @@ if($event->pay_button==1 && $event->confirmed==1){
           'customer_email' => $account->email,
           'payment_method_types' => ['card'],
           'line_items' => [[
-            'name' => 'Vstopnina',
-            'description' => "Vstopnina za dogodek {$event->name} - {$event->ticket}",
+            'name' => 'Event ticket',
+            'description' => "Ticket for {$event->name} - {$event->ticket}",
             'amount' => $price*100,
             'currency' => 'eur',
             'quantity' => 1,

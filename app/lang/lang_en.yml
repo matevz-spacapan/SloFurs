@@ -402,6 +402,8 @@ register:
     completeProfile: 'Complete your profile</a> to register for events.'
     buttonView: 'View registration data'
     buttonEdit: 'Edit registration'
+    buttonPay: 'Pay now'
+    buttonPaid: 'Fees paid in full'
     modal:
       h: 'Registration form'
       selection: 'Selection'
@@ -433,6 +435,20 @@ register:
       rules2: 'our rules of conduct'
       register: 'Register!'
       save: 'Save changes'
+    payment:
+      h: 'Admission payment'
+      later: 'Pay later'
+      total: 'Total due'
+      finePrint: 'The price includes 8,5% VAT. All payments are final (this means you can\'t request a refund). By paying you agree with'
+      tos: 'our Terms of Service'
+      stripeButton: 'online payment'
+      redirect: 'By clicking the button, you will be redirected to Stripe where you can securely complete your payment.'
+      pendingWarning: 'You have pending/not processed payments. <b>Be careful with next payments as you may overpay!</b> If in doubt, <a href="mailto:slofurs@gmail.com" target="_blank">contact us</a>.'
+      bank: 'In case you don\'t wish to pay online, you can transfer money to our bank account.'
+      payee: 'Recipient'
+      address: 'Address'
+      paymentCode: 'Payment type code (if applicable)'
+      reference: 'Reference (or message)'
     stats:
       country: 'Country representation'
       ticket: 'Ticket types'
@@ -508,6 +524,7 @@ alerts:
     banned: 'dThis account has been banned. <a href="mailto:slofurs@gmail.com">Contact us for more info</a>.'
     sameEmail: 'dThe new email is the same as the current email.'
     captcha: 'dCaptcha failed, please try again'
+    paymentFailed: 'dPayment failed, please try again.'
   i:
     loggedIn: 'iYou need to be logged in to register for events.'
     confirm: 'iTo confirm your new email, please check your inbox.'

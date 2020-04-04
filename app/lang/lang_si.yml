@@ -405,6 +405,8 @@ register:
     completeProfile: 'Dopolnite svoj profil</a>, da se lahko prijavite na dogodek.'
     buttonView: 'Preglejte svojo prijavo'
     buttonEdit: 'Uredi prijavo'
+    buttonPay: 'Plačaj zdaj'
+    buttonPaid: 'Vstopnina plačana v celoti'
     modal:
       h: 'Prijavni obrazec'
       selection: 'Izbira'
@@ -436,6 +438,20 @@ register:
       rules2: 'našimi pravili'
       register: 'Prijavi se!'
       save: 'Shrani spremembe'
+    payment:
+      h: 'Plačilo vstopnine'
+      later: 'Plačaj kasneje'
+      total: 'Skupaj za plačilo'
+      finePrint: 'Cena vsebuje 8,5% DDV. Vsa plačila so obvezujoča (po plačilu ni možno vračilo denarja). Pri plačilu veljajo'
+      tos: 'SloFurs pogoji poslovanja'
+      stripeButton: 'spletno plačilo'
+      redirect: 'S klikom na gumb boste preusmerjeni na spletno stran Stripe, kjer varno opravite svoje plačilo.'
+      pendingWarning: 'Imate plačila v obdelavi. <b>Bodite pozorni pri nadaljnih plačilih, saj lahko pride do dvokratnega plačila!</b> V primeru dvoma, <a href="mailto:slofurs@gmail.com" target="_blank">nas kontaktirajte</a>.'
+      bank: 'V primeru, da ne želite opraviti plačila preko spleta lahko znesek nakažete na naš TRR.'
+      payee: 'Naziv prejemnika'
+      address: 'Naslov'
+      paymentCode: 'Koda namena'
+      reference: 'Referenca'
     stats:
       country: 'Države'
       ticket: 'Vstopnice'
@@ -511,6 +527,7 @@ alerts:
     banned: 'dTa račun je onemogočen/blokiran. <a href="mailto:slofurs@gmail.com">Kontaktirajte nas za več informacij</a>.'
     sameEmail: 'dNovi e-naslov je isti kot trenutni.'
     captcha: 'dPreverjanje proti robotom ni uspelo, poskusite znova'
+    paymentFailed: 'dPlačilo ni uspelo, poskusite ponovno.'
   i:
     loggedIn: 'iZa prijavo na dogodke se prijavite s svojim računom.'
     confirm: 'iPreverite svoj e-poštni naslov, da potrdite svoj račun.'

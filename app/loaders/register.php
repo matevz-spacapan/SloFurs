@@ -47,7 +47,6 @@ class Register extends Connection{
 		//if submitting the registration form
 		if(isset($_POST['new_registration'])){
 			$_SESSION['alert']=$reg_model->doReg($id, $_POST);
-			$_SESSION['paynow']=true;
 			header('location: '.URL.'register/new?id='.$id);
 		}
 		else{
