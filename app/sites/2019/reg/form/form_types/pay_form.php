@@ -21,7 +21,7 @@
           $pending_list=$reg_model->pendingPayments($id);
         ?>
         <div class="text-center">
-          <h5><?php echo L::register_form_payment_total;?>: <?php //echo L::register_form_modal_prices_h;?><?php echo $price;?>€</h5>
+          <h5><?php echo L::register_form_payment_total;?>: <?php echo $price;?>€</h5>
           <small class="text-muted"><i><?php echo L::register_form_payment_finePrint;?> <a href="<?php echo URL;?>rules" target="_blank"><?php echo L::register_form_payment_tos;?> <i class="far fa-external-link"></i></a>.</i></small><br><br>
           <button class="btn btn-primary" onclick="goStripe()" id="StripeStart" <?php if(count($pending_list)>0){echo 'disabled';} ?>><i class="fab fa-stripe fa-3x"></i><br><?php echo L::register_form_payment_stripeButton;?></button><br>
           <small class="text-muted"><i><?php echo L::register_form_payment_redirect;?></i></small>

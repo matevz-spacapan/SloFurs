@@ -1,17 +1,6 @@
 <?php
 //if event is set for pre-payments
 if($event->pay_button==1 && $event->confirmed==1){
-  //get price of this registration
-  if($event->ticket=='regular'){
-    $price=$event->regular_price;
-  }
-  elseif($event->ticket=='sponsor'){
-    $price=$event->sponsor_price;
-  }
-  else{
-    $price=$event->super_price;
-  }
-
   //if Stripe payment was cancelled
   if(isset($_GET["cancel"])){
     $_SESSION['alert']=L::alerts_d_paymentFailed;
@@ -24,6 +13,7 @@ if($event->pay_button==1 && $event->confirmed==1){
     //check if payment is in the DB
     $_SESSION['alert']=$reg_model->checkStripePayment($get_session);
   }
+  $price=$reg_model->getPrice($id);
   if($price>0){
     //sum up existing payments and check if paid<due
     $paid=$reg_model->sumPayments($id)->paid;

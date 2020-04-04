@@ -1,17 +1,18 @@
 <?php if($new_reg): ?>
 <div class="bg-primary text-light">
-<?php elseif($event->confirmed==1): ?>
-<div class="bg-success text-light">
 <?php else: ?>
-<div class="bg-warning">
+	<?php
+		$data=$reg_model->getColorText($id);
+		$color=$data['color'];
+		$text=$data['text'];
+	?>
+<div class="<?php echo $color; ?>">
 <?php endif;?>
 	<div class="container-fluid py-2 mb-3">
 		<?php if($new_reg): ?>
-			<h1><?php echo L::register_form_h.": {$event->name}";?></h1>
+			<h1><?php echo $event->name;?></h1>
 		<?php else: ?>
-			<h1><?php
-				$text=($event->confirmed==1)?L::register_view_registered_confirmed:L::register_view_registered_notConfirmed;
-				echo "{$event->name} ($text)";?></h1>
+			<h1><?php echo "{$event->name} – $text";?></h1>
 		<?php endif; ?>
 	</div>
 </div>

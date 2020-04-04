@@ -1,8 +1,8 @@
-<div class="container-fluid">
+<div class="container">
   <h1>Rules of Conduct for SloFurs events and Terms of Service</h1>
   <p>The events are held with the intention to create a relaxed and pleasant atmosphere for furries and their guests, who decide to attend. We try to avoid as many formalities and written rules as possible, depending on our attendees' common sense. Nonetheless, we have noticed a need to prepare and publish these basic rules in order to avoid unnecessary complications regarding organization, attendee conduct or law abidance. As these rules are merely an outline, they contain guidelines for certain expected situations, in all other cases the first three general rules apply. Most of the time, common sense will help you decide what is acceptable and what not. If in doubt, ask a member of the organization team.</p>
   <p>All versions of these Rules of conduct are publicly available <a href="https://slofurs.org/pravila/">here</a>, with the lastest version being available on this page. For the duration of an event, the most recent version of the Rules of conduct, available at the beginning of the event, apply.</p>
-  <p>Web sales on the website events.slofurs.org are managed by društvo SloFurs (SloFurs organisation), Gregorčičeva ulica 33, 5000 Nova Gorica, identification number: XXXXXXXXXX, tax number: XXXXXXXXXX, which is the provider of the services (referred also as the seller).</p>
+  <p>Web sales on this website (events.slofurs.org) are managed by društvo SloFurs (SloFurs organisation), Gregorčičeva ulica 33, 5000 Nova Gorica, Slovenia, identification number: XXXXXXXXXX, tax number: XXXXXXXXXX, which is the provider of the services (referred also as the seller).</p>
 
   <h3>General rules</h3>
   <ol>
@@ -30,17 +30,17 @@
     <li>credit or debit card using the Stripe system,</li>
     <li>on the spot with cash.</li>
   </ul>
-  <p>Which payment methods will be available to you depend by the organisers decision. All payments in advance are final and binding, as explained in the <b>complaints and refunds</b> section.</p>
+  <p>Which payment methods will be available to you depend by the organisers decision. All payments are final and binding, as explained in the <b>complaints and refunds</b> section.</p>
 
-  <h3>Transferability of tickets</h3>
+  <h3 id="transfer">Transferability of tickets</h3>
   <p>In the case that you can't attend an event for which you have already purchased a ticket for, you may transfer it to another person. In this case, please email us with your wish and let us know the email address of the user you're transferring the ticket to. The user must already have a confirmed registration for the same event, otherwise we won't be able to transfer the ticket.</p>
   <p>Tickets can't be transferred between different events.</p>
 
-  <h3>Complaints and refunds</h3>
+  <h3 id="refunds">Complaints and refunds</h3>
   <p>In accordance to Slovenian law, the consumer is not entitled to withdraw from the contract for leisure services in which the contractor undertakes to fulfill his obligation at a specific date or within a specified time limit. This means that all purchases are binding and final no matter how you completed the purchase (in person or online). In other words; you cannot return any purchased tickets for any event no mater where it's being held and demand a refund for them.</p>
   <p>In the case that an event is cancelled or has it's date or location changed, the seller is responsible for handling the situation and for handling refunds. Upon the occurrence of these circumstances, the seller will inform ticket buyers as soon as possible regarding refund options. If the buyer does not request a refund within 14 days of these changes being made public, he/she agrees with the aforementioned changes and after that period he/she is again not entitled to a refund.</p>
   <p>In the event of a refund, ticket holders will receive a refund, without any further request, in the same way they paid the tickets. This invalidates the ticket.</p>
-  <p>Minimal or justified changes to the event are reserved. In the event of cancellation, change of the date or location of the event or change in the program, any additional costs you may incur (eg. travel, hotel, delivery, payment, etc.) will not be reimbursed.</p>
+  <p>Minimal or justified changes to the event are reserved, eg. shifting the start of the event for a few hours of altering the programme of the event. In the event of cancellation, change of the date or location of the event or change in the program, any additional costs you may incur (eg. travel, hotel, delivery, payment, etc.) will not be reimbursed.</p>
   <p>The seller does his best to ensure that all prices on the website are accurate, but errors can still occur. If the seller detects a mistake in the ticket price already purchased by the buyer, the seller will inform the buyer as soon as possible and give the buyer the opportunity to re-confirm the order at the right price or cancel it. Should the seller fail to contact the buyer, the buyer agrees to treat the seller's ticket as canceled. If the buyer chooses to cancel the ticket at the wrong price after his payment has already been made, the seller will refund him the money.</p>
   <p>Complaints are resolved by the ticket buyer and the seller within the complaint period, which is eight days from the receipt of the written complaint by the complainant. Within this period, the seller is obliged to provide the complainant with a written or oral response to the submitted complaint.</p>
 

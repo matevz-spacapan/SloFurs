@@ -7,9 +7,8 @@ admin:
       upcoming: 'Prihajajoči'
       pre: 'Pred-prijave'
       reg: 'Prijave'
-      closed: 'Prijave zaključene'
     text:
-      closed: 'Prijave zaprte.'
+      closed: 'Prijave zaprte'
       reg: 'Prijave odprte do'
       pre: 'Pred-prijave odprte do'
       until: 'Prijave zaprte do'
@@ -355,6 +354,9 @@ register:
       h: 'Prihajajoči dogodki, na katere ste se prijavili'
       confirmed: 'Prijava potrjena'
       notConfirmed: 'Prijava še nepotrjena'
+      unpaid: 'Prijava potrena, potrebno plačilo'
+      partiallyPaid: 'Delno plačana prijava'
+      fullyPaid: 'Prijava potrjena in plačana'
     upcoming:
       h: 'Prihajajoči dogodki'
       complete: 'Dopolnite profil, da se prijavite.'
@@ -414,6 +416,9 @@ register:
       price: 'Cena'
       prices:
         h: 'Vstopnina'
+        prePay1: 'Za dokončno potrditev vaše prijave na tem dogodku je potrebno plačilo v naprej. Plačilo morate opraviti najkasneje do'
+        prePay2: ', sicer bo vaša prijava preklicana. Plačilo boste lahko opravili po tem, ko je vaša prijava potrjena'
+        prePayFAQ: 'Več o tem v FAQ'
         free: 'Ta dogodek je brezplačen.'
         info: 'Dodatne informacije'
       accomodation:

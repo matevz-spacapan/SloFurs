@@ -1,14 +1,9 @@
 <div class="card mr-5 my-2 <?php echo $color; ?>">
 	<div class=" bg-light">
 		<div class="img-container">
-			<?php if(isset($edit)&&$edit): ?>
-				<!--<div class="confirmation btn btn-light py-3 px-2 <?php echo $color; ?>">
-					<?php echo $text; ?>
-				</div>-->
-			<?php endif;?>
 			<?php
 			if(isset($edit)&&$edit){
-				echo '<a href="'.URL.'register/edit?id='.$event->id.'" class="text-body">';
+				echo '<a href="'.URL.'register/edit?id='.$id.'" class="text-body">';
 			}
 			else{
 				echo '<a href="'.URL.'register/new?id='.$event->id.'" class="text-body">';
@@ -35,7 +30,7 @@
 			?>
 			<?php
 			if(isset($edit)&&$edit){
-				echo '<a href="'.URL.'register/edit?id='.$event->id.'" class="text-body">';
+				echo '<a href="'.URL.'register/edit?id='.$id.'" class="text-body">';
 			}
 			else{
 				echo '<a href="'.URL.'register/new?id='.$event->id.'" class="text-body">';

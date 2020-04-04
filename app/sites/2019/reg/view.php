@@ -24,8 +24,11 @@
 		<div class="row ml-1">
 		<?php foreach($rEvents as $event): ?>
 			<?php
-				$color=($event->confirmed==1)?'bg-success text-white':'bg-warning';
-				$text=($event->confirmed==1)?L::register_view_registered_confirmed:L::register_view_registered_notConfirmed;
+				$id=$event->id;
+				$event=$reg_model->existingReg($id);
+				$data=$reg_model->getColorText($id);
+				$color=$data['color'];
+				$text=$data['text'];
 				require 'app/sites/'.THEME.'/reg/evt.php';
 			?>
 		<?php endforeach; ?>
@@ -39,18 +42,22 @@
 		<div class="row ml-1">
 		<?php foreach($cEvents as $event): ?>
 			<?php
+				//reg closed
 				if(new DateTime($event->reg_end)<=new DateTime()){
-					$color='bg-primary text-white';
+					$color='bg-secondary text-white';
 					$text=L::admin_event_text_closed;
 				}
+				//regular reg
 				elseif(new DateTime($event->reg_start)<=new DateTime()){
 					$color='bg-primary text-white';
 					$text=L::admin_event_text_reg.'<br>'.$reg_model->convertViewable($event->reg_end, 2);
 				}
+				//pre-reg
 				elseif($event->pre_reg_start!=$event->reg_start && new DateTime($event->pre_reg_start)<=new DateTime() && $account!=null && $account->status>=PRE_REG){
 					$color='bg-info text-white';
 					$text=L::admin_event_text_pre.'<br>'.$reg_model->convertViewable($event->reg_start, 2);
 				}
+				//not available for reg yet
 				else{
 					$color='bg-secondary text-white';
 					$text=L::admin_event_text_until.'<br>';

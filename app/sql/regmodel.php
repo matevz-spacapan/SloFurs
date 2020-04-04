@@ -18,9 +18,9 @@ class RegModel{
 	 * DISPLAYING EVENTS
 	*/
 
-	// Get all usere's registered current events: id, event name, duration (start, end), reg end (changes possible until then). confirmed, fursuiter, artist
+	// Get id's of registered events for logged in user
 	public function getREvents(){
-		$sql='SELECT registration.id AS id, name, event_start, event_end, reg_end, confirmed, fursuiter, artist, img, location, regular_price FROM event INNER JOIN registration ON event.id=registration.event_id WHERE ((event_start<=NOW() AND event_end>=NOW()) OR event_start>NOW()) AND acc_id=:acc_id ORDER BY event_start ASC';
+		$sql='SELECT registration.id AS id FROM event INNER JOIN registration ON event.id=registration.event_id WHERE ((event_start<=NOW() AND event_end>=NOW()) OR event_start>NOW()) AND acc_id=:acc_id ORDER BY event_start ASC';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':acc_id'=>$_SESSION['account']));
 		return $query->fetchAll();
@@ -292,6 +292,36 @@ class RegModel{
 		return $text;
 	}
 
+	//Get color and text status of event
+	public function getColorText($id){
+		$event=$this->existingReg($id);
+		if($event->confirmed==1){
+			//pre-pay and all paid
+			if($event->pay_button==1 && $this->sumPayments($id)->paid>=$this->getPrice($id)){
+				$color='bg-success text-white';
+				$text=L::register_view_registered_fullyPaid;
+			}
+			//pre-pay and partially paid
+			elseif($event->pay_button==1 && $this->sumPayments($id)->paid>0){
+				$color='bg-warning';
+				$text=L::register_view_registered_partiallyPaid;
+			}
+			elseif($event->pay_button==1){
+				$color='bg-danger text-white';
+				$text=L::register_view_registered_unpaid;
+			}
+			else{
+				$color='bg-success text-white';
+				$text=L::register_view_registered_confirmed;
+			}
+		}
+		else{
+				$color='bg-danger text-white';
+				$text=L::register_view_registered_notConfirmed;
+		}
+		return array('color'=>$color, 'text'=>$text);
+	}
+
 	// Convert MySQL datetime to HTML datetime
 	public function convert($date){
 		return date_format(new DateTime($date),"Y-m-d\TH:i");
@@ -524,5 +554,19 @@ class RegModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return $query->fetchAll();
+	}
+	//get price for registration
+	public function getPrice($id){
+		$event=$this->existingReg($id);
+		if($event->ticket=='regular'){
+			$price=$event->regular_price;
+		}
+		elseif($event->ticket=='sponsor'){
+			$price=$event->sponsor_price;
+		}
+		else{
+			$price=$event->super_price;
+		}
+		return $price;
 	}
 }

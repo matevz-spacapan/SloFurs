@@ -6,10 +6,9 @@ admin:
       diff: 'To differentiate between the phase of an event, the following colour codes are being used:'
       upcoming: 'Upcoming'
       pre: 'Pre-reg'
-      reg: 'Reg'
-      closed: 'Reg closed'
+      reg: 'Regular reg'
     text:
-      closed: 'Registration closed.'
+      closed: 'Registration closed'
       reg: 'Registration open until'
       pre: 'Pre-reg open until'
       until: 'Registrations closed until'
@@ -352,6 +351,9 @@ register:
       h: 'Upcoming events you\'ve registered for'
       confirmed: 'Confirmed'
       notConfirmed: 'Not yet confirmed'
+      unpaid: 'Confirmed, pending payment'
+      partiallyPaid: 'Partially paid'
+      fullyPaid: 'Confirmed and paid'
     upcoming:
       h: 'Upcoming events'
       complete: 'Complete profile to register.'
@@ -411,6 +413,9 @@ register:
       price: 'Price'
       prices:
         h: 'Event tickets'
+        prePay1: 'To finalise your registration for this event, we require you to pay in advance. Your payment is due on'
+        prePay2: ' otherwise your registration will be cancelled. Payment is enabled after your registration is confirmed'
+        prePayFAQ: 'More on this in our FAQ'
         free: 'This event is free of charge.'
         info: 'Additional info'
       accomodation:

@@ -13,7 +13,7 @@
 				<button class="w3-button w3-round-large w3-light-gray w3-hover-light-gray"><?php echo L::admin_event_colors_upcoming;?></button>
 				<button class="w3-button w3-round-large w3-light-blue w3-hover-light-blue"><?php echo L::admin_event_colors_pre;?></button>
 				<button class="w3-button w3-round-large w3-blue w3-hover-blue"><?php echo L::admin_event_colors_reg;?></button>
-				<button class="w3-button w3-round-large w3-dark-gray w3-hover-dark-gray"><?php echo L::admin_event_colors_closed;?></button>
+				<button class="w3-button w3-round-large w3-dark-gray w3-hover-dark-gray"><?php echo L::admin_event_text_closed;?></button>
 			</div>
 		</div>
 		<br>
