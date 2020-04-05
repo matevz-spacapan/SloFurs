@@ -118,7 +118,7 @@ admin:
     events: 'Dogodki'
     viewEvt: 'Pregled dogodkov'
     newEvt: 'Nov dogodek'
-    accounts: 'Računi'
+    accounts: 'Uporabniki'
     editAcc: 'Urejanje računa'
     fursuits: 'Fursuiti'
   dash:
@@ -145,6 +145,7 @@ admin:
     countries: 'Najpogostejše države'
   account:
     current: 'Trenutni'
+    notConfirmed: '(ni potrjen)'
     changeEmail: 'Sprememni e-poštni naslov'
     saveSend: 'Shrani in pošlji potrditev'
     saveSendI: 'Shrani e-poštni naslov in pošljii uporabniku potrditveno sporočilo nanj.'
@@ -269,7 +270,7 @@ account:
     h: 'Osebni podatki'
   password:
     h: 'Spremeni geslo'
-    password: 'Geslo:'
+    password: 'Geslo'
     current: 'Trenutno geslo'
     new: 'Novo geslo'
     newI: 'Geslo mora vsebovati vsaj 8 znakov, od tega vsaj eno številko ali poseben znak.'

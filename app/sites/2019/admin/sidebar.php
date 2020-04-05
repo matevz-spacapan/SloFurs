@@ -1,11 +1,11 @@
 <!-- Admin Sidebar -->
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="sidebar"><br>
-	<div class="w3-container w3-row">
-		<div class="w3-col s4">
+<nav class="w3-sidebar w3-collapse w3-animate-left" style="z-index:3;width:300px;" id="sidebar"><br>
+	<div class="container-fluid row">
+		<div class="col-4">
 			<?php $src=(file_exists('public/accounts/'.$account->pfp.'.png')) ? URL.'public/accounts/'.$account->pfp.'.png' : URL.'public/img/account.png';
-			echo '<img src="'.$src.'" class="w3-circle w3-margin-right" style="height:80px;">'; ?>
+			echo '<img src="'.$src.'" class="rounded-circle mr-2" style="height:80px;">'; ?>
 		</div>
-		<div class="w3-col s8 w3-bar">
+		<div class="col">
 			<?php echo L::admin_sidebar_hello;?>, <strong><?php echo $account->username;?></strong><br>
 			<?php echo L::admin_sidebar_privileges;?>: <b>
 			<?php
@@ -20,9 +20,7 @@
 		</div>
 	</div>
 	<hr>
-	<div class="w3-container">
-		<h5><?php echo L::admin_sidebar_adminPanel;?></h5>
-	</div>
+	<h5 class="ml-2"><?php echo L::admin_sidebar_adminPanel;?></h5>
 	<div class="w3-bar-block">
 		<a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="$('#sidebar').hide()" title="close menu"><i class="far fa-times"></i> <?php echo L::admin_sidebar_close;?></a>
 		<a href="<?php echo URL;?>admin/dash" class="w3-bar-item w3-button w3-padding" id="dash"><i class="far fa-eye"></i> <?php echo L::admin_sidebar_overview;?></a>

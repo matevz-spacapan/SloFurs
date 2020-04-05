@@ -49,6 +49,7 @@
 			});
 			</script>
 
+			<!-- Newsletter -->
 			<div class="d-flex flex-row mb-3">
 				<div class=""><p></p>
 					<?php if($account->newsletter==1): ?>
@@ -73,7 +74,6 @@
 			<div class="d-flex flex-row mb-4" style="min-width: 350px;">
 				<div class="">
 					<h5 style="display:inline;"><?php echo L::account_password_password;?></h5>
-					<i class="text-muted">********</i>
 				</div>
 				<div class="ml-auto">
 					<button type="button" data-toggle="modal" data-target="#passwordData" class="btn btn-link"><?php echo L::account_email_update;?></button>
@@ -114,7 +114,7 @@
 			</script>
 
 			<!-- Profile picture -->
-			<h3><?php echo L::account_pfp_h;?></h3>
+			<h4><?php echo L::account_pfp_h;?></h4>
 			<p><?php echo L::account_pfp_desc;?></p>
 			<form action="<?php echo URL; ?>account/contact" method="post" enctype="multipart/form-data" id="updatePFP">
 				<div class="w3-display-container" style="max-height:200px;max-width:200px; margin: 0 auto;">
@@ -139,7 +139,7 @@
 		</div>
 		<div class="col">
 			<!-- Contact info -->
-			<h3><?php echo L::account_contact_h;?></h3>
+			<h4><?php echo L::account_contact_h;?></h4>
 			<?php
 				$register=false;
 				require 'app/sites/'.THEME.'/account/personal_info.php';

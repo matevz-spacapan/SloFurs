@@ -1,23 +1,21 @@
 <div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left" style="width:200px" id="sidebar">
   <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="$('#sidebar').hide()"><?php echo L::admin_sidebar_close;?> &times;</button>
   <a href="<?php echo URL; ?>admin/event" class="w3-bar-item w3-button" id="event"><i class="far fa-arrow-square-left"></i> <?php echo L::admin_overview_back;?></a>
-  <button class="w3-bar-item w3-button tablink w3-orange" onclick="openTab(event, 'Edit')"><?php echo L::admin_overview_edit;?></button>
+  <button class="w3-bar-item w3-button tablink bg-warning" onclick="openTab(event, 'Edit')"><?php echo L::admin_overview_edit;?></button>
   <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'Attendees')"><?php echo L::admin_overview_attendees_h;?> (<?php echo count($attendees);?>)</button>
   <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'Fursuits')"><?php echo L::admin_overview_fursuiters_h;?> (<?php echo count($fursuits);?>)</button>
   <button class="w3-bar-item w3-button tablink w3-hide" onclick="openTab(event, 'Payments')"><?php echo L::admin_overview_payments_h;?></button>
 </div>
 
 <div class="w3-main" style="margin-left:200px">
-  <div class="w3-orange">
-  	<div class="w3-container">
-  		<h1><?php echo $event->name; ?></h1>
-  	</div>
+  <div class="container-fluid bg-warning">
+  	<h1 class="py-2"><?php echo $event->name; ?></h1>
   </div>
-  <div id="Edit" class="w3-container tab">
+  <div id="Edit" class="container-fluid tab">
     <?php $editEvent=true; require 'app/sites/'.THEME.'/admin/form.php'; ?>
   </div>
 
-  <div id="Attendees" class="w3-container tab" style="display:none;">
+  <div id="Attendees" class="container-fluid tab" style="display:none;">
     <h3><?php echo L::admin_overview_attendees_h;?></h3>
     <?php if(count($attendees)>0): ?>
       <?php
@@ -33,8 +31,8 @@
       ?>
       <p><?php echo L::admin_overview_attendees_info;?></p>
       <form action="<?php echo URL; ?>admin/event?id=<?php echo $event->id; ?>" method="post" class="allforms">
-        <div class="w3-responsive">
-          <table class="w3-table w3-striped w3-centered">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover thead-light">
             <tr>
               <th><?php echo L::admin_overview_attendees_account;?></th>
               <th><?php echo L::admin_overview_attendees_created;?></th>
@@ -92,7 +90,7 @@
                 }
                 ?></td>
                 <td><?php
-                  echo '<img src="'.URL.'public/img/'.$attendee->language.'.png" width="32" class="w3-circle">';
+                  echo '<img src="'.URL.'public/img/'.$attendee->language.'.png" width="32" class="rounded-circle">';
                   if($attendee->language=='si'){
                     $sum6++;
                   }
@@ -110,11 +108,14 @@
                   <?php echo $attendee->notes;?>
                 </td>
                 <td>
-                  <input class="w3-check" type="checkbox" name="<?php echo $attendee->id; ?>" value="true" <?php if($attendee->confirmed==1){echo 'checked'; $sum8++;} ?>>
+                  <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" id="confirmed" type="checkbox" name="<?php echo $attendee->id; ?>" value="true" <?php if($attendee->confirmed==1){echo 'checked'; $sum8++;} ?>>
+                    <label for="confirmed" class="custom-control-label"></label>
+                  </div>
                 </td>
               </tr>
             <?php endforeach; ?>
-            <tr class="w3-pale-green">
+            <tr class="table-success">
               <td><i class="fas fa-users"></i> <?php echo $sum1;?></td>
               <td></td>
               <td><i class="far fa-sigma"></i> <?php echo $sum2;?>€</td>
@@ -128,7 +129,7 @@
           </table><br>
         </div>
         <?php if($account->status>=ADMIN): ?>
-        <div class="w3-center">
+        <div class="text-center">
           <button type="submit" class="w3-button w3-green w3-round" name="confirm_attendees"><?php echo L::admin_overview_attendees_confirm;?></button><br><br>
           <button type="submit" class="w3-button w3-blue w3-round" name="export_confirmed"><?php echo L::admin_overview_attendees_exportC;?></button>
           <button type="submit" class="w3-button w3-blue w3-round" name="export_all"><?php echo L::admin_overview_attendees_exportA;?></button>
@@ -140,20 +141,14 @@
     <?php endif; ?>
   </div>
 
-  <div id="Fursuits" class="w3-container tab" style="display:none">
+  <div id="Fursuits" class="container-fluid tab" style="display:none">
     <h3><?php echo L::admin_overview_fursuiters_h;?></h3>
-    <div class="w3-row">
+    <div class="container-fluid row">
       <?php foreach($fursuits as $fursuit): ?>
-        <div class="card" style="cursor: default;">
-          <?php if(file_exists('public/fursuits/'.$fursuit->img.'.png')): ?>
-            <img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="roundImg">
-          <?php else: ?>
-            <img src="<?php echo URL.'public/img/account.png' ?>" class="roundImg">
-          <?php endif; ?>
-          <div class="w3-center"><b><?php echo $fursuit->name;?></b><br>
-          (<?php echo L::admin_overview_fursuiters_owned;?> <?php echo $fursuit->username;?>)<br>
-          <?php echo $fursuit->animal;?></div>
-        </div>
+        <div class="card fursuit card-round mr-3 bg-light" >
+					<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="roundImg">
+					<p class="text-center pt-2"><b><?php echo $fursuit->name; ?></b></p>
+				</div>
       <?php endforeach; ?>
     </div>
     <?php if(count($fursuits)==0): ?>
@@ -161,7 +156,7 @@
     <?php endif; ?>
   </div>
 
-  <div id="Payments" class="w3-container tab" style="display:none">
+  <div id="Payments" class="container-fluid tab" style="display:none">
     <h3><?php echo L::admin_overview_payments_h;?></h3>
   </div>
 
@@ -176,9 +171,9 @@ function openTab(evt, tabName){
   }
   tablinks=document.getElementsByClassName("tablink");
   for(i=0;i<x.length;i++){
-    tablinks[i].className=tablinks[i].className.replace(" w3-orange", "");
+    tablinks[i].className=tablinks[i].className.replace(" bg-warning", "");
   }
   document.getElementById(tabName).style.display="block";
-  evt.currentTarget.className+=" w3-orange";
+  evt.currentTarget.className+=" bg-warning";
 }
 </script>

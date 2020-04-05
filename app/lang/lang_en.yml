@@ -142,6 +142,7 @@ admin:
     countries: 'Top countries'
   account:
     current: 'Current'
+    notConfirmed: '(not confirmed)'
     changeEmail: 'Change email address'
     saveSend: 'Save and send confirmation'
     saveSendI: 'This will save the email and send the user and email to confirm the email.'
@@ -266,7 +267,7 @@ account:
     h: 'Personal information'
   password:
     h: 'Change password'
-    password: 'Password:'
+    password: 'Password'
     current: 'Current password'
     new: 'New password'
     newI: 'The password must be at least 8 characters long and contain a number or a special character.'
