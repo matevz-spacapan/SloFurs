@@ -1,0 +1,18 @@
+<script src="<?php echo URL;?>/public/moment-with-locales.min.js"></script>
+<script src="<?php echo URL;?>/public/datetimepicker/js/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet" href="<?php echo URL;?>/public/datetimepicker/css/tempusdominus-bootstrap-4.min.css">
+<script>
+$.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+        icons: {
+            time: 'far fa-clock',
+            date: 'far fa-calendar-alt',
+            up: 'far fa-arrow-up',
+            down: 'far fa-arrow-down',
+            previous: 'far fa-chevron-left',
+            next: 'far fa-chevron-right',
+            today: 'far fa-calendar-check-o',
+            clear: 'far fa-trash',
+            close: 'far fa-times'
+        },
+        locale: 'sl'});
+</script>

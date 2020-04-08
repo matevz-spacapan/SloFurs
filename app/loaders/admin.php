@@ -126,7 +126,7 @@ class Admin extends Connection{
 		}
 	}
 	// Event managing page
-	public function event($action=null){
+	public function event($action=null, $step=1){
 		$account=$this->getSessionAcc();
 		$event_model=$this->loadSQL('EventModel');
 		if($account==null){
@@ -139,19 +139,16 @@ class Admin extends Connection{
 				}
 				//create new event
 				if(isset($_POST['new_event'])){
-					$event_model=$this->loadSQL('EventModel');
 					$_SESSION['alert']=$event_model->addEvent($_POST, $_FILES['image']);
 					header('location: '.URL.'admin/event');
 				}
 				//edit event with given ID
 				elseif(isset($_POST['edit_event'])){
-					$event_model=$this->loadSQL('EventModel');
 					$_SESSION['alert']=$event_model->editEvent($filtered_id, $_POST, $_FILES['image']);
 					header('location: '.URL.'admin/event?id='.$filtered_id);
 				}
 				//delete event photo with given ID
 				elseif(isset($_POST['delete_photo'])){
-					$event_model=$this->loadSQL('EventModel');
 					$_SESSION['alert']=$event_model->deletePhoto($filtered_id);
 					header('location: '.URL.'admin/event?id='.$filtered_id);
 				}
@@ -162,11 +159,9 @@ class Admin extends Connection{
 				}
 				elseif(isset($_POST['export_confirmed'])){
 					$event_model->exportForms($filtered_id, false);
-					//header('location: '.URL.'admin/event?id='.$_GET['id']);
 				}
 				elseif(isset($_POST['export_all'])){
 					$event_model->exportForms($filtered_id, true);
-					//header('location: '.URL.'admin/event?id='.$_GET['id']);
 				}
 				else{
 					goto noactions;
@@ -178,7 +173,6 @@ class Admin extends Connection{
 				require 'app/sites/global/alerts.php';
 				//go to new event creation page
 				if($account->status>=ADMIN&&$action=='new'){
-					require 'app/sites/'.THEME.'/admin/sidebar.php';
 					require 'app/sites/'.THEME.'/admin/newevent.php';
 				}
 				//go to edit/view event page
