@@ -42,7 +42,10 @@
 			<?php if(isset($event->location)&&strlen($event->location)>0): ?>
 				<!-- event location -->
 				<h5><?php echo L::register_form_location;?></h5>
-				<p class="text-dark"> <a href="https://maps.google.com/?q=<?php echo $event->location;?>" target="_blank"><?php echo $event->location;?> <i class="far fa-external-link"></i></a></p>
+				<p class="text-dark"><a href="https://maps.google.com/?q=<?php echo $event->location;?>" target="_blank"><?php echo $event->location;?> <i class="far fa-external-link"></i></a></p>
+				<?php if(isset($event->navigation)&&strlen($event->navigation)>0): ?>
+					<p class="text-dark"><?php echo L::register_form_nav1;?> <a href="<?php echo URL;?>navigation/<?php echo $event->navigation;?>" target="_blank"><?php echo L::register_form_nav2;?></a> <?php echo L::register_form_nav3;?></p>
+				<?php endif; ?>
 			<?php endif; ?>
 			<!-- gallery -->
 			<h5><?php echo L::register_form_gallery;?></h5>
