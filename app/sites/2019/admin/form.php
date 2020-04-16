@@ -68,7 +68,7 @@
   <h3><?php echo L::admin_form_age_h;?></h3>
 
   <input class="w3-check" type="checkbox" id="age" onclick="displayAge()" <?php if($editEvent&&($event->age!=0||$event->restricted_age!=0)){echo 'checked';} ?>>
-  <label><?php echo L::admin_form_age_check;?></label><br><br>
+  <label></label><br><br>
   <div style="display: none;" id="ageSettings">
     <label for="age"><?php echo L::admin_form_age_noRestrict;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::admin_form_age_noRestrictInfo;?></i>
     <input type="number" class="form-control" name="age" value="<?php if($editEvent){echo $event->age;}else{echo 0;} ?>" min="0" max="99" required>

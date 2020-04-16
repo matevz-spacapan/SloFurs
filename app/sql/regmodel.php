@@ -159,6 +159,10 @@ class RegModel{
 		}
 		if($event->autoconfirm==1){
 			$confirmed=L::register_model_confirmed;
+			if($event->pay_button==1){
+				$confirmed.=' '.L::register_model_needtopay;
+			}
+			$confirmed.=' '.L::register_model_lookingfwd;
 			require 'app/emails/event_confirmation.php'; //$event_name, $username, $url (edit url), $recap, $bad_news, $email
 			$this->changes($_SESSION['account'], "registered for an event ID $id", $_SESSION['account']);
 			return L::alerts_s_regSucc;
