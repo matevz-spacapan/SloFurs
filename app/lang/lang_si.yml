@@ -342,8 +342,10 @@ register:
     accomodation: 'Accomodation selection and price'
     noAccomodation: 'No accomodation'
     notAvailable: 'Unfortunately your selected room was not available any longer at the time when your registration was processed. You have been put on the wait-list on a first-come, first-served basis. If someone else cancels their room spot and you are next up on the list, you will take their spot. We will email you if this happens.'
-    confirmed: 'Your registration is now complete and confirmed by us. We are looking forward to seeing you soon!'
-    manual: 'Your registration is now complete, but will have to be manually checked by our staff. We are looking forward to seeing you soon!'
+    confirmed: 'You have successfully registered for this event. Your registration is confirmed by us.'
+    needtopay: 'Since this event requires upfront payment, please click the above link to check for details on when payment is due and how you can pay. Should you not pay in time, your registration may be cancelled.'
+    lookingfwd: 'We are looking forward to seeing you soon!'
+    manual: 'You have registered for the event, but we still have to manually confirm it. Check back to see the status of your registration. We are looking forward to seeing you soon!'
   view:
     h: 'Prijava na dogodke'
     free: 'Brezplačen dogodek'
