@@ -453,7 +453,7 @@ register:
       h: 'Admission payment'
       later: 'Pay later'
       total: 'Total due'
-      finePrint: 'The price includes 8,5% VAT. All payments are final (this means you can\'t request a refund). By paying you agree with'
+      finePrint: 'All payments are final (this means you can\'t request a refund). By paying you agree with'
       tos: 'our Terms of Service'
       stripeButton: 'online payment'
       redirect: 'By clicking the button, you will be redirected to Stripe where you can securely complete your payment.'

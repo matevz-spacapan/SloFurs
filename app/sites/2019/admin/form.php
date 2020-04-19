@@ -1,4 +1,4 @@
-<script src="https://cdn.ckeditor.com/ckeditor5/12.3.1/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
 <form action="<?php echo URL; ?>admin/event<?php if($editEvent){echo '?id='.$event->id;} ?>" method="post" enctype="multipart/form-data" autocomplete="off" class="allforms">
   <!-- Event details -->
   <h3><?php echo L::admin_form_event_h;?></h3>
@@ -24,8 +24,17 @@
         console.error(error);
       });
   </script>
+  <p class="mt-4">English description</p>
+  <textarea name="descriptionEn" id="editorEn"><?php if($editEvent){echo $event->description_en;} ?></textarea>
+  <script>
+    ClassicEditor
+      .create(document.querySelector('#editorEn'))
+      .catch(error=>{
+        console.error(error);
+      });
+  </script>
 
-  <p><?php echo L::admin_form_event_photo;?></p>
+  <p class="mt-4"><?php echo L::admin_form_event_photo;?></p>
   <div class="w3-display-container photoContainer">
     <?php
       $photo=URL.'public/events/head.png';

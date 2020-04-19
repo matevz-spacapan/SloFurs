@@ -454,7 +454,7 @@ register:
       h: 'Plačilo vstopnine'
       later: 'Plačaj kasneje'
       total: 'Skupaj za plačilo'
-      finePrint: 'Cena vsebuje 8,5% DDV. Vsa plačila so obvezujoča (po plačilu ni možno vračilo denarja). Pri plačilu veljajo'
+      finePrint: 'Vsa plačila so obvezujoča (po plačilu ni možno vračilo denarja). Pri plačilu veljajo'
       tos: 'SloFurs pogoji poslovanja'
       stripeButton: 'spletno plačilo'
       redirect: 'S klikom na gumb boste preusmerjeni na spletno stran Stripe, kjer varno opravite svoje plačilo.'

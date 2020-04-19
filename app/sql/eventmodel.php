@@ -117,6 +117,7 @@ class EventModel{
 		$end=strip_tags($fields['end']);
 		$location=strip_tags($fields['location']);
 		$description=$fields['description'];
+		$descriptionEn=$fields['descriptionEn'];
 		$reg_start=strip_tags($fields['reg_start']);
 		$pre_reg=strip_tags($fields['pre_reg']);
 		if($pre_reg==''){
@@ -187,9 +188,9 @@ class EventModel{
 		}
 		inserting:
 		//create event, get event ID for accomodation creation
-		$sql="INSERT INTO event(name, event_start, event_end, reg_start, pre_reg_start, reg_end, location, description, age, restricted_age, restricted_text, regular_price, regular_text, sponsor_price, sponsor_text, super_price, super_text, autoconfirm, img, viewable) VALUES (:name, :event_start, :event_end, :reg_start, :pre_reg_start, :reg_end, :location, :description, :age, :restricted_age, :restricted_text, :regular_price, :regular_text, :sponsor_price, :sponsor_text, :super_price, :super_text, :autoconfirm, :img, :viewable)";
+		$sql="INSERT INTO event(name, event_start, event_end, reg_start, pre_reg_start, reg_end, location, description, description_en, age, restricted_age, restricted_text, regular_price, regular_text, sponsor_price, sponsor_text, super_price, super_text, autoconfirm, img, viewable) VALUES (:name, :event_start, :event_end, :reg_start, :pre_reg_start, :reg_end, :location, :description, :description_en, :age, :restricted_age, :restricted_text, :regular_price, :regular_text, :sponsor_price, :sponsor_text, :super_price, :super_text, :autoconfirm, :img, :viewable)";
 		$query=$this->db->prepare($sql);
-		$query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text,
+		$query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, ':description_en'=>$descriptionEn, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text,
 		'regular_price'=>$regular_price, ':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm, ':img'=>$file_name, ':viewable'=>$viewable));
 		$event_ID=$this->db->lastInsertId();
 
@@ -257,6 +258,7 @@ class EventModel{
 	  $end=strip_tags($fields['end']);
 	  $location=strip_tags($fields['location']);
 	  $description=$fields['description'];
+		$descriptionEn=$fields['descriptionEn'];
 	  $reg_start=strip_tags($fields['reg_start']);
 	  $pre_reg=strip_tags($fields['pre_reg']);
 	  if($pre_reg==''){
@@ -295,9 +297,9 @@ class EventModel{
 	      break;
 	  }
 	  //create event, get event ID for accomodation creation
-	  $sql="UPDATE event SET name=:name, event_start=:event_start, event_end=:event_end, reg_start=:reg_start, pre_reg_start=:pre_reg_start, reg_end=:reg_end, location=:location, description=:description, age=:age, restricted_age=:restricted_age, restricted_text=:restricted_text, regular_price=:regular_price, regular_text=:regular_text, sponsor_price=:sponsor_price, sponsor_text=:sponsor_text, super_price=:super_price, super_text=:super_text, autoconfirm=:autoconfirm, viewable=:viewable WHERE id=:id";
+	  $sql="UPDATE event SET name=:name, event_start=:event_start, event_end=:event_end, reg_start=:reg_start, pre_reg_start=:pre_reg_start, reg_end=:reg_end, location=:location, description=:description, description_en=:description_en, age=:age, restricted_age=:restricted_age, restricted_text=:restricted_text, regular_price=:regular_price, regular_text=:regular_text, sponsor_price=:sponsor_price, sponsor_text=:sponsor_text, super_price=:super_price, super_text=:super_text, autoconfirm=:autoconfirm, viewable=:viewable WHERE id=:id";
 	  $query=$this->db->prepare($sql);
-	  $query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price,
+	  $query->execute(array(':name'=>$name, ':event_start'=>$start, ':event_end'=>$end, ':reg_start'=>$reg_start, ':pre_reg_start'=>$pre_reg, ':reg_end'=>$reg_end, ':location'=>$location, ':description'=>$description, ':description_en'=>$descriptionEn, 'age'=>$age, 'restricted_age'=>$restricted_age, 'restricted_text'=>$restricted_text, 'regular_price'=>$regular_price,
 		':regular_text'=>$regular_text, ':sponsor_text'=>$sponsor_text, ':super_text'=>$super_text, 'sponsor_price'=>$sponsor_price, 'super_price'=>$super_price, ':autoconfirm'=>$autoconfirm, ':id'=>$id, ':viewable'=>$viewable));
 
 		//IMAGE

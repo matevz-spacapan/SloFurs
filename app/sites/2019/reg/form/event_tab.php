@@ -2,7 +2,16 @@
 	<div class="row">
 		<div class="col-md-9">
 			<h5><?php echo L::register_form_description;?></h5>
-			<div class="text-dark"><?php echo nl2br($event->description); ?></div>
+			<div class="text-dark">
+				<?php
+					if($_SESSION['lang']=='si'){
+						echo nl2br($event->description);
+					}
+					else{
+						echo nl2br($event->description_en);
+					}
+				?>
+			</div>
 		</div>
 		<div class="col">
 			<!-- date and time of event -->
