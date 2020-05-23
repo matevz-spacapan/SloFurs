@@ -98,6 +98,7 @@ admin:
       age: 'DOB & age'
       created: 'Time of registration'
       notes: 'User\'s notes'
+      remove: 'Remove'
     fursuiters:
       h: 'Fursuiters'
       owned: 'owned by'
@@ -170,6 +171,7 @@ admin:
 topnavbar:
   home: 'Home'
   event: 'Events'
+  rules: 'Event rules'
   blog: 'Blog'
   account: 'Account'
   myAccount: 'My account'
@@ -282,7 +284,7 @@ account:
     fursuit: 'fursuit'
     fursuits: 'fursuits'
     currently2: 'on record'
-    notice: 'Fursuits with <i class="far fa-id-card-alt fa-lg"></i> next to their name will be printed for events (unless otherwise stated on the event).<i class="w3-opacity w3-small">Please note that only one such badge will be printed free of charge. Additional badges will be charged, the cost for this is posted on each event.</i>'
+    notice: 'Fursuits with <i class="far fa-id-card-alt fa-lg"></i> next to their name will be printed for events (unless otherwise stated on the event).<small class="text-secondary">Please note that only one such badge will be printed free of charge. Additional badges will be charged, the cost for this is posted on each event.</small>'
     new: 'Add new'
     newH: 'Add a new fursuit'
     name: 'Fursuit name'
@@ -564,6 +566,7 @@ alerts:
     pwAdminReset: 'sPassword successfully reset.'
     deleted: 'sAccount deleted successfully.'
     newsletter: 'sYou have successfully changed your subscription.'
+    regDeleted: 'sRegistration deleted.'
 navigation:
   h: 'Route guidance to the SloFurs Gabrje event'
   p1: 'If you need help, contact <a href="http://t.me/pur3bolt" target="_blank">Pur3Bolt <i class="far fa-external-link"></i></a> on Telegram.'

@@ -1,18 +1,18 @@
 <?php if(count($attendees)>0): ?>
 <div class="tab-pane container-fluid fade mt-3" id="Stats">
-  <div class="text-center w3-padding-16">
+  <div class="text-center p-4">
     <h4><b><?php echo L::register_form_stats_country;?></b></h4>
   </div>
   <div id="chartCountry" style="height: 300px;"></div>
-  <div class="text-center w3-padding-16">
+  <div class="text-center p-4">
     <h4><b><?php echo L::register_form_stats_ticket;?></b></h4>
   </div>
   <div id="chartTicket"></div>
-  <div class="text-center w3-padding-16">
+  <div class="text-center p-4">
     <h4><b><?php echo L::register_form_stats_accomodation;?></b></h4>
   </div>
   <div id="chartRooms" style="width: 100%; height: 300px;"></div>
-  <div class="text-center w3-padding-16">
+  <div class="text-center p-4">
     <h4><b><?php echo L::register_form_stats_gender;?></b></h4>
   </div>
   <div id="chartGender" style="width: 100%; height: 300px;"></div>

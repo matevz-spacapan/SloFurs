@@ -7,7 +7,7 @@
 <form action="<?php echo URL."admin/event/$type/$step"; if($id!=null){ echo "?id=$id"; } ?>" method="post" enctype="multipart/form-data" autocomplete="off" class="needs-validation allforms" novalidate>
   <h3 style="display: inline-block;"><?php echo L::admin_form_accomodation_h;?></h3> <a href="#" data-toggle="popover" title="<?php echo L::admin_form_event_popoverTitle;?>" data-content="<?php echo L::admin_form_accomodation_hInfo;?>"><i class="far fa-question-circle"></i></a>
   <?php if($editEvent): ?>
-    <p class="w3-text-red"><?php echo L::admin_form_accomodation_warning;?></p>
+    <p class="text-danger"><?php echo L::admin_form_accomodation_warning;?></p>
   <?php endif; ?>
 
   <div class="container-fluid">

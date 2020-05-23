@@ -163,6 +163,10 @@ class Admin extends Connection{
 				elseif(isset($_POST['export_all'])){
 					$event_model->exportForms($filtered_id, true);
 				}
+				elseif(isset($_POST['delete_reg'])){
+					$_SESSION['alert']=$event_model->deleteReg(filter_var($_POST['delete_reg'], FILTER_SANITIZE_NUMBER_INT));
+					header('location: '.URL.'admin/event?id='.$filtered_id);
+				}
 				else{
 					goto noactions;
 				}
@@ -173,6 +177,7 @@ class Admin extends Connection{
 				require 'app/sites/global/alerts.php';
 				//go to new event creation page
 				if($account->status>=ADMIN&&$action=='new'){
+					//require 'app/sites/'.THEME.'/admin/sidebar.php';
 					require 'app/sites/'.THEME.'/admin/newevent.php';
 				}
 				//go to edit/view event page

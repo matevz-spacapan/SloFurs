@@ -12,7 +12,7 @@
 		<!-- Title -->
 		<div class="col-md-4 col-sm-12">
 			<div class="form-group">
-        <label for="name"><?php echo L::admin_form_event_name;?></label> <sup class="w3-text-red">*</sup>
+        <label for="name"><?php echo L::admin_form_event_name;?></label> <sup class="text-danger">*</sup>
         <input type="text" class="form-control mb-2" name="name" required value="<?php if(isset($id)){echo $event->name;} ?>">
 			</div>
 		</div>
@@ -39,7 +39,7 @@
 		<!-- Event start -->
 		<div class="col-md-6 col-sm-12">
 			<div class="form-group">
-        <label for="start"><?php echo L::admin_form_event_start;?></label> <sup class="w3-text-red">*</sup>
+        <label for="start"><?php echo L::admin_form_event_start;?></label> <sup class="text-danger">*</sup>
         <a href="#" data-toggle="popover" title="<?php echo L::admin_form_event_popoverTitle;?>" data-content="<?php echo L::admin_form_event_startInfo;?>"><i class="far fa-question-circle"></i></a>
         <input type="text" name="start" class="form-control datetimepicker-input" id="datetimepicker1" data-toggle="datetimepicker" data-target="#datetimepicker1" required/>
 			</div>
@@ -47,7 +47,7 @@
 		<!-- Event end -->
 		<div class="col">
 			<div class="form-group">
-        <label for="end"><?php echo L::admin_form_event_end;?></label> <sup class="w3-text-red">*</sup>
+        <label for="end"><?php echo L::admin_form_event_end;?></label> <sup class="text-danger">*</sup>
         <a href="#" data-toggle="popover" title="<?php echo L::admin_form_event_popoverTitle;?>" data-content="<?php echo L::admin_form_event_endInfo;?>"><i class="far fa-question-circle"></i></a>
         <input type="text" name="end" class="form-control datetimepicker-input" id="datetimepicker2" data-toggle="datetimepicker" data-target="#datetimepicker2" required/>
 			</div>

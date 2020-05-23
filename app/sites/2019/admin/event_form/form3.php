@@ -10,7 +10,7 @@
 		<!-- No restrictions age -->
 		<div class="col-md-4 col-sm-12">
 			<div class="form-group">
-        <label for="age"><?php echo L::admin_form_age_noRestrict;?></label> <sup class="w3-text-red">*</sup>
+        <label for="age"><?php echo L::admin_form_age_noRestrict;?></label> <sup class="text-danger">*</sup>
         <a href="#" data-toggle="popover" title="<?php echo L::admin_form_event_popoverTitle;?>" data-content="<?php echo L::admin_form_age_noRestrictInfo;?>"><i class="far fa-question-circle"></i></a>
         <input type="number" class="form-control" name="age" value="<?php if($editEvent){echo $event->age;}else{echo 0;} ?>" min="0" max="99" required>
 			</div>

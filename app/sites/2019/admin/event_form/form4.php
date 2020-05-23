@@ -1,14 +1,14 @@
 <div class="w3-main" style="margin-left:300px">
 <div class="container-fluid mt-3">
   <form action="<?php echo URL."admin/event/$type/$step"; if($id!=null){ echo "?id=$id"; } ?>" method="post" enctype="multipart/form-data" autocomplete="off" class="needs-validation allforms" novalidate>
-  <h3 style="display: inline;"><?php echo L::admin_form_tickets_h;?></h3> <i class="w3-opacity w3-small"><?php echo L::admin_form_tickets_hInfo;?></i><br><br>
+  <h3 style="display: inline;"><?php echo L::admin_form_tickets_h;?></h3> <small class="text-secondary"><?php echo L::admin_form_tickets_hInfo;?></small><br><br>
 
-  <div class="w3-responsive">
-    <table class="w3-table">
+  <div class="table-responsive">
+    <table class="table table-striped table-hover thead-light">
       <tr>
         <th><?php echo L::admin_form_tickets_type;?></th>
         <th><?php echo L::admin_form_tickets_cost;?></th>
-        <th><?php echo L::admin_form_tickets_description;?> <i class="w3-opacity w3-small"><?php echo L::admin_form_tickets_descriptionInfo;?></i></th>
+        <th><?php echo L::admin_form_tickets_description;?> <small class="text-secondary"><?php echo L::admin_form_tickets_descriptionInfo;?></small></th>
       </tr>
       <tr>
         <td>

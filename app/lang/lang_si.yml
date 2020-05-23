@@ -87,7 +87,7 @@ admin:
       info: 'Tukaj lahko vidite vse prijavljene udeležence. Da potrdite spremembe v zadnjem stolpcu, kliknite na Potrdi udeležence. Če želite izvoziti podpisne izjave, kliknite na primeren gumb.'
       account: 'Uporabnik'
       type: 'Vstopnica'
-      room: 'Želena namestitev'
+      room: 'Želena nastanitev'
       fursuiterArtist: 'Fursuiter/Umetnik'
       language: 'Jezik'
       confirmed: 'Potrjen'
@@ -101,6 +101,7 @@ admin:
       age: 'Dat. roj. & starost'
       created: 'Čas prijave'
       notes: 'Opombe'
+      remove: 'Odstrani'
     fursuiters:
       h: 'Fursuiterji'
       owned: 'lastnik: '
@@ -173,6 +174,7 @@ admin:
 topnavbar:
   home: 'Domov'
   event: 'Dogodki'
+  rules: 'Pravila dogodkov'
   blog: 'Blog'
   account: 'Račun'
   myAccount: 'Moj račun'
@@ -285,7 +287,7 @@ account:
     fursuit: 'fursuit'
     fursuits: 'fursuitov'
     currently2: ''
-    notice: 'Fursuiti z znakom <i class="far fa-id-card-alt fa-lg"></i> poleg imena bodo natisnjeni za dogodke (če ni drugače napisano na dogodku). <i class="w3-opacity w3-small">Vedite, da bo le ena takšna značka natisnjena brezplačno. Dodatne značke bodo zaračunane, cene pa so objavljene na dogodku.</i>'
+    notice: 'Fursuiti z znakom <i class="far fa-id-card-alt fa-lg"></i> poleg imena bodo natisnjeni za dogodke (če ni drugače napisano na dogodku). <small class="text-secondary">Vedite, da bo le ena takšna značka natisnjena brezplačno. Dodatne značke bodo zaračunane, cene pa so objavljene na dogodku.</small>'
     new: 'Dodaj novega'
     newH: 'Dodaj nov fursuit'
     name: 'Ime fursuita'
@@ -567,6 +569,7 @@ alerts:
     pwAdminReset: 'sGeslo uspešno ponastavljeno.'
     deleted: 'sRačun uspešno izbrisan.'
     newsletter: 'sUspešno ste spremenili svojo naročnino na novice.'
+    regDeleted: 'sPrijava odstranjena.'
 navigation:
   h: 'Pot do SloFurs dogodka v Gabrju'
   p1: 'Za pomoč pri navigaciji se obrnite na <a href="http://t.me/pur3bolt" target="_blank">Pur3Bolta <i class="far fa-external-link"></i></a> preko Telegrama.'

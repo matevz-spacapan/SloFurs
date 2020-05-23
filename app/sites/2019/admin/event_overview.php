@@ -43,6 +43,7 @@
               <th width="170"><?php echo L::admin_overview_attendees_age;?></th>
               <th><?php echo L::admin_overview_attendees_notes;?></th>
               <th><?php echo L::admin_overview_attendees_confirmed;?></th>
+              <th></th>
             </tr>
             <?php foreach($attendees as $attendee): ?>
               <tr>
@@ -113,6 +114,10 @@
                     <label for="confirmed" class="custom-control-label"></label>
                   </div>
                 </td>
+                <td>
+                  <button type="submit" name="edit_reg" value="<?php echo $attendee->id; ?>" class="btn btn-primary" disabled>Uredi</button>
+                  <button type="submit" name="delete_reg" value="<?php echo $attendee->id; ?>" class="btn btn-danger"><?php echo L::admin_overview_attendees_remove; ?></button>
+                </td>
               </tr>
             <?php endforeach; ?>
             <tr class="table-success">
@@ -125,14 +130,15 @@
               <td></td>
               <td></td>
               <td><i class="far fa-sigma"></i> <?php echo $sum8;?></td>
+              <td></td>
             </tr>
           </table><br>
         </div>
         <?php if($account->status>=ADMIN): ?>
         <div class="text-center">
-          <button type="submit" class="w3-button w3-green w3-round" name="confirm_attendees"><?php echo L::admin_overview_attendees_confirm;?></button><br><br>
-          <button type="submit" class="w3-button w3-blue w3-round" name="export_confirmed"><?php echo L::admin_overview_attendees_exportC;?></button>
-          <button type="submit" class="w3-button w3-blue w3-round" name="export_all"><?php echo L::admin_overview_attendees_exportA;?></button>
+          <button type="submit" class="btn btn-success" name="confirm_attendees"><?php echo L::admin_overview_attendees_confirm;?></button><br><br>
+          <button type="submit" class="btn btn-secondary" name="export_confirmed"><?php echo L::admin_overview_attendees_exportC;?></button>
+          <button type="submit" class="btn btn-secondary" name="export_all"><?php echo L::admin_overview_attendees_exportA;?></button>
         </div>
         <?php endif;?>
       </form>

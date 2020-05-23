@@ -27,7 +27,7 @@
 		<!-- Regular reg -->
 		<div class="col-md-3 col-sm-12">
 			<div class="form-group">
-        <label for="reg_start"><?php echo L::admin_form_registration_start;?></label> <sup class="w3-text-red">*</sup>
+        <label for="reg_start"><?php echo L::admin_form_registration_start;?></label> <sup class="text-danger">*</sup>
         <a href="#" data-toggle="popover" title="<?php echo L::admin_form_event_popoverTitle;?>" data-content="<?php echo L::admin_form_registration_startInfo;?>"><i class="far fa-question-circle"></i></a>
         <input type="text" name="reg_start" class="form-control datetimepicker-input" id="datetimepicker3" data-toggle="datetimepicker" data-target="#datetimepicker3" required/>
 			</div>

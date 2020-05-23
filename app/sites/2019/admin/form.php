@@ -3,13 +3,13 @@
   <!-- Event details -->
   <h3><?php echo L::admin_form_event_h;?></h3>
 
-  <label for="name"><?php echo L::admin_form_event_name;?></label> <sup class="w3-text-red">*</sup>
+  <label for="name"><?php echo L::admin_form_event_name;?></label> <sup class="text-danger">*</sup>
   <input type="text" class="form-control" name="name" required value="<?php if($editEvent){echo $event->name;} ?>">
 
-  <label for="start"><?php echo L::admin_form_event_start;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::admin_form_event_startInfo;?></i>
+  <label for="start"><?php echo L::admin_form_event_start;?></label> <sup class="text-danger">*</sup> <i class="w3-opacity w3-small"><?php echo L::admin_form_event_startInfo;?></i>
   <input type="datetime-local" class="form-control" name="start" required value="<?php if($editEvent){echo $event_model->convert($event->event_start);} ?>">
 
-  <label for="end"><?php echo L::admin_form_event_end;?></label> <sup class="w3-text-red">*</sup> <i class="w3-opacity w3-small"><?php echo L::admin_form_event_endInfo;?></i>
+  <label for="end"><?php echo L::admin_form_event_end;?></label> <sup class="text-danger">*</sup> <i class="w3-opacity w3-small"><?php echo L::admin_form_event_endInfo;?></i>
   <input type="datetime-local" class="form-control" name="end" required value="<?php if($editEvent){echo $event_model->convert($event->event_end);} ?>">
 
   <label for="location"><?php echo L::admin_form_event_location;?></label> <i class="w3-opacity w3-small"><?php echo L::admin_form_event_locationInfo;?></i>

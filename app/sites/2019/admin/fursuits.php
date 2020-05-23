@@ -56,11 +56,7 @@
 									<div class="form-group">
 										<label><?php echo L::account_fursuit_photo;?></label> <small class="text-muted"><?php echo L::account_fursuit_photoI;?></small>
 										<div class="w3-display-container photoContainer">
-											<?php if(file_exists('public/fursuits/'.$fursuit->img.'.png')): ?>
-												<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="w3-round-large" style="width:100%">
-											<?php else: ?>
-												<img src="<?php echo URL.'public/img/account.png' ?>" style="width:100%">
-											<?php endif; ?>
+											<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="rounded" style="width:100%">
 											<div class="w3-display-middle w3-display-hover">
 												<label for="file-upload<?php echo $fursuit->id; ?>" class="btn btn-light"><?php echo L::account_fursuit_changePhoto;?></label>
 												<input id="file-upload<?php echo $fursuit->id; ?>" type="file" style="display:none" name="image" onchange="pfp('<?php echo $fursuit->id; ?>')">
@@ -106,5 +102,5 @@ function pfp(id){
 		document.getElementById("submit0").disabled=false;
 	}
 }
-$("#fursuits").addClass("w3-orange");
+$("#fursuits").addClass("bg-warning");
 </script>

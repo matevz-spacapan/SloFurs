@@ -468,6 +468,22 @@ class EventModel{
 		$this->changes($_SESSION['account'], "changed confirmed statuses of users for event ID $event", $_SESSION['account']);
 		return L::alerts_s_confStatus;
 	}
+	//
+	public function deleteReg($id){
+		$sql='SELECT * FROM account WHERE id=:id';
+	  $query=$this->db->prepare($sql);
+	  $query->execute(array(':id'=>$_SESSION['account']));
+	  $account=$query->fetch();
+	  if($account->status<ADMIN){
+			$this->changes($_SESSION['account'], "attempted to delete registration ID $id", $_SESSION['account']);
+			return L::alerts_d_cantDoThat;
+	  }
+		$sql='DELETE FROM registration WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		$this->changes($_SESSION['account'], "deleted registration ID $id", $_SESSION['account']);
+		return L::alerts_s_regDeleted;
+	}
 	// Exports registered users into release forms
 	public function exportForms($id, $all){
 		$sql='SELECT fname, lname, dob, address, address2, post, city, country, gender, language FROM account INNER JOIN registration ON account.id=registration.acc_id WHERE event_id=:id';
