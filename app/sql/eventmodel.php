@@ -195,7 +195,7 @@ class EventModel{
 		$event_ID=$this->db->lastInsertId();
 
 		//ACCOMODATION
-		$keys=preg_grep('/(type\d\*)+/m', array_keys($fields));
+		$keys=preg_grep('/(type\d+x)+/m', array_keys($fields));
 		if(!empty($keys)){
 			foreach($keys as $key){
 				//type#*, persons#*, price#*, quantity#*
@@ -346,7 +346,7 @@ class EventModel{
 		//get all rooms for this event, compare for deleted rooms, check for new ones, update all others
 		$evt_id=$id;
 		$existing=$this->getRooms($id);
-		$keys=preg_grep('/(type\d\**)+/m', array_keys($fields));
+		$keys=preg_grep('/(type\d+x*)+/m', array_keys($fields));
 		if(!empty($keys)){
 			foreach($keys as $key){
 				//type#, persons#, price#, quantity#

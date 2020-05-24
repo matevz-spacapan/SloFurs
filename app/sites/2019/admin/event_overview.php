@@ -108,15 +108,32 @@
                 <td>
                   <?php echo $attendee->notes;?>
                 </td>
-                <td>
+                <td class="text-center">
                   <div class="custom-control custom-checkbox">
                     <input class="custom-control-input" id="confirmed" type="checkbox" name="<?php echo $attendee->id; ?>" value="true" <?php if($attendee->confirmed==1){echo 'checked'; $sum8++;} ?>>
                     <label for="confirmed" class="custom-control-label"></label>
                   </div>
                 </td>
-                <td>
-                  <button type="submit" name="edit_reg" value="<?php echo $attendee->id; ?>" class="btn btn-primary" disabled>Uredi</button>
-                  <button type="submit" name="delete_reg" value="<?php echo $attendee->id; ?>" class="btn btn-danger"><?php echo L::admin_overview_attendees_remove; ?></button>
+                <td class="text-center">
+                  <button type="submit" name="edit_reg" value="<?php echo $attendee->id; ?>" class="btn btn-primary mb-1" disabled>TRANSLATE Uredi</button><br>
+                  <button type="button" class="btn btn-outline-danger" id="del<?php echo $attendee->id; ?>" onclick="delData('<?php echo $attendee->id; ?>')"><?php echo L::admin_overview_attendees_remove; ?></button>
+            			<button type="submit" name="delete_reg" value="<?php echo $attendee->id; ?>" id="delconf<?php echo $attendee->id; ?>" class="btn btn-danger" style="display: none;"><?php echo L::personalInfo_delete2;?></button>
+                  <script>
+                    function delData(id){
+                      $("#del"+id).addClass("scale-out-center");
+                      setTimeout(function(){
+                        contDel(id);
+                      }, 500);
+                    }
+                    function contDel(id){
+                      $("#del"+id).hide();
+                      $("#delconf"+id).css("display", "inline-block");
+                      $("#delconf"+id).addClass("scale-in-center");
+                      setTimeout(function(){
+                        $("#delconf"+id).removeClass("scale-in-center");
+                      }, 500);
+                    }
+                  </script>
                 </td>
               </tr>
             <?php endforeach; ?>
