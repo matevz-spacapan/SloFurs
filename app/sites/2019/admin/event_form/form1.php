@@ -4,6 +4,15 @@
   $id=(isset($_GET['id']))?filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT):null;
   require_once 'app/sites/'.THEME.'/admin/event_form/datetimepicker.html';
 ?>
+<div class="mt-4">
+  <ul class="pagination justify-content-center">
+    <li class="page-item active" id="link1" data-toggle="tooltip" data-placement="bottom" title="<?php echo L::admin_form_event_h;?>"><a class="page-link" href="#" data-toggle="collapse" data-target="#pg1" onclick="changeActive('1')">1</a></li>
+    <li class="page-item" id="link2" data-toggle="tooltip" data-placement="bottom" title="<?php echo L::admin_form_registration_h;?>"><a class="page-link" href="#" data-toggle="collapse" data-target="#pg2" onclick="changeActive('2')">2</a></li>
+    <li class="page-item" id="link3" data-toggle="tooltip" data-placement="bottom" title="<?php echo L::admin_form_age_h;?>"><a class="page-link" href="#" data-toggle="collapse" data-target="#pg3" onclick="changeActive('3')">3</a></li>
+    <li class="page-item" id="link4" data-toggle="tooltip" data-placement="bottom" title="<?php echo L::admin_form_tickets_h;?>"><a class="page-link" href="#" data-toggle="collapse" data-target="#pg4" onclick="changeActive('4')">4</a></li>
+    <li class="page-item" id="link5" data-toggle="tooltip" data-placement="bottom" title="<?php echo L::admin_form_accomodation_h;?>"><a class="page-link" href="#" data-toggle="collapse" data-target="#pg5" onclick="changeActive('5')">5</a></li>
+  </ul>
+</div>
 <form action="<?php echo URL."admin/event"; if($id!=null){ echo "?id=$id"; } ?>" method="post" enctype="multipart/form-data" autocomplete="off" class="needs-validation allforms" novalidate>
 <div id="formParent">
   <!-- General info about the event -->
@@ -284,13 +293,6 @@
 
 
 <div class="container-fluid p-5 text-center">
-  <ul class="pagination justify-content-center">
-    <li class="page-item active" id="link1" data-toggle="tooltip" data-placement="bottom" title="<?php echo L::admin_form_event_h;?>"><a class="page-link" href="#" data-toggle="collapse" data-target="#pg1" onclick="changeActive('1')">1</a></li>
-    <li class="page-item" id="link2" data-toggle="tooltip" data-placement="bottom" title="<?php echo L::admin_form_registration_h;?>"><a class="page-link" href="#" data-toggle="collapse" data-target="#pg2" onclick="changeActive('2')">2</a></li>
-    <li class="page-item" id="link3" data-toggle="tooltip" data-placement="bottom" title="<?php echo L::admin_form_age_h;?>"><a class="page-link" href="#" data-toggle="collapse" data-target="#pg3" onclick="changeActive('3')">3</a></li>
-    <li class="page-item" id="link4" data-toggle="tooltip" data-placement="bottom" title="<?php echo L::admin_form_tickets_h;?>"><a class="page-link" href="#" data-toggle="collapse" data-target="#pg4" onclick="changeActive('4')">4</a></li>
-    <li class="page-item" id="link5" data-toggle="tooltip" data-placement="bottom" title="<?php echo L::admin_form_accomodation_h;?>"><a class="page-link" href="#" data-toggle="collapse" data-target="#pg5" onclick="changeActive('5')">5</a></li>
-  </ul>
   <?php if(!$editEvent): ?>
     <button type="submit" class="btn btn-success text-center" disabled>TRANSLATE Publish event</button>
     <p>Show btn only when all * is filled</p>

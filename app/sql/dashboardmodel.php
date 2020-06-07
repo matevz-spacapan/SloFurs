@@ -12,33 +12,33 @@ class DashboardModel{
 		$sql='SELECT count(*) AS tot FROM account';
 		$query=$this->db->prepare($sql);
 		$query->execute();
-		return $query->fetch();
+		return $query->fetch()->tot;
 	}
 	public function accountsB2(){
 		$sql='SELECT count(*) AS tot FROM account WHERE fname IS NULL';
 		$query=$this->db->prepare($sql);
 		$query->execute();
-		return $query->fetch();
+		return $query->fetch()->tot;
 	}
 	// Events brief
 	public function eventsB1(){
 		$sql='SELECT count(*) AS tot FROM event';
 		$query=$this->db->prepare($sql);
 		$query->execute();
-		return $query->fetch();
+		return $query->fetch()->tot;
 	}
 	public function eventsB2(){
 		$sql='SELECT count(*) AS tot FROM event WHERE event_start>NOW()';
 		$query=$this->db->prepare($sql);
 		$query->execute();
-		return $query->fetch();
+		return $query->fetch()->tot;
 	}
 	// Fursuits brief
 	public function fursuitsB(){
 		$sql='SELECT count(*) AS tot FROM fursuit';
 		$query=$this->db->prepare($sql);
 		$query->execute();
-		return $query->fetch();
+		return $query->fetch()->tot;
 	}
 	// Emails brief
 	public function emailsB(){

@@ -20,11 +20,11 @@
         <div class="row">
           <div class="cell text-center p-2">
             <h5><?php echo L::admin_dash_total;?></h5>
-            <p><?php echo $dash_model->accountsB1()->tot;?></p>
+            <p><?php echo $dash_model->accountsB1();?></p>
           </div>
           <div class="cell text-center p-2">
             <h5><?php echo L::admin_dash_incomplete;?></h5>
-            <p><?php echo $dash_model->accountsB2()->tot;?></p>
+            <p><?php echo $dash_model->accountsB2();?></p>
           </div>
         </div>
       </div>
@@ -45,11 +45,11 @@
         <div class="row">
           <div class="cell text-center p-2">
             <h5><?php echo L::admin_dash_total;?></h5>
-            <p><?php echo $dash_model->eventsB1()->tot;?></p>
+            <p><?php echo $dash_model->eventsB1()-1;?></p>
           </div>
           <div class="cell text-center p-2">
             <h5><?php echo L::admin_dash_upcoming;?></h5>
-            <p><?php echo $dash_model->eventsB2()->tot;?></p>
+            <p><?php echo $dash_model->eventsB2()-1;?></p>
           </div>
         </div>
       </div>
@@ -70,7 +70,7 @@
         <div class="row">
           <div class="cell text-center p-2">
             <h5><?php echo L::admin_dash_total;?></h5>
-            <p><?php echo $dash_model->fursuitsB()->tot;?></p>
+            <p><?php echo $dash_model->fursuitsB();?></p>
           </div>
         </div>
       </div>
