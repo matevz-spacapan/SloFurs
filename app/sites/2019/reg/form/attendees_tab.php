@@ -22,9 +22,6 @@
           <?php if($attendee->artist==1): ?>
             <i class="fas fa-paint-brush" title="<?php echo L::register_form_stats_artist;?>"></i>
           <?php endif; ?>
-          <?php if($attendee->artist==0&&$attendee->fursuiter==0): ?>
-            <br>
-          <?php endif;?>
         </div>
       </div>
     <?php endforeach; ?>

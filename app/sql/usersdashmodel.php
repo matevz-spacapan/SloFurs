@@ -7,6 +7,11 @@ class UsersDashModel{
 		}
 		catch (PDOException $e){}
 	}
+	public function changes($who, $what, $for_who){
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, NOW())";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':who'=>$who, ':what'=>$what, ':for_who'=>$for_who));
+	}
 	// Get account with given ID
 	public function define($id){
 		$sql='SELECT * FROM account WHERE id=:id';
@@ -40,7 +45,7 @@ class UsersDashModel{
 	*/
 
 	// Change email
-	public function changeEmail($email, $id, $forced, $who){
+	public function changeEmail($email, $id, $forced){
 		if(empty($email)){
 			return L::alerts_d_allFields;
 		}
@@ -57,17 +62,13 @@ class UsersDashModel{
 			$sql='UPDATE account SET email=:email, activate=NULL WHERE id=:id';
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':email'=>$email, ':id'=>$id));
-			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-			$query=$this->db->prepare($sql);
-			$query->execute(array(':who'=>$who, ':what'=>'forcefully changed email', ':for_who'=>$id, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+			$this->changes($_SESSION['account'], 'forcefully changed email', $id);
 		}
 		else{
 			$sql='UPDATE account SET email=:email, activate=:activate WHERE id=:id';
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':email'=>$email, ':activate'=>$activate_token, ':id'=>$id));
-			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-			$query=$this->db->prepare($sql);
-			$query->execute(array(':who'=>$who, ':what'=>'changed email', ':for_who'=>$id, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+			$this->changes($_SESSION['account'], 'changed email', $id);
 		}
 		if(!$forced){
 			$sql='SELECT username FROM account WHERE id=:id';
@@ -81,7 +82,7 @@ class UsersDashModel{
 	}
 
 	//Reset password
-	public function resetPw($id, $who){
+	public function resetPw($id){
 		$sql='SELECT username, email, password FROM account WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -94,24 +95,20 @@ class UsersDashModel{
 		$email=$acc->email;
 		$username=$acc->username;
 		require 'app/emails/password_reset.php';
-		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-		$query=$this->db->prepare($sql);
-		$query->execute(array(':who'=>$who, ':what'=>'reset the password', ':for_who'=>$id, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+		$this->changes($_SESSION['account'], 'reset the password', $id);
 		return L::alerts_s_pwAdminReset;
 	}
 
 	// Set account status
-	public function setStatus($status, $id, $who){
+	public function setStatus($status, $id){
 		$sql='UPDATE account SET status=:status WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':status'=>$status, ':id'=>$id));
-		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-		$query=$this->db->prepare($sql);
-		$query->execute(array(':who'=>$who, ':what'=>'changed the status', ':for_who'=>$id, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+		$this->changes($_SESSION['account'], 'changed the status', $id);
 	}
 
 	// Change PFP
-	public function changePFP($img_file, $id, $who){
+	public function changePFP($img_file, $id){
 		$target_dir='public/accounts/';
 		//check if pfp was already uploaded
 		$sql='SELECT pfp FROM account WHERE id=:id';
@@ -139,9 +136,7 @@ class UsersDashModel{
 				$sql='UPDATE account SET pfp=:pfp WHERE id=:id';
 				$query=$this->db->prepare($sql);
 				$query->execute(array(':pfp'=>$file_name, ':id'=>$id));
-				$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-				$query=$this->db->prepare($sql);
-				$query->execute(array(':who'=>$who, ':what'=>'changed the PFP', ':for_who'=>$id, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+				$this->changes($_SESSION['account'], 'changed the PFP', $id);
 				return L::alerts_s_pfpChanged;
 			}
 			else{
@@ -154,7 +149,7 @@ class UsersDashModel{
 	}
 
 	// Delete PFP
-	public function deletePFP($id, $who){
+	public function deletePFP($id){
 		$target_dir='public/accounts/';
 		$sql='SELECT pfp FROM account WHERE id=:id';
 		$query=$this->db->prepare($sql);
@@ -165,21 +160,17 @@ class UsersDashModel{
 			$sql='UPDATE account SET pfp=null WHERE id=:id';
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':id'=>$id));
-			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-			$query=$this->db->prepare($sql);
-			$query->execute(array(':who'=>$who, ':what'=>'deleted the PFP', ':for_who'=>$id, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+			$this->changes($_SESSION['account'], 'deleted the PFP', $id);
 		}
 	}
 
 	// Update contact info
-	public function updateProfile($fname, $lname, $address, $address2, $city, $postcode, $country, $phone, $dob, $gender, $language, $id, $who){
+	public function updateProfile($fname, $lname, $address, $address2, $city, $postcode, $country, $phone, $dob, $gender, $language, $id){
 		if(!empty($fname)&&!empty($lname)&&!empty($address)&&!empty($city)&&!empty($postcode)&&!empty($country)&&!empty($phone)&&!empty($dob)&&!empty($gender)){
 			$sql='UPDATE account SET fname=:fname, lname=:lname, address=:address, address2=:address2, post=:post, city=:city, country=:country, phone=:phone, dob=:dob, gender=:gender, language=:language WHERE id=:id';
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':fname'=>$fname, ':lname'=>$lname, ':address'=>$address, ':address2'=>$address2, ':post'=>$postcode, ':city'=>$city, ':country'=>$country, ':phone'=>$phone, ':dob'=>$dob, ':gender'=>$gender, ':language'=>$language, ':id'=>$id));
-			$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-			$query=$this->db->prepare($sql);
-			$query->execute(array(':who'=>$who, ':what'=>'updated profile info', ':for_who'=>$id, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+			$this->changes($_SESSION['account'], 'updated profile info', $id);
 			return L::alerts_s_accUpdated;
 		}
 		else{
@@ -188,7 +179,7 @@ class UsersDashModel{
 	}
 
 	// Delete profile info, if possible
-	public function deleteProfile($id, $who){
+	public function deleteProfile($id){
 		//if no upcoming Evt
 		$sql='SELECT registration.id AS id, name, event_start, event_end, reg_end, confirmed, fursuiter, artist FROM event INNER JOIN registration ON event.id=registration.event_id WHERE ((event_start<=NOW() AND event_end>=NOW()) OR event_start>NOW()) AND acc_id=:acc_id ORDER BY event_start ASC';
 		$query=$this->db->prepare($sql);
@@ -208,15 +199,13 @@ class UsersDashModel{
 		$sql='UPDATE account SET fname=NULL, lname=NULL, address=NULL, address2=NULL, post=NULL, city=NULL, country=NULL, phone=NULL, dob=NULL, gender=NULL WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
-		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-		$query=$this->db->prepare($sql);
-		$query->execute(array(':who'=>$who, ':what'=>'cleared account info', ':for_who'=>$id, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+		$this->changes($_SESSION['account'], 'cleared account info', $id);
 		return L::alerts_s_accDeleted;
 	}
 
 
 	// Change newsletter status
-	public function newsletter($id, $who){
+	public function newsletter($id){
 		$sql='SELECT newsletter FROM account WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -234,14 +223,12 @@ class UsersDashModel{
 		else{
 			$what='unsubscribed from the newsletter for the account';
 		}
-		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-		$query=$this->db->prepare($sql);
-		$query->execute(array(':who'=>$who, ':what'=>$what, ':for_who'=>$id, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+		$this->changes($_SESSION['account'], $what, $id);
 		return L::alerts_s_pwChanged;
 	}
 
 	// Change ban status
-	public function ban($id, $who){
+	public function ban($id){
 		$sql='SELECT banned FROM account WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
@@ -255,8 +242,6 @@ class UsersDashModel{
 		$sql='UPDATE account SET banned=:banned WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':banned'=>$banned, ':id'=>$id));
-		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
-		$query=$this->db->prepare($sql);
-		$query->execute(array(':who'=>$who, ':what'=>$text, ':for_who'=>$id, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+		$this->changes($_SESSION['account'], $text, $id);
 	}
 }

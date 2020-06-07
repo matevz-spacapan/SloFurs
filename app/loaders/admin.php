@@ -40,31 +40,31 @@ class Admin extends Connection{
 			if(isset($_GET['id'])){
 				$filtered_id=filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
 				if(isset($_POST['change_email'])){
-					$_SESSION['alert']=$dash_model->changeEmail(strip_tags($_POST['email']), $filtered_id, false, $_SESSION['account']);
+					$_SESSION['alert']=$dash_model->changeEmail(strip_tags($_POST['email']), $filtered_id, false);
 					header('location: '.URL.'admin/users?id='.$filtered_id);
 				}
 				elseif(isset($_POST['force_email'])){
-					$_SESSION['alert']=$dash_model->changeEmail(strip_tags($_POST['email']), $filtered_id, true, $_SESSION['account']);
+					$_SESSION['alert']=$dash_model->changeEmail(strip_tags($_POST['email']), $filtered_id, true);
 					header('location: '.URL.'admin/users?id='.$filtered_id);
 				}
 				elseif(isset($_POST['reset_pw'])){
-					$_SESSION['alert']=$dash_model->resetPw($filtered_id, $_SESSION['account']);
+					$_SESSION['alert']=$dash_model->resetPw($filtered_id);
 					header('location: '.URL.'admin/users?id='.$filtered_id);
 				}
 				elseif(isset($_POST['account_status'])){
-					$dash_model->setStatus(strip_tags($_POST['status']), $filtered_id, $_SESSION['account']);
+					$dash_model->setStatus(strip_tags($_POST['status']), $filtered_id);
 					header('location: '.URL.'admin/users?id='.$filtered_id);
 				}
 				elseif(isset($_POST['delete_pfp'])){
-					$dash_model->deletePFP($filtered_id, $_SESSION['account']);
-					header('location: '.URL.'admin/users?id='.$filtered_id, $_SESSION['account']);
+					$dash_model->deletePFP($filtered_id);
+					header('location: '.URL.'admin/users?id='.$filtered_id);
 				}
 				elseif(isset($_FILES['image'])){
-					$_SESSION['alert']=$dash_model->changePFP($_FILES['image'], $filtered_id, $_SESSION['account']);
+					$_SESSION['alert']=$dash_model->changePFP($_FILES['image'], $filtered_id);
 					header('location: '.URL.'admin/users?id='.$filtered_id);
 				}
 				elseif(isset($_POST['update_personal_info'])){
-					$_SESSION['alert']=$dash_model->updateProfile(strip_tags($_POST['fname']), strip_tags($_POST['lname']), strip_tags($_POST['address']), strip_tags($_POST['address2']), strip_tags($_POST['city']), strip_tags($_POST['postcode']), strip_tags($_POST['country']), filter_var($_POST['phone'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['dob']), strip_tags($_POST['gender']), strip_tags($_POST['language']), $filtered_id, $_SESSION['account']);
+					$_SESSION['alert']=$dash_model->updateProfile(strip_tags($_POST['fname']), strip_tags($_POST['lname']), strip_tags($_POST['address']), strip_tags($_POST['address2']), strip_tags($_POST['city']), strip_tags($_POST['postcode']), strip_tags($_POST['country']), filter_var($_POST['phone'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['dob']), strip_tags($_POST['gender']), strip_tags($_POST['language']), $filtered_id);
 					header('location: '.URL.'admin/users?id='.$filtered_id);
 				}
 				elseif(isset($_POST['delete_personal_info'])){
@@ -72,7 +72,7 @@ class Admin extends Connection{
 					header('location: '.URL.'admin/users?id='.$filtered_id);
 				}
 				elseif(isset($_POST['ban_account'])){
-					$dash_model->ban($filtered_id, $_SESSION['account']);
+					$dash_model->ban($filtered_id);
 					header('location: '.URL.'admin/users?id='.$filtered_id);
 				}
 				else{
@@ -126,7 +126,7 @@ class Admin extends Connection{
 		}
 	}
 	// Event managing page
-	public function event($action=null, $step=1){
+	public function event($action=null){
 		$account=$this->getSessionAcc();
 		$event_model=$this->loadSQL('EventModel');
 		if($account==null){

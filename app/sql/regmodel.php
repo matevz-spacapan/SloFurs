@@ -9,9 +9,9 @@ class RegModel{
 	}
 	//Changes storage
 	public function changes($who, $what, $for_who){
-		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, :changed_at)";
+		$sql="INSERT INTO changes(who, what, for_who, changed_at) VALUES (:who, :what, :for_who, NOW())";
 		$query=$this->db->prepare($sql);
-		$query->execute(array(':who'=>$who, ':what'=>$what, ':for_who'=>$for_who, ':changed_at'=>date_format(date_create(), 'Y-m-d H:i:s')));
+		$query->execute(array(':who'=>$who, ':what'=>$what, ':for_who'=>$for_who));
 	}
 
 	/*

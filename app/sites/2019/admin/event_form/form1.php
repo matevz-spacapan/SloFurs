@@ -1,11 +1,10 @@
-<div class="w3-main" style="margin-left:300px">
 <div class="container-fluid mt-3">
 <script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/classic/ckeditor.js"></script>
 <?php
   $id=(isset($_GET['id']))?filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT):null;
   require_once 'app/sites/'.THEME.'/admin/event_form/datetimepicker.html';
 ?>
-<form action="<?php echo URL."admin/event/$type/$step"; if($id!=null){ echo "?id=$id"; } ?>" method="post" enctype="multipart/form-data" autocomplete="off" class="needs-validation allforms" novalidate>
+<form action="<?php echo URL."admin/event"; if($id!=null){ echo "?id=$id"; } ?>" method="post" enctype="multipart/form-data" autocomplete="off" class="needs-validation allforms" novalidate>
 <div id="formParent">
   <!-- General info about the event -->
   <div id="pg1" class="collapse show" data-parent="#formParent">
@@ -293,9 +292,10 @@
     <li class="page-item" id="link5" data-toggle="tooltip" data-placement="bottom" title="<?php echo L::admin_form_accomodation_h;?>"><a class="page-link" href="#" data-toggle="collapse" data-target="#pg5" onclick="changeActive('5')">5</a></li>
   </ul>
   <?php if(!$editEvent): ?>
-    <button type="submit" id="submitBtn" name="new_event" class="btn btn-success text-center"><?php echo L::admin_form_create;?></button>
+    <button type="submit" class="btn btn-success text-center" disabled>TRANSLATE Publish event</button>
+    <p>Show btn only when all * is filled</p>
   <?php else: ?>
-    <button type="submit" id="submitBtn" name="edit_event" class="btn btn-success text-center"><?php echo L::admin_form_save;?></button>
+    <button type="submit" class="btn btn-success text-center" disabled>TRANSLATE Save changes</button>
   <?php endif; ?>
 </div>
 
@@ -350,6 +350,7 @@ $(".custom-file-input").on("change", function() {
 function changeActive(id){
   $(".pagination li").removeClass("active");
   $("#link"+id).addClass("active");
+  // TODO: AJAX save data
 }
 var nr=1;
 function addRow(){
