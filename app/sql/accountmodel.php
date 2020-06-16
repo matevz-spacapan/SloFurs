@@ -110,7 +110,7 @@ class AccountModel{
 	// Delete profile info, if possible
 	public function deleteProfile(){
 		//if no upcoming Evt
-		$sql='SELECT registration.id AS id, name, event_start, event_end, reg_end, confirmed, fursuiter, artist FROM event INNER JOIN registration ON event.id=registration.event_id WHERE ((event_start<=NOW() AND event_end>=NOW()) OR event_start>NOW()) AND acc_id=:acc_id ORDER BY event_start ASC';
+		$sql='SELECT * FROM event INNER JOIN registration ON event.id=registration.event_id WHERE acc_id=:acc_id AND ((event_start<=NOW() AND event_end>=NOW()) OR event_start>NOW()) ORDER BY event_start ASC';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':acc_id'=>$_SESSION['account']));
 		$upcoming=$query->fetchAll();
