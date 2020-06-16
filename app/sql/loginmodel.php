@@ -101,7 +101,6 @@ class LogInModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':email'=>$email, ':password_reset'=>$token));
 		require 'app/emails/password_reset.php';
-		$this->changes($_SESSION['account'], 'initiated a password reset for their account', $_SESSION['account']);
 		return L::alerts_s_resetPwEmail;
 	}
 	public function passwordReset2($email, $token){

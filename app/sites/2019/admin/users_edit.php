@@ -59,8 +59,7 @@
 						    </div>
 								<div class="modal-footer">
 									<form action="<?php echo URL;?>admin/users?id=<?php echo filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);?>" method="post">
-										<button type="button" class="btn btn-outline-danger" id="delpw" onclick="delData('pw')"><?php echo L::admin_account_pwBtn;?></button>
-										<button type="submit" name="reset_pw" id="reset_pw" class="btn btn-danger" id="delconfpw" style="display:none;"><?php echo L::personalInfo_delete2;?></button>
+										<button type="submit" name="reset_pw" class="btn btn-danger"><?php echo L::personalInfo_delete2;?></button>
 									</form>
 								</div>
 						</div>
