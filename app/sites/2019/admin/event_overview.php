@@ -155,7 +155,8 @@
         <div class="text-center">
           <button type="submit" class="btn btn-success" name="confirm_attendees"><?php echo L::admin_overview_attendees_confirm;?></button><br><br>
           <button type="submit" class="btn btn-secondary" name="export_confirmed"><?php echo L::admin_overview_attendees_exportC;?></button>
-          <button type="submit" class="btn btn-secondary" name="export_all"><?php echo L::admin_overview_attendees_exportA;?></button>
+          <button type="submit" class="btn btn-secondary" name="export_all"><?php echo L::admin_overview_attendees_exportA;?></button><br><br>
+          <button type="submit" class="btn btn-primary" name="export_invoices">Izvozi račune</button>
         </div>
         <?php endif;?>
       </form>

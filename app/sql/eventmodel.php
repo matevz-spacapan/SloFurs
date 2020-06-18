@@ -587,4 +587,141 @@ class EventModel{
 		$mpdf->SetTitle('Release forms for event ID '.$id);
 		$mpdf->Output('Release_forms_'.$id.'.pdf', \Mpdf\Output\Destination::DOWNLOAD);
 	}
+
+	// Exports invoices for registered users
+	public function exportInvoices($id, $all){
+		$sql='SELECT registration.id AS id, name, fname, lname, address, address2, post, city, country, language, event_start, regular_price, regular_title, sponsor_price, sponsor_title, super_price, super_title, ticket FROM account INNER JOIN registration ON account.id=registration.acc_id INNER JOIN event ON event.id=registration.event_id WHERE event_id=:id';
+		if(!$all){
+			$sql.=' AND confirmed=1';
+		}
+		$query=$this->db->prepare($sql);
+	  $query->execute(array(':id'=>$id));
+	  $invoices=$query->fetchAll();
+		$mpdf=new \Mpdf\Mpdf(['format' => 'A5']);
+		$stylesheet=file_get_contents('public/invoicepdf.css');
+		$mpdf->WriteHTML($stylesheet,1);
+		foreach($invoices as $invoice){
+			$today=date("d.m.Y");
+			$eventTime=$this->convertViewable($invoice->event_start, true);
+			$due=date('d.m.Y',(strtotime('-1 day', strtotime($eventTime))));
+			$addr2='';
+			if($invoice->address2!=''){
+				$addr2='<br>'.$invoice->address2;
+			}
+			if($invoice->language=='si'){
+				switch ($invoice->ticket){
+					case 'regular':
+						$ticketType=($invoice->regular_title=='')?'redna cena':$invoice->regular_title;
+						$ticketPrice=$invoice->regular_price;
+						break;
+					case 'sponsor':
+						$ticketType=($invoice->sponsor_title=='')?'redna cena':$invoice->sponsor_title;
+						$ticketPrice=$invoice->sponsor_price;
+						break;
+					case 'super':
+						$ticketType=($invoice->super_title=='')?'redna cena':$invoice->super_title;
+						$ticketPrice=$invoice->super_price;
+						break;
+				}
+				$text="<div>
+				  <div>
+				    <table class='table'>
+				      <tr>
+				        <td>
+				          <h3>RAČUN ŠT.: {$invoice->id}</h3>
+				          Datum izdaje:$today<br>Datum storitve:$eventTime<br>Rok plačila:$due
+				        </td>
+				        <td class='text-right'><b>Društvo SloFurs</b><br>Gregorčičeva ulica 33<br>5000 Nova Gorica<br>ID za DDV: 12345678<br>Matična št.: 12345678<br>IBAN: SI56 1234 1234 1234 123</td>
+				      </tr>
+				    </table>
+				  </div>
+				  <div class='mb-5'>
+				     <p><b>{$invoice->fname} {$invoice->lname}</b><br>{$invoice->address}$addr2<br>{$invoice->post} {$invoice->city}<br>{$invoice->country}</p>
+				  </div>
+				  <table class='table'>
+				    <tr>
+				      <th>Opis</th>
+				      <th>Cena</th>
+				      <th>Količina</th>
+				      <th>Znesek</th>
+				    </tr>
+				    <tr>
+				      <td>Vstopnina na dogodek<br><small><i>{$invoice->name} - $ticketType</i></small></td>
+				      <td>$ticketPrice €</td>
+				      <td>1</td>
+				      <td>$ticketPrice €</td>
+				    </tr>
+				    <tr>
+				      <td></td>
+				      <td></td>
+				      <td><b>Skupaj</b></td>
+				      <td><b>$ticketPrice €</b></td>
+				    </tr>
+				  </table>
+				  <p>Pri plačilu uporabite sklic SI00 {$invoice->id}.</p>
+				  <p>V skladu s 1. odstavkom 94. člena ZDDV davek na dodano vrednost ni obračunan.</p>
+				</div>";
+			}
+			else{
+				switch ($invoice->ticket){
+					case 'regular':
+						$ticketType=($invoice->regular_title=='')?'regular price':$invoice->regular_title;
+						$ticketPrice=$invoice->regular_price;
+						break;
+					case 'sponsor':
+						$ticketType=($invoice->sponsor_title=='')?'sponsor':$invoice->sponsor_title;
+						$ticketPrice=$invoice->sponsor_price;
+						break;
+					case 'super':
+						$ticketType=($invoice->super_title=='')?'super sponsor':$invoice->super_title;
+						$ticketPrice=$invoice->super_price;
+						break;
+				}
+				$text="<div>
+				  <div>
+				    <table class='table'>
+				      <tr>
+				        <td>
+				          <h3>INVOICE No.: {$invoice->id}</h3>
+				          Date of issue:$today<br>Date of event:$eventTime<br>Due date:$due
+				        </td>
+				        <td class='text-right'><b>Društvo SloFurs</b><br>Gregorčičeva ulica 33<br>5000 Nova Gorica<br>Tax No.: 12345678<br>ID No.: 12345678<br>IBAN: SI56 1234 1234 1234 123</td>
+				      </tr>
+				    </table>
+				  </div>
+				  <div class='mb-5'>
+				     <p><b>{$invoice->fname} {$invoice->lname}</b><br>{$invoice->address}$addr2<br>{$invoice->post} {$invoice->city}<br>{$invoice->country}</p>
+				  </div>
+				  <table class='table'>
+				    <tr>
+				      <th>Description</th>
+				      <th>Price</th>
+				      <th>Qty</th>
+				      <th>Sum</th>
+				    </tr>
+				    <tr>
+				      <td>Attendance fee<br><small><i>{$invoice->name} - $ticketType</i></small></td>
+				      <td>$ticketPrice €</td>
+				      <td>1</td>
+				      <td>$ticketPrice €</td>
+				    </tr>
+				    <tr>
+				      <td></td>
+				      <td></td>
+				      <td><b>Total</b></td>
+				      <td><b>$ticketPrice €</b></td>
+				    </tr>
+				  </table>
+				  <p>When paying the invoice write this message: Invoice {$invoice->id}.</p>
+				  <p>Based on Slovenian law, we do not collect value added tax (v skladu s 1. odstavkom 94. člena ZDDV davek na dodano vrednost ni obračunan).</p>
+				</div>";
+			}
+			$mpdf->WriteHTML($text,2);
+			$mpdf->AddPage();
+		}
+
+
+		$mpdf->SetTitle('Invoices for event ID '.$id);
+		$mpdf->Output('Invoices_'.$id.'.pdf', \Mpdf\Output\Destination::DOWNLOAD);
+	}
 }
