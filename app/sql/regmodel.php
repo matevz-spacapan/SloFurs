@@ -159,7 +159,7 @@ class RegModel{
 		}
 		if($event->autoconfirm==1){
 			$confirmed=L::register_model_confirmed;
-			if($event->pay_button==1){
+			if($event->pay_button==1 || $event->collecting_payments==1){
 				$confirmed.=' '.L::register_model_needtopay;
 			}
 			$confirmed.=' '.L::register_model_lookingfwd;
@@ -301,16 +301,16 @@ class RegModel{
 		$event=$this->existingReg($id);
 		if($event->confirmed==1){
 			//pre-pay and all paid
-			if($event->pay_button==1 && $this->sumPayments($id)->paid>=$this->getPrice($id)){
+			if(($event->pay_button==1 || $event->collecting_payments==1) && $this->sumPayments($id)->paid>=$this->getPrice($id)){
 				$color='bg-success text-white';
 				$text=L::register_view_registered_fullyPaid;
 			}
 			//pre-pay and partially paid
-			elseif($event->pay_button==1 && $this->sumPayments($id)->paid>0){
+			elseif(($event->pay_button==1 || $event->collecting_payments==1) && $this->sumPayments($id)->paid>0){
 				$color='bg-warning';
 				$text=L::register_view_registered_partiallyPaid;
 			}
-			elseif($event->pay_button==1){
+			elseif(($event->pay_button==1 || $event->collecting_payments==1)){
 				$color='bg-danger text-white';
 				$text=L::register_view_registered_unpaid;
 			}
@@ -523,7 +523,7 @@ class RegModel{
 	}
 	//check if Stripe payment is in DB. session=session ID from Stripe
 	public function checkStripePayment($session){
-		$sql='SELECT * FROM payment WHERE session_id=:session AND stripe_verified=1';
+		$sql='SELECT * FROM payment WHERE session_id=:session AND verified=1';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':session'=>$session));
 		if($query->rowCount()==0){
@@ -533,7 +533,7 @@ class RegModel{
 	}
 	//sum up payments for registration
 	public function sumPayments($id){
-		$sql='SELECT SUM(amount) AS paid FROM payment WHERE reg_id=:id AND stripe_verified=1';
+		$sql='SELECT SUM(amount) AS paid FROM payment WHERE reg_id=:id AND verified=1';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return $query->fetch();
@@ -541,20 +541,20 @@ class RegModel{
 	//add payment amount to session
 	public function hookPaymentStripe($session){
 		//check if user is the owner of the car share
-		$sql='UPDATE payment SET stripe_verified=1 WHERE session_id=:session';
+		$sql='UPDATE payment SET verified=1 WHERE session_id=:session';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':session'=>$session));
 	}
 	//sum of pending payments for registration
 	public function sumPendingPayments($id){
-		$sql='SELECT SUM(amount) AS paid FROM payment WHERE reg_id=:id AND stripe_verified=0 AND returned=1';
+		$sql='SELECT SUM(amount) AS paid FROM payment WHERE reg_id=:id AND verified=0 AND returned=1';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return $query->fetch();
 	}
 	//list of pending payments
 	public function pendingPayments($id){
-		$sql='SELECT * FROM payment WHERE reg_id=:id AND stripe_verified=0 AND returned=1';
+		$sql='SELECT * FROM payment WHERE reg_id=:id AND verified=0 AND returned=1';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		return $query->fetchAll();

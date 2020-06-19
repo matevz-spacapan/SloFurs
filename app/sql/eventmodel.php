@@ -468,7 +468,13 @@ class EventModel{
 		$this->changes($_SESSION['account'], "changed confirmed statuses of users for event ID $event", $_SESSION['account']);
 		return L::alerts_s_confStatus;
 	}
-	//
+	//Add manual payment for given ID
+	public function addPayment($id, $amount){
+		$sql="INSERT INTO payment(amount, reg_id, verified, start_time, manual) VALUES (:amount, :reg_id, 1, NOW(), :manual)";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':amount'=>$amount, ':reg_id'=>$id, ':manual'=>$_SESSION['account']));
+	}
+	// Delete registration with given ID
 	public function deleteReg($id){
 		$sql='SELECT * FROM account WHERE id=:id';
 	  $query=$this->db->prepare($sql);

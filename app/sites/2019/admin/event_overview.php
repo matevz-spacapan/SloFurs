@@ -30,7 +30,7 @@
         $sum8=0; //sum of confirmed
       ?>
       <p><?php echo L::admin_overview_attendees_info;?></p>
-      <form action="<?php echo URL; ?>admin/event?id=<?php echo $event->id; ?>" method="post" class="allforms">
+      <form action="<?php echo URL; ?>admin/event?id=<?php echo $event->id; ?>" method="post">
         <div class="table-responsive">
           <table class="table table-striped table-hover thead-light">
             <tr>
@@ -115,7 +115,8 @@
                   </div>
                 </td>
                 <td class="text-center">
-                  <button type="submit" name="edit_reg" value="<?php echo $attendee->id; ?>" class="btn btn-primary mb-1" disabled>TRANSLATE Uredi</button><br>
+                  <button type="submit" name="edit_reg" value="<?php echo $attendee->id; ?>" class="btn btn-primary mb-1" disabled><?php echo L::admin_overview_attendees_edit; ?></button><br>
+                  <button type="button" value="<?php echo $attendee->id; ?>" class="btn btn-success mb-1" data-toggle="modal" data-target="#paymentModal" onClick="payment(<?php echo $attendee->id; ?>)"><?php echo L::admin_overview_attendees_payment; ?></button><br>
                   <button type="button" class="btn btn-outline-danger" id="del<?php echo $attendee->id; ?>" onclick="delData('<?php echo $attendee->id; ?>')"><?php echo L::admin_overview_attendees_remove; ?></button>
             			<button type="submit" name="delete_reg" value="<?php echo $attendee->id; ?>" id="delconf<?php echo $attendee->id; ?>" class="btn btn-danger" style="display: none;"><?php echo L::personalInfo_delete2;?></button>
                   <script>
@@ -156,13 +157,34 @@
           <button type="submit" class="btn btn-success" name="confirm_attendees"><?php echo L::admin_overview_attendees_confirm;?></button><br><br>
           <button type="submit" class="btn btn-secondary" name="export_confirmed"><?php echo L::admin_overview_attendees_exportC;?></button>
           <button type="submit" class="btn btn-secondary" name="export_all"><?php echo L::admin_overview_attendees_exportA;?></button><br><br>
-          <button type="submit" class="btn btn-primary" name="export_invoices">Izvozi račune</button>
+          <button type="submit" class="btn btn-primary" name="export_invoices"><?php echo L::admin_overview_attendees_exportInv;?></button>
         </div>
         <?php endif;?>
       </form>
     <?php else: ?>
       <p><?php echo L::admin_overview_attendees_none;?></p>
     <?php endif; ?>
+    <!-- Payment modal -->
+    <div class="modal fade" id="paymentModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title"><?php echo L::admin_overview_attendees_modal_h; ?></h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <form action="<?php echo URL; ?>admin/event?id=<?php echo $event->id; ?>" method="post">
+            <div class="modal-body">
+              <label for="amount"><?php echo L::admin_overview_attendees_modal_amount; ?></label>
+      				<input class="form-control" type="number" name="amount" min="1" placeholder="<?php echo L::admin_overview_attendees_modal_amountP; ?>" required>
+              <input type="hidden" name="reg_id" id="reg_id">
+            </div>
+            <div class="modal-footer">
+              <button type="submit" name="pay_reg" class="btn btn-success"><?php echo L::admin_overview_attendees_modal_btn; ?></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div id="Fursuits" class="container-fluid tab" style="display:none">
@@ -199,5 +221,8 @@ function openTab(evt, tabName){
   }
   document.getElementById(tabName).style.display="block";
   evt.currentTarget.className+=" bg-warning";
+}
+function payment(id){
+  $("#reg_id").val(id);
 }
 </script>

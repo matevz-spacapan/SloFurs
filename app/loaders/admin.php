@@ -157,6 +157,11 @@ class Admin extends Connection{
 					$_SESSION['alert']=$event_model->editConfirm($filtered_id, $_POST);
 					header('location: '.URL.'admin/event?id='.$filtered_id);
 				}
+				//add manually received payment
+				elseif(isset($_POST['pay_reg'])){
+					$_SESSION['alert']=$event_model->addPayment($_POST['reg_id'], $_POST['amount']);
+					header('location: '.URL.'admin/event?id='.$filtered_id);
+				}
 				elseif(isset($_POST['export_confirmed'])){
 					$event_model->exportForms($filtered_id, false);
 				}
