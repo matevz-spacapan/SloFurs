@@ -4,7 +4,7 @@
 	<div class="container">
     <div class="text-center">
 			<?php
-			$src=(file_exists('public/accounts/'.$account->pfp.'.png')) ? URL.'public/accounts/'.$account->pfp.'.png' : URL.'public/img/account.png';
+			$src=(file_exists('public/accounts/'.$account->pfp.'.jpg')) ? URL.'public/accounts/'.$account->pfp.'.jpg' : URL.'public/img/account.jpg';
 			echo '<img src="'.$src.'" class="rounded-circle mr-1" style="height:80px;">';
 			?>
 			<br><?php echo L::account_sidebar_welcome;?>, <strong><?php echo $account->username; ?></strong><br><br>

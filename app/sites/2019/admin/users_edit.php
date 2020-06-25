@@ -76,10 +76,10 @@
 				<p><?php echo L::account_pfp_desc;?></p>
 				<form action="<?php echo URL; ?>admin/users?id=<?php echo filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);?>" method="post" enctype="multipart/form-data" id="updatePFP">
 					<div class="w3-display-container" style="max-height:200px;max-width:200px; margin: 0 auto;">
-						<?php if(file_exists('public/accounts/'.$account->pfp.'.png')): ?>
-							<img src="<?php echo URL.'public/accounts/'.$account->pfp; ?>.png" style="width:100%" id="pfp">
+						<?php if(file_exists('public/accounts/'.$account->pfp.'.jpg')): ?>
+							<img src="<?php echo URL.'public/accounts/'.$account->pfp; ?>.jpg" style="width:100%" id="pfp">
 						<?php else: ?>
-							<img src="<?php echo URL.'public/img/account.png' ?>" style="width:100%" id="pfp">
+							<img src="<?php echo URL.'public/img/account.jpg' ?>" style="width:100%" id="pfp">
 						<?php endif; ?>
 						<div class="w3-display-middle w3-display-hover">
 							<label for="file-upload" class="btn btn-light"><?php echo L::account_pfp_label;?></label>

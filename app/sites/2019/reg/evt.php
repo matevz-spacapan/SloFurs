@@ -9,10 +9,10 @@
 				echo '<a href="'.URL.'register/new?id='.$event->id.'" class="text-body">';
 			}
 			if(isset($event->img)){
-				echo '<img src="'.URL.'public/events/'.$event->img.'.png" class="card-img-top">';
+				echo '<img src="'.URL.'public/events/'.$event->img.'.jpg" class="card-img-top">';
 			}
 			else {
-				echo '<img src="'.URL.'public/events/head.png" class="card-img-top">';
+				echo '<img src="'.URL.'public/events/head.jpg" class="card-img-top">';
 			}
 			?>
 			</a>

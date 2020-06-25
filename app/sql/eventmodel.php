@@ -163,7 +163,7 @@ class EventModel{
 			$file_name='';
 			while(true){
 				$file_name=substr(bin2hex(random_bytes(32)), 0, 30);
-				if(!file_exists($target_dir.$file_name.'.png')){
+				if(!file_exists($target_dir.$file_name.'.jpg')){
 					break;
 				}
 			}
@@ -179,8 +179,8 @@ class EventModel{
 				$file_name=null;
 				goto inserting;
 			}
-			$target_file=$target_dir.$file_name.'.png';
-			if(!imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
+			$target_file=$target_dir.$file_name.'.jpg';
+			if(!imagejpeg(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
 				$err=L::alerts_d_errorupload;
 				$file_name=null;
 				goto inserting;
@@ -309,7 +309,7 @@ class EventModel{
 		if($image['size']!=0){
 			while(true){
 				$file_name=substr(bin2hex(random_bytes(32)), 0, 30);
-				if(!file_exists($target_dir.$file_name.'.png')){
+				if(!file_exists($target_dir.$file_name.'.jpg')){
 					break;
 				}
 			}
@@ -325,8 +325,8 @@ class EventModel{
 				$err=L::alerts_d_not170;
 				goto skipping;
 			}
-			$target_file=$target_dir.$file_name.'.png';
-			if(!imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
+			$target_file=$target_dir.$file_name.'.jpg';
+			if(!imagejpeg(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
 				$err=L::alerts_d_errorupload;
 				goto skipping;
 			}
@@ -334,8 +334,8 @@ class EventModel{
 		  $query=$this->db->prepare($sql);
 		  $query->execute(array(':id'=>$id));
 		  $event=$query->fetch();
-			if(file_exists($target_dir.$event->img.'.png')){
-				unlink($target_dir.$event->img.'.png');
+			if(file_exists($target_dir.$event->img.'.jpg')){
+				unlink($target_dir.$event->img.'.jpg');
 			}
 			$sql='UPDATE event SET img=:img WHERE id=:id';
 			$query=$this->db->prepare($sql);
@@ -430,8 +430,8 @@ class EventModel{
 		$query->execute(array(':id'=>$id));
 		$event=$query->fetch();
 		$target_dir='public/events/';
-		if(file_exists($target_dir.$event->img.'.png')){
-			unlink($target_dir.$event->img.'.png');
+		if(file_exists($target_dir.$event->img.'.jpg')){
+			unlink($target_dir.$event->img.'.jpg');
 		}
 		else{
 			return L::alerts_d_noPhoto;
@@ -473,6 +473,47 @@ class EventModel{
 		$sql="INSERT INTO payment(amount, reg_id, verified, start_time, manual) VALUES (:amount, :reg_id, 1, NOW(), :manual)";
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':amount'=>$amount, ':reg_id'=>$id, ':manual'=>$_SESSION['account']));
+	}
+	//gets sum up payments for registration ID
+	public function getSumPayments($id){
+		$sql='SELECT SUM(amount) AS paid FROM payment WHERE reg_id=:id AND verified=1';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetch();
+	}
+	//Get payments event ID
+	public function getPayments($id){
+		$sql='SELECT payment.id as id, amount, session_id AS session, username, verified, start_time AS paytime, manual FROM payment INNER JOIN registration ON payment.reg_id=registration.id INNER JOIN account ON registration.acc_id=account.id WHERE event_id=:id ORDER BY paytime ASC';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetchAll();
+	}
+	//Get username of account with given account ID
+	public function getUsername($id){
+		$sql='SELECT username FROM account WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		return $query->fetch();
+	}
+	//Verify payment
+	public function verifyPayment($id){
+		$sql="UPDATE payment SET verified=1 WHERE id=:id";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		$this->changes($_SESSION['account'], "verified payment ID $id", $_SESSION['account']);
+	}
+	//Unverify payment
+	public function unverifyPayment($id){
+		$sql="UPDATE payment SET verified=0 WHERE id=:id";
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		$this->changes($_SESSION['account'], "unverified payment ID $id", $_SESSION['account']);
+	}
+	public function deletePayment($id){
+		$sql='DELETE FROM payment WHERE id=:id';
+		$query=$this->db->prepare($sql);
+		$query->execute(array(':id'=>$id));
+		$this->changes($_SESSION['account'], "deleted payment ID $id", $_SESSION['account']);
 	}
 	// Delete registration with given ID
 	public function deleteReg($id){

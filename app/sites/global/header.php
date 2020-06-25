@@ -3,16 +3,8 @@
 	<meta charset="utf-8">
 	<title><?php echo L::title; ?></title>
 	<meta name="description" content="">
-	<?php if(isset($_COOKIE['analytics'])): ?>
-		<!-- Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-143816535-1"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-		  gtag('config', 'UA-143816535-1');
-		</script>
-	<?php endif;?>
+	<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+	<noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt=""/></noscript>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- w3.css stylesheet -->
 	<link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
@@ -27,10 +19,10 @@
 	<!-- Custom styles -->
 	<link href="<?php echo URL; ?>app/sites/global/custom.css?rnd=<?=time();?>" rel="stylesheet">
 	<!-- FontAwesome -->
-	<script src="https://kit.fontawesome.com/925a2b5078.js"></script>
+	<link href="<?php echo URL;?>public/fa/css/all.min.css" rel="stylesheet">
 	<!-- Favicon -->
-	<link href="<?php echo URL;?>public/img/slo.png" type="image/x-icon" rel="icon"/>
-	<link href="<?php echo URL;?>public/img/slo.png" type="image/x-icon" rel="shortcut icon"/>
+	<link href="<?php echo URL;?>public/img/slo.jpg" type="image/x-icon" rel="icon"/>
+	<link href="<?php echo URL;?>public/img/slo.jpg" type="image/x-icon" rel="shortcut icon"/>
 </head>
 <body>
 	<?php

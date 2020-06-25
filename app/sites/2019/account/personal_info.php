@@ -131,11 +131,11 @@
 				<input type="hidden" id="profileLanguage" value="<?php echo $account->language; ?>">
 				<div class="custom-control custom-radio custom-control-inline">
 					<input class="custom-control-input" type="radio" name="language" value="si" id="si" required>
-					<label for="si" class="custom-control-label"><img src="<?php echo URL?>public/img/si.png" alt="Slovenščina" height="40" class="rounded-circle"></label>
+					<label for="si" class="custom-control-label"><img src="<?php echo URL?>public/img/si.jpg" alt="Slovenščina" height="40" class="rounded-circle"></label>
 				</div>
 				<div class="custom-control custom-radio custom-control-inline">
 					<input class="custom-control-input" type="radio" name="language" value="en" id="en">
-					<label for="en" class="custom-control-label"><img src="<?php echo URL?>public/img/en.png" alt="English" height="40" class="rounded-circle"></label>
+					<label for="en" class="custom-control-label"><img src="<?php echo URL?>public/img/en.jpg" alt="English" height="40" class="rounded-circle"></label>
 				</div>
 			</div>
 		</div>

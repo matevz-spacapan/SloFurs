@@ -30,13 +30,13 @@
 			<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
 				<?php
 					if(isset($_SESSION['lang'])&&$_SESSION['lang']=='si'){
-						$src1=URL.'public/img/si.png';
-						$src2=URL.'public/img/en.png';
+						$src1=URL.'public/img/si.jpg';
+						$src2=URL.'public/img/en.jpg';
 						$lang='si';
 					}
 					else{
-						$src1=URL.'public/img/en.png';
-						$src2=URL.'public/img/si.png';
+						$src1=URL.'public/img/en.jpg';
+						$src2=URL.'public/img/si.jpg';
 						$lang='en';
 					}
 					echo '<img src="'.$src1.'" style="height:23px;" class="rounded-circle">';
@@ -59,7 +59,7 @@
 				<li class="nav-item dropdown">
 		      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
 						<?php
-							$src=(file_exists('public/accounts/'.$account->pfp.'.png')) ? URL.'public/accounts/'.$account->pfp.'.png' : URL.'public/img/account.png';
+							$src=(file_exists('public/accounts/'.$account->pfp.'.jpg')) ? URL.'public/accounts/'.$account->pfp.'.jpg' : URL.'public/img/account.jpg';
 							echo '<img src="'.$src.'" class="rounded-circle" style="height:23px;width:23px">';
 						?>
 		      </a>

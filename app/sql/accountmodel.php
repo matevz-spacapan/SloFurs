@@ -49,7 +49,7 @@ class AccountModel{
 		$file_name='';
 		while(true){
 			$file_name=substr(bin2hex(random_bytes(32)), 0, 30);
-			if(!file_exists($target_dir.$file_name.'.png')){
+			if(!file_exists($target_dir.$file_name.'.jpg')){
 				break;
 			}
 		}
@@ -63,10 +63,10 @@ class AccountModel{
 		if($min>=$height||$height>=$max){
 			return L::alerts_d_notSquare;
 		}
-		$target_file=$target_dir.$file_name.'.png';
-		if(imagepng(imagecreatefromstring(file_get_contents($img_file['tmp_name'])), $target_file)){
+		$target_file=$target_dir.$file_name.'.jpg';
+		if(imagejpeg(imagecreatefromstring(file_get_contents($img_file['tmp_name'])), $target_file)){
 			if($account->pfp!=null){
-				unlink($target_dir.$account->pfp.'.png');
+				unlink($target_dir.$account->pfp.'.jpg');
 			}
 			$sql='UPDATE account SET pfp=:pfp WHERE id=:id';
 			$query=$this->db->prepare($sql);
@@ -86,7 +86,7 @@ class AccountModel{
 		$query->execute(array(':id'=>$_SESSION['account']));
 		$account=$query->fetch();
 		if($account->pfp!=null){
-			unlink($target_dir.$account->pfp.'.png');
+			unlink($target_dir.$account->pfp.'.jpg');
 			$sql='UPDATE account SET pfp=null WHERE id=:id';
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':id'=>$_SESSION['account']));

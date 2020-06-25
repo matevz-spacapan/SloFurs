@@ -39,7 +39,7 @@
 						<div class="form-group">
 							<label><?php echo L::account_fursuit_photo;?></label> <small class="text-muted"><?php echo L::account_fursuit_photoI;?></small>
 							<div class="w3-display-container photoContainer">
-								<img src="<?php echo URL.'public/img/account.png'; ?>" class="rounded" style="width:100%">
+								<img src="<?php echo URL.'public/img/account.jpg'; ?>" class="rounded" style="width:100%">
 								<div class="w3-display-middle">
 									<label for="file-upload0" class="btn btn-light"><?php echo L::account_fursuit_addPhoto;?></label>
 									<input id="file-upload0" type="file" style="display:none" name="image" onchange="pfp(0)" required class="custom-file">
@@ -64,7 +64,7 @@
 			<?php foreach($fursuits as $fursuit): ?>
 				<!-- On the list -->
 				<div class="card fursuit card-round mr-3 bg-light" data-toggle="modal" data-target="#fursuit<?php echo $fursuit->id; ?>">
-					<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="roundImg">
+					<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.jpg" class="roundImg">
 					<p class="text-center pt-2"><b><?php /*if($fursuit->in_use==1){echo '<i class="far fa-id-card-alt fa-lg"></i> ';}*/ echo $fursuit->name; ?></b></p>
 				</div>
 				<!-- Pop-up modal editor -->
@@ -94,7 +94,7 @@
 									<div class="form-group">
 										<label><?php echo L::account_fursuit_photo;?></label> <small class="text-muted"><?php echo L::account_fursuit_photoI;?></small>
 										<div class="w3-display-container photoContainer">
-											<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="rounded" style="width:100%">
+											<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.jpg" class="rounded" style="width:100%">
 											<div class="w3-display-middle w3-display-hover">
 												<label for="file-upload<?php echo $fursuit->id; ?>" class="btn btn-light"><?php echo L::account_fursuit_changePhoto;?></label>
 												<input id="file-upload<?php echo $fursuit->id; ?>" type="file" style="display:none" name="image" onchange="pfp('<?php echo $fursuit->id; ?>')">

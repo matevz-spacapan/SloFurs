@@ -175,6 +175,18 @@ class Admin extends Connection{
 					$_SESSION['alert']=$event_model->deleteReg(filter_var($_POST['delete_reg'], FILTER_SANITIZE_NUMBER_INT));
 					header('location: '.URL.'admin/event?id='.$filtered_id);
 				}
+				elseif(isset($_POST['unverify_payment'])){
+					$_SESSION['alert']=$event_model->unverifyPayment(filter_var($_POST['unverify_payment'], FILTER_SANITIZE_NUMBER_INT));
+					header('location: '.URL.'admin/event?id='.$filtered_id);
+				}
+				elseif(isset($_POST['verify_payment'])){
+					$_SESSION['alert']=$event_model->verifyPayment(filter_var($_POST['verify_payment'], FILTER_SANITIZE_NUMBER_INT));
+					header('location: '.URL.'admin/event?id='.$filtered_id);
+				}
+				elseif(isset($_POST['delete_payment'])){
+					$_SESSION['alert']=$event_model->deletePayment(filter_var($_POST['delete_payment'], FILTER_SANITIZE_NUMBER_INT));
+					header('location: '.URL.'admin/event?id='.$filtered_id);
+				}
 				else{
 					goto noactions;
 				}
@@ -196,6 +208,7 @@ class Admin extends Connection{
 						$attendees=$event_model->getRegistered($filtered_id);
 						//$rooms=$event_model->getRooms($_GET['id']);
 						$fursuits=$event_model->getFursuits($filtered_id);
+						$payments=$event_model->getPayments($filtered_id);
 						require 'app/sites/'.THEME.'/admin/event_overview.php';
 					}
 					//list events

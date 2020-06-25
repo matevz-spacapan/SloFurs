@@ -2,7 +2,7 @@
 <nav class="w3-sidebar w3-collapse w3-animate-left" style="z-index:3;width:300px;" id="sidebar"><br>
 	<div class="container-fluid row">
 		<div class="col-4">
-			<?php $src=(file_exists('public/accounts/'.$account->pfp.'.png')) ? URL.'public/accounts/'.$account->pfp.'.png' : URL.'public/img/account.png';
+			<?php $src=(file_exists('public/accounts/'.$account->pfp.'.jpg')) ? URL.'public/accounts/'.$account->pfp.'.jpg' : URL.'public/img/account.jpg';
 			echo '<img src="'.$src.'" class="rounded-circle mr-2" style="height:80px;">'; ?>
 		</div>
 		<div class="col">

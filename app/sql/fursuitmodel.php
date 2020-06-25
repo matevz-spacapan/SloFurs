@@ -36,7 +36,7 @@ class FursuitModel{
 		$target_dir='public/fursuits/';
 		while(true){
 			$file_name=substr(bin2hex(random_bytes(32)), 0, 30);
-			if(!file_exists($target_dir.$file_name.'.png')){
+			if(!file_exists($target_dir.$file_name.'.jpg')){
 				break;
 			}
 		}
@@ -50,8 +50,8 @@ class FursuitModel{
 		if($min>=$height||$height>=$max){
 			return L::alerts_d_notSquare;
 		}
-		$target_file=$target_dir.$file_name.'.png';
-		if(imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
+		$target_file=$target_dir.$file_name.'.jpg';
+		if(imagejpeg(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
 			$sql="INSERT INTO fursuit(name, animal, img, in_use, acc_id) VALUES (:name, :animal, :img, :in_use, :acc_id)";
 			$query=$this->db->prepare($sql);
 			$query->execute(array(':name'=>$name, ':animal'=>$animal, ':img'=>$file_name, ':in_use'=>$in_use, ':acc_id'=>$_SESSION['account']));
@@ -80,7 +80,7 @@ class FursuitModel{
 		if($image['size']!=0){
 			while(true){
 				$file_name=substr(bin2hex(random_bytes(32)), 0, 30);
-				if(!file_exists($target_dir.$file_name.'.png')){
+				if(!file_exists($target_dir.$file_name.'.jpg')){
 					break;
 				}
 			}
@@ -102,9 +102,9 @@ class FursuitModel{
 			if($min>=$height||$height>=$max){
 				return L::alerts_d_notSquare;
 			}
-			$target_file=$target_dir.$file_name.'.png';
-			if(imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
-				unlink($target_dir.$account->img.'.png');
+			$target_file=$target_dir.$file_name.'.jpg';
+			if(imagejpeg(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
+				unlink($target_dir.$account->img.'.jpg');
 				$sql='UPDATE fursuit SET img=:img WHERE id=:id';
 				$query=$this->db->prepare($sql);
 				$query->execute(array(':img'=>$file_name, ':id'=>$id));
@@ -125,7 +125,7 @@ class FursuitModel{
 			$this->changes($_SESSION['account'], "attempted to delete a fursuit ID $id", $account->acc_id);
 			return L::alerts_d_cantDoThat;
 		}
-		unlink('public/fursuits/'.$account->img.'.png');
+		unlink('public/fursuits/'.$account->img.'.jpg');
 		$sql='DELETE FROM fursuit WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));

@@ -43,10 +43,10 @@
         <?php foreach($res as $acc): ?>
           <tr <?php if($acc->activate!=null&&$acc->newemail==null){echo 'class="table-danger"';}?>>
             <td width="40">
-              <?php if(file_exists('public/accounts/'.$acc->pfp.'.png')): ?>
-      					<img src="<?php echo URL.'public/accounts/'.$acc->pfp; ?>.png" class="rounded-circle mr-1" style="height:35px">
+              <?php if(file_exists('public/accounts/'.$acc->pfp.'.jpg')): ?>
+      					<img src="<?php echo URL.'public/accounts/'.$acc->pfp; ?>.jpg" class="rounded-circle mr-1" style="height:35px">
       				<?php else: ?>
-      					<img src="<?php echo URL.'public/img/account.png' ?>" class="rounded-circle mr-1" style="height:35px">
+      					<img src="<?php echo URL.'public/img/account.jpg' ?>" class="rounded-circle mr-1" style="height:35px">
       				<?php endif; ?>
             </td>
             <td>

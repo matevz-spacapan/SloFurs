@@ -4,7 +4,7 @@
   <button class="w3-bar-item w3-button tablink bg-warning" onclick="openTab(event, 'Edit')"><?php echo L::admin_overview_edit;?></button>
   <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'Attendees')"><?php echo L::admin_overview_attendees_h;?> (<?php echo count($attendees);?>)</button>
   <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'Fursuits')"><?php echo L::admin_overview_fursuiters_h;?> (<?php echo count($fursuits);?>)</button>
-  <button class="w3-bar-item w3-button tablink w3-hide" onclick="openTab(event, 'Payments')"><?php echo L::admin_overview_payments_h;?></button>
+  <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'Payments')"><?php echo L::admin_overview_payments_h;?></button>
 </div>
 
 <div class="w3-main" style="margin-left:200px">
@@ -28,6 +28,7 @@
         $sum6=0; //sum of si
         $sum7=0; //sum of en
         $sum8=0; //sum of confirmed
+        $sum9=0; //sum of received payments
       ?>
       <p><?php echo L::admin_overview_attendees_info;?></p>
       <form action="<?php echo URL; ?>admin/event?id=<?php echo $event->id; ?>" method="post">
@@ -37,6 +38,7 @@
               <th><?php echo L::admin_overview_attendees_account;?></th>
               <th><?php echo L::admin_overview_attendees_created;?></th>
               <th><?php echo L::admin_overview_attendees_type;?></th>
+              <th><?php echo L::admin_overview_attendees_payments;?></th>
               <th><?php echo L::admin_overview_attendees_room;?></th>
               <th><?php echo L::admin_overview_attendees_fursuiterArtist;?></th>
               <th><?php echo L::admin_overview_attendees_language;?></th>
@@ -49,24 +51,46 @@
               <tr>
                 <td><?php echo $attendee->username; $sum1++; ?></td>
                 <td><?php echo $event_model->convertViewable($attendee->created, 2);?></td>
-                <td><?php
+                <td class="text-center"><?php
                   if($attendee->ticket=='regular'&&$event->regular_price==0){
                     echo L::admin_form_tickets_free;
                   }
                   elseif($attendee->ticket=='regular'){
                     echo L::admin_form_tickets_regular.' ('.$event->regular_price.'€)';
                     $sum2+=$event->regular_price;
+                    $toBePaid=$event->regular_price;
                   }
                   elseif($attendee->ticket=='sponsor'){
                     echo L::admin_form_tickets_sponsor.' ('.$event->sponsor_price.'€)';
                     $sum2+=$event->sponsor_price;
+                    $toBePaid=$event->sponsor_price;
                   }
                   else{
                     echo L::admin_form_tickets_super.' ('.$event->super_price.'€)';
                     $sum2+=$event->super_price;
+                    $toBePaid=$event->super_price;
                   }
                 ?></td>
-                <td><?php
+                <?php
+                  $amount=$event_model->getSumPayments($attendee->id)->paid;
+                  if($amount==null){
+                    $amount=0;
+                  }
+                  $sum9+=$amount;
+                  if($amount!=0 && $amount>=$toBePaid){
+                    $colorPayment='bg-success text-white';
+                  }
+                  elseif($amount!=0){
+                    $colorPayment='bg-warning';
+                  }
+                  else{
+                    $colorPayment='bg-danger text-white';
+                  }
+                ?>
+                <td class='<?php echo $colorPayment; ?> text-center'>
+                  <?php echo $amount.'€'; ?>
+                </td>
+                <td class="text-center"><?php
                   if($attendee->type==null){
                     echo '<i class="far fa-times"></i>';
                   }
@@ -77,7 +101,7 @@
                     echo ($attendee->room_confirmed==1)?'<i class="fas fa-check-circle" title="'.L::admin_overview_attendees_roomGet.'"></i>':'<i class="fas fa-times-circle" title="'.L::admin_overview_attendees_roomNotGet.'"></i>';
                   }
                 ?></td>
-                <td><?php
+                <td class="text-center"><?php
                 if($attendee->fursuiter==1){
                   echo '<i class="fas fa-paw"></i> ';
                   $sum4++;
@@ -91,7 +115,7 @@
                 }
                 ?></td>
                 <td><?php
-                  echo '<img src="'.URL.'public/img/'.$attendee->language.'.png" width="32" class="rounded-circle">';
+                  echo '<img src="'.URL.'public/img/'.$attendee->language.'.jpg" width="32" class="rounded-circle">';
                   if($attendee->language=='si'){
                     $sum6++;
                   }
@@ -110,31 +134,15 @@
                 </td>
                 <td class="text-center">
                   <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input" id="confirmed" type="checkbox" name="<?php echo $attendee->id; ?>" value="true" <?php if($attendee->confirmed==1){echo 'checked'; $sum8++;} ?>>
-                    <label for="confirmed" class="custom-control-label"></label>
+                    <input class="custom-control-input" id="confirmed<?php echo $attendee->id; ?>" type="checkbox" name="<?php echo $attendee->id; ?>" value="true" <?php if($attendee->confirmed==1){echo 'checked'; $sum8++;} ?>>
+                    <label for="confirmed<?php echo $attendee->id; ?>" class="custom-control-label"></label>
                   </div>
                 </td>
                 <td class="text-center">
                   <button type="submit" name="edit_reg" value="<?php echo $attendee->id; ?>" class="btn btn-primary mb-1" disabled><?php echo L::admin_overview_attendees_edit; ?></button><br>
-                  <button type="button" value="<?php echo $attendee->id; ?>" class="btn btn-success mb-1" data-toggle="modal" data-target="#paymentModal" onClick="payment(<?php echo $attendee->id; ?>)"><?php echo L::admin_overview_attendees_payment; ?></button><br>
+                  <button type="button" value="<?php echo $attendee->id; ?>" class="btn btn-success mb-1" data-toggle="modal" data-target="#paymentModal" onClick="payment(<?php echo $attendee->id.', \''.$attendee->username.'\''; ?>)"><?php echo L::admin_overview_attendees_payment; ?></button><br>
                   <button type="button" class="btn btn-outline-danger" id="del<?php echo $attendee->id; ?>" onclick="delData('<?php echo $attendee->id; ?>')"><?php echo L::admin_overview_attendees_remove; ?></button>
             			<button type="submit" name="delete_reg" value="<?php echo $attendee->id; ?>" id="delconf<?php echo $attendee->id; ?>" class="btn btn-danger" style="display: none;"><?php echo L::personalInfo_delete2;?></button>
-                  <script>
-                    function delData(id){
-                      $("#del"+id).addClass("scale-out-center");
-                      setTimeout(function(){
-                        contDel(id);
-                      }, 500);
-                    }
-                    function contDel(id){
-                      $("#del"+id).hide();
-                      $("#delconf"+id).css("display", "inline-block");
-                      $("#delconf"+id).addClass("scale-in-center");
-                      setTimeout(function(){
-                        $("#delconf"+id).removeClass("scale-in-center");
-                      }, 500);
-                    }
-                  </script>
                 </td>
               </tr>
             <?php endforeach; ?>
@@ -142,6 +150,7 @@
               <td><i class="fas fa-users"></i> <?php echo $sum1;?></td>
               <td></td>
               <td><i class="far fa-sigma"></i> <?php echo $sum2;?>€</td>
+              <td><i class="far fa-sigma"></i> <?php echo $sum9.'€'; ?></td>
               <td><i class="far fa-sigma"></i> <?php echo $sum3;?>€ (<i class="fas fa-users"></i> <?php echo $sum9;?>)</td>
               <td><?php echo "$sum4 / $sum5";?></td>
               <td></i> <?php echo "SI: $sum6 / EN: $sum7";?></td>
@@ -169,7 +178,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title"><?php echo L::admin_overview_attendees_modal_h; ?></h4>
+            <h4 class="modal-title" id="payment-title"></h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <form action="<?php echo URL; ?>admin/event?id=<?php echo $event->id; ?>" method="post">
@@ -192,7 +201,7 @@
     <div class="container-fluid row">
       <?php foreach($fursuits as $fursuit): ?>
         <div class="card fursuit card-round mr-3 bg-light" >
-					<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="roundImg">
+					<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.jpg" class="roundImg">
 					<p class="text-center pt-2"><b><?php echo $fursuit->name; ?></b></p>
 				</div>
       <?php endforeach; ?>
@@ -204,11 +213,66 @@
 
   <div id="Payments" class="container-fluid tab" style="display:none">
     <h3><?php echo L::admin_overview_payments_h;?></h3>
+    <div class="table-responsive">
+      <form action="<?php echo URL; ?>admin/event?id=<?php echo $event->id; ?>" method="post">
+        <table class="table table-striped table-hover thead-light">
+          <tr>
+            <th><?php echo L::admin_overview_attendees_account;?></th>
+            <th><?php echo L::admin_overview_payments_amount;?></th>
+            <th><?php echo L::admin_overview_payments_type;?></th>
+            <th><?php echo L::admin_overview_payments_verified;?></th>
+            <th><?php echo L::admin_overview_payments_time;?></th>
+            <th></th>
+          </tr>
+          <?php foreach($payments as $payment): ?>
+            <tr <?php if($payment->verified==0){ echo 'class="table-warning"'; } ?>>
+              <td><?php echo $payment->username; ?></td>
+              <td><?php echo $payment->amount; ?></td>
+              <td>
+                <?php
+                  if($payment->session!=null){
+                    echo 'Stripe ('.$payment->session.')';
+                  }
+                  else{
+                    echo L::admin_overview_payments_manual.' ('.$event_model->getUsername($payment->manual)->username.')';
+                  }
+                ?>
+              </td>
+              <td><?php echo ($payment->verified==1)?'<i class="far fa-check"></i>':'<i class="far fa-times"></i>'; ?></td>
+              <td><?php echo $event_model->convertViewable($payment->paytime, 2); ?></td>
+              <td class="text-center">
+                <?php if($payment->verified==1): ?>
+                  <button type="submit" name="unverify_payment" value="<?php echo $payment->id; ?>" class="btn btn-warning mb-1"><?php echo L::admin_overview_payments_unverify;?></button>
+                <?php else: ?>
+                  <button type="submit" name="verify_payment" value="<?php echo $payment->id; ?>" class="btn btn-primary mb-1"><?php echo L::admin_overview_payments_verify;?></button>
+                <?php endif; ?>
+                <br><button type="button" class="btn btn-outline-danger" id="del<?php echo $payment->id; ?>" onclick="delData('<?php echo $payment->id; ?>')"><?php echo L::admin_overview_attendees_remove; ?></button>
+                <button type="submit" name="delete_payment" value="<?php echo $payment->id; ?>" id="delconf<?php echo $payment->id; ?>" class="btn btn-danger" style="display: none;"><?php echo L::personalInfo_delete2;?></button>
+              </td>
+            </tr>
+        <?php endforeach; ?>
+        </table>
+      </form>
+    </div>
   </div>
 
 </div>
 
 <script>
+function delData(id){
+  $("#del"+id).addClass("scale-out-center");
+  setTimeout(function(){
+    contDel(id);
+  }, 500);
+}
+function contDel(id){
+  $("#del"+id).hide();
+  $("#delconf"+id).css("display", "inline-block");
+  $("#delconf"+id).addClass("scale-in-center");
+  setTimeout(function(){
+    $("#delconf"+id).removeClass("scale-in-center");
+  }, 500);
+}
 function openTab(evt, tabName){
   var i, x, tablinks;
   x=document.getElementsByClassName("tab");
@@ -222,7 +286,8 @@ function openTab(evt, tabName){
   document.getElementById(tabName).style.display="block";
   evt.currentTarget.className+=" bg-warning";
 }
-function payment(id){
+function payment(id, name){
   $("#reg_id").val(id);
+  $("#payment-title").text("<?php echo L::admin_overview_attendees_modal_h; ?> "+name)
 }
 </script>

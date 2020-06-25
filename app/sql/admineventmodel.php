@@ -95,7 +95,7 @@ class AdminEventModel{
       $file_name='';
       while(true){
         $file_name=substr(bin2hex(random_bytes(32)), 0, 30);
-        if(!file_exists($target_dir.$file_name.'.png')){
+        if(!file_exists($target_dir.$file_name.'.jpg')){
           break;
         }
       }
@@ -111,8 +111,8 @@ class AdminEventModel{
         $file_name=null;
         goto skipping;
       }
-      $target_file=$target_dir.$file_name.'.png';
-      if(!imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
+      $target_file=$target_dir.$file_name.'.jpg';
+      if(!imagejpeg(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
         $err=L::alerts_d_errorupload;
         $file_name=null;
         goto skipping;
@@ -122,8 +122,8 @@ class AdminEventModel{
   		  $query=$this->db->prepare($sql);
   		  $query->execute(array(':id'=>$id));
   		  $event=$query->fetch();
-  			if(file_exists($target_dir.$event->img.'.png')){
-  				unlink($target_dir.$event->img.'.png');
+  			if(file_exists($target_dir.$event->img.'.jpg')){
+  				unlink($target_dir.$event->img.'.jpg');
   			}
       }
     }

@@ -1,5 +1,5 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
-<form action="<?php echo URL; ?>admin/event<?php if($editEvent){echo '?id='.$event->id;} ?>" method="post" enctype="multipart/form-data" autocomplete="off" class="allforms">
+<form action="<?php echo URL; ?>admin/event<?php if($editEvent){echo '?id='.$event->id;} ?>" method="post" enctype="multipart/form-data" autocomplete="off" class="allforms" id="mainform">
   <!-- Event details -->
   <h3><?php echo L::admin_form_event_h;?></h3>
 
@@ -37,9 +37,9 @@
   <p class="mt-4"><?php echo L::admin_form_event_photo;?></p>
   <div class="w3-display-container photoContainer">
     <?php
-      $photo=URL.'public/events/head.png';
+      $photo=URL.'public/events/head.jpg';
       if($editEvent&&$event->img!=null){
-        $photo=URL.'public/events/'.$event->img.'.png';
+        $photo=URL.'public/events/'.$event->img.'.jpg';
       }
     ?>
     <img src="<?php echo $photo;?>" class="w3-round-large" style="height:158px;">
@@ -327,7 +327,7 @@ function validate(){
 	//count required input fields and if they have data
 	var inputsWVal=0;
 	var requiredInputs=0;
-	var myInputs=$("input:not([type='submit'])");
+	var myInputs=$("#mainform:input:not([type='submit'])");
 	myInputs.each(function(e){
 		if($(this).prop("required")){
 			requiredInputs++;

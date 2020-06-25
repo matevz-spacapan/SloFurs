@@ -96,6 +96,7 @@ admin:
       info: 'Tukaj lahko vidite vse prijavljene udeležence. Da potrdite spremembe v zadnjem stolpcu, kliknite na Potrdi udeležence. Če želite izvoziti podpisne izjave, kliknite na primeren gumb.'
       account: 'Uporabnik'
       type: 'Vstopnica'
+      payments: 'Prejeta plačila'
       room: 'Želena nastanitev'
       fursuiterArtist: 'Fursuiter/Umetnik'
       language: 'Jezik'
@@ -115,7 +116,7 @@ admin:
       payment: 'Vnesi plačilo'
       remove: 'Odstrani'
       modal:
-        h: 'Vnos plačila'
+        h: 'Vnos plačila za'
         amount: 'Vsota'
         amountP: 'Vnesite vsoto'
         btn: 'Vnos plačila'
@@ -125,6 +126,13 @@ admin:
       none: 'Trenutno še ni nobenega fursuita za prikazati.'
     payments:
       h: 'Plačila'
+      amount: 'Znesek'
+      type: 'Način plačila'
+      verified: 'Je plačilo veljavno/potrjeno?'
+      time: 'Čas plačila'
+      manual: 'Ročno'
+      unverify: 'Razveljavi plačilo'
+      verify: 'Potrdi plačilo'
   sidebar:
     close: 'Zapri meni'
     hello: 'Živijo'
@@ -521,13 +529,6 @@ register:
       at: 'Odhod ob'
       driver: 'Voznik'
       info: 'Dodatne informacije'
-cookies:
-  h: 'Privolitev za piškotke'
-  p: 'Ta spletna stran uporablja piškotke, da si vas zapomnemo v tekoči seji brskalnika in, da analiziramo promet na strani (statistika).Za te namene uporabljamo piškotke seje, da ostanete prijavljeni in piškotke tretjih oseb za analitiko. Privolitev velja do 1.1.2030 oziroma dokler ne izbrišete piškotkov za to spletno mesto v svojem spletnem brskalniku.'
-  a: 'Izvedite več'
-  necessary: 'Nujni'
-  stats: 'Statistika'
-  button: 'Shrani'
 alerts:
   d:
     activate: 'dNeveljavna zahteva za aktivacijo računa.'

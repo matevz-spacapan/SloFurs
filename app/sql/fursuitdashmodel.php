@@ -54,7 +54,7 @@ class FursuitDashModel{
 		if($image['size']!=0){
 			while(true){
 				$file_name=substr(bin2hex(random_bytes(32)), 0, 30);
-				if(!file_exists($target_dir.$file_name.'.png')){
+				if(!file_exists($target_dir.$file_name.'.jpg')){
 					break;
 				}
 			}
@@ -77,9 +77,9 @@ class FursuitDashModel{
 			if($min>=$height||$height>=$max){
 				return L::alerts_d_notSquare;
 			}
-			$target_file=$target_dir.$file_name.'.png';
-			if(imagepng(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
-				unlink($target_dir.$account->img.'.png');
+			$target_file=$target_dir.$file_name.'.jpg';
+			if(imagejpeg(imagecreatefromstring(file_get_contents($image['tmp_name'])), $target_file)){
+				unlink($target_dir.$account->img.'.jpg');
 				$sql='UPDATE fursuit SET img=:img WHERE id=:id';
 				$query=$this->db->prepare($sql);
 				$query->execute(array(':img'=>$file_name, ':id'=>$id));
@@ -104,7 +104,7 @@ class FursuitDashModel{
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		$account=$query->fetch();
-		unlink('public/fursuits/'.$account->img.'.png');
+		unlink('public/fursuits/'.$account->img.'.jpg');
 		$sql='DELETE FROM fursuit WHERE id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));

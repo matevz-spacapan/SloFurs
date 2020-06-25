@@ -4,10 +4,10 @@
   <div class="row">
     <?php foreach($attendees as $attendee): ?>
         <div class="card m-2 card-round" style="width:150px; min-height:150px;">
-        <?php if(file_exists('public/accounts/'.$attendee->pfp.'.png')): ?>
-          <img src="<?php echo URL.'public/accounts/'.$attendee->pfp; ?>.png" class="roundImg">
+        <?php if(file_exists('public/accounts/'.$attendee->pfp.'.jpg')): ?>
+          <img src="<?php echo URL.'public/accounts/'.$attendee->pfp; ?>.jpg" class="roundImg">
         <?php else: ?>
-          <img src="<?php echo URL.'public/img/account.png' ?>" class="roundImg">
+          <img src="<?php echo URL.'public/img/account.jpg' ?>" class="roundImg">
         <?php endif; ?>
         <div class="text-center">
           <b><?php echo $attendee->username;?></b><br>
@@ -32,11 +32,7 @@
     <div class="row">
       <?php foreach($fursuits as $fursuit): ?>
         <div class="card m-2 card-round" style="width: 220px;">
-          <?php if(file_exists('public/fursuits/'.$fursuit->img.'.png')): ?>
-            <img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.png" class="roundImg">
-          <?php else: ?>
-            <img src="<?php echo URL.'public/img/account.png' ?>" class="roundImg">
-          <?php endif; ?>
+          <img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.jpg" class="roundImg">
           <div class="text-center"><b><?php echo $fursuit->name;?></b><br>
           (<?php echo L::admin_overview_fursuiters_owned;?> <?php echo $fursuit->username;?>)<br>
           <?php echo $fursuit->animal;?></div>

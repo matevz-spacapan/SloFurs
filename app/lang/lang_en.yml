@@ -91,6 +91,7 @@ admin:
       info: 'You can view all registered attendees on the list below. To confirm changes in the Confirmed column, click Confirm attendees. To export release forms, click the appropriate button.'
       account: 'Account'
       type: 'Ticket type'
+      payments: 'Received payments'
       room: 'Requested accommodation'
       fursuiterArtist: 'Fursuiter/Artist'
       language: 'Language'
@@ -110,7 +111,7 @@ admin:
       payment: 'Add payment'
       remove: 'Remove'
       modal:
-        h: 'Add a payment'
+        h: 'Add a payment for'
         amount: 'Amount'
         amountP: 'Enter the amount'
         btn: 'Add payment'
@@ -120,6 +121,13 @@ admin:
       none: 'There are no fursuits to show yet.'
     payments:
       h: 'Payments'
+      amount: 'Amount'
+      type: 'Payment type'
+      verified: 'Is the payment valid/verified?'
+      time: 'Time of payment'
+      manual: 'Manual'
+      unverify: 'Unverify payment'
+      verify: 'Verify payment'
   sidebar:
     close: 'Close menu'
     hello: 'Hello'
@@ -516,13 +524,6 @@ register:
       at: 'Time of departure'
       driver: 'Driver'
       info: 'Additional info'
-cookies:
-  h: 'Cookies consent'
-  p: 'This site uses cookies to remember you through the current browsing session and to analyze our traffic (statistics). For this we use session cookies to keep you logged in as well as third-party cookies for analytics. The consent is valid until 1.1.2030 or until you clear the cookies for this website inside your web browser.'
-  a: 'Learn more'
-  necessary: 'Necessary'
-  stats: 'Statistics'
-  button: 'Save preferences'
 alerts:
   d:
     activate: 'dInvalid account activation request.'
