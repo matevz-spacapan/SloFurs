@@ -10,3 +10,6 @@ if($account==null){
   require 'app/sites/2019/password_reset.php';
 }
 ?>
+<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+<noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt=""/></noscript>
+</body>

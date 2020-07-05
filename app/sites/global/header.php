@@ -3,8 +3,6 @@
 	<meta charset="utf-8">
 	<title><?php echo L::title; ?></title>
 	<meta name="description" content="">
-	<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
-	<noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt=""/></noscript>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- w3.css stylesheet -->
 	<link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
