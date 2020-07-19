@@ -57,7 +57,7 @@ class DashboardModel{
 	}
 	//Newest accounts
 	public function newest(){
-		$sql='SELECT pfp, username, email, fname, lname, created, activate, newemail FROM account ORDER BY created DESC LIMIT 5';
+		$sql='SELECT pfp, username, email, fname, lname, created, activate, newemail, id FROM account ORDER BY created DESC LIMIT 5';
 		$query=$this->db->prepare($sql);
 		$query->execute();
 		return $query->fetchAll();

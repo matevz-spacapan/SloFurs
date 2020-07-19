@@ -49,7 +49,7 @@
             </tr>
             <?php foreach($attendees as $attendee): ?>
               <tr>
-                <td><?php echo $attendee->username; $sum1++; ?></td>
+                <td><a href="<?php echo URL.'admin/users?id='.$attendee->accID; ?>"><?php echo $attendee->username; $sum1++; ?></a></td>
                 <td><?php echo $event_model->convertViewable($attendee->created, 2);?></td>
                 <td class="text-center"><?php
                   if($attendee->ticket=='regular'&&$event->regular_price==0){

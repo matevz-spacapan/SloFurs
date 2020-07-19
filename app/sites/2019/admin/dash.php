@@ -123,8 +123,8 @@
     				<?php else: ?>
     					<img src="<?php echo URL.'public/img/account.jpg' ?>" class="rounded-circle mr-2" style="height:35px">
     				<?php endif; ?>
+            <a href="<?php echo URL.'admin/users?id='.$acc->id; ?>"><?php echo $acc->username; ?></a>
             <?php
-              echo $acc->username;
               if($acc->activate!=null&&$acc->newemail==null){
                 echo ' (not confirmed)';
               }
