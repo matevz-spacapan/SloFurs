@@ -2,7 +2,10 @@
   <h1><?php echo L::navigation_h;?></h1>
   <p class="lead"><?php echo L::navigation_p1;?></p>
   <p><?php echo L::navigation_p2;?></p>
-  <p><?php echo L::navigation_p3;?></p>
+  <div class="text-center">
+    <img src="<?php echo URL; ?>public/img/pot0.jpg" alt="" width="40%">
+  </div>
+  <p class="mt-3"><?php echo L::navigation_p3;?></p>
   <hr>
   <p class="mb-1"><?php echo L::navigation_img1;?></p>
   <img src="<?php echo URL; ?>public/img/pot1.jpg" alt="" width="100%">

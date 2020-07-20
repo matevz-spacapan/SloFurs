@@ -591,7 +591,7 @@ alerts:
 navigation:
   h: 'Pot do SloFurs dogodka v Gabrju'
   p1: 'Za pomoč pri navigaciji se obrnite na <a href="http://t.me/pur3bolt" target="_blank">Pur3Bolta <i class="far fa-external-link"></i></a> preko Telegrama.'
-  p2: 'Na dogodku je na Google Zemljevidu označena končna lokacija dogodka, v tem vodiču pa <b>ni končna</b>. Če boste sledili navigaciji do končne točke ves čas vas bo lahko peljala po napačni poti od koder lokacija dogodka ni dostopna.'
+  p2: 'Na dogodku je na Google Zemljevidu označena končna lokacija dogodka, v tem vodiču pa <b>ni končna</b>. V kolikor vas navigacija pelje po poteh, kot prikazano na spodnji sliki, jo lahko uporabite do lokacije dogodka, sicer pa si pomagajte s spodnjim vodičem.'
   p3: 'Uporabite navigacijo <a href="https://www.google.com/maps?q=46.067815,%2014.409248" target="_blank">do tukaj</a>, od tu dalje pa svetujemo navigacijo na podlagi spodnjih slik.'
   img1: 'Iz glavne ceste Ljubljana - Polhov Gradec zavijete v vas Gabrje.'
   img2: 'Nato zavijete levo proti cerkvi.'
