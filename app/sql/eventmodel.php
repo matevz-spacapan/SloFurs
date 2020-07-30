@@ -771,4 +771,40 @@ class EventModel{
 		$mpdf->SetTitle('Invoices for event ID '.$id);
 		$mpdf->Output('Invoices_'.$id.'.pdf', \Mpdf\Output\Destination::DOWNLOAD);
 	}
+	// Exports registered users contact info for NIJZ compliance
+	public function exportContactData($id){
+		$sql='SELECT fname, lname, address, address2, post, city, country, phone FROM account INNER JOIN registration ON account.id=registration.acc_id WHERE event_id=:id ORDER BY lname ASC, fname ASC';
+		$query=$this->db->prepare($sql);
+	  $query->execute(array(':id'=>$id));
+	  $accounts=$query->fetchAll();
+		$mpdf=new \Mpdf\Mpdf();
+		$mpdf->WriteHTML("<h1>Seznam udeležencev dogodka</h1>
+		<p>Kraj zbiranja: (prostori druženja so zaprti in odprti)</p>
+		<p>Čas zbiranja: 7.8.2020 od 12:00 - 9.8.2020 17:00</p><br>
+		<table>
+		<tr>
+		<th>Ime & priimek</th>
+		<th>Naslov</th>
+		<th>Telefonska št.</th>
+		</tr>");
+		foreach($accounts as $account){
+			$text="<tr>
+			<td>{$account->fname} {$account->lname}</td>
+			<td>{$account->address} {$account->address2}<br>{$account->post} {$account->city}<br>{$account->country}</td>
+			<td>{$account->phone}</td>
+			</tr>";
+			$mpdf->WriteHTML($text);
+		}
+		$text="<tr>
+		<td>__________________________________</td>
+		<td><br><br><br>__________________________________<br><br>__________________________________<br><br>__________________________________</td>
+		<td>__________________________________</td>
+		</tr>";
+		for ($i=0; $i < 3; $i++) {
+			$mpdf->WriteHTML($text);
+		}
+		$mpdf->WriteHTML("</table>");
+		$mpdf->SetTitle('Contact data for event ID '.$id);
+		$mpdf->Output('Contacts_'.$id.'.pdf', \Mpdf\Output\Destination::DOWNLOAD);
+	}
 }

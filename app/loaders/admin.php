@@ -171,6 +171,9 @@ class Admin extends Connection{
 				elseif(isset($_POST['export_invoices'])){
 					$event_model->exportInvoices($filtered_id, true);
 				}
+				elseif(isset($_POST['export_contacts'])){
+					$event_model->exportContactData($filtered_id);
+				}
 				elseif(isset($_POST['delete_reg'])){
 					$_SESSION['alert']=$event_model->deleteReg(filter_var($_POST['delete_reg'], FILTER_SANITIZE_NUMBER_INT));
 					header('location: '.URL.'admin/event?id='.$filtered_id);
