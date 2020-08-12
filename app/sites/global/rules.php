@@ -2,7 +2,7 @@
   <h1>Rules of Conduct for SloFurs events and Terms of Service</h1>
   <p>The events are held with the intention to create a relaxed and pleasant atmosphere for furries and their guests, who decide to attend. We try to avoid as many formalities and written rules as possible, depending on our attendees' common sense. Nonetheless, we have noticed a need to prepare and publish these basic rules in order to avoid unnecessary complications regarding organization, attendee conduct or law abidance. As these rules are merely an outline, they contain guidelines for certain expected situations, in all other cases the first three general rules apply. Most of the time, common sense will help you decide what is acceptable and what not. If in doubt, ask a member of the organization team.</p>
   <p>All versions of these Rules of conduct are publicly available <a href="https://slofurs.org/pravila/">here</a>, with the lastest version being available on this page. For the duration of an event, the most recent version of the Rules of conduct, available at the beginning of the event, apply.</p>
-  <p>Web sales on this website (events.slofurs.org) are managed by društvo SloFurs (SloFurs organisation), Gregorčičeva ulica 33, 5000 Nova Gorica, Slovenia, identification number: XXXXXXXXXX, tax number: XXXXXXXXXX, which is the provider of the services (referred also as the seller).</p>
+  <p>Web sales on this website (events.slofurs.org) are managed by Društvo SloFurs (SloFurs organisation), Gregorčičeva ulica 33, 5000 Nova Gorica, Slovenia, identification number: 4121988000, tax number: XXXXXXXXXX, which is the provider of the services (referred also as the seller).</p>
 
   <h3>General rules</h3>
   <ol>
@@ -108,7 +108,7 @@
   </ol>
 
   <h3>Contact information</h3>
-  <p>In case of questions, issues or ambiguities you may contact us via email at <a href="mailto:slofurs@gmail.com" target="_blank">slofurs@gmail.com</a>.</p>
+  <p>In case of questions, issues or ambiguities you may contact us via email at <a href="mailto:info@slofurs.org" target="_blank">info@slofurs.org</a>.</p>
   <p>If you wish to contact us via post, you can send your letter to:<br>
   Društvo SloFurs<br>
   Gregorčičeva ulica 33<br>

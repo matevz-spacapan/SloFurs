@@ -29,4 +29,4 @@
   <p>Več o tem si lahko preberete <a href="<?php echo URL;?>rules#refunds" target="_blank">v naših pogojih</a>.</p>
 
   <h3>Nisem našel odgovora na vprašanje</h3>
-  <p>V tem primeru, nam pišite na <a href="mailto:slofurs@gmail.com" target="_blank">slofurs@gmail.com</a> in vam bomo v najkrajšem času odgovorili na vprašanje.</p>
+  <p>V tem primeru, nam pišite na <a href="mailto:info@slofurs.org" target="_blank">info@slofurs.org</a> in vam bomo v najkrajšem času odgovorili na vprašanje.</p>

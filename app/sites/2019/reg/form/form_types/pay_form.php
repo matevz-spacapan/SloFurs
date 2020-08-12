@@ -38,7 +38,7 @@
         <div><?php echo L::register_form_payment_bank;?><br>
         <?php echo L::register_form_payment_payee;?>: <strong>Društvo SloFurs</strong><br>
         IBAN: <strong>SI56 0000 0000 0000 000</strong><br>
-        BIC: <strong>it gon be here, nigga</strong><br>
+        BIC: <strong></strong><br>
         <?php echo L::register_form_payment_address;?>: <strong>Gregorčičeva ulica 33, 5000 Nova Gorica</strong><br>
         <?php echo L::register_form_payment_paymentCode;?>: <strong>GDSV</strong><br>
         <?php echo L::register_form_payment_reference;?>: <strong>SI00 <?php echo $id; ?></strong>

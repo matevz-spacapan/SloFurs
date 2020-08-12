@@ -779,7 +779,7 @@ class EventModel{
 	  $accounts=$query->fetchAll();
 		$mpdf=new \Mpdf\Mpdf();
 		$mpdf->WriteHTML("<h1>Seznam udeležencev dogodka</h1>
-		<p>Kraj zbiranja: (prostori druženja so zaprti in odprti)</p>
+		<p>Kraj zbiranja: 46°04'41.9\"N 14°24'48.5\"E (prostori druženja so zaprti in odprti; objekt je brez naslova/hišne številke)</p>
 		<p>Čas zbiranja: 7.8.2020 od 12:00 - 9.8.2020 17:00</p><br>
 		<table>
 		<tr>

@@ -29,4 +29,4 @@
   <p>More on this is explained in <a href="<?php echo URL;?>rules#refunds" target="_blank">our ToS</a>.</p>
 
   <h3>You didn't answer my question</h3>
-  <p>Don't hesitate to contact us at <a href="mailto:slofurs@gmail.com" target="_blank">slofurs@gmail.com</a> and we'll get back to you ASAP.</p>
+  <p>Don't hesitate to contact us at <a href="mailto:info@slofurs.org" target="_blank">info@slofurs.org</a> and we'll get back to you ASAP.</p>
