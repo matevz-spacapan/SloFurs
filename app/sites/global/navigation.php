@@ -17,6 +17,9 @@
         <a class="nav-link" href="<?php echo URL ?>rules"><?php echo L::topnavbar_rules;?></a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="<?php echo URL ?>ofurry"><?php echo L::topnavbar_furries;?></a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="https://slofurs.org/" target="_blank"><?php echo L::topnavbar_blog;?> <i class="far fa-external-link"></i></a>
       </li>
     </ul>

@@ -200,6 +200,7 @@ topnavbar:
   home: 'Domov'
   event: 'Dogodki'
   rules: 'Pravila dogodkov'
+  furries: 'O furryjih'
   blog: 'Blog'
   account: 'Račun'
   myAccount: 'Moj račun'

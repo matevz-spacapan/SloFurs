@@ -195,6 +195,7 @@ topnavbar:
   home: 'Home'
   event: 'Events'
   rules: 'Event rules'
+  furries: 'About furries (Slovenian)'
   blog: 'Blog'
   account: 'Account'
   myAccount: 'My account'
