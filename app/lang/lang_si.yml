@@ -201,6 +201,7 @@ topnavbar:
   event: 'Dogodki'
   rules: 'Pravila dogodkov'
   furries: 'O furryjih'
+  drustvo: 'Društvo SloFurs'
   blog: 'Blog'
   account: 'Račun'
   myAccount: 'Moj račun'
