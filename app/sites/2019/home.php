@@ -3,7 +3,7 @@
   <div class="display-left text-white p-5">
     <span class="display-3 d-none d-md-block"><?php echo L::home_a;?></span><br>
     <span class="display-4 d-md-none"><?php echo L::home_a;?></span><br>
-    <h5><?php echo L::home_b;?></h5>
+    <h4 style="max-width: 85%"><?php echo L::home_b;?></h4>
   </div>
   <div class="display-bottomleft text-white lead" style="padding:70px 48px">
     <div class="container p-4 bg-light rounded">
@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="display-bottomright text-white lead" style="padding:90px 48px">
-    <?php echo L::home_c;?> Sambu
+    <?php echo L::home_c;?> Torchfire
   </div>
 </header>
 
@@ -24,11 +24,6 @@
 
 <div class="jumbotron jumbotron-fluid px-4">
   <div class="container-fluid">
-    <h1 class="display-4"><?php echo L::home_first_a;?></h1>
-    <p class="lead"><?php echo L::home_first_b;?></p>
-    <p><?php echo L::home_first_c;?></p>
-    <p><?php echo L::home_first_d;?></p>
-    <hr>
     <h2><?php echo L::home_second_a;?></h2>
     <?php if(count($cEvents)>0): ?>
       <div class="row mx-1">
@@ -59,6 +54,9 @@
     <?php else: ?>
       <p><?php echo L::admin_event_noUpcoming;?></p>
     <?php endif; ?>
+    <hr>
+    <p><?php echo L::home_first_c;?></p>
+    <p><?php echo L::home_first_d;?></p>
   </div>
 </div>
 

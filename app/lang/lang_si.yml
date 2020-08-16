@@ -215,7 +215,7 @@ notFound: 'Opla, izgleda, da ste šli v zelo temen kotiček naše strani. Na ža
 title: 'SloFurs Dogodki'
 home:
   a: 'Dobrodošli na straneh SloFurs!'
-  b: 'To je naš nov dom za dogodke.'
+  b: 'Dobrodošli na SloFurs, spletnem kotičku slovenskih furryjev. Če niste popolnoma prepričani, kdo furryji so in kaj je furry fandom, vas vabimo, da si več preberete na zavihku "<u><a href="/ofurry" class="text-white">O furryjih</a></u>". Če pa vas zanimajo novice ali prihajajoči dogodki, poglejte najnovejše informacije na zavihku <u><a href="/register" class="text-white">Dogodki</a></u> ali malo nižje na tej strani.'
   c: 'Slikal'
   first:
     a: 'Naš nov dom za dogodke'

@@ -210,7 +210,7 @@ notFound: 'Whoops, it seems you went into a dark corner. Nothing nice to see her
 title: 'SloFurs Events'
 home:
   a: 'Welcome to SloFurs!'
-  b: 'This is our new home for events.'
+  b: 'Welcome to SloFurs, the web corner of Slovenian furries. If you're interested in our upcoming events or anything happening by us, you've come to the right place. Scroll down or head over to the <u><a href="/register" class="text-white">Events</a></u> tab to see what fun things we have in store for you. You're also welcome to join us on our <u><a href="https://discord.gg/0eaoyLCJ7eiTMBaj" class="text-white" target="_blank">Discord server</a></u> and have a chat with us!'
   c: 'Image by'
   first:
     a: 'Our new event home'
