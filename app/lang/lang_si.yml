@@ -214,7 +214,7 @@ footer: '<i class="far fa-code"></i> z <i class="fas fa-heart"></i> v Sloveniji.
 notFound: 'Opla, izgleda, da ste šli v zelo temen kotiček naše strani. Na žalost, ni nič lepega za videti tukaj.'
 home:
   a: 'Dobrodošli na straneh SloFurs!'
-  b: 'Dobrodošli na SloFurs, spletnem kotičku slovenskih furryjev. Če niste popolnoma prepričani, kdo furryji so in kaj je furry fandom, vas vabimo, da si več preberete na zavihku "<u><a href="/ofurry" class="text-white">O furryjih</a></u>". Če pa vas zanimajo novice ali prihajajoči dogodki, poglejte najnovejše informacije na zavihku <u><a href="/register" class="text-white">Dogodki</a></u> ali malo nižje na tej strani.'
+  b: 'Dobrodošli na SloFurs, spletnem kotičku slovenskih furryjev. Če niste popolnoma prepričani, kdo furryji so in kaj je furry fandom, vas vabimo, da si več preberete na zavihku "<u><a href="/ofurry" class="text-white">O furryjih</a></u>".'
   c: 'Slikal'
   first:
     a: 'Naš nov dom za dogodke'
