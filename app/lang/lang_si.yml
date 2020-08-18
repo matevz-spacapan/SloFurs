@@ -212,7 +212,6 @@ topnavbar:
   changeLang: 'Change language: '
 footer: '<i class="far fa-code"></i> z <i class="fas fa-heart"></i> v Sloveniji.<br><i class="far fa-copyright"></i> SloFurs 2019'
 notFound: 'Opla, izgleda, da ste šli v zelo temen kotiček naše strani. Na žalost, ni nič lepega za videti tukaj.'
-title: 'SloFurs Dogodki'
 home:
   a: 'Dobrodošli na straneh SloFurs!'
   b: 'Dobrodošli na SloFurs, spletnem kotičku slovenskih furryjev. Če niste popolnoma prepričani, kdo furryji so in kaj je furry fandom, vas vabimo, da si več preberete na zavihku "<u><a href="/ofurry" class="text-white">O furryjih</a></u>". Če pa vas zanimajo novice ali prihajajoči dogodki, poglejte najnovejše informacije na zavihku <u><a href="/register" class="text-white">Dogodki</a></u> ali malo nižje na tej strani.'
@@ -601,3 +600,29 @@ navigation:
   img4: 'Za kmetijo zavijete desno.'
   img5: '(za kmetijo) Zavijete desno na makadam in nadaljujete cca 1.5km. Vmes se vam enkrat pot odpre (v gozdu); da ne zaidete se držite levo. V primeru dvoma, si od tu dalje pomagajte <a href="https://maps.google.com/?q=46.077476,%2014.413625" target="_blank">z navigacijo do konca poti</a>.'
   img6: 'Če ste sledili navodilom pravilno, se boste znašli pri dovozu lokacije dogodka. <b>Parkirajte pred vhodom na takšen način, da ne ovirate prometa in pot dalje nadaljujte peš.</b>'
+title:
+  error: 'SloFurs - 404'
+  rules: 'SloFurs - Pravila in pogoji'
+  privacy: 'SloFurs - Politika zasebnosti'
+  paymentFAQ: 'SloFurs - Plačevanje'
+  aboutfurries: 'SloFurs - O furryjih'
+  navigation: 'SloFurs - Navigacijska pomoč'
+  passwordreset: 'SloFurs - Ponastavitev gesla'
+  home: 'SloFurs'
+  drustvo: 'Društvo SloFurs'
+  account:
+    contact: 'SloFurs - Vaš profil'
+    fursuit: 'SloFurs - Vaši fursuiti'
+  admin:
+    dash: 'SloFurs - Admin'
+    event:
+      list: 'SloFurs - Admin dogodkov'
+      new: 'SloFurs - Nov dogodek admin'
+      edit: 'SloFurs - Urejanje dogodka: '
+    fursuits: 'SloFurs - Fursuit admin'
+    users: 'SloFurs - Admin uporabnikov'
+    usersedit: 'SloFurs - Urejanje profila admin'
+  reg:
+    list: 'SloFurs - Naši dogodki'
+    new: 'SloFurs - '
+    edit: 'SloFurs - '

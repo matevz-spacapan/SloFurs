@@ -56,6 +56,7 @@ class LogIn extends Connection{
 				require 'app/sites/global/header.php';
 				require 'app/sites/global/alerts.php';
 				require 'app/sites/'.THEME.'/password_reset_2.php';
+	    	echo "<script>document.title='".L::title_passwordreset."';</script>";
 				require 'app/sites/global/footer.php';
 			}
 		}

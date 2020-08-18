@@ -14,6 +14,7 @@ class Privacy extends Connection{
 		else{
 			require 'app/sites/global/politika_o_zasebnosti.html';
 		}
+		echo "<script>document.title='".L::title_privacy."';</script>";
 		require 'app/sites/global/footer.php';
 	}
 }

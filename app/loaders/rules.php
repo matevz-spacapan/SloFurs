@@ -14,6 +14,7 @@ class Rules extends Connection{
 		else{
 			require 'app/sites/global/pravila.php';
 		}
+		echo "<script>document.title='".L::title_rules."';</script>";
 		require 'app/sites/global/footer.php';
 	}
 }

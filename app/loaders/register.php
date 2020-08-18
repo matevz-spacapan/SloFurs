@@ -23,6 +23,7 @@ class Register extends Connection{
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/reg/view.php';
+			echo "<script>document.title='".L::title_reg_list."';</script>";
 			require 'app/sites/global/footer.php';
 		}
 	}
@@ -54,6 +55,7 @@ class Register extends Connection{
 			$evt_id=$event->id;
 			require 'app/sites/global/header.php';
 			require 'app/sites/'.THEME.'/reg/form.php';
+			echo "<script>document.title='".L::title_reg_new.$event->name."';</script>";
 			require 'app/sites/global/footer.php';
 		}
 	}
@@ -98,6 +100,7 @@ class Register extends Connection{
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/reg/form.php';
+			echo "<script>document.title='".L::title_reg_edit.$event->name."';</script>";
 			require 'app/sites/global/footer.php';
 		}
 	}

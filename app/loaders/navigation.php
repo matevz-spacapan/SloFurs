@@ -10,6 +10,7 @@ class Navigation extends Connection{
 		require 'app/sites/global/header.php';
 		require 'app/sites/global/alerts.php';
 		require 'app/sites/'.THEME.'/gabrje.php';
+		echo "<script>document.title='".L::title_navigation."';</script>";
 		require 'app/sites/global/footer.php';
 	}
 }

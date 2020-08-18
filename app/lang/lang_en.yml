@@ -207,7 +207,6 @@ topnavbar:
   changeLang: 'Spremeni jezik: '
 footer: '<i class="far fa-code"></i> with <i class="fas fa-heart"></i> in Slovenia.<br><i class="far fa-copyright"></i> SloFurs 2019'
 notFound: 'Whoops, it seems you went into a dark corner. Nothing nice to see here, sadly.'
-title: 'SloFurs Events'
 home:
   a: 'Welcome to SloFurs!'
   b: 'Welcome to SloFurs, the web corner of Slovenian furries. If you're interested in our upcoming events or anything happening by us, you've come to the right place. Scroll down or head over to the <u><a href="/register" class="text-white">Events</a></u> tab to see what fun things we have in store for you. You're also welcome to join us on our <u><a href="https://discord.gg/0eaoyLCJ7eiTMBaj" class="text-white" target="_blank">Discord server</a></u> and have a chat with us!'
@@ -596,3 +595,29 @@ navigation:
   img4: 'After the farm house turn right.'
   img5: '(pictured after the farm house) Turn right onto the gravel road and continue for aprox. 1.5km. During this, the road will widen/open up (in the forest); to avoid going the wrong way keep/turn left. If in doubt, you can help yourself <a href="https://maps.google.com/?q=46.077476,%2014.413625" target="_blank">by navigating to the event location</a> from here on.'
   img6: 'If you followed the guide correctly, you'll come to the entrance of the event. <b>Park before the entrance in such a way that you're not obstructing traffic and continue on foot.</b>'
+title:
+  error: 'SloFurs - 404'
+  rules: 'SloFurs - Rules and terms'
+  privacy: 'SloFurs - Privacy policy'
+  paymentFAQ: 'SloFurs - Payment FAQ'
+  aboutfurries: 'SloFurs - About furries'
+  navigation: 'SloFurs - Navigation help'
+  passwordreset: 'SloFurs - Password reset'
+  home: 'SloFurs'
+  drustvo: 'SloFurs Association'
+  account:
+    contact: 'SloFurs - Your profile'
+    fursuit: 'SloFurs - Your fursuits'
+  admin:
+    dash: 'SloFurs - Admin'
+    event:
+      list: 'SloFurs - Events admin'
+      new: 'SloFurs - New event admin'
+      edit: 'SloFurs - Edit event: '
+    fursuits: 'SloFurs - Fursuits admin'
+    users: 'SloFurs - Users admin'
+    usersedit: 'SloFurs - Edit user admin'
+  reg:
+    list: 'SloFurs - Our events'
+    new: 'SloFurs - '
+    edit: 'SloFurs - '

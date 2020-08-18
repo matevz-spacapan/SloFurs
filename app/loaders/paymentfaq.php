@@ -14,6 +14,7 @@ class PaymentFAQ extends Connection{
 		else{
 			require 'app/sites/global/paymentFAQ_si.php';
 		}
+		echo "<script>document.title='".L::title_paymentFAQ."';</script>";
 		require 'app/sites/global/footer.php';
 	}
 }

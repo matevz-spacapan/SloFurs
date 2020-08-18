@@ -23,6 +23,7 @@ class Admin extends Connection{
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/admin/dash.php';
+			echo "<script>document.title='".L::title_admin_dash."';</script>";
 			require 'app/sites/global/footer.php';
 		}
 		else{
@@ -79,6 +80,7 @@ class Admin extends Connection{
 					require 'app/sites/global/header.php';
 					require 'app/sites/global/alerts.php';
 					require 'app/sites/'.THEME.'/admin/users_edit.php';
+					echo "<script>document.title='".L::title_admin_useredit."';</script>";
 					require 'app/sites/global/footer.php';
 				}
 			}
@@ -86,6 +88,7 @@ class Admin extends Connection{
 				require 'app/sites/global/header.php';
 				require 'app/sites/global/alerts.php';
 				require 'app/sites/'.THEME.'/admin/users.php';
+				echo "<script>document.title='".L::title_admin_users."';</script>";
 				require 'app/sites/global/footer.php';
 			}
 		}
@@ -118,6 +121,7 @@ class Admin extends Connection{
 				require 'app/sites/global/header.php';
 				require 'app/sites/global/alerts.php';
 				require 'app/sites/'.THEME.'/admin/fursuits.php';
+				echo "<script>document.title='".L::title_admin_fursuits."';</script>";
 				require 'app/sites/global/footer.php';
 			}
 		}
@@ -202,6 +206,7 @@ class Admin extends Connection{
 				if($account->status>=ADMIN&&$action=='new'){
 					//require 'app/sites/'.THEME.'/admin/sidebar.php';
 					require 'app/sites/'.THEME.'/admin/newevent.php';
+					echo "<script>document.title='".L::title_admin_event_new."';</script>";
 				}
 				//go to edit/view event page
 				else{
@@ -213,6 +218,7 @@ class Admin extends Connection{
 						$fursuits=$event_model->getFursuits($filtered_id);
 						$payments=$event_model->getPayments($filtered_id);
 						require 'app/sites/'.THEME.'/admin/event_overview.php';
+						echo "<script>document.title='".L::title_admin_event_edit.$event->name."';</script>";
 					}
 					//list events
 					else{
@@ -220,6 +226,7 @@ class Admin extends Connection{
 						$pEvents=$event_model->getPEvents(); //past
 						require 'app/sites/'.THEME.'/admin/sidebar.php';
 						require 'app/sites/'.THEME.'/admin/event.php';
+						echo "<script>document.title='".L::title_admin_event_list."';</script>";
 					}
 				}
 				require 'app/sites/global/footer.php';

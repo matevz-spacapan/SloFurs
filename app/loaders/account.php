@@ -49,6 +49,7 @@ class Account extends Connection{
 			require 'app/sites/'.THEME.'/account/sidebar.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/account/contact.php';
+	  	echo "<script>document.title='".L::title_account_contact."';</script>";
 			require 'app/sites/global/footer.php';
 		}
 	}
@@ -77,6 +78,7 @@ class Account extends Connection{
 			require 'app/sites/'.THEME.'/account/sidebar.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/account/fursuit.php';
+	  	echo "<script>document.title='".L::title_account_fursuit."'</script>";
 			require 'app/sites/global/footer.php';
 		}
 	}
