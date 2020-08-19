@@ -2,6 +2,7 @@
 class PaymentFAQ extends Connection{
 	public function index(){
 		$account=$this->getSessionAcc();
+		$title=L::title_paymentFAQ;
 		require 'app/sites/global/header.php';
 		if(isset($_SESSION['lang'])){
 			if($_SESSION['lang']=='si'){
@@ -14,7 +15,6 @@ class PaymentFAQ extends Connection{
 		else{
 			require 'app/sites/global/paymentFAQ_si.php';
 		}
-		echo "<script>document.title='".L::title_paymentFAQ."';</script>";
 		require 'app/sites/global/footer.php';
 	}
 }

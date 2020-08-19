@@ -1,5 +1,5 @@
 <div class="container-fluid mt-3">
-<script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/21.0.0/classic/ckeditor.js"></script>
 <?php
   $id=(isset($_GET['id']))?filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT):null;
   require_once 'app/sites/'.THEME.'/admin/event_form/datetimepicker.html';

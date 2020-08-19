@@ -45,11 +45,11 @@ class Account extends Connection{
 			header('location: '.URL.'account/contact');
 		}
 		else{
+			$title=L::title_account_contact;
 			require 'app/sites/global/header.php';
 			require 'app/sites/'.THEME.'/account/sidebar.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/account/contact.php';
-	  	echo "<script>document.title='".L::title_account_contact."';</script>";
 			require 'app/sites/global/footer.php';
 		}
 	}
@@ -74,11 +74,11 @@ class Account extends Connection{
 		}
 		else{
 			$fursuits=$fursuit_model->getAccFursuits($_SESSION['account']);
+			$title=L::title_account_fursuit;
 			require 'app/sites/global/header.php';
 			require 'app/sites/'.THEME.'/account/sidebar.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/account/fursuit.php';
-	  	echo "<script>document.title='".L::title_account_fursuit."'</script>";
 			require 'app/sites/global/footer.php';
 		}
 	}

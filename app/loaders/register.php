@@ -20,10 +20,10 @@ class Register extends Connection{
 			header('location: '.URL.'register');
 		}
 		else{
+			$title=L::title_reg_list;
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/reg/view.php';
-			echo "<script>document.title='".L::title_reg_list."';</script>";
 			require 'app/sites/global/footer.php';
 		}
 	}
@@ -53,9 +53,9 @@ class Register extends Connection{
 		else{
 			$event=$reg_model->newReg($id);
 			$evt_id=$event->id;
+			$title=L::title_reg_new.$event->name;
 			require 'app/sites/global/header.php';
 			require 'app/sites/'.THEME.'/reg/form.php';
-			echo "<script>document.title='".L::title_reg_new.$event->name."';</script>";
 			require 'app/sites/global/footer.php';
 		}
 	}
@@ -97,10 +97,10 @@ class Register extends Connection{
 			//do Stripe payment setup and checks
 			require 'app/loaders/support/stripe.php';
 			//load site
+			$title=L::title_reg_edit.$event->name;
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/reg/form.php';
-			echo "<script>document.title='".L::title_reg_edit.$event->name."';</script>";
 			require 'app/sites/global/footer.php';
 		}
 	}

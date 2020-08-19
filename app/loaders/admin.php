@@ -20,10 +20,10 @@ class Admin extends Connection{
 		}
 		elseif($account->status>=STAFF){
 			$dash_model=$this->loadSQL('DashboardModel');
+			$title=L::title_admin_dash;
 			require 'app/sites/global/header.php';
 			require 'app/sites/global/alerts.php';
 			require 'app/sites/'.THEME.'/admin/dash.php';
-			echo "<script>document.title='".L::title_admin_dash."';</script>";
 			require 'app/sites/global/footer.php';
 		}
 		else{
@@ -77,18 +77,18 @@ class Admin extends Connection{
 					header('location: '.URL.'admin/users?id='.$filtered_id);
 				}
 				else{
+					$title=L::title_admin_useredit;
 					require 'app/sites/global/header.php';
 					require 'app/sites/global/alerts.php';
 					require 'app/sites/'.THEME.'/admin/users_edit.php';
-					echo "<script>document.title='".L::title_admin_useredit."';</script>";
 					require 'app/sites/global/footer.php';
 				}
 			}
 			else{
+				$title=L::title_admin_users;
 				require 'app/sites/global/header.php';
 				require 'app/sites/global/alerts.php';
 				require 'app/sites/'.THEME.'/admin/users.php';
-				echo "<script>document.title='".L::title_admin_users."';</script>";
 				require 'app/sites/global/footer.php';
 			}
 		}
@@ -118,10 +118,10 @@ class Admin extends Connection{
 			}
 			else{
 				$fursuits=$dash_model->getFursuits();
+				$title=L::title_admin_fursuits;
 				require 'app/sites/global/header.php';
 				require 'app/sites/global/alerts.php';
 				require 'app/sites/'.THEME.'/admin/fursuits.php';
-				echo "<script>document.title='".L::title_admin_fursuits."';</script>";
 				require 'app/sites/global/footer.php';
 			}
 		}

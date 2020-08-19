@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta charset="utf-8">
-	<title>SloFurs</title>
+	<title><?php echo isset($title)?$title:'SloFurs'; ?></title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- w3.css stylesheet -->
