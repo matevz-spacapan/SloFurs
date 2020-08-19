@@ -1,8 +1,8 @@
 <div class="container">
   <h1>Pravila SloFurs srečanj in pogoji poslovanja</h1>
   <p>Namen srečanj je pripraviti sproščeno in prijetno vzdušje vsem furryijem in njihovim gostom, ki se odločijo udeležiti srečanja. Srečanja poskušamo voditi s čim manj formalnosti in določenih pravil, saj se zanašamo na zdravo pamet vsakega posameznika. Kljub temu smo opazili potrebo po določitvi nekaterih osnovnih pravil, ki bodo preprečila morebitne organizacijske, vedenjske in zakonske zaplete. Pravila so zapisana okvirno, vsebujejo smernice za določene vnaprej pričakovane primere, v vseh drugih primerih predvsem veljajo prva tri pravila. V splošnem velja, da boste s kratkim razmislekom vedeli, kaj je primerno in kaj ne. Če ste v dvomih, vprašajte organizatorje.</p>
-  <p>Vse različice teh pravil in pogojev so javno objavljene na spletni strani SloFurs, dostopni <a href="https://slofurs.org/pravila/">tukaj</a>, najnovejša različica, pa je dostopna na strani kjer se nahajate sedaj. V času določenega srečanja so veljavna najnovejša objavljena pravila ob začetku srečanja. Zaradi preglednosti se v besedilu uporabljajo oblike za moški spol.</p>
-  <p>S spletno prodajo na tej strani (events.slofurs.org) upravlja Društvo SloFurs, Gregorčičeva ulica 33, 5000 Nova Gorica, matična številka: 4121988000, davčna številka: (v pridobitvi), ki je obenem tudi ponudnik storitev (v nadaljevanju tudi prodajalec).</p>
+  <p>V času določenega srečanja so veljavna najnovejša objavljena pravila ob začetku srečanja. Zaradi preglednosti se v besedilu uporabljajo oblike za moški spol.</p>
+  <p>S spletno prodajo na tej strani (events.slofurs.org) upravlja Društvo SloFurs, Gregorčičeva ulica 33, 5000 Nova Gorica, matična številka: 4121988000, davčna številka: 73456012, ki je obenem tudi ponudnik storitev (v nadaljevanju tudi prodajalec).</p>
 
   <h3>Osnovna pravila</h3>
   <ol>
@@ -116,4 +116,6 @@
   Društvo SloFurs<br>
   Gregorčičeva ulica 33<br>
   5000 Nova Gorica</p>
+  <hr>
+  <p><i>Zadnja sprememba opravljena dne 19.08.2020.</i></p>
 </div>
