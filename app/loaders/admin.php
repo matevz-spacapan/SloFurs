@@ -77,7 +77,7 @@ class Admin extends Connection{
 					header('location: '.URL.'admin/users?id='.$filtered_id);
 				}
 				else{
-					$title=L::title_admin_useredit;
+					$title=L::title_admin_usersedit;
 					require 'app/sites/global/header.php';
 					require 'app/sites/global/alerts.php';
 					require 'app/sites/'.THEME.'/admin/users_edit.php';
