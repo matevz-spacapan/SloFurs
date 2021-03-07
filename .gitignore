@@ -1,3 +1,4 @@
 /public/*
 app/config.php
 ignore/*
+.idea/
