@@ -253,7 +253,7 @@ signup:
   noActivation: 'Niste prejeli potrditvenega e-poštnega sporočila?'
   noActivationButton: 'Zahtevajte novo'
   newsletter1: 'Prijavljam se na novičke'
-  newsletter2: '(na ta način vas obveščamo o novih dogodnik)'
+  newsletter2: '(na ta način vas obveščamo o novih dogodkih)'
   resend:
     h: 'Ponovno pošiljanje potrditvenega sporočila'
     submit: 'Pošlji'
