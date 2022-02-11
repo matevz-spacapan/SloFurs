@@ -11,6 +11,5 @@
   <p>Podatki društva:<br>
     Matična št.: 4121988000<br>
     Davčna št.: 73456012<br>
-    TRR: SI56 6100 0002 4500 122 odprt pri DH d.d.<br>
-    Zastopnik: Matevž Špacapan (Pur3Bolt)</p>
+    TRR: SI56 6100 0002 4500 122 odprt pri DH d.d.</p>
 </div>
