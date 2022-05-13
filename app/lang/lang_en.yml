@@ -100,6 +100,7 @@ admin:
       roomNotGet: 'Wait-list'
       confirm: 'Confirm attendees'
       exportC: 'Export confirmed'
+      exportList: 'Export attendee list'
       exportA: 'Export all'
       exportInv: 'Export invoices'
       none: 'There's nothing to show here yet as there are no registered users for this event.'
