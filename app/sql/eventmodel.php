@@ -571,7 +571,7 @@ class EventModel
     // Exports registered users into release forms
     public function exportForms($id, $all)
     {
-        $sql = 'SELECT fname, lname, dob, address, address2, post, city, country, gender, language, username FROM account INNER JOIN registration ON account.id=registration.acc_id WHERE event_id=:id';
+        $sql = 'SELECT fname, lname, dob, address, address2, post, city, country, gender, language, username, event_start AS es FROM account INNER JOIN registration ON account.id=registration.acc_id INNER JOIN event ON event.id=registration.event_id WHERE event.id=:id';
         if (!$all) {
             $sql .= ' AND confirmed=1';
         }
@@ -581,6 +581,7 @@ class EventModel
         $mpdf = new \Mpdf\Mpdf();
         foreach ($accounts as $account) {
             $dob = $this->convertViewable($account->dob, 1);
+            $eventTime = $this->convertViewable($account->es, true);
             if ($account->language == 'si') {
                 if ($account->gender == 'female') {
                     $pripona = 'a';
@@ -610,9 +611,9 @@ class EventModel
 				  <li>So vsi podatki, ki sem jih $navedel ob prijavi pravilni in resnični.</li>
 				  <li>Se zavedam, da se s podpisom te izjave nepreklicno zavezujem k spoštovanju in upoštevanju vseh členov navedenih v tej izjavi, ter v primeru neupoštevanja le-teh dovoljujem organizatorju izvedbo kakršne koli sankcije.</li>
 				</ul><br><br><br><br><br><br>
-				Podpis: ____________________________";
+				V/Na ____________________________, dne $eventTime, podpis: ____________________________";
             } else {
-                $text = "I, {$account->fname} {$account->lname}, signed below, born on $dob with a permanent residence on the address<br><br>
+                $text = "<b>{$account->username}</b><br><br><br>I, {$account->fname} {$account->lname}, signed below, born on $dob with a permanent residence on the address<br><br>
 				{$account->address}<br>";
                 if ($account->address2 != '' || $account->address2 != null) {
                     $text .= "{$account->address2}<br>";
@@ -631,7 +632,7 @@ class EventModel
 				  <li>All the personal information stated at the time of registration and stated above is true and accurate.</li>
 				  <li>I am aware, that by signing this declaration, I irrevocably commit to adhering to and following all the articles listed in this declaration and that, in the event of not doing so, I allow the organizer to carry out any sanction.</li>
 				</ul><br><br><br><br><br><br><br><br>
-				Signature: ____________________________";
+				At ____________________________ on $eventTime, signature: ____________________________";
             }
             $mpdf->WriteHTML($text);
             $mpdf->AddPage();
