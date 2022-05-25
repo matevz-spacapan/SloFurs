@@ -168,6 +168,7 @@
           <button type="submit" class="btn btn-secondary" name="export_all"><?php echo L::admin_overview_attendees_exportA;?></button><br><br>
           <button type="submit" class="btn btn-primary" name="export_invoices"><?php echo L::admin_overview_attendees_exportInv;?></button>
           <button type="submit" class="btn btn-primary" name="export_contacts"><?php echo L::admin_overview_attendees_exportList;?></button>
+            <button type="submit" class="btn btn-primary" name="export_drustvo"><?php echo L::admin_overview_attendees_exportDrustvo;?></button>
         </div>
         <?php endif;?>
       </form>

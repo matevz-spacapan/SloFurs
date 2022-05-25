@@ -106,6 +106,7 @@ admin:
       confirm: 'Potrdi udeležence'
       exportC: 'Izvozi potrjene'
       exportList: 'Izvozi seznam udeležencev'
+      exportDrustvo: 'Izvozi seznam pristojbin dogodka'
       exportA: 'Izvozi vse'
       exportInv: 'Izvozi račune'
       none: 'Trenutno še ni podatkov za prikazati, saj ni nobenih prijavljenih udeležencev.'

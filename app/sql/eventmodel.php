@@ -571,7 +571,7 @@ class EventModel
     // Exports registered users into release forms
     public function exportForms($id, $all)
     {
-        $sql = 'SELECT fname, lname, dob, address, address2, post, city, country, gender, language, username, event_start AS es FROM account INNER JOIN registration ON account.id=registration.acc_id INNER JOIN event ON event.id=registration.event_id WHERE event.id=:id';
+        $sql = 'SELECT fname, lname, dob, address, address2, post, city, country, gender, language, username, event_start AS es FROM account INNER JOIN registration ON account.id=registration.acc_id INNER JOIN event ON event.id=registration.event_id WHERE event.id=:id ORDER BY username';
         if (!$all) {
             $sql .= ' AND confirmed=1';
         }
@@ -650,7 +650,7 @@ class EventModel
 			<li>So vsi podatki, ki sem jih navedel/-la ob prijavi pravilni in resnični.</li>
 			<li>Se zavedam, da se s podpisom te izjave nepreklicno zavezujem k spoštovanju in upoštevanju vseh členov navedenih v tej izjavi, ter v primeru neupoštevanja le-teh dovoljujem organizatorju izvedbo kakršne koli sankcije.</li>
 		</ul><br><br><br><br><br><br>
-		Podpis: ____________________________");
+		V/Na ____________________________, dne $eventTime, podpis: ____________________________");
         $mpdf->AddPage();
 
         $mpdf->WriteHTML("I, ______________________________, signed below, born on __________________ with a permanent residence on the address<br><br>
@@ -667,7 +667,7 @@ class EventModel
 			<li>All the personal information stated at the time of registration and stated above is true and accurate.</li>
 			<li>I am aware, that by signing this declaration, I irrevocably commit to adhering to and following all the articles listed in this declaration and that, in the event of not doing so, I allow the organizer to carry out any sanction.</li>
 		</ul><br><br><br><br><br><br><br><br>
-		Signature: ____________________________");
+		At ____________________________ on $eventTime, signature: ____________________________");
 
         $mpdf->SetTitle('Release forms for event ID ' . $id);
         $mpdf->Output('Release_forms_' . $id . '.pdf', \Mpdf\Output\Destination::DOWNLOAD);
@@ -810,7 +810,7 @@ class EventModel
         $mpdf->Output('Invoices_' . $id . '.pdf', \Mpdf\Output\Destination::DOWNLOAD);
     }
 
-    // Exports registered users contact info for NIJZ compliance
+    // Exports registered users contact info
     public function exportContactData($id)
     {
         $sql = 'SELECT fname, lname, address, address2, post, city, country, phone, location, event_start AS es, event_end AS ee FROM account INNER JOIN registration ON account.id=registration.acc_id INNER JOIN event ON event.id=registration.event_id WHERE event.id=:id ORDER BY lname ASC, fname ASC';
@@ -847,5 +847,48 @@ class EventModel
         $mpdf->WriteHTML("</table>");
         $mpdf->SetTitle('Contact data for event ID ' . $id);
         $mpdf->Output('Contacts_' . $id . '.pdf', \Mpdf\Output\Destination::DOWNLOAD);
+    }
+
+    // Exports registered users names, price and line for signature (for Društvo SloFurs)
+    public function exportDrustvoData($id)
+    {
+        $sql = 'SELECT fname, lname, location, username, event_start AS es, event_end AS ee FROM account INNER JOIN registration ON account.id=registration.acc_id INNER JOIN event ON event.id=registration.event_id WHERE event.id=:id ORDER BY lname ASC, fname ASC';
+        $query = $this->db->prepare($sql);
+        $query->execute(array(':id' => $id));
+        $accounts = $query->fetchAll();
+        $eventTime = $this->convertViewable($accounts[0]->es, true);
+
+        $mpdf = new \Mpdf\Mpdf();
+        $mpdf->WriteHTML("<h1>Pristojbina na dogodek</h1>
+		<p>Kraj zbiranja: {$accounts[0]->location}</p>
+		<p>Čas dogodka: {$accounts[0]->es} - {$accounts[0]->ee}</p><br>
+		<table>
+		<tr>
+		<th>Vzdevek</th>
+		<th>Ime & priimek</th>
+		<th>Znesek</th>
+		<th>Podpis</th>
+		</tr>");
+        foreach ($accounts as $account) {
+            $text = "<tr>
+			<td>{$account->username} </td>
+			<td>{$account->fname} {$account->lname} </td>
+			<td>________€ </td>
+			<td>____________________________</td>
+			</tr>";
+            $mpdf->WriteHTML($text);
+        }
+//        $text = "<tr>
+//		<td>__________________________________</td>
+//		<td><br><br><br>__________________________________<br><br>__________________________________<br><br>__________________________________</td>
+//		<td>__________________________________</td>
+//		</tr>";
+//        for ($i = 0; $i < 3; $i++) {
+//            $mpdf->WriteHTML($text);
+//        }
+        $mpdf->WriteHTML("</table><br><br>
+			V/Na ____________________________, dne $eventTime");
+        $mpdf->SetTitle('Pristojbina na dogodku ' . $id);
+        $mpdf->Output('Money_collection_' . $id . '.pdf', \Mpdf\Output\Destination::DOWNLOAD);
     }
 }

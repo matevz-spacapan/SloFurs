@@ -101,6 +101,7 @@ admin:
       confirm: 'Confirm attendees'
       exportC: 'Export confirmed'
       exportList: 'Export attendee list'
+      exportDrustvo: 'Export sheet for money collection'
       exportA: 'Export all'
       exportInv: 'Export invoices'
       none: 'There's nothing to show here yet as there are no registered users for this event.'
