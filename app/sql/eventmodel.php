@@ -676,7 +676,7 @@ class EventModel
     // Exports invoices for registered users
     public function exportInvoices($id, $all)
     {
-        $sql = 'SELECT registration.id AS id, name, fname, lname, address, address2, post, city, country, language, event_start, regular_price, regular_title, sponsor_price, sponsor_title, super_price, super_title, ticket FROM account INNER JOIN registration ON account.id=registration.acc_id INNER JOIN event ON event.id=registration.event_id WHERE event_id=:id';
+        $sql = 'SELECT registration.id AS id, name, fname, lname, address, address2, post, city, country, language, event_start, regular_price, regular_title, sponsor_price, sponsor_title, super_price, super_title, ticket, amount, payment_due, start_time FROM account INNER JOIN registration ON account.id=registration.acc_id INNER JOIN event ON event.id=registration.event_id LEFT JOIN payment ON payment.reg_id=registration.id WHERE event_id=:id';
         if (!$all) {
             $sql .= ' AND confirmed=1';
         }
@@ -687,9 +687,25 @@ class EventModel
         $stylesheet = file_get_contents('public/invoicepdf.css');
         $mpdf->WriteHTML($stylesheet, 1);
         foreach ($invoices as $invoice) {
-            $today = date("d.m.Y");
             $eventTime = $this->convertViewable($invoice->event_start, true);
-            $due = date('d.m.Y', (strtotime('-1 day', strtotime($eventTime))));
+            if(!is_null($invoice->payment_due)){
+                $dueDate = date('d.m.Y', strtotime($invoice->payment_due));
+            }
+            else{
+                $dueDate = date('d.m.Y', strtotime('-1 day', strtotime($eventTime)));
+            }
+            // issue on the date of payment
+            if(!is_null($invoice->start_time)){
+                $issueDate = date('d.m.Y', strtotime($invoice->start_time));
+            }
+            // issue today if date of service is in the future
+            else if(strtotime($invoice->event_start) > strtotime("now")){
+                $issueDate = date("d.m.Y");
+            }
+            // issue on the due date
+            else{
+                $issueDate = $dueDate;
+            }
             $addr2 = '';
             if ($invoice->address2 != '') {
                 $addr2 = '<br>' . $invoice->address2;
@@ -709,13 +725,16 @@ class EventModel
                         $ticketPrice = $invoice->super_price;
                         break;
                 }
+                $ticketPaid = $invoice->amount >= $ticketPrice ? 'PLAČANO V CELOTI' : '';
                 $text = "<div>
 				  <div>
 				    <table class='table'>
 				      <tr>
 				        <td>
 				          <h3>RAČUN ŠT.: {$invoice->id}</h3>
-				          Datum izdaje:$today<br>Datum storitve:$eventTime<br>Rok plačila:$due
+				          Datum izdaje: $issueDate<br>
+				          Datum storitve: $eventTime<br>
+				          Rok plačila: $dueDate
 				        </td>
 				        <td class='text-right'><b>Društvo SloFurs</b><br>Gregorčičeva ulica 33<br>5000 Nova Gorica<br>ID za DDV: 73456012<br>Matična št.: 4121988000<br>IBAN: SI56 6100 0002 4500 122</td>
 				      </tr>
@@ -738,7 +757,7 @@ class EventModel
 				      <td>$ticketPrice €</td>
 				    </tr>
 				    <tr>
-				      <td></td>
+				      <td><b>$ticketPaid</b></td>
 				      <td></td>
 				      <td><b>Skupaj</b></td>
 				      <td><b>$ticketPrice €</b></td>
@@ -762,13 +781,16 @@ class EventModel
                         $ticketPrice = $invoice->super_price;
                         break;
                 }
+                $ticketPaid = $invoice->amount >= $ticketPrice ? 'FULLY PAID' : '';
                 $text = "<div>
 				  <div>
 				    <table class='table'>
 				      <tr>
 				        <td>
 				          <h3>INVOICE No.: {$invoice->id}</h3>
-				          Date of issue:$today<br>Date of event:$eventTime<br>Due date:$due
+				          Date of issue: $issueDate<br>
+				          Date of event: $eventTime<br>
+				          Due date: $dueDate
 				        </td>
 				        <td class='text-right'><b>Društvo SloFurs</b><br>Gregorčičeva ulica 33<br>5000 Nova Gorica<br>Tax No.: 73456012<br>ID No.: 4121988000<br>IBAN: SI56 6100 0002 4500 122</td>
 				      </tr>
@@ -791,13 +813,13 @@ class EventModel
 				      <td>$ticketPrice €</td>
 				    </tr>
 				    <tr>
-				      <td></td>
+				      <td><b>$ticketPaid</b></td>
 				      <td></td>
 				      <td><b>Total</b></td>
 				      <td><b>$ticketPrice €</b></td>
 				    </tr>
 				  </table>
-				  <p>When paying the invoice write this message: Invoice {$invoice->id}.</p>
+				  <p>When paying the invoice write this message: SI00 {$invoice->id}.</p>
 				  <p>Based on Slovenian law, we do not collect value added tax (v skladu s 1. odstavkom 94. člena ZDDV davek na dodano vrednost ni obračunan).</p>
 				</div>";
             }
