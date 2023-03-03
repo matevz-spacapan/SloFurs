@@ -116,7 +116,7 @@
 					require 'app/sites/2019/reg/form/form_types/reg_form.php';
 				}
 				//payment form
-				if(!$new_reg && $color=='btn-success'){
+				if(!$new_reg && $color=='btn-success' && $event->room_confirmed == 1){
 					if(isset($session)){
 						require 'app/sites/2019/reg/form/form_types/pay_form.php';
 					}

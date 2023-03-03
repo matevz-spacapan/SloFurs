@@ -310,6 +310,10 @@ class RegModel{
 				$color='bg-warning';
 				$text=L::register_view_registered_partiallyPaid;
 			}
+            elseif($event->room_confirmed == 0){
+                $color='bg-danger text-white';
+                $text=L::register_view_registered_confirmed . L::register_view_registered_roomUnavailable;
+            }
 			elseif(($event->pay_button==1 || $event->collecting_payments==1)){
 				$color='bg-danger text-white';
 				$text=L::register_view_registered_unpaid;
@@ -320,8 +324,11 @@ class RegModel{
 			}
 		}
 		else{
-				$color='bg-danger text-white';
-				$text=L::register_view_registered_notConfirmed;
+            $color='bg-danger text-white';
+            $text=L::register_view_registered_notConfirmed;
+            if($event->room_confirmed == 0){
+                $text .= L::register_view_registered_roomUnavailable;
+            }
 		}
 		return array('color'=>$color, 'text'=>$text);
 	}

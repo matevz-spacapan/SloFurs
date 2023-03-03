@@ -127,6 +127,9 @@
                         echo 'disabled';
                         $result=L::register_form_modal_accomodation_noSpace;
                       }
+                      if(!$new_reg && $event->room_confirmed == 0 && $event->room_id==$room->id){
+                          $result .= L::register_form_modal_accomodation_noSpaceWaiting;
+                      }
                       ?>>
                     <label for="room<?php echo $room->id; ?>" class="custom-control-label">
                       <?php echo $room->type; ?>

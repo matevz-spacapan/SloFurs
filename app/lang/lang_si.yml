@@ -389,10 +389,11 @@ register:
     registered:
       h: 'Prihajajoči dogodki, na katere ste se prijavili'
       confirmed: 'Prijava potrjena'
-      notConfirmed: 'Prijava še nepotrjena'
+      notConfirmed: 'Prijava še ni potrjena'
       unpaid: 'Prijava potrjena, potrebno plačilo'
-      partiallyPaid: 'Delno plačana prijava'
+      partiallyPaid: 'Prijava potrjena in delno plačana'
       fullyPaid: 'Prijava potrjena in plačana'
+      roomUnavailable: ', izbrana soba ni na voljo!'
     upcoming:
       h: 'Prihajajoči dogodki'
       complete: 'Dopolnite profil, da se prijavite.'
@@ -464,11 +465,12 @@ register:
         h: 'Nastanitev'
         type: 'Tip sobe'
         persons: 'Oseb/sobo'
-        personsI: 'Rezervacijo delate le za eno mesto v sobi. Določanje sobivalcev se izvede kasneje.'
+        personsI: 'Kapaciteta posamezne sobe. Rezervacijo delate le za eno mesto v sobi.'
         availability: 'Razpoložljivost'
-        availabilityI: 'To je število sob tega tipa, ki so še vedno na voljo ob nalaganju spletne strani.'
+        availabilityI: 'To je število razpoložljivih mest v posamezni sobi, ki so še vedno na voljo ob nalaganju spletne strani.'
         none: 'Brez'
         noSpace: 'Ni razpoložljivosti'
+        noSpaceWaiting: ' - ste na čakalnem seznamu'
         noAccomodation: 'Ta dogodek nima nastanitve.'
         noAccomodationI: 'Glede na to, da je to večdnevni dogodek, predlagamo, da preverite opis dogodka za nastanitvene predloge, če so navedeni.'
       other:
