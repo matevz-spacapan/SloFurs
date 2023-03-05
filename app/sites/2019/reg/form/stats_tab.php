@@ -112,8 +112,10 @@ $(document).ready(function (){
   			}
   		}
   		else{
+              $i=0;
   			foreach ($tickets as $ticket){
-          echo '["'.ucfirst($ticket->ticket).'", '.$ticket->counter.'],';
+                  $i+=1;
+          echo '["'.ucfirst($i).'", '.$ticket->counter.'],';
   			}
   			$text=substr($text, 0, -1);
   		}

@@ -451,7 +451,7 @@ register:
       price: 'Price'
       prices:
         h: 'Event tickets'
-        prePay1: 'To finalise your registration for this event, we require you to pay in advance. Your payment is due on'
+        prePay1: 'To finalise your registration for this event, we require you to pay in advance. Your payment is due <b>no later than 14 days after registering</b>'
         prePay2: ' otherwise your registration will be cancelled. Payment is enabled after your registration is confirmed'
         prePayFAQ: 'More on this in our FAQ'
         free: 'This event is free of charge.'
@@ -459,8 +459,8 @@ register:
       accomodation:
         h: 'Accomodation'
         type: 'Room type'
-        persons: 'Persons/room'
-        personsI: 'The capacity of the room. You are making a reservation for only 1 spot in a room.'
+        persons: 'In room'
+        personsI: 'The attendees which have picked this room.'
         availability: 'Availability'
         availabilityI: 'This is the number of available spots in the room when you loaded the page.'
         none: 'None'

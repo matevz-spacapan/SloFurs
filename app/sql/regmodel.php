@@ -580,4 +580,11 @@ class RegModel{
 		}
 		return $price;
 	}
+
+    public function getAttendeesInRoom($room_id){
+        $sql='SELECT username FROM account INNER JOIN registration ON account.id=registration.acc_id WHERE room_id=:id AND room_confirmed=1';
+        $query=$this->db->prepare($sql);
+        $query->execute(array(':id'=>$room_id));
+        return $query->fetchAll();
+    }
 }

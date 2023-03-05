@@ -24,7 +24,7 @@
         <!-- TICKET TYPES -->
         <h5><?php echo L::register_form_modal_prices_h;?></h5>
         <?php if($event->pay_button==1): ?>
-          <small><?php echo L::register_form_modal_prices_prePay1;?> <b><?php echo $reg_model->convertViewable($event->payment_due, true); ?></b><?php echo L::register_form_modal_prices_prePay2;?>. <a href="<?php echo URL;?>paymentfaq" target="_blank"><?php echo L::register_form_modal_prices_prePayFAQ;?></a>.</small>
+          <small><?php echo L::register_form_modal_prices_prePay1;?><?php echo L::register_form_modal_prices_prePay2;?>. <a href="<?php echo URL;?>paymentfaq" target="_blank"><?php echo L::register_form_modal_prices_prePayFAQ;?></a>.</small>
         <?php endif; ?>
         <?php if($event->regular_price==0): ?>
           <p class="text-dark"><?php echo L::register_form_modal_prices_free;?></p>
@@ -123,7 +123,7 @@
                       if(!$new_reg&&$event->room_id==$room->id){
                         echo 'checked ';
                       }
-                      if($result<=0){
+                      elseif($result<=0){
                         echo 'disabled';
                         $result=L::register_form_modal_accomodation_noSpace;
                       }
@@ -137,7 +137,21 @@
                   </div>
                 </td>
                 <td><?php echo $room->price; ?>€</td>
-                <td><?php echo $room->persons; ?></td>
+                <td>
+                    <?php
+                        $in_room = $reg_model->getAttendeesInRoom($room->id);
+                        $in_room_str = '';
+                        if(count($in_room) > 0){
+                            foreach ($in_room as $attendee){
+                                $in_room_str .= $attendee->username . ', ';
+                            }
+                            echo substr($in_room_str, 0, strlen($in_room_str) - 2);
+                        }
+                        else{
+                            echo '-';
+                        }
+                    ?>
+                </td>
                 <td><?php echo $result; ?></td>
               </tr>
             <?php endforeach; ?>

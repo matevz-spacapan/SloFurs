@@ -456,7 +456,7 @@ register:
       price: 'Cena'
       prices:
         h: 'Vstopnina'
-        prePay1: 'Za dokončno potrditev vaše prijave na tem dogodku je potrebno plačilo v naprej. Plačilo morate opraviti najkasneje do'
+        prePay1: 'Za dokončno potrditev vaše prijave na tem dogodku je potrebno plačilo v naprej. Plačilo morate opraviti najkasneje v roku <b>14 dni od datuma prijave</b>'
         prePay2: ', sicer bo vaša prijava preklicana. Plačilo boste lahko opravili po tem, ko je vaša prijava potrjena'
         prePayFAQ: 'Več o tem v FAQ'
         free: 'Ta dogodek je brezplačen.'
@@ -464,8 +464,8 @@ register:
       accomodation:
         h: 'Nastanitev'
         type: 'Tip sobe'
-        persons: 'Oseb/sobo'
-        personsI: 'Kapaciteta posamezne sobe. Rezervacijo delate le za eno mesto v sobi.'
+        persons: 'V sobi'
+        personsI: 'Osebe, ki so izbrale to sobo.'
         availability: 'Razpoložljivost'
         availabilityI: 'To je število razpoložljivih mest v posamezni sobi, ki so še vedno na voljo ob nalaganju spletne strani.'
         none: 'Brez'

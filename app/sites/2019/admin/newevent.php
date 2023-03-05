@@ -1,5 +1,5 @@
 <?php require 'app/sites/'.THEME.'/admin/sidebar.php'; ?>
 <div class="w3-main" style="margin-left:300px">
 <div class="container-fluid mt-3">
-	<?php $editEvent=false; require 'app/sites/'.THEME.'/admin/event_form/form1.php'; ?>
+	<?php $editEvent=false; require 'app/sites/'.THEME.'/admin/form.php'; ?>
 </div>
