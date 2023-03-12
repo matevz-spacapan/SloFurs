@@ -29,7 +29,7 @@
 				<a class="nav-link" data-toggle="tab" href="#Stats"><?php echo L::register_form_statistics;?></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" data-toggle="tab" href="#Attendees"><?php echo L::register_form_attendees;?></a>
+				<a class="nav-link" data-toggle="tab" href="#Attendees"><?php echo L::register_form_attendees . ' (' . count($attendees) . ')';?></a>
 			</li>
 		<?php endif; ?>
 		<?php $carSharing=false; ?>

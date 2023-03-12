@@ -22,13 +22,13 @@
         $sum1=0; //num of attendees
         $sum2=0; //sum of tickets
         $sum3=0; //sum of rooms
-        $sum9=0; //num of people with rooms
-        $sum4=0; //num of fursuiters
-        $sum5=0; //num of artists
-        $sum6=0; //sum of si
-        $sum7=0; //sum of en
-        $sum8=0; //sum of confirmed
-        $sum9=0; //sum of received payments
+        $sum4=0; //num of people with rooms
+        $sum5=0; //num of fursuiters
+        $sum6=0; //num of artists
+        $sum7=0; //sum of si
+        $sum8=0; //sum of en
+        $sum9=0; //sum of confirmed
+        $sum10=0; //sum of received payments
       ?>
       <p><?php echo L::admin_overview_attendees_info;?></p>
       <form action="<?php echo URL; ?>admin/event?id=<?php echo $event->id; ?>" method="post">
@@ -76,7 +76,7 @@
                   if($amount==null){
                     $amount=0;
                   }
-                  $sum9+=$amount;
+                  $sum10+=$amount;
                   if($amount!=0 && $amount>=$toBePaid){
                     $colorPayment='bg-success text-white';
                   }
@@ -97,18 +97,18 @@
                   else{
                     echo $attendee->type.' ('.$attendee->price.'€) ';
                     $sum3+=$attendee->price;
-                    $sum9++;
+                    $sum4++;
                     echo ($attendee->room_confirmed==1)?'<i class="fas fa-check-circle" title="'.L::admin_overview_attendees_roomGet.'"></i>':'<i class="fas fa-times-circle" title="'.L::admin_overview_attendees_roomNotGet.'"></i>';
                   }
                 ?></td>
                 <td class="text-center"><?php
                 if($attendee->fursuiter==1){
                   echo '<i class="fas fa-paw"></i> ';
-                  $sum4++;
+                  $sum5++;
                 }
                 if($attendee->artist==1){
                   echo '<i class="fas fa-paint-brush"></i>';
-                  $sum5++;
+                  $sum6++;
                 }
                 if($attendee->fursuiter==0&&$attendee->artist==0){
                   echo '<i class="far fa-times"></i>';
@@ -117,10 +117,10 @@
                 <td><?php
                   echo '<img src="'.URL.'public/img/'.$attendee->language.'.jpg" width="32" class="rounded-circle">';
                   if($attendee->language=='si'){
-                    $sum6++;
+                    $sum7++;
                   }
                   else{
-                    $sum7++;
+                    $sum8++;
                   }
                 ?></td>
                 <td>
@@ -134,7 +134,7 @@
                 </td>
                 <td class="text-center">
                   <div class="custom-control custom-checkbox">
-                    <input class="custom-control-input" id="confirmed<?php echo $attendee->id; ?>" type="checkbox" name="<?php echo $attendee->id; ?>" value="true" <?php if($attendee->confirmed==1){echo 'checked'; $sum8++;} ?>>
+                    <input class="custom-control-input" id="confirmed<?php echo $attendee->id; ?>" type="checkbox" name="<?php echo $attendee->id; ?>" value="true" <?php if($attendee->confirmed==1){echo 'checked'; $sum9++;} ?>>
                     <label for="confirmed<?php echo $attendee->id; ?>" class="custom-control-label"></label>
                   </div>
                 </td>
@@ -150,13 +150,13 @@
               <td><i class="fas fa-users"></i> <?php echo $sum1;?></td>
               <td></td>
               <td><i class="far fa-sigma"></i> <?php echo $sum2;?>€</td>
-              <td><i class="far fa-sigma"></i> <?php echo $sum9.'€'; ?></td>
-              <td><i class="far fa-sigma"></i> <?php echo $sum3;?>€ (<i class="fas fa-users"></i> <?php echo $sum9;?>)</td>
-              <td><?php echo "$sum4 / $sum5";?></td>
-              <td></i> <?php echo "SI: $sum6 / EN: $sum7";?></td>
+              <td><i class="far fa-sigma"></i> <?php echo $sum10.'€'; ?></td>
+              <td><i class="far fa-sigma"></i> <?php echo $sum3;?>€ (<i class="fas fa-users"></i> <?php echo $sum4;?>)</td>
+              <td><?php echo "$sum5 / $sum6";?></td>
+              <td></i> <?php echo "SI: $sum7 / EN: $sum8";?></td>
               <td></td>
               <td></td>
-              <td><i class="far fa-sigma"></i> <?php echo $sum8;?></td>
+              <td><i class="far fa-sigma"></i> <?php echo $sum9;?></td>
               <td></td>
             </tr>
           </table><br>

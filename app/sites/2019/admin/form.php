@@ -196,7 +196,7 @@
           ?>
           <tr id="row<?php echo $room->id; ?>">
             <td><input type="text" class="form-control" name="type<?php echo $room->id; ?>" required value="<?php echo $room->type; ?>"></td>
-      			<td><input type="number" class="form-control" name="persons<?php echo $room->id; ?>" min="1" required value="<?php echo $room->persons; ?>" <?php if($booked){echo 'disabled';} ?>></td>
+      			<td><input type="number" class="form-control" name="persons<?php echo $room->id; ?>" min="1" required value="<?php echo $room->persons; ?>"></td>
       			<td><input type="number" class="form-control" min="0" name="price<?php echo $room->id; ?>" required value="<?php echo $room->price; ?>"></td>
       			<td><input type="number" class="form-control" name="quantity<?php echo $room->id; ?>" min="1" required value="<?php echo $room->quantity; ?>"></td>
       			<td><button class="w3-button w3-red w3-round" onclick="removeRow('row<?php echo $room->id; ?>')" <?php if($booked){echo 'disabled';} ?>><b>-</b></button></td>
