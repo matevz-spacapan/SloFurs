@@ -24,7 +24,7 @@ if($event->pay_button==1 && $event->confirmed==1){
         \Stripe\Stripe::setApiKey(STRIPE_PRIVATE);
         $session = \Stripe\Checkout\Session::create([
           'customer_email' => $account->email,
-          'payment_method_types' => ['card'],
+          //'payment_method_types' => ['card'],
           'line_items' => [[
             'name' => 'Event ticket',
             'description' => "Ticket for {$event->name} - {$event->ticket}",

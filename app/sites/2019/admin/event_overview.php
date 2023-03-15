@@ -137,6 +137,7 @@
                     <input class="custom-control-input" id="confirmed<?php echo $attendee->id; ?>" type="checkbox" name="<?php echo $attendee->id; ?>" value="true" <?php if($attendee->confirmed==1){echo 'checked'; $sum9++;} ?>>
                     <label for="confirmed<?php echo $attendee->id; ?>" class="custom-control-label"></label>
                   </div>
+                    <p>(#<?php echo $attendee->id; ?>)</p>
                 </td>
                 <td class="text-center">
                   <button type="submit" name="edit_reg" value="<?php echo $attendee->id; ?>" class="btn btn-primary mb-1" disabled><?php echo L::admin_overview_attendees_edit; ?></button><br>

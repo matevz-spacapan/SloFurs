@@ -546,12 +546,19 @@ class RegModel{
 		return $query->fetch();
 	}
 	//add payment amount to session
-	public function hookPaymentStripe($session){
-		//check if user is the owner of the car share
+	public function hookPaymentCompletedStripe($session){
+		//set the payment as confirmed
 		$sql='UPDATE payment SET verified=1 WHERE session_id=:session';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':session'=>$session));
 	}
+    //add payment amount to session
+    public function hookPaymentFailedStripe($session){
+        //set the payment as confirmed
+        $sql='DELETE FROM payment WHERE session_id=:session';
+        $query=$this->db->prepare($sql);
+        $query->execute(array(':session'=>$session));
+    }
 	//sum of pending payments for registration
 	public function sumPendingPayments($id){
 		$sql='SELECT SUM(amount) AS paid FROM payment WHERE reg_id=:id AND verified=0 AND returned=1';
