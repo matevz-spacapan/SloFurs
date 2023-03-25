@@ -9,7 +9,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 Options -Indexes
 
 #If not in root folder, then /slofurs/, otherwise delete
-RewriteBase /slofurs/
+RewriteBase /sf/
 
 #Rewrite rules
 RewriteCond %{REQUEST_FILENAME} !-d

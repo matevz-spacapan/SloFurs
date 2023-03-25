@@ -106,6 +106,9 @@ class RegModel{
 		}
 		$ticket=(array_key_exists('ticket', $data))?strip_tags($data['ticket']):'regular';
 		$room=(array_key_exists('room', $data)&&$data['room']!=0)?strip_tags($data['room']):null;
+        if ($event->ignore_room == 1 && $ticket == 'regular') {
+            $room = null;
+        }
 		$notes=strip_tags($data['notes']);
 		$fursuiter=(array_key_exists('fursuit', $data))?strip_tags($data['fursuit']):0;
 		$artist=(array_key_exists('artist', $data))?strip_tags($data['artist']):0;
@@ -199,6 +202,9 @@ class RegModel{
 		}
 		$ticket=(array_key_exists('ticket', $data))?strip_tags($data['ticket']):'regular';
 		$room=(array_key_exists('room', $data))?($data['room']!=0)?strip_tags($data['room']):null:null;
+        if ($event->ignore_room == 1 && $ticket == 'regular') {
+            $room = null;
+        }
 		$notes=strip_tags($data['notes']);
 		$fursuiter=(array_key_exists('fursuit', $data))?strip_tags($data['fursuit']):0;
 		$artist=(array_key_exists('artist', $data))?strip_tags($data['artist']):0;

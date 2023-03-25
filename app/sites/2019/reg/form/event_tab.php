@@ -48,6 +48,17 @@
 				}
 			?>
 			<p class="text-dark"><?php echo $text; ?></p>
+            <p>
+                <?php
+                echo $event->regular_price . '€';
+                if($event->super_price!=-1){
+                    echo ' - ' . $event->super_price . '€';
+                }
+                else if($event->sponsor_price!=-1){
+                    echo ' - ' . $event->sponsor_price . '€';
+                }
+                ?>
+            </p>
 			<?php if(isset($event->location)&&strlen($event->location)>0): ?>
 				<!-- event location -->
 				<h5><?php echo L::register_form_location;?></h5>
