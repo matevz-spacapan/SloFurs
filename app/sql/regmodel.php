@@ -20,14 +20,14 @@ class RegModel{
 
 	// Get id's of registered events for logged in user
 	public function getREvents(){
-		$sql='SELECT id FROM ((SELECT registration.id AS id, event.event_start FROM event INNER JOIN registration ON event.id = registration.event_id WHERE (event.event_start > NOW()) AND registration.acc_id = :acc_id ORDER BY event.event_start ASC) UNION DISTINCT (SELECT registration.id AS id, event.event_start FROM event INNER JOIN registration ON event.id = registration.event_id WHERE ((event.event_start <= NOW() AND event.event_end >= NOW())) AND registration.acc_id = :acc_id ORDER BY event.event_start ASC)) AS union1 ORDER BY union1.event_start ASC';
+		$sql='SELECT registration.id FROM event INNER JOIN registration ON event.id = registration.event_id WHERE registration.acc_id = :acc_id AND ( (event.event_start > NOW()) OR (event.event_start <= NOW() AND event.event_end >= NOW()) ) ORDER BY event.event_start ASC';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':acc_id'=>$_SESSION['account']));
 		return $query->fetchAll();
 	}
 	// Get all current/upcoming events
 	public function getCEvents($all=false){
-		$sql='SELECT * FROM event WHERE NOT EXISTS (SELECT 1 FROM registration INNER JOIN event ON event.id = registration.event_id AND registration.acc_id = :acc_id WHERE(event.id = registration.event_id)) AND event.viewable <= NOW() AND event.event_end >= NOW() ORDER BY event.event_start ASC';
+		$sql='SELECT * FROM event WHERE NOT EXISTS (SELECT 1 FROM registration WHERE event.id = registration.event_id AND registration.acc_id = :acc_id ) AND event.viewable <= NOW() AND event.event_end >= NOW() ORDER BY event.event_start ASC';
 		if(isset($_SESSION['account'])){
 			$sql2='SELECT * FROM account WHERE id=:id';
 			$query=$this->db->prepare($sql2);
