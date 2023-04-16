@@ -32,7 +32,7 @@
 				<a class="nav-link" data-toggle="tab" href="#Attendees"><?php echo L::register_form_attendees . ' (' . count($attendees) . ')';?></a>
 			</li>
 		<?php endif; ?>
-		<?php $carSharing=false; ?>
+		<?php $carSharing=true; ?>
 		<?php if($carSharing): ?>
 			<li class="nav-item">
 				<a class="nav-link" data-toggle="tab" href="#Rides"><?php echo L::register_form_car_h;?></a>

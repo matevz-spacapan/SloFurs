@@ -3,7 +3,7 @@
   <h3><?php echo L::register_form_stats_attendees;?></h3>
   <div class="row">
     <?php foreach($attendees as $attendee): ?>
-        <div class="card m-2 card-round" style="width:150px; min-height:150px;">
+        <div class="card card-custom m-2 card-round" style="width:150px; min-height:150px;">
         <?php if(file_exists('public/accounts/'.$attendee->pfp.'.jpg')): ?>
           <img src="<?php echo URL.'public/accounts/'.$attendee->pfp; ?>.jpg" class="roundImg">
         <?php else: ?>
@@ -31,7 +31,7 @@
     <h3><?php echo L::register_form_stats_fursuiters;?></h3>
     <div class="row">
       <?php foreach($fursuits as $fursuit): ?>
-        <div class="card m-2 card-round" style="width: 220px;">
+        <div class="card card-custom m-2 card-round" style="width: 220px;">
           <img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.jpg" class="roundImg">
           <div class="text-center"><b><?php echo $fursuit->name;?></b><br>
           (<?php echo L::admin_overview_fursuiters_owned;?> <?php echo $fursuit->username;?>)<br>

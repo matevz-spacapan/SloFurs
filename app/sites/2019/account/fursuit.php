@@ -63,7 +63,7 @@
 		<?php if(count($fursuits) > 0): ?>
 			<?php foreach($fursuits as $fursuit): ?>
 				<!-- On the list -->
-				<div class="card fursuit card-round mr-3 bg-light" data-toggle="modal" data-target="#fursuit<?php echo $fursuit->id; ?>">
+				<div class="card card-custom fursuit card-round mr-3 bg-light" data-toggle="modal" data-target="#fursuit<?php echo $fursuit->id; ?>">
 					<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.jpg" class="roundImg">
 					<p class="text-center pt-2"><b><?php /*if($fursuit->in_use==1){echo '<i class="far fa-id-card-alt fa-lg"></i> ';}*/ echo $fursuit->name; ?></b></p>
 				</div>

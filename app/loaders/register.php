@@ -69,12 +69,12 @@ class Register extends Connection{
 			header('location: '.URL);
 		}
 		$id=strip_tags($_GET["id"]);
-		$event=$reg_model->existingReg($id);
-		$evt_id=$event->event_id;
 		//check if actually regged for evt
 		if($reg_model->registered($id, 'id')){
 			header('location: '.URL.'register');
 		}
+        $event=$reg_model->existingReg($id);
+        $evt_id=$event->event_id;
 		//if submitting the registration form
 		if(isset($_POST['edit_registration'])){
 			$_SESSION['alert']=$reg_model->editReg($id, $_POST);
@@ -82,11 +82,11 @@ class Register extends Connection{
 		}
 		//if submitting a new car share
 		elseif(isset($_POST['new_car_share'])){
-			$_SESSION['alert']=$reg_model->newCarShare($evt_id, strip_tags($_POST['direction']), filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['outbound']), filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['description']));
+			$_SESSION['alert']=$reg_model->newCarShare($evt_id, strip_tags($_POST['direction']), filter_var($_POST['passengers'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['outbound']), filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['description']));
 			header('location: '.URL.'register/edit?id='.$id);
 		}
 		elseif(isset($_POST['edit_car_share'])){
-			$_SESSION['alert']=$reg_model->editCarShare(strip_tags($_GET['carshare']), strip_tags($_POST['direction']), filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['outbound']), filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['description']));
+			$_SESSION['alert']=$reg_model->editCarShare(filter_var($_GET['carshare'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['direction']), filter_var($_POST['passengers'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['outbound']), filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_INT), strip_tags($_POST['description']));
 			header('location: '.URL.'register/edit?id='.$id);
 		}
 		elseif(isset($_POST['delete_car_share'])){

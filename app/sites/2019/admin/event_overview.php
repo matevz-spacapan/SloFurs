@@ -203,7 +203,7 @@
     <h3><?php echo L::admin_overview_fursuiters_h;?></h3>
     <div class="container-fluid row">
       <?php foreach($fursuits as $fursuit): ?>
-        <div class="card fursuit card-round mr-3 bg-light" >
+        <div class="card card-custom fursuit card-round mr-3 bg-light" >
 					<img src="<?php echo URL.'public/fursuits/'.$fursuit->img; ?>.jpg" class="roundImg">
 					<p class="text-center pt-2"><b><?php echo $fursuit->name; ?></b></p>
 				</div>

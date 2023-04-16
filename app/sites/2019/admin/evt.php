@@ -1,4 +1,4 @@
-<div class="card mr-5 my-2 <?php echo $color; ?>">
+<div class="card card-custom mr-5 my-2 <?php echo $color; ?>">
 	<div class=" bg-light">
 		<div class="img-container">
 			<?php

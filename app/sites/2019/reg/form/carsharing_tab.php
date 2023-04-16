@@ -6,7 +6,7 @@
     <div class="w3-hide col-md-10 col-lg-6" id="addNew">
       <br>
       <p><?php echo L::register_form_car_p;?></p>
-      <form action="<?php echo URL;?>register/edit?id=<?php echo $event->id;?>" method="post" autocomplete="off">
+      <form action="<?php echo URL;?>register/edit?id=<?php echo $id;?>" method="post" autocomplete="off">
         <label><?php echo L::register_form_car_direction;?></label> <sup class="text-danger">*</sup><br/>
         <input class="w3-radio" type="radio" name="direction" value="0" required>
         <label><?php echo L::register_form_car_to;?></label>
@@ -25,7 +25,7 @@
         <label><?php echo L::register_form_car_date;?></label> <sup class="text-danger">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_dateI;?></i>
         <input type="datetime-local" class="w3-input" name="outbound" required>
         <label><?php echo L::register_form_car_price;?></label> <sup class="text-danger">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_priceI;?></i>
-        <input type="number" class="w3-input" name="price" min="1" required>
+        <input type="number" class="w3-input" name="price" min="0" required>
         <label><?php echo L::register_form_car_desc;?></label> <sup class="text-danger">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_descI;?></i>
         <textarea class="w3-input" name="description" required></textarea><p>
           <div class="text-center">
@@ -59,7 +59,7 @@
                     <h2><?php echo L::register_form_car_edit;?></h2>
                   </header>
                   <div class="w3-container">
-                    <form action="<?php echo URL;?>register/edit?id=<?php echo $event->id;?>&carshare=<?php echo $carShare->id;?>" method="post">
+                    <form action="<?php echo URL;?>register/edit?id=<?php echo $id;?>&carshare=<?php echo $carShare->id;?>" method="post">
                       <label><?php echo L::register_form_car_direction;?></label> <sup class="text-danger">*</sup><br/>
                       <input class="w3-radio" type="radio" name="direction" value="0" required <?php if($carShare->direction==0){ echo 'checked';} ?>>
                       <label><?php echo L::register_form_car_to;?></label>
@@ -78,7 +78,7 @@
                       <label><?php echo L::register_form_car_date;?></label> <sup class="text-danger">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_dateI;?></i>
                       <input type="datetime-local" class="w3-input" name="outbound" required value="<?php echo $reg_model->convert($carShare->outbound); ?>">
                       <label><?php echo L::register_form_car_price;?></label> <sup class="text-danger">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_priceI;?></i>
-                      <input type="number" class="w3-input" name="price" min="1" required value="<?php echo $carShare->price; ?>">
+                      <input type="number" class="w3-input" name="price" min="0" required value="<?php echo $carShare->price; ?>">
                       <label><?php echo L::register_form_car_desc;?></label> <sup class="text-danger">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_descI;?></i>
                       <textarea class="w3-input" name="description" required><?php echo $carShare->description; ?></textarea><p>
                         <div class="text-center">
@@ -135,7 +135,7 @@
                     <h2><?php echo L::register_form_car_edit;?></h2>
                   </header>
                   <div class="w3-container">
-                    <form action="<?php echo URL;?>register/edit?id=<?php echo $event->id;?>&carshare=<?php echo $carShare->id;?>" method="post">
+                    <form action="<?php echo URL;?>register/edit?id=<?php echo $id;?>&carshare=<?php echo $carShare->id;?>" method="post">
                       <label><?php echo L::register_form_car_direction;?></label> <sup class="text-danger">*</sup><br/>
                       <input class="w3-radio" type="radio" name="direction" value="0" required <?php if($carShare->direction==0){ echo 'checked';} ?>>
                       <label><?php echo L::register_form_car_to;?></label>
@@ -154,7 +154,7 @@
                       <label><?php echo L::register_form_car_date;?></label> <sup class="text-danger">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_dateI;?></i>
                       <input type="datetime-local" class="w3-input" name="outbound" required value="<?php echo $reg_model->convert($carShare->outbound); ?>">
                       <label><?php echo L::register_form_car_price;?></label> <sup class="text-danger">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_priceI;?></i>
-                      <input type="number" class="w3-input" name="price" min="1" required value="<?php echo $carShare->price; ?>">
+                      <input type="number" class="w3-input" name="price" min="0" required value="<?php echo $carShare->price; ?>">
                       <label><?php echo L::register_form_car_desc;?></label> <sup class="text-danger">*</sup> <i class="w3-opacity w3-small"><?php echo L::register_form_car_descI;?></i>
                       <textarea class="w3-input" name="description" required><?php echo $carShare->description; ?></textarea><p>
                         <div class="text-center">

@@ -50,7 +50,7 @@
     <li>Srečanja so javen dogodek, ki je lahko pogosto tudi na javnem mestu, zato naj bo vaše obnašanje primerno za v javnost.</li>
     <li>Do ostalih udeležencev bodite vljudni in strpni.</li>
     <li>Spoštujte območje zasebnosti posameznika. Če si nekdo ne želi telesnega kontakta, ga ne poskušajte vzpostaviti. Če ste v dvomih, najprej vprašajte.</li>
-    <li>Odgovorni ste za kakršno koli škodo, ki jo povzročite drugi osebi.</li>
+    <li>Odgovorni ste za kakršno koli škodo, ki jo povzročite.</li>
     <li>Če nekdo zahteva, da prenehate dejavnost, ki se te osebe tiče, prenehajte nemudoma.</li>
     <li>Izkazovanje naklonjenosti naj bo v mejah dobrega okusa.
       <ol type="a">
