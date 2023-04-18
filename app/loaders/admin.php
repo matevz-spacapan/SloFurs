@@ -69,11 +69,11 @@ class Admin extends Connection{
 					header('location: '.URL.'admin/users?id='.$filtered_id);
 				}
 				elseif(isset($_POST['delete_personal_info'])){
-					$dash_model->deleteProfile($filtered_id, filter_var($_SESSION['account'], FILTER_SANITIZE_NUMBER_INT));
+                    $_SESSION['alert']=$dash_model->deleteProfile($filtered_id);
 					header('location: '.URL.'admin/users?id='.$filtered_id);
 				}
 				elseif(isset($_POST['ban_account'])){
-					$dash_model->ban($filtered_id);
+                    $_SESSION['alert']=$dash_model->ban($filtered_id);
 					header('location: '.URL.'admin/users?id='.$filtered_id);
 				}
 				else{
