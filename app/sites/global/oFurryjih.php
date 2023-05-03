@@ -55,6 +55,6 @@
   </div>
   <p class="text-center"><b>Fursuiterji na srečanju slovenskih furrijev</b></p>
 
-  <p>Če želite o fandomu izvedeti več, si lahko preberete več na <a href="http://www.anthrocon.org/" target="_blank">spletnih straneh Anthrocona</a>, največjega svetovnega zborovanja furryjev ali pa na <a href="http://www.crofurry.org/" target="_blank">spletni strani naših sosedov Hrvatov</a>. Če se vam kljub temu poraja kako vprašanje, smo vam na voljo na <a href="mailto:info@slofurs.org" target="_blank">info@slofurs.org</a>, na <a href="https://twitter.com/slofurs" target="_blank">SloFurs Twitterju</a> ter <a href="https://discord.gg/0eaoyLCJ7eiTMBaj" target="_blank">SloFurs Discord strežniku</a>, enako velja, če se nam želite pridružiti; lahko pa se udeležite tudi katerega od prihajajočih srečanj.</p>
+  <p>Če želite o fandomu izvedeti več, si lahko preberete več na <a href="http://www.anthrocon.org/" target="_blank">spletnih straneh Anthrocona</a>, največjega svetovnega zborovanja furryjev ali pa na <a href="http://www.crofurry.org/" target="_blank">spletni strani naših sosedov Hrvatov</a>. Če se vam kljub temu poraja kako vprašanje, smo vam na voljo na <a href="mailto:info@slofurs.org" target="_blank">info@slofurs.org</a>, na <a href="https://twitter.com/slofurs" target="_blank">SloFurs Twitterju</a> ter <a href="https://discord.gg/K3dDpw8" target="_blank">SloFurs Discord strežniku</a>, enako velja, če se nam želite pridružiti; lahko pa se udeležite tudi katerega od prihajajočih srečanj.</p>
 
 </div>

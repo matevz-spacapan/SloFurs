@@ -7,7 +7,7 @@
   </div>
   <div class="display-bottomleft text-white lead" style="padding:70px 48px">
     <div class="container p-4 bg-light rounded">
-      <a href="https://discord.gg/0eaoyLCJ7eiTMBaj" class="px-2" target="_blank"><i class="fab fa-discord"></i></a>
+      <a href="https://discord.gg/K3dDpw8" class="px-2" target="_blank"><i class="fab fa-discord"></i></a>
       <a href="https://twitter.com/SloFurs" class="px-2" target="_blank"><i class="fab fa-twitter"></i></a>
       <a href="https://www.facebook.com/slofurs" class="px-2" target="_blank"><i class="fab fa-facebook-f"></i></a>
     </div>
@@ -63,7 +63,7 @@
 <!-- Social -->
 <div class="jumbotron jumbotron-fluid bg-transparent">
   <div class="container-fluid text-center">
-    <a href="https://discord.gg/0eaoyLCJ7eiTMBaj" class="px-3 display-4" target="_blank"><i class="fab fa-discord"></i></a>
+    <a href="https://discord.gg/K3dDpw8" class="px-3 display-4" target="_blank"><i class="fab fa-discord"></i></a>
     <a href="https://twitter.com/SloFurs" class="px-3 display-4" target="_blank"><i class="fab fa-twitter"></i></a>
     <a href="https://www.facebook.com/slofurs" class="px-3 display-4" target="_blank"><i class="fab fa-facebook-f"></i></a>
  </div>

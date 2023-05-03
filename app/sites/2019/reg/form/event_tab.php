@@ -104,7 +104,7 @@
 			} ?>
 			<!-- questions -->
 			<h5><?php echo L::register_form_questions;?></h5>
-			<p class="text-dark"><a href="mailto:info@slofurs.org" target="_blank"><?php echo L::register_form_email;?></a>, <a href="https://discord.gg/0eaoyLCJ7eiTMBaj" target="_blank">Discord <i class="far fa-external-link"></i></a> </p>
+			<p class="text-dark"><a href="mailto:info@slofurs.org" target="_blank"><?php echo L::register_form_email;?></a>, <a href="https://discord.gg/K3dDpw8" target="_blank">Discord <i class="far fa-external-link"></i></a> </p>
 			<!-- FORM BUTTON -->
 			<?php if($new_reg): ?>
 				<button class="btn-block btn <?php echo $color; ?>" <?php if($color!='btn-success'||$age<$event->restricted_age){echo 'disabled';} else{echo 'data-toggle="modal" data-target="#register"';} ?>><?php echo L::register_form_buttonRegister;?></button>
