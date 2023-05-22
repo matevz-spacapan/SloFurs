@@ -211,12 +211,9 @@ footer: '<i class="far fa-code"></i> with <i class="fas fa-heart"></i> in Sloven
 notFound: 'Whoops, it seems you went into a dark corner. Nothing nice to see here, sadly.'
 home:
   a: 'Welcome to SloFurs!'
-  b: 'Welcome to SloFurs, the web corner of Slovenian furries. If you're interested in our upcoming events or anything happening by us, you've come to the right place. Scroll down or head over to the <u><a href="/register" class="text-white">Events</a></u> tab to see what fun things we have in store for you.'
+  b: 'Welcome to SloFurs, the web corner of Slovenian furries. We're inviting you to join us on our convention <u><a href="/register/new?id=12">GoldenHorn</a></u> in Ajdovščina!'
   c: 'Image by'
   first:
-    a: 'Our new event home'
-    b: 'Welcome to SloFurs\' new home for events! This is where you can see and register for our upcoming events and see an archive of our past gatherings.'
-    c: 'We continue to make new features for these pages. There might be things that don\'t work properly.'
     d: 'If you find any bugs, please send a message to <a href="http://t.me/pur3bolt" target="_blank">Pur3Bolt <i class="far fa-external-link"></i></a> on Telegram.'
   second:
     a: 'Our upcoming events'

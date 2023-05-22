@@ -2,7 +2,10 @@
 	<?php if(strpos($this->getBaseUrl(), 'admin/')!==false): ?>
 		<button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="$('#sidebar').show()"><i class="far fa-bars"></i>  Menu</button>
 	<?php endif; ?>
-  <a class="navbar-brand" href="<?php echo URL ?>"><?php echo L::topnavbar_home;?></a>
+  <a class="navbar-brand" href="<?php echo URL ?>">
+      <img src="/public/img/logo.svg" alt="SloFurs Logo"
+           style="max-width: 100%; max-height: 100%; height: 50px;">
+  </a>
 
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false">
     <span class="navbar-toggler-icon"></span>
@@ -21,9 +24,6 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?php echo URL ?>drustvo"><?php echo L::topnavbar_drustvo;?></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="https://slofurs.org/" target="_blank"><?php echo L::topnavbar_blog;?> <i class="far fa-external-link"></i></a>
       </li>
     </ul>
 		<ul class="navbar-nav ml-auto">

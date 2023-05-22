@@ -80,28 +80,6 @@ html, body{
 	margin: 0 auto;
   text-align: center;
 }
-/*.card{
-	width: 250px;
-	min-height: 173px;
-	display: inline-block;
-	border-radius: 16px;
-	color: #000;
-	background-color: #f1f1f1;
-	cursor: pointer;
-	margin: 0 7px;
-	position: relative;
-}
-.eventImage{
-	z-index:0;
-	position: absolute;
-	left: 230px;
-	width:110px;
-	height:173px;
-}
-.fixer{
-	position: relative;
-	width: 350px;
-}*/
 .card-custom{
   width:250px;
   border: 0px solid white!important;
@@ -128,7 +106,7 @@ textarea{
 .bgimg {
   background-position: center;
   background-size: cover;
-  background-image: url("https://events.slofurs.org/public/img/header-2.jpg");
+  background-image: url("https://localhost/public/img/head2.webp");
   min-height: 100%;
   filter: grayscale(30%);
 }
@@ -256,7 +234,7 @@ textarea{
 }
 .display-left{
   position:absolute;
-  top:50%;
+  top:30%;
   left:0%;
   transform:translate(0%,-50%);
   -ms-transform:translate(-0%,-50%);

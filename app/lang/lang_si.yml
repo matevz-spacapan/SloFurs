@@ -216,12 +216,9 @@ footer: '<i class="far fa-code"></i> z <i class="fas fa-heart"></i> v Sloveniji.
 notFound: 'Opla, izgleda, da ste šli v zelo temen kotiček naše strani. Na žalost, ni nič lepega za videti tukaj.'
 home:
   a: 'Dobrodošli na straneh SloFurs!'
-  b: 'Dobrodošli na SloFurs, spletnem kotičku slovenskih furryjev. Če niste popolnoma prepričani, kdo furryji so in kaj je furry fandom, vas vabimo, da si več preberete na zavihku "<u><a href="/ofurry" class="text-white">O furryjih</a></u>".'
+  b: 'Dobrodošli na SloFurs, spletnem kotičku slovenskih furryjev. Vabimo vas, da se nam pridružite na glavnem dogodku leta <u><a href="/register/new?id=12">GoldenHorn</a></u> v Ajdovščini.'
   c: 'Slikal'
   first:
-    a: 'Naš nov dom za dogodke'
-    b: 'Dobrodošli na SloFursovem novem domu za dogodke! Tukaj lahko vidite naše prihajajoče dogodke, se nanje prijavite ter si ogledate arhiv preteklih druženj.'
-    c: 'Strani dopolnjujemo še z raznimi novostmi in lahko se zgodi, da nekatere od njih ne bodo delale pravilno.'
     d: 'Če najdete kakšno napako, jo prosim javite <a href="http://t.me/pur3bolt" target="_blank">Pur3Boltu <i class="far fa-external-link"></i></a> na Telegramu.'
   second:
     a: 'Naši prihajajoči dogodki'

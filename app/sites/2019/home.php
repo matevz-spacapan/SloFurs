@@ -1,19 +1,16 @@
 <!-- Header with full-height image -->
 <header class="bgimg container-fluid">
-  <div class="display-left text-white p-5">
+  <div class="display-left p-3">
     <span class="display-3 d-none d-md-block"><?php echo L::home_a;?></span><br>
     <span class="display-4 d-md-none"><?php echo L::home_a;?></span><br>
     <h4 style="max-width: 85%"><?php echo L::home_b;?></h4>
   </div>
-  <div class="display-bottomleft text-white lead" style="padding:70px 48px">
+  <div class="display-bottomleft lead" style="padding:70px 48px">
     <div class="container p-4 bg-light rounded">
       <a href="https://discord.gg/K3dDpw8" class="px-2" target="_blank"><i class="fab fa-discord"></i></a>
       <a href="https://twitter.com/SloFurs" class="px-2" target="_blank"><i class="fab fa-twitter"></i></a>
       <a href="https://www.facebook.com/slofurs" class="px-2" target="_blank"><i class="fab fa-facebook-f"></i></a>
     </div>
-  </div>
-  <div class="display-bottomright text-white lead" style="padding:90px 48px">
-    <?php echo L::home_c;?> Torchfire
   </div>
 </header>
 
@@ -55,7 +52,6 @@
       <p><?php echo L::admin_event_noUpcoming;?></p>
     <?php endif; ?>
     <hr>
-    <p><?php echo L::home_first_c;?></p>
     <p><?php echo L::home_first_d;?></p>
   </div>
 </div>
