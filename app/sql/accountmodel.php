@@ -117,8 +117,8 @@ class AccountModel{
 		if(count($upcoming)!=0){
 			return L::alerts_d_cantDeleteAcc1;
 		}
-		//if past Evt>5 days ago
-		$sql='SELECT * FROM event INNER JOIN registration ON event.id=registration.event_id WHERE event_end>NOW()-INTERVAL 5 DAY AND acc_id=:id ORDER BY event_end ASC';
+		//if past Evt>10 days ago
+		$sql='SELECT * FROM event INNER JOIN registration ON event.id=registration.event_id WHERE event_end>NOW()-INTERVAL 10 DAY AND acc_id=:id ORDER BY event_end ASC';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$_SESSION['account']));
 		$past=$query->fetchAll();

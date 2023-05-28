@@ -19,6 +19,9 @@
       <li class="nav-item">
         <a class="nav-link" href="<?php echo URL ?>rules"><?php echo L::topnavbar_rules;?></a>
       </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?php echo URL ?>privacy"><?php echo L::topnavbar_privacy;?></a>
+        </li>
       <li class="nav-item">
         <a class="nav-link" href="<?php echo URL ?>ofurry"><?php echo L::topnavbar_furries;?></a>
       </li>
