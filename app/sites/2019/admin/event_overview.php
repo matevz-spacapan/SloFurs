@@ -49,7 +49,10 @@
             </tr>
             <?php foreach($attendees as $attendee): ?>
               <tr>
-                <td><a href="<?php echo URL.'admin/users?id='.$attendee->accID; ?>"><?php echo $attendee->username; $sum1++; ?></a></td>
+                <td>
+                    <a href="<?php echo URL.'admin/users?id='.$attendee->accID; ?>"><?php echo $attendee->username; $sum1++; ?></a>
+                    <?php echo ($attendee->waiver == 1) ? '<i class="fas fa-check" title="Permanent waiver"></i>':'<i class="fas fa-times" title="Must sign a waiver"></i>'; ?>
+                </td>
                 <td><?php echo $event_model->convertViewable($attendee->created, 2);?></td>
                 <td class="text-center"><?php
                   if($attendee->ticket=='regular'&&$event->regular_price==0){
@@ -98,7 +101,7 @@
                     echo $attendee->type.' ('.$attendee->price.'€) ';
                     $sum3+=$attendee->price;
                     $sum4++;
-                    echo ($attendee->room_confirmed==1)?'<i class="fas fa-check-circle" title="'.L::admin_overview_attendees_roomGet.'"></i>':'<i class="fas fa-times-circle" title="'.L::admin_overview_attendees_roomNotGet.'"></i>';
+                    echo ($attendee->room_confirmed==1)?'<i class="fas fa-check" title="'.L::admin_overview_attendees_roomGet.'"></i>':'<i class="fas fa-times" title="'.L::admin_overview_attendees_roomNotGet.'"></i>';
                   }
                 ?></td>
                 <td class="text-center"><?php

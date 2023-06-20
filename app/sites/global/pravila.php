@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>Pravila SloFurs srečanj in pogoji poslovanja</h1>
+    <h1>Pravila SloFurs dogodkov in pogoji poslovanja</h1>
     <p>Namen dogodkov je pripraviti sproščeno in prijetno vzdušje vsem udeležencem, ki se jih odločijo udeležiti. Dogodke poskušamo voditi s čim manj formalnostmi in določenih pravil, saj se zanašamo na zdravo pamet vsakega posameznika. Kljub temu smo opazili potrebo po določitvi nekaterih osnovnih pravil, ki bodo preprečila morebitne organizacijske, vedenjske in zakonske zaplete. Pravila so zapisana okvirno, vsebujejo smernice za določene vnaprej pričakovane primere, v vseh drugih primerih predvsem veljajo prva tri pravila. <b>V splošnem velja, da boste s kratkim razmislekom vedeli, kaj je primerno in kaj ne. Če ste v dvomih, vprašajte organizatorje.</b></p>
     <p><b>V času vsakega dogodka so veljavna najnovejša objavljena pravila ob začetku dogodka. Zaradi preglednosti se v besedilu uporabljajo oblike za moški spol.</b></p>
     <p>S spletno prodajo na tej strani upravlja Društvo SloFurs, Gregorčičeva ulica 33, 5000 Nova Gorica, matična številka: 4121988000, davčna številka: 73456012, ki je obenem tudi ponudnik storitev (v nadaljevanju tudi prodajalec).</p>
