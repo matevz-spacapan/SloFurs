@@ -184,7 +184,7 @@ class RegModel{
 
 	//Get details for selected event
 	public function existingReg($id, $all=false){
-		$sql='SELECT * FROM event INNER JOIN registration ON event.id=registration.event_id LEFT JOIN payment ON registration.id=payment.reg_id WHERE registration.id=:id';
+		$sql='SELECT * FROM event INNER JOIN registration ON event.id=registration.event_id LEFT JOIN payment ON registration.id=payment.reg_id LEFT JOIN room ON registration.room_id = room.id WHERE registration.id=:id';
 		$query=$this->db->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		if($all){
@@ -591,6 +591,9 @@ class RegModel{
 		else{
 			$price=$event->super_price;
 		}
+        if($event->room_id != null){
+            $price += $event->price;
+        }
 		return $price;
 	}
 
