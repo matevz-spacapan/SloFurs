@@ -140,6 +140,20 @@
 	</div>
 </div>
 <?php require 'app/sites/global/validate_form.php'; ?>
+<script>
+    $('#scheduleModal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget)
+        let title = button.data('title')
+        let time = button.data('time')
+        let location = button.data('location')
+        let description = button.data('description')
+        let modal = $(this)
+        modal.find('#scheduleTitle').text(title)
+        modal.find('#scheduleTime').html(time)
+        modal.find('#scheduleLocation').text(location)
+        modal.find('#scheduleDescription').html(description)
+    })
+</script>
 <?php if(isset($view_only)&&$view_only):?>
 <script>
 	$("#regForm :input").attr("disabled", true);
