@@ -1,0 +1,17 @@
+.mb-5{
+  margin-bottom: 1.5rem;
+}
+.table{
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.table td {
+  padding: 0.5rem;
+  vertical-align: top;
+}
+.text-right{
+  text-align:right;
+}
+.text-success{
+  color: #28a745;
+}

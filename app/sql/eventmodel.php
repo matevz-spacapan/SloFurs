@@ -676,7 +676,7 @@ class EventModel
     // Exports invoices for registered users
     public function exportInvoices($id, $all)
     {
-        $sql = 'SELECT registration.id AS id, name, fname, lname, address, address2, post, city, country, language, event_start, regular_price, regular_title, sponsor_price, sponsor_title, super_price, super_title, ticket, amount, payment_due, start_time FROM account INNER JOIN registration ON account.id=registration.acc_id INNER JOIN event ON event.id=registration.event_id LEFT JOIN payment ON payment.reg_id=registration.id WHERE event_id=:id';
+        $sql = 'SELECT registration.id AS id, name, fname, lname, address, address2, post, city, country, language, event_start, regular_price, regular_title, sponsor_price, sponsor_title, super_price, super_title, ticket, amount, payment_due, start_time, room.type AS room_type, room.price AS room_price FROM account INNER JOIN registration ON account.id=registration.acc_id INNER JOIN event ON event.id=registration.event_id LEFT JOIN payment ON payment.reg_id=registration.id LEFT JOIN room ON room.id=registration.room_id WHERE event_id=:id AND payment.manual IS NOT NULL';
         if (!$all) {
             $sql .= ' AND confirmed=1';
         }
@@ -733,10 +733,9 @@ class EventModel
 				        <td>
 				          <h3>RAČUN ŠT.: {$invoice->id}</h3>
 				          Datum izdaje: $issueDate<br>
-				          Datum storitve: $eventTime<br>
-				          Rok plačila: $dueDate
+				          Datum storitve: $eventTime
 				        </td>
-				        <td class='text-right'><b>Društvo SloFurs</b><br>Gregorčičeva ulica 33<br>5000 Nova Gorica<br>ID za DDV: 73456012<br>Matična št.: 4121988000<br>IBAN: SI56 6100 0002 4500 122</td>
+				        <td class='text-right'><b>Društvo SloFurs</b><br>Gregorčičeva ulica 33<br>5000 Nova Gorica<br>Davčna št.: 73456012<br>Matična št.: 4121988000<br>IBAN: SI56 6100 0002 4500 122</td>
 				      </tr>
 				    </table>
 				  </div>
@@ -745,22 +744,31 @@ class EventModel
 				  </div>
 				  <table class='table'>
 				    <tr>
-				      <th>Opis</th>
-				      <th>Cena</th>
-				      <th>Količina</th>
-				      <th>Znesek</th>
+				      <th style='border-bottom: 1px solid #000;'>Opis</th>
+				      <th style='border-bottom: 1px solid #000;'>Cena</th>
+				      <th style='border-bottom: 1px solid #000;'>Količina</th>
+				      <th style='border-bottom: 1px solid #000;'>Znesek</th>
 				    </tr>
 				    <tr>
 				      <td>Vstopnina na dogodek<br><small><i>{$invoice->name} - $ticketType</i></small></td>
 				      <td>$ticketPrice €</td>
 				      <td>1</td>
 				      <td>$ticketPrice €</td>
-				    </tr>
-				    <tr>
-				      <td><b>$ticketPaid</b></td>
-				      <td></td>
-				      <td><b>Skupaj</b></td>
-				      <td><b>$ticketPrice €</b></td>
+				    </tr>";
+                if($invoice->room_price){
+                    $text = $text . "<tr>
+				      <td>Nastanitev<br><small><i>{$invoice->room_type}</i></small></td>
+				      <td>{$invoice->room_price} €</td>
+				      <td>1</td>
+				      <td>{$invoice->room_price} €</td>
+				    </tr>";
+                    $ticketPrice += $invoice->room_price;
+                }
+                $text = $text . "<tr>
+				      <td style='border-top: 1px solid #000;'><b>$ticketPaid</b></td>
+				      <td style='border-top: 1px solid #000;'></td>
+				      <td style='border-top: 1px solid #000;'><b>Skupaj</b></td>
+				      <td style='border-top: 1px solid #000;'><b>$ticketPrice €</b></td>
 				    </tr>
 				  </table>
 				  <p>Pri plačilu uporabite sklic SI00 {$invoice->id}.</p>
@@ -801,26 +809,35 @@ class EventModel
 				  </div>
 				  <table class='table'>
 				    <tr>
-				      <th>Description</th>
-				      <th>Price</th>
-				      <th>Qty</th>
-				      <th>Sum</th>
+				      <th style='border-bottom: 1px solid #000;'>Description</th>
+				      <th style='border-bottom: 1px solid #000;'>Price</th>
+				      <th style='border-bottom: 1px solid #000;'>Qty</th>
+				      <th style='border-bottom: 1px solid #000;'>Sum</th>
 				    </tr>
 				    <tr>
 				      <td>Attendance fee<br><small><i>{$invoice->name} - $ticketType</i></small></td>
 				      <td>$ticketPrice €</td>
 				      <td>1</td>
 				      <td>$ticketPrice €</td>
-				    </tr>
-				    <tr>
-				      <td><b>$ticketPaid</b></td>
-				      <td></td>
-				      <td><b>Total</b></td>
-				      <td><b>$ticketPrice €</b></td>
+				    </tr>";
+                if($invoice->room_price){
+                    $text = $text . "<tr>
+				      <td>Accomodation<br><small><i>{$invoice->room_type}</i></small></td>
+				      <td>{$invoice->room_price} €</td>
+				      <td>1</td>
+				      <td>{$invoice->room_price} €</td>
+				    </tr>";
+                    $ticketPrice += $invoice->room_price;
+                }
+                $text = $text . "<tr>
+				      <td style='border-top: 1px solid #000;'><b>$ticketPaid</b></td>
+				      <td style='border-top: 1px solid #000;'></td>
+				      <td style='border-top: 1px solid #000;'><b>Total</b></td>
+				      <td style='border-top: 1px solid #000;'><b>$ticketPrice €</b></td>
 				    </tr>
 				  </table>
 				  <p>When paying the invoice write this message: SI00 {$invoice->id}.</p>
-				  <p>Based on Slovenian law, we do not collect value added tax (v skladu s 1. odstavkom 94. člena ZDDV davek na dodano vrednost ni obračunan).</p>
+				  <p>Based on Slovenian law, we do not collect value added tax (section 1. of clause 94. of the ZDDV law).</p>
 				</div>";
             }
             $mpdf->WriteHTML($text, 2);

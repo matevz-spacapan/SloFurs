@@ -106,7 +106,7 @@ textarea{
 .bgimg {
   background-position: center;
   background-size: cover;
-  background-image: url("https://slofurs.org/public/img/head2.webp");
+  background-image: url("https://slofurs.org/public/img/home.webp");
   min-height: 100%;
   filter: grayscale(30%);
 }
