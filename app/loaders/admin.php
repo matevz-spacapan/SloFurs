@@ -169,14 +169,8 @@ class Admin extends Connection{
 				elseif(isset($_POST['export_confirmed'])){
 					$event_model->exportForms($filtered_id, false);
 				}
-				elseif(isset($_POST['export_all'])){
-					$event_model->exportForms($filtered_id, true);
-				}
 				elseif(isset($_POST['export_invoices'])){
-					$event_model->exportInvoices($filtered_id, true);
-				}
-				elseif(isset($_POST['export_contacts'])){
-					$event_model->exportContactData($filtered_id);
+					$event_model->exportInvoices($filtered_id);
 				}
                 elseif(isset($_POST['export_drustvo'])){
                     $event_model->exportDrustvoData($filtered_id);

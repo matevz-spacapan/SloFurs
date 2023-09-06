@@ -168,11 +168,9 @@
         <?php if($account->status>=ADMIN): ?>
         <div class="text-center">
           <button type="submit" class="btn btn-success" name="confirm_attendees"><?php echo L::admin_overview_attendees_confirm;?></button><br><br>
-          <button type="submit" class="btn btn-secondary" name="export_confirmed"><?php echo L::admin_overview_attendees_exportC;?></button>
-          <button type="submit" class="btn btn-secondary" name="export_all"><?php echo L::admin_overview_attendees_exportA;?></button><br><br>
+          <button type="submit" class="btn btn-primary" name="export_confirmed"><?php echo L::admin_overview_attendees_exportC;?></button>
           <button type="submit" class="btn btn-primary" name="export_invoices"><?php echo L::admin_overview_attendees_exportInv;?></button>
-          <button type="submit" class="btn btn-primary" name="export_contacts"><?php echo L::admin_overview_attendees_exportList;?></button>
-            <button type="submit" class="btn btn-primary" name="export_drustvo"><?php echo L::admin_overview_attendees_exportDrustvo;?></button>
+          <button type="submit" class="btn btn-primary" name="export_drustvo"><?php echo L::admin_overview_attendees_exportDrustvo;?></button>
         </div>
         <?php endif;?>
       </form>
