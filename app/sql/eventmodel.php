@@ -581,7 +581,7 @@ class EventModel
             'margin_top' => 0,
             'margin_bottom' => 0
         ]);
-        $locations=[[2, 5], [2, 72], [37, 5], [37, 72], [72, 5], [72, 72], [107, 5], [107, 72]];
+        $locations=[[2, 5], [2, 72], [38, 5], [38, 72], [74, 5], [74, 72], [110, 5], [110, 72]];
         $text="";
         for ($i = 0; $i < count($accounts); $i++){
             $account=$accounts[$i];

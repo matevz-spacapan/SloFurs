@@ -12,9 +12,9 @@
         <div class="text-center">
           <b><?php echo $attendee->username;?></b><br>
           <?php if($attendee->ticket=='sponsor'): ?>
-            <i class="fal fa-heart" title="<?php echo L::register_form_stats_sponsor;?>"></i>
+            <i class="fal fa-heart"></i>
           <?php elseif($attendee->ticket=='super'): ?>
-            <i class="fas fa-heart" title="<?php echo L::register_form_stats_super;?>"></i>
+            <i class="fas fa-heart"></i>
           <?php endif; ?>
           <?php if($attendee->fursuiter==1): ?>
             <i class="fas fa-paw" title="<?php echo L::register_form_stats_fursuiter;?>"></i>
