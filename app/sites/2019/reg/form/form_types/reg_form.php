@@ -24,7 +24,7 @@
         <!-- TICKET TYPES -->
         <h5><?php echo L::register_form_modal_prices_h;?></h5>
         <?php if($event->pay_button==1): ?>
-          <small><?php echo L::register_form_modal_prices_prePay1;?><?php echo L::register_form_modal_prices_prePay2;?>. <a href="<?php echo URL;?>paymentfaq" target="_blank"><?php echo L::register_form_modal_prices_prePayFAQ;?></a>.</small>
+            <small><?php echo L::register_form_modal_prices_prePay1;?> <b><?php echo $reg_model->convertViewable($event->payment_due, true); ?></b><?php echo L::register_form_modal_prices_prePay2;?>. <a href="<?php echo URL;?>paymentfaq" target="_blank"><?php echo L::register_form_modal_prices_prePayFAQ;?></a>.</small>
         <?php endif; ?>
         <?php if($event->regular_price==0): ?>
           <p class="text-dark"><?php echo L::register_form_modal_prices_free;?></p>

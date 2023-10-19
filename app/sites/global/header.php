@@ -17,7 +17,7 @@
 	<!-- Custom styles -->
 	<link href="<?php echo URL; ?>app/sites/global/custom.css?rnd=<?=time();?>" rel="stylesheet">
 	<!-- FontAwesome -->
-	<link href="<?php echo URL;?>public/fa/css/all.min.css" rel="stylesheet">
+	<link href="<?php echo URL;?>public/fa/css/all.min.css?v=1" rel="stylesheet">
 	<!-- Favicon -->
 	<link href="<?php echo URL;?>public/img/slo.jpg" type="image/x-icon" rel="icon"/>
 	<link href="<?php echo URL;?>public/img/slo.jpg" type="image/x-icon" rel="shortcut icon"/>

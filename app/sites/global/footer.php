@@ -10,6 +10,6 @@ if($account==null){
   require 'app/sites/2019/password_reset.php';
 }
 ?>
-<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
-<noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt=""/></noscript>
+<script async defer src="https://sa.slofurs.org/latest.js"></script>
+<noscript><img src="https://sa.slofurs.org/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 </body>

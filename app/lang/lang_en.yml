@@ -212,7 +212,7 @@ footer: '<i class="far fa-code"></i> with <i class="fas fa-heart"></i> in Sloven
 notFound: 'Whoops, it seems you went into a dark corner. Nothing nice to see here, sadly.'
 home:
   a: 'Welcome to SloFurs!'
-  b: 'Welcome to SloFurs, the web corner of Slovenian furries. We're inviting you to join us on our convention <u><a href="/register/new?id=12">GoldenHorn</a></u> in Ajdovščina!'
+  b: 'Welcome to SloFurs, the web corner of Slovenian furries. You're warmly invited to join us on any of our meets or GoldenHorn convention.'
   c: 'Image by'
   first:
     d: 'If you find any bugs, please send a message to <a href="http://t.me/pur3bolt" target="_blank">Pur3Bolt <i class="far fa-external-link"></i></a> on Telegram.'
@@ -449,7 +449,7 @@ register:
       price: 'Price'
       prices:
         h: 'Event tickets'
-        prePay1: 'To finalise your registration for this event, we require you to pay in advance. Your payment is due <b>no later than 14 days after registering</b>'
+        prePay1: 'To finalise your registration for this event, we require you to pay in advance. Your payment is due on'
         prePay2: ' otherwise your registration will be cancelled. Payment is enabled after your registration is confirmed'
         prePayFAQ: 'More on this in our FAQ'
         free: 'This event is free of charge.'

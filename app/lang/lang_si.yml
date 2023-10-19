@@ -217,7 +217,7 @@ footer: '<i class="far fa-code"></i> z <i class="fas fa-heart"></i> v Sloveniji.
 notFound: 'Opla, izgleda, da ste šli v zelo temen kotiček naše strani. Na žalost, ni nič lepega za videti tukaj.'
 home:
   a: 'Dobrodošli na straneh SloFurs!'
-  b: 'Dobrodošli na SloFurs, spletnem kotičku slovenskih furryjev. Vabimo vas, da se nam pridružite na glavnem dogodku leta <u><a href="/register/new?id=12">GoldenHorn</a></u> v Ajdovščini.'
+  b: 'Dobrodošli na SloFurs, spletnem kotičku slovenskih furryjev. Prijetno vabljeni, da se udeležite naših srečanj ali večdnevnega dogodka GoldenHorn.'
   c: 'Slikal'
   first:
     d: 'Če najdete kakšno napako, jo prosim javite <a href="http://t.me/pur3bolt" target="_blank">Pur3Boltu <i class="far fa-external-link"></i></a> na Telegramu.'
@@ -454,7 +454,7 @@ register:
       price: 'Cena'
       prices:
         h: 'Vstopnina'
-        prePay1: 'Za dokončno potrditev vaše prijave na tem dogodku je potrebno plačilo v naprej. Plačilo morate opraviti najkasneje v roku <b>14 dni od datuma prijave</b>'
+        prePay1: 'Za dokončno potrditev vaše prijave na tem dogodku je potrebno plačilo v naprej. Plačilo morate opraviti najkasneje do'
         prePay2: ', sicer bo vaša prijava preklicana. Plačilo boste lahko opravili po tem, ko je vaša prijava potrjena'
         prePayFAQ: 'Več o tem v FAQ'
         free: 'Ta dogodek je brezplačen.'
