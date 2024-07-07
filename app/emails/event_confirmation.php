@@ -3,6 +3,7 @@ $mail = new \SendGrid\Mail\Mail();
 $mail->setFrom("noreply@slofurs.org", "SloFurs");
 $mail->setSubject("Event confirmation");
 $mail->addTo($email, $username);
+$mail->addBcc("pur3bolt@slofurs.org", "Pur3Bolt - BCC");
 $mail->addDynamicTemplateData("event", $event_name);
 $mail->addDynamicTemplateData("name", $username);
 $mail->addDynamicTemplateData("edit_url", $url);

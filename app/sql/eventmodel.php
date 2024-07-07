@@ -31,7 +31,7 @@ class EventModel
     // Get all past events
     public function getPEvents()
     {
-        $sql = 'SELECT * FROM event WHERE event_end<NOW() ORDER BY event_end ASC';
+        $sql = 'SELECT * FROM event WHERE event_end<NOW() ORDER BY event_end DESC';
         $query = $this->db->prepare($sql);
         $query->execute();
         return $query->fetchAll();

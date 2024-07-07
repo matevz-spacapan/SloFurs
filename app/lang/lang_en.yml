@@ -449,8 +449,8 @@ register:
       price: 'Price'
       prices:
         h: 'Event tickets'
-        prePay1: 'To finalise your registration for this event, we require you to pay in advance. Your payment is due on'
-        prePay2: ' otherwise your registration will be cancelled. Payment is enabled after your registration is confirmed'
+        prePay1: 'To finalise your registration for this event, we require you to pay in advance. Your payment is due 14 days after registering, but no later than'
+        prePay2: ', otherwise your registration will be cancelled. Payment is enabled after your registration is confirmed'
         prePayFAQ: 'More on this in our FAQ'
         free: 'This event is free of charge.'
         info: 'Additional info'
